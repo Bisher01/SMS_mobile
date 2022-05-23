@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     var containerWidth = widgetSize.getWidth(400, context);
-    var containerHeight = widgetSize.getHeight(400, context);
+    var containerHeight = widgetSize.getHeight(600, context);
     return Scaffold(
       //backgroundColor: const Color(0Xff2BC3BB),
       body: Container(
@@ -61,225 +61,217 @@ class _LoginScreenState extends State<LoginScreen> {
             width: containerWidth,
             height: containerHeight,
             //color: Colors.white,
-            child: Row(
+            child: Column(
               children: [
                 SizedBox(
                   width: containerWidth / 2,
-                  height: containerHeight,
+                  height: containerHeight / 3,
                   child: SvgPicture.asset(
                     'assets/login.svg',
                   ),
                 ),
-                Container(
-                  color: Colors.white,
-                  width: containerWidth / 2,
-                  height: containerHeight,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: containerWidth / 10,
-                      vertical: containerHeight / 10,
-                    ),
-                    child: Column(
-                      children: [
-                        const Text(
-                          'Welcome to our system',
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      const Text(
+                        'Welcome to our system',
+                        style: TextStyle(
+                          fontSize: 16,
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              TextFormField(
-                                controller: _emailController,
-                                focusNode: _emailFocusNode,
-                                keyboardType: TextInputType.emailAddress,
-                                textDirection: TextDirection.ltr,
-                                showCursor: true,
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                decoration: const InputDecoration(
-                                  hintText: 'Email',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                        20,
-                                      ),
-                                    ),
-                                    borderSide: BorderSide(
-                                      style: BorderStyle.solid,
-                                      color: Color(
-                                        0Xff2BC3BB,
-                                      ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            TextFormField(
+                              controller: _emailController,
+                              focusNode: _emailFocusNode,
+                              keyboardType: TextInputType.emailAddress,
+                              textDirection: TextDirection.ltr,
+                              showCursor: true,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              decoration: const InputDecoration(
+                                hintText: 'Email',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      20,
                                     ),
                                   ),
-                                  disabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                        20,
-                                      ),
-                                    ),
-                                    borderSide: BorderSide(
-                                      style: BorderStyle.solid,
-                                      color: Color(
-                                        0Xff2BC3BB,
-                                      ),
-                                    ),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                        20,
-                                      ),
-                                    ),
-                                    borderSide: BorderSide(
-                                      style: BorderStyle.solid,
-                                      color: Color(
-                                        0Xff2BC3BB,
-                                      ),
-                                    ),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                        20,
-                                      ),
-                                    ),
-                                    borderSide: BorderSide(
-                                      style: BorderStyle.solid,
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                        20,
-                                      ),
-                                    ),
-                                    borderSide: BorderSide(
-                                      style: BorderStyle.solid,
-                                      color: Color(
-                                        0Xff007D77,
-                                      ),
+                                  borderSide: BorderSide(
+                                    style: BorderStyle.solid,
+                                    color: Color(
+                                      0Xff2BC3BB,
                                     ),
                                   ),
                                 ),
-                                cursorColor: const Color(0Xff007D77),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              TextFormField(
-                                controller: _passwordController,
-                                focusNode: _passwordFocusNode,
-                                keyboardType: TextInputType.visiblePassword,
-                                textDirection: TextDirection.ltr,
-                                showCursor: true,
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                decoration: const InputDecoration(
-                                  hintText: 'Password',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                        20,
-                                      ),
-                                    ),
-                                    borderSide: BorderSide(
-                                      style: BorderStyle.solid,
-                                      color: Color(
-                                        0Xff2BC3BB,
-                                      ),
+                                disabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      20,
                                     ),
                                   ),
-                                  disabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                        20,
-                                      ),
-                                    ),
-                                    borderSide: BorderSide(
-                                      style: BorderStyle.solid,
-                                      color: Color(
-                                        0Xff2BC3BB,
-                                      ),
-                                    ),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                        20,
-                                      ),
-                                    ),
-                                    borderSide: BorderSide(
-                                      style: BorderStyle.solid,
-                                      color: Color(
-                                        0Xff2BC3BB,
-                                      ),
-                                    ),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                        20,
-                                      ),
-                                    ),
-                                    borderSide: BorderSide(
-                                      style: BorderStyle.solid,
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                        20,
-                                      ),
-                                    ),
-                                    borderSide: BorderSide(
-                                      style: BorderStyle.solid,
-                                      color: Color(
-                                        0Xff007D77,
-                                      ),
+                                  borderSide: BorderSide(
+                                    style: BorderStyle.solid,
+                                    color: Color(
+                                      0Xff2BC3BB,
                                     ),
                                   ),
                                 ),
-                                cursorColor: const Color(0Xff007D77),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(
-                                  20,
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      20,
+                                    ),
+                                  ),
+                                  borderSide: BorderSide(
+                                    style: BorderStyle.solid,
+                                    color: Color(
+                                      0Xff2BC3BB,
+                                    ),
+                                  ),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      20,
+                                    ),
+                                  ),
+                                  borderSide: BorderSide(
+                                    style: BorderStyle.solid,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      20,
+                                    ),
+                                  ),
+                                  borderSide: BorderSide(
+                                    style: BorderStyle.solid,
+                                    color: Color(
+                                      0Xff007D77,
+                                    ),
+                                  ),
                                 ),
                               ),
+                              cursorColor: const Color(0Xff007D77),
                             ),
-                            elevation: 3,
-                            fixedSize: Size(
-                              containerWidth / 2 - containerWidth / 5,
-                              containerHeight / 17,
+                            const SizedBox(
+                              height: 10,
                             ),
-                            primary: const Color(
-                              0Xff2BC3BB,
+                            TextFormField(
+                              controller: _passwordController,
+                              focusNode: _passwordFocusNode,
+                              keyboardType: TextInputType.visiblePassword,
+                              textDirection: TextDirection.ltr,
+                              showCursor: true,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              decoration: const InputDecoration(
+                                hintText: 'Password',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      20,
+                                    ),
+                                  ),
+                                  borderSide: BorderSide(
+                                    style: BorderStyle.solid,
+                                    color: Color(
+                                      0Xff2BC3BB,
+                                    ),
+                                  ),
+                                ),
+                                disabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      20,
+                                    ),
+                                  ),
+                                  borderSide: BorderSide(
+                                    style: BorderStyle.solid,
+                                    color: Color(
+                                      0Xff2BC3BB,
+                                    ),
+                                  ),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      20,
+                                    ),
+                                  ),
+                                  borderSide: BorderSide(
+                                    style: BorderStyle.solid,
+                                    color: Color(
+                                      0Xff2BC3BB,
+                                    ),
+                                  ),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      20,
+                                    ),
+                                  ),
+                                  borderSide: BorderSide(
+                                    style: BorderStyle.solid,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      20,
+                                    ),
+                                  ),
+                                  borderSide: BorderSide(
+                                    style: BorderStyle.solid,
+                                    color: Color(
+                                      0Xff007D77,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              cursorColor: const Color(0Xff007D77),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(
+                                20,
+                              ),
                             ),
                           ),
-                          onPressed: () {},
-                          child: const Text(
-                            'Log In',
+                          elevation: 3,
+                          fixedSize: Size(
+                            containerWidth / 2 - containerWidth / 5,
+                            containerHeight / 17,
+                          ),
+                          primary: const Color(
+                            0Xff2BC3BB,
                           ),
                         ),
-                      ],
-                    ),
+                        onPressed: () {},
+                        child: const Text(
+                          'Log In',
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
