@@ -16,6 +16,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(),
       home: const WelcomeScreen(),
+      routes: {
+        '/login': (context)=>const LoginScreen(),
+      },
     );
   }
 }

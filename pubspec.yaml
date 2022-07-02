@@ -30,6 +30,13 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^1.0.3
+  retrofit: ^3.0.1+1
+  pretty_dio_logger: ^1.1.1
+  dio:
+  provider: ^6.0.3
+  connectivity_plus: ^2.3.5
+  json_annotation: ^4.5.0
+  shimmer: ^2.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -39,6 +46,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  retrofit_generator: ^4.0.1
+  build_runner: ^2.1.11
+  json_serializable: ^6.2.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
