@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:sms_mobile/utill/widget_size.dart';
 import '../screens/screens.dart';
 
@@ -135,7 +136,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             controller: _pageViewController,
             itemCount: slides.length ,
             itemBuilder: (BuildContext context, int index) {
-
               _pageViewController.addListener(() {
                 setState(() {
                   currentPage = _pageViewController.page!;
@@ -146,8 +146,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   }
                 });
               });
-              print(isLast);
-                return slides[index];
+              return slides[index];
             },
           ),
           Align(
@@ -155,10 +154,30 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             child: Container(
               margin: const EdgeInsets.only(top: 70.0),
               padding: const EdgeInsets.symmetric(vertical: 40.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: indicator(),
-              ),
+              child: SmoothPageIndicator(
+                controller: _pageViewController, count: 4,
+                effect: WormEffect(
+                  activeDotColor: const Color(
+                    0XFF256075,
+                  ),
+                  dotColor: const Color(
+                    0XFF256075,
+                  ).withOpacity(0.2),
+                  paintStyle: PaintingStyle.fill,
+                  dotHeight: 12,
+                  dotWidth: 12,
+                  spacing: 14,
+
+                ),
+
+                onDotClicked: (index){
+                  setState((){
+                    _pageViewController.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.ease);
+                    currentPage=index as double;
+                  });
+                },
+
+              )
             ),
           ),
         ],
