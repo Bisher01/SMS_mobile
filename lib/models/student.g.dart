@@ -25,6 +25,12 @@ Student _$StudentFromJson(Map<String, dynamic> json) => Student(
       nationality_id: json['nationality_id'] as int?,
       parent_id: json['parent_id'] as int?,
       picture: json['picture'] as String? ?? '',
+      parent: json['parent'] == null
+          ? null
+          : Parent.fromJson(json['parent'] as Map<String, dynamic>),
+      address: json['address'] == null
+          ? null
+          : Address.fromJson(json['address'] as Map<String, dynamic>),
       religion_id: json['religion_id'] as int?,
       updated_at: json['updated_at'] as String?,
     );
@@ -48,6 +54,8 @@ Map<String, dynamic> _$StudentToJson(Student instance) => <String, dynamic>{
       'academic_year_id': instance.academic_year_id,
       'address_id': instance.address_id,
       'deleted_at': instance.deleted_at,
+      'parent': instance.parent,
+      'address': instance.address,
       'created_at': instance.created_at,
       'updated_at': instance.updated_at,
     };

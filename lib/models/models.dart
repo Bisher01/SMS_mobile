@@ -5,3 +5,5 @@ export 'student.dart';
 export 'subject.dart';
 export 'teacher.dart';
 export 'admin.dart';
+export 'parent.dart';
+export 'address.dart';
