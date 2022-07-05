@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sms_mobile/screens/screens.dart';
 
+
 void main() {
   runApp(const MyApp());
 }
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       home: const WelcomeScreen(),
       routes: {
         '/login': (context)=>const LoginScreen(),
+        '/schedule' : (context) => const Schedule(),
       },
     );
   }

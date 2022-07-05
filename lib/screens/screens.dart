@@ -6,3 +6,4 @@ export 'student/profile.dart';
 export 'teacher/profile.dart';
 export 'parent/profile.dart';
 export 'mentor/profile.dart';
+export 'student/schedule.dart';

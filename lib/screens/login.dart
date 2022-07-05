@@ -318,7 +318,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         onPressed: () {
-
+                          Navigator.pushNamed(context, '/schedule');
                         },
                         child: const Text(
                           'Log In',
