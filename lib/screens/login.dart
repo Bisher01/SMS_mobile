@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sms_mobile/providers/providers.dart';
+import '../services/api_response.dart';
 import '../utill/utill.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -26,8 +29,6 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               SizedBox(
                 width: widgetSize.getWidth(200, context),
-                height: widgetSize.getHeight(200, context) ,
+                height: widgetSize.getHeight(200, context),
                 child: SvgPicture.asset(
                   'assets/login.svg',
                 ),
@@ -225,7 +226,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             textDirection: TextDirection.ltr,
                             showCursor: true,
                             autovalidateMode:
-                            AutovalidateMode.onUserInteraction,
+                                AutovalidateMode.onUserInteraction,
                             decoration: const InputDecoration(
                               hintText: 'Code',
                               border: OutlineInputBorder(
@@ -317,8 +318,37 @@ class _LoginScreenState extends State<LoginScreen> {
                             0Xff2BC3BB,
                           ),
                         ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/schedule');
+                        onPressed: () async {
+                          //Focus.of(context).unfocus();
+                          if (await Provider.of<AppProvider>(context,
+                                  listen: false)
+                              .checkInternet()) {
+                            var response = await Provider.of<AppProvider>(context, listen: false)
+                                .login(
+                                    _firstNameController.text,
+                                    _lastNameController.text,
+                                    _codeController.text).then((value){
+                                      if(value.data!.role == 'teacher'){
+                                        Provider.of<AppProvider>(context, listen: false).getTeacher(value.data!.id!);
+                                      }
+                                      else if(value.data!.role == 'student'){
+                                        Provider.of<AppProvider>(context, listen: false).getStudent(value.data!.id!);
+                                      }
+                                      else if(value.data!.role == 'mentor'){
+                                        Provider.of<AppProvider>(context, listen: false).getMentor(value.data!.id!);
+                                      }else{
+
+                                      }
+                            });
+                            if(response.status == Status.COMPLETED ){
+                              if(response.data!=null && response.data!.status!){
+                                Navigator.pushNamed(context, '/schedule');
+                              }
+
+                            }
+
+                          }
+
                         },
                         child: const Text(
                           'Log In',
@@ -334,6 +364,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
   @override
   void dispose() {
     _firstNameFocusNode.dispose();
