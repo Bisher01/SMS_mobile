@@ -8,8 +8,9 @@ class Schedule extends StatefulWidget {
 }
 
 class _ScheduleState extends State<Schedule> {
-  double _width = 0;
-  bool isOpened=false;
+  double _width = 10;
+  bool isOpened = false;
+  int selectedDay = 1;
   List<String> days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   List<String> months = [
     'Jan',
@@ -38,37 +39,335 @@ class _ScheduleState extends State<Schedule> {
                 width: _width,
                 height: MediaQuery.of(context).size.height,
                 color: Colors.black87,
-                duration: Duration(milliseconds: 200),
+                duration: const Duration(milliseconds: 200),
                 child: Column(
-                  children: [
-                  ],
-                ),
+                  mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                selectedDay = 7;
+                              });
+                            },
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      const BorderRadius.all(Radius.circular(6)),
+                                  color: selectedDay == 7
+                                      ? Colors.orange[400]
+                                      : Colors.grey[800],boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black,
+                                  blurRadius: 2.0,
+                                  spreadRadius: 0.0,
+                                  offset: Offset(2.0, 2.0), // shadow direction: bottom right
+                                )
+                              ],),
+                              constraints: BoxConstraints.expand(
+                                width: isOpened?40:0,
+                                height: 40,
+                              ),
+                              child: Center(
+                                child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: Text(
+                                    'S',
+                                    style: TextStyle(
+                                      color: selectedDay == 7
+                                          ? Colors.black
+                                          : Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: 'ChakraPetch'
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 15,),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                selectedDay = 1;
+                              });
+                            },
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                  const BorderRadius.all(Radius.circular(6)),
+                                  color: selectedDay == 1
+                                      ? Colors.orange[400]
+                                      : Colors.grey[800],boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black,
+                                  blurRadius: 2.0,
+                                  spreadRadius: 0.0,
+                                  offset: Offset(2.0, 2.0), // shadow direction: bottom right
+                                )
+                              ],),
+                              constraints: BoxConstraints.expand(
+                                width: isOpened?40:0,
+                                height: 40,
+                              ),
+                              child: Center(
+                                child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: Text(
+                                    'M',
+                                    style: TextStyle(
+                                      color: selectedDay == 1
+                                          ? Colors.black
+                                          : Colors.white,
+                                      fontSize: 20,
+                                        fontWeight: FontWeight.w700,
+                                        fontFamily: 'ChakraPetch',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 15,),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                selectedDay = 2;
+                              });
+                            },
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                const BorderRadius.all(Radius.circular(6)),
+                                color: selectedDay == 2
+                                    ? Colors.orange[400]
+                                    : Colors.grey[800],boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black,
+                                  blurRadius: 2.0,
+                                  spreadRadius: 0.0,
+                                  offset: Offset(2.0, 2.0), // shadow direction: bottom right
+                                )
+                              ],),
+                              constraints: BoxConstraints.expand(
+                                width: isOpened?40:0,
+                                height: 40,
+                              ),
+                              child: Center(
+                                child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: Text(
+                                    'T',
+                                    style: TextStyle(
+                                      color: selectedDay == 2
+                                          ? Colors.black
+                                          : Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: 'ChakraPetch',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 15,),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                selectedDay = 3;
+                              });
+                            },
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                const BorderRadius.all(Radius.circular(6)),
+                                color: selectedDay == 3
+                                    ? Colors.orange[400]
+                                    : Colors.grey[800],boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black,
+                                  blurRadius: 2.0,
+                                  spreadRadius: 0.0,
+                                  offset: Offset(2.0, 2.0), // shadow direction: bottom right
+                                )
+                              ],),
+                              constraints: BoxConstraints.expand(
+                                width: isOpened?40:0,
+                                height: 40,
+                              ),
+                              child: Center(
+                                child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: Text(
+                                    'W',
+                                    style: TextStyle(
+                                      color: selectedDay == 3
+                                          ? Colors.black
+                                          : Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: 'ChakraPetch',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 15,),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                selectedDay = 4;
+                              });
+                            },
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                const BorderRadius.all(Radius.circular(6)),
+                                color: selectedDay == 4
+                                    ? Colors.orange[400]
+                                    : Colors.grey[800],boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black,
+                                  blurRadius: 2.0,
+                                  spreadRadius: 0.0,
+                                  offset: Offset(2.0, 2.0), // shadow direction: bottom right
+                                )
+                              ],),
+                              constraints: BoxConstraints.expand(
+                                width: isOpened?40:0,
+                                height: 40,
+                              ),
+                              child: Center(
+                                child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: Text(
+                                    'T',
+                                    style: TextStyle(
+                                      color: selectedDay == 4
+                                          ? Colors.black
+                                          : Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: 'ChakraPetch',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 15,),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                selectedDay = 5;
+                              });
+                            },
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                const BorderRadius.all(Radius.circular(6)),
+                                color: selectedDay == 5
+                                    ? Colors.orange[400]
+                                    : Colors.grey[800],boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black,
+                                  blurRadius: 2.0,
+                                  spreadRadius: 0.0,
+                                  offset: Offset(2.0, 2.0), // shadow direction: bottom right
+                                )
+                              ],),
+                              constraints: BoxConstraints.expand(
+                                width: isOpened?40:0,
+                                height: 40,
+                              ),
+                              child: Center(
+                                child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: Text(
+                                    'F',
+                                    style: TextStyle(
+                                      color: selectedDay == 5
+                                          ? Colors.black
+                                          : Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: 'ChakraPetch',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 15,),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                selectedDay = 6;
+                              });
+                            },
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                const BorderRadius.all(Radius.circular(6)),
+                                color: selectedDay == 6
+                                    ? Colors.orange[400]
+                                    : Colors.grey[800],boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black,
+                                  blurRadius: 2.0,
+                                  spreadRadius: 0.0,
+                                  offset: Offset(2.0, 2.0), // shadow direction: bottom right
+                                )
+                              ],),
+                              constraints: BoxConstraints.expand(
+                                width: isOpened?40:0,
+                                height: 40,
+                              ),
+                              child: Center(
+                                child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: Text(
+                                    'S',
+                                    style: TextStyle(
+                                      color: selectedDay == 6
+                                          ? Colors.black
+                                          : Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: 'ChakraPetch',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 15,),
+
+                        ],
+                      ),
+
               ),
               GestureDetector(
-                onHorizontalDragStart: (_){
-                  setState((){
-                    if(isOpened) {
+                onHorizontalDragEnd: (_) {
+                  setState(() {
+                    if (isOpened) {
                       _width = 10;
                       isOpened = false;
-                    }
-                    else{
+                    } else {
                       _width = 80;
                       isOpened = true;
                     }
                   });
                 },
-                // onTap: (){
-                //   setState((){
-                //     if(isOpened) {
-                //         _width = 10;
-                //         isOpened = false;
-                //     }
-                //     else{
-                //         _width = 80;
-                //         isOpened = true;
-                //     }
-                //   });
-                // },
                 child: Center(
                   child: Container(
                     decoration: const BoxDecoration(
@@ -80,10 +379,10 @@ class _ScheduleState extends State<Schedule> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
+                      children: [
                         Padding(
-                          padding: EdgeInsets.only(right: 5.0),
-                          child: RotatedBox(
+                          padding: EdgeInsets.only(right: isOpened ? 5.0 : 0),
+                          child: const RotatedBox(
                             quarterTurns: 3,
                             child: Text(
                               'Schedule',
@@ -91,15 +390,21 @@ class _ScheduleState extends State<Schedule> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Padding(
-                          padding: EdgeInsets.only(left: 4.0),
-                          child: Icon(
-                            Icons.arrow_back_ios,
-                            color: Colors.white,
-                            size: 18,
+                          padding: EdgeInsets.only(
+                              left: isOpened ? 4.0 : 0,
+                              right: isOpened ? 0 : 8),
+                          child: AnimatedRotation(
+                            turns: isOpened ? 0 : 0.5,
+                            duration: const Duration(milliseconds: 200),
+                            child: const Icon(
+                              Icons.arrow_back_ios,
+                              color: Colors.white,
+                              size: 18,
+                            ),
                           ),
                         )
                       ],
@@ -110,12 +415,12 @@ class _ScheduleState extends State<Schedule> {
             ],
           ),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0, right: 20),
-                  child: Row(
+            child: Padding(
+              padding: const EdgeInsets.only(right: 20.0, top: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -125,35 +430,56 @@ class _ScheduleState extends State<Schedule> {
                         children: [
                           Text(
                             days[DateTime.now().weekday],
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16,
-                            ),
+                            style:  TextStyle(
+                                color: Colors.grey[500],
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: 'ChakraPetch',
+                                letterSpacing: 0.5),
                           ),
                           Text(
                             '${months[DateTime.now().month]} ${DateTime.now().year.toString().substring(2)}',
                             style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16,
-                            ),
+                                color: Colors.grey[500],
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: 'ChakraPetch',
+                                letterSpacing: 0.5),
                           )
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Text(
                         DateTime.now().day.toString(),
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 44,
-                        ),
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 48,
+                            fontFamily: 'ChakraPetch'),
                       ),
                     ],
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  const Text(
+                    'Schedule',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 40,
+                      fontFamily: 'Orbitron',
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: 0.8,
+                    ),
+                  ),
+                  const Divider(
+                    thickness: 2,
+                    height: 2,
+                  ),
+                ],
+              ),
             ),
           )
         ],
