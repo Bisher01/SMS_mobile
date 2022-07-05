@@ -30,7 +30,7 @@ class AppProvider extends ChangeNotifier {
       try {
         FTeacher teacher = await apiService.getAllTeachers();
         fTeacherResponse = ApiResponse.completed(teacher);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -63,7 +63,7 @@ class AppProvider extends ChangeNotifier {
       try {
         FStudent fStudent = await apiService.getAllStudents();
         fStudentResponse = ApiResponse.completed(fStudent);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -95,7 +95,7 @@ class AppProvider extends ChangeNotifier {
       try {
         FSubject fSubject = await apiService.getAllSubjects();
         fSubjectResponse = ApiResponse.completed(fSubject);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -126,7 +126,7 @@ class AppProvider extends ChangeNotifier {
       try {
         FMentor fMentor = await apiService.getAllMentors();
         fMentorResponse = ApiResponse.completed(fMentor);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -141,41 +141,40 @@ class AppProvider extends ChangeNotifier {
     return fMentorResponse!;
   }
 
-  //admin authentication
-  ApiResponse<FAdmin>? _fAdminResponse;
-  ApiResponse<FAdmin>? get fAdminResponse => _fAdminResponse;
-  set fAdminResponse(ApiResponse<FAdmin>? value) {
-    _fAdminResponse = value;
+  //all authentication
+  ApiResponse<Auth>? _authResponse;
+  ApiResponse<Auth>? get authResponse => _authResponse;
+  set authResponse(ApiResponse<Auth>? value) {
+    _authResponse = value;
     notifyListeners();
   }
 
-  Future<ApiResponse<FAdmin>> login(String email, String password) async {
+  Future<ApiResponse<Auth>> login(
+      String first, String last, String code) async {
     ApiService apiService = ApiService(Dio());
     FormData formData =
-        FormData.fromMap({'email': email, 'password': password});
+        FormData.fromMap({'f_name': first, 'l_name': last, 'code': code});
     if (await checkInternet()) {
-      fAdminResponse = ApiResponse.loading('');
+      authResponse = ApiResponse.loading('');
       try {
-        FAdmin admin = await apiService.login(formData);
-        fAdminResponse = ApiResponse.completed(admin);
-      } catch (e, stackTrace) {
+        Auth auth = await apiService.login(formData);
+        authResponse = ApiResponse.completed(auth);
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
           } catch (forcedException) {
-            return fAdminResponse =
-                ApiResponse.error(forcedException.toString());
+            return authResponse = ApiResponse.error(forcedException.toString());
           }
         } else {
-          return fAdminResponse = ApiResponse.error(e.toString());
+          return authResponse = ApiResponse.error(e.toString());
         }
       }
     } else {
-      return fAdminResponse = ApiResponse.error('No Internet Connection');
+      return authResponse = ApiResponse.error('No Internet Connection');
     }
-    return fAdminResponse!;
+    return authResponse!;
   }
-
 
   //get all classrooms
   ApiResponse<FClassroom>? _fClassrooms;
@@ -192,7 +191,7 @@ class AppProvider extends ChangeNotifier {
       try {
         FClassroom fClassroom = await apiService.getAllClassrooms();
         fClassroomResponse = ApiResponse.completed(fClassroom);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -207,7 +206,6 @@ class AppProvider extends ChangeNotifier {
     return fClassroomResponse!;
   }
 
-
   //add subject
   ApiResponse<FSubject>? _fAddSubjectResponse;
   ApiResponse<FSubject>? get fAddSubjectResponse => _fAddSubjectResponse;
@@ -217,18 +215,18 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<ApiResponse<FSubject>> addSubject(
-    String subject_name,
+    String subjectName,
   ) async {
     ApiService apiService = ApiService(Dio());
     FormData formData = FormData.fromMap({
-      'subject_name': subject_name,
+      'subject_name': subjectName,
     });
     if (await checkInternet()) {
       fAddSubjectResponse = ApiResponse.loading('');
       try {
         FSubject subject = await apiService.addSubject(formData);
         fAddSubjectResponse = ApiResponse.completed(subject);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -254,17 +252,16 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<ApiResponse<FSubject>> editSubject(
-       String subject_name,int id) async {
+  Future<ApiResponse<FSubject>> editSubject(String subjectName, int id) async {
     ApiService apiService = ApiService(Dio());
     FormData formData =
-    FormData.fromMap({ 'subject_name': subject_name,'method':'PUT'});
+        FormData.fromMap({'subject_name': subjectName, 'method': 'PUT'});
     if (await checkInternet()) {
       fEditSubjectResponse = ApiResponse.loading('');
       try {
-        FSubject subject = await apiService.editSubject(formData,id);
+        FSubject subject = await apiService.editSubject(formData, id);
         fEditSubjectResponse = ApiResponse.completed(subject);
-      } catch (e, stackTrace) {
+      } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -277,10 +274,99 @@ class AppProvider extends ChangeNotifier {
         }
       }
     } else {
-      return fEditSubjectResponse =
-          ApiResponse.error('No Internet Connection');
+      return fEditSubjectResponse = ApiResponse.error('No Internet Connection');
     }
     return fEditSubjectResponse!;
+  }
+
+  //get student
+  ApiResponse<FStudent>? _getStudentResponse;
+  ApiResponse<FStudent>? get getStudentResponse => _getStudentResponse;
+  set getStudentResponse(ApiResponse<FStudent>? value) {
+    _getStudentResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FStudent>> getStudent(int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getStudentResponse = ApiResponse.loading('');
+      try {
+        FStudent fStudent = await apiService.getStudent(id);
+        getStudentResponse = ApiResponse.completed(fStudent);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            getStudentResponse = ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          getStudentResponse = ApiResponse.error(e.toString());
+        }
+      }
+    }
+    return getStudentResponse!;
+  }
+
+  //get teacher
+  ApiResponse<FTeacher>? _getTeacherResponse;
+  ApiResponse<FTeacher>? get getTeacherResponse => _getTeacherResponse;
+  set getTeacherResponse(ApiResponse<FTeacher>? value) {
+    _getTeacherResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FTeacher>> getTeacher(int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getTeacherResponse = ApiResponse.loading('');
+      try {
+        FTeacher fTeacher = await apiService.getTeacher(id);
+        getTeacherResponse = ApiResponse.completed(fTeacher);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            getTeacherResponse = ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          getTeacherResponse = ApiResponse.error(e.toString());
+        }
+      }
+    }
+    return getTeacherResponse!;
+  }
+
+  //get mentor
+  ApiResponse<FMentor>? _getMentorResponse;
+  ApiResponse<FMentor>? get getMentorResponse => _getMentorResponse;
+  set getMentorResponse(ApiResponse<FMentor>? value) {
+    _getMentorResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FMentor>> getMentor(int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getMentorResponse = ApiResponse.loading('');
+      try {
+        FMentor fMentor = await apiService.getMentor(id);
+        getMentorResponse = ApiResponse.completed(fMentor);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            getMentorResponse = ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          getMentorResponse = ApiResponse.error(e.toString());
+        }
+      }
+    }
+    return getMentorResponse!;
   }
 }
 
@@ -289,37 +375,28 @@ dynamic throwCustomException(DioError? dioError) {
   switch (dioError!.type) {
     case DioErrorType.cancel:
       throw RequestWasCancelledException("CANCEL");
-      break;
     case DioErrorType.connectTimeout:
       throw ConnectionTimeout("CONNECT_TIMEOUT");
-      break;
     case DioErrorType.other:
       throw DefaultTimeout("DEFAULT");
-      break;
     case DioErrorType.receiveTimeout:
       throw ReceiveTimeout("RECEIVE_TIMEOUT");
-      break;
     case DioErrorType.sendTimeout:
       throw SendTimeout("SEND_TIMEOUT");
-      break;
     case DioErrorType.response:
       switch (statusCode) {
         case 400:
           throw BadRequestException(dioError.response?.statusMessage);
-          break;
         case 401:
         case 403:
           throw UnauthorisedException(dioError.response?.statusMessage);
-          break;
         case 404:
           throw FetchDataException(
               'Error while Communication with Server with StatusCode : ${dioError.response?.statusMessage}');
-          break;
         case 500:
         default:
           throw FetchDataException(
               'Error while Communication with Server with StatusCode : ${dioError.response?.statusMessage}');
       }
-      break;
   }
 }
