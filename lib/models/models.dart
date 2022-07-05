@@ -7,3 +7,4 @@ export 'teacher.dart';
 export 'admin.dart';
 export 'parent.dart';
 export 'address.dart';
+export 'auth.dart';

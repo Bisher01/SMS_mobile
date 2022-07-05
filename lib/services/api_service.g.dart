@@ -98,18 +98,17 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<FAdmin> login(formData) async {
+  Future<Auth> login(formData) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = formData;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<FAdmin>(
-            Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'admin',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = FAdmin.fromJson(_result.data!);
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<Auth>(
+        Options(method: 'POST', headers: _headers, extra: _extra)
+            .compose(_dio.options, 'general/login',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = Auth.fromJson(_result.data!);
     return value;
   }
 
@@ -157,6 +156,54 @@ class _ApiService implements ApiService {
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data;
+    return value;
+  }
+
+  @override
+  Future<FStudent> getStudent(id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FStudent>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'student/show/${id}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FStudent.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FTeacher> getTeacher(id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FTeacher>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'teacher/show/${id}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FTeacher.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FMentor> getMentor(id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FMentor>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'mentor/show/${id}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FMentor.fromJson(_result.data!);
     return value;
   }
 

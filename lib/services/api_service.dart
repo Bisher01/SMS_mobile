@@ -51,15 +51,13 @@ abstract class ApiService {
   @GET('classroom/all')
   Future<FClassroom> getAllClassrooms();
 
-  //admin authentication
-  @POST('admin')
-  Future<FAdmin> login(@Body() FormData formData);
+  //all authentication
+  @POST('general/login')
+  Future<Auth> login(@Body() FormData formData);
 
   //add subject
   @POST('subject/add')
   Future<FSubject> addSubject(@Body() FormData formData);
-
-
 
   //edit subject
   @POST('subject/edit/{id}')
@@ -68,4 +66,16 @@ abstract class ApiService {
   //delete subject
   @DELETE('subject/delete/{id}')
   Future deleteSubject(@Path('id') int id);
+
+  //show student
+  @GET('student/show/{id}')
+  Future<FStudent> getStudent(@Path('id') int id);
+
+  //show teacher
+  @GET('teacher/show/{id}')
+  Future<FTeacher> getTeacher(@Path('id') int id);
+
+  //show mentor
+  @GET('mentor/show/{id}')
+  Future<FMentor> getMentor(@Path('id') int id);
 }
