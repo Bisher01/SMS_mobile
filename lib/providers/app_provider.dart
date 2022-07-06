@@ -160,6 +160,7 @@ class AppProvider extends ChangeNotifier {
         Auth auth = await apiService.login(formData);
         authResponse = ApiResponse.completed(auth);
       } catch (e) {
+        print(e);
         if (e is DioError) {
           try {
             throwCustomException(e);

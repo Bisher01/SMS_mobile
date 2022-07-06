@@ -77,20 +77,22 @@ class _RollingSwitchState extends State<LiteRollingSwitch>
     return GestureDetector(
       onDoubleTap: () {
         _action();
-        if (widget.onDoubleTap != null) widget.onDoubleTap();
+        widget.onDoubleTap();
       },
       onTap: () {
         _action();
-        if (widget.onTap != null) widget.onTap();
+        setState((){
+          widget.onTap();
+        });
       },
       onPanEnd: (details) {
         _action();
-        if (widget.onSwipe != null) widget.onSwipe();
+        widget.onSwipe();
         //widget.onSwipe();
       },
       child: Container(
         padding: EdgeInsets.all(5),
-        width: 130,
+        width: 200,
         decoration: BoxDecoration(
             color: transitionColor, borderRadius: BorderRadius.circular(50)),
         child: Stack(
@@ -132,14 +134,14 @@ class _RollingSwitchState extends State<LiteRollingSwitch>
               ),
             ),
             Transform.translate(
-              offset: Offset(80 * value, 0),
+              offset: Offset(150 * value, 0),
               child: Transform.rotate(
                 angle: lerpDouble(0, 2 * pi, value)!,
                 child: Container(
                   height: 40,
                   width: 40,
                   alignment: Alignment.center,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                       shape: BoxShape.circle, color: Colors.white),
                   child: Stack(
                     children: <Widget>[

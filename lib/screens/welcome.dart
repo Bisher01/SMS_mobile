@@ -173,7 +173,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 onDotClicked: (index){
                   setState((){
                     _pageViewController.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.ease);
-                    currentPage=index as double;
+                    currentPage=index.toDouble();
                   });
                 },
 
