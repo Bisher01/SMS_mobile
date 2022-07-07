@@ -319,7 +319,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.pushNamed(context, '/quiz');
+                          Navigator.pushNamed(context, '/exam_schedule');
                         // onPressed: () async {
                         //   //Focus.of(context).unfocus();
                         //   if (await Provider.of<AppProvider>(context,

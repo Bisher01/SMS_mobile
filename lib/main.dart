@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_mobile/providers/providers.dart';
 import 'package:sms_mobile/screens/screens.dart';
+import 'package:sms_mobile/screens/student/exam_schedule.dart';
 import 'package:sms_mobile/screens/student/quiz.dart';
 
 void main() {
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
         routes: {
           '/login': (context) => const LoginScreen(),
           '/schedule': (context) => const Schedule(),
-    '/quiz' : (context) => const Quiz(),
+          '/quiz': (context) => const Quiz(),
+          '/exam_schedule':(context) => const ExamSchedule(),
         },
       ),
     );
