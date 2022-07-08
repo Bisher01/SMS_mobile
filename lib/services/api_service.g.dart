@@ -224,22 +224,6 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<FExam> getAllExams() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<FExam>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'exam/all',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = FExam.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
   Future<FSyllabi> getAllSyllabi() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -316,6 +300,102 @@ class _ApiService implements ApiService {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = Delete.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FExam> getAllExams() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FExam>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'exam/all',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FExam.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<Delete> addExam() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<Delete>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'exam/add',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = Delete.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<Delete> deleteExam(id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<Delete>(
+            Options(method: 'DELETE', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'exam/delete/${id}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = Delete.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FMark> setStudentExamMark(id1, id2) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FMark>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'exam/mark/${id1}/${id2}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FMark.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FExam> getStudentExam(id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FExam>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'exam/getExam/${id}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FExam.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FExam> getClassExam(id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FExam>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'exam/classExam/${id}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FExam.fromJson(_result.data!);
     return value;
   }
 

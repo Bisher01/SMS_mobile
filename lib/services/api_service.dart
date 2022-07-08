@@ -83,10 +83,6 @@ abstract class ApiService {
   @GET('general/allSeed')
   Future<FSeed> getSeed();
 
-  //get all exams
-  @GET('exam/all')
-  Future<FExam> getAllExams();
-
 //get all syllabi
   @GET('syllabi/all')
   Future<FSyllabi> getAllSyllabi();
@@ -105,8 +101,37 @@ abstract class ApiService {
       @Body() FormData formData, @Path('id') int id);
 
   @POST('/management/subject/{id}')
-  Future<Delete> addSubjectsToClass(
- @Path('id') int id);
+  Future<Delete> addSubjectsToClass(@Path('id') int id);
 
+//=================================================//
+
+
+//============Exams=========//
+
+//get all exams
+  @GET('exam/all')
+  Future<FExam> getAllExams();
+
+  //add exam
+  @POST('exam/add')
+  Future<Delete> addExam();
+
+  //edit exam
+
+  //delete exam
+  @DELETE('exam/delete/{id}')
+  Future<Delete> deleteExam(@Path('id')int id);
+
+  //set student exam mark
+  @POST('exam/mark/{id1}/{id2}')
+  Future<FMark> setStudentExamMark(@Path('id1') int id1, @Path('id2') int id2);
+
+  //get student exam
+  @GET('exam/getExam/{id}')
+  Future<FExam> getStudentExam(@Path('id') int id);
+
+  //get class exam
+  @GET('exam/classExam/{id}')
+  Future<FExam> getClassExam(@Path('id') int id);
 //=================================================//
 }

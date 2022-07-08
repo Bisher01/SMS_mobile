@@ -13,3 +13,4 @@ export 'exam.dart';
 export 'syllabi.dart';
 export 'seed.dart';
 export 'delete.dart';
+export 'mark.dart';
