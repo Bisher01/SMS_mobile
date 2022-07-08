@@ -12,3 +12,4 @@ export 'answer.dart';
 export 'exam.dart';
 export 'syllabi.dart';
 export 'seed.dart';
+export 'delete.dart';

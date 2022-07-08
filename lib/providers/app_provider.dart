@@ -461,6 +461,160 @@ class AppProvider extends ChangeNotifier {
     }
     return getSeedResponse!;
   }
+
+  //add lessons to day
+  ApiResponse<Delete>? _addLessonsToDayResponse;
+  ApiResponse<Delete>? get addLessonsToDayResponse => _addLessonsToDayResponse;
+  set addLessonsToDayResponse(ApiResponse<Delete>? value) {
+    _addLessonsToDayResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> addLessonsToDay(
+      int id,
+      ) async {
+    FormData formData = FormData.fromMap({'_method': 'PUT'});
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      addLessonsToDayResponse = ApiResponse.loading('');
+      try {
+        Delete delete = await apiService.addLessonsToDay(formData, id);
+        addLessonsToDayResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return addLessonsToDayResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return addLessonsToDayResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return addLessonsToDayResponse =
+          ApiResponse.error('No Internet Connection');
+    }
+    return addLessonsToDayResponse!;
+  }
+
+  //addSubjectsToTeacher
+  ApiResponse<Delete>? _addSubjectsToTeacherResponse;
+  ApiResponse<Delete>? get addSubjectsToTeacherResponse =>
+      _addSubjectsToTeacherResponse;
+  set addSubjectsToTeacherResponse(ApiResponse<Delete>? value) {
+    _addSubjectsToTeacherResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> addSubjectsToTeacher(
+      int id,
+      int classId,
+      int classroomId,
+      int subjectId,
+      ) async {
+    FormData formData = FormData.fromMap({
+      '_method': 'put',
+      'subject_id': subjectId,
+      'classroom_id': classroomId,
+      'class_id': classId,
+    });
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      addSubjectsToTeacherResponse = ApiResponse.loading('');
+      try {
+        Delete delete = await apiService.addSubjectsToTeacher(formData, id);
+        addSubjectsToTeacherResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return addSubjectsToTeacherResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return addSubjectsToTeacherResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return addSubjectsToTeacherResponse =
+          ApiResponse.error('No Internet Connection');
+    }
+    return addSubjectsToTeacherResponse!;
+  }
+
+  //add classroom to class
+  ApiResponse<Delete>? _addClassroomToClassResponse;
+  ApiResponse<Delete>? get addClassroomToClassResponse =>
+      _addClassroomToClassResponse;
+  set addClassroomToClassResponse(ApiResponse<Delete>? value) {
+    _addClassroomToClassResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> addClassroomToClass(
+      int id,
+      ) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      FormData formData = FormData.fromMap({'_method': 'PUT'});
+      addClassroomToClassResponse = ApiResponse.loading('');
+      try {
+        Delete delete = await apiService.addClassroomToClass(formData, id);
+        addClassroomToClassResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return addClassroomToClassResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return addClassroomToClassResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return addClassroomToClassResponse =
+          ApiResponse.error('No Internet Connection');
+    }
+    return addClassroomToClassResponse!;
+  }
+
+  //add subject to class
+  ApiResponse<Delete>? _addSubjectsToClassResponse;
+  ApiResponse<Delete>? get addSubjectsToClassResponse =>
+      _addSubjectsToClassResponse;
+  set addSubjectsToClassResponse(ApiResponse<Delete>? value) {
+    _addSubjectsToClassResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> addSubjectsToClass(
+      int id,
+      ) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      addSubjectsToClassResponse = ApiResponse.loading('');
+      try {
+        Delete delete = await apiService.addSubjectsToClass(id);
+        addSubjectsToClassResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return addSubjectsToClassResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return addSubjectsToClassResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return addSubjectsToClassResponse =
+          ApiResponse.error('No Internet Connection');
+    }
+    return addSubjectsToClassResponse!;
+  }
 }
 
 dynamic throwCustomException(DioError? dioError) {
