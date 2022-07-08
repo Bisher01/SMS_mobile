@@ -50,22 +50,6 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<FSubject> getAllSubjects() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<FSubject>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'subject/all',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = FSubject.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
   Future<FMentor> getAllMentors() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -109,6 +93,22 @@ class _ApiService implements ApiService {
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = Auth.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FSubject> getAllSubjects() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FSubject>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'subject/all',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FSubject.fromJson(_result.data!);
     return value;
   }
 
@@ -204,6 +204,22 @@ class _ApiService implements ApiService {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = FMentor.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FSeed> getSeed() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FSeed>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'general/allSeed',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FSeed.fromJson(_result.data!);
     return value;
   }
 

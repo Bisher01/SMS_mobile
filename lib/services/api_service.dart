@@ -39,10 +39,6 @@ abstract class ApiService {
   @GET('student/all')
   Future<FStudent> getAllStudents();
 
-  //all subjects
-  @GET('subject/all')
-  Future<FSubject> getAllSubjects();
-
   //all mentors
   @GET('mentor/all')
   Future<FMentor> getAllMentors();
@@ -54,6 +50,10 @@ abstract class ApiService {
   //all authentication
   @POST('general/login')
   Future<Auth> login(@Body() FormData formData);
+
+  //all subjects
+  @GET('subject/all')
+  Future<FSubject> getAllSubjects();
 
   //add subject
   @POST('subject/add')
@@ -79,11 +79,15 @@ abstract class ApiService {
   @GET('mentor/show/{id}')
   Future<FMentor> getMentor(@Path('id') int id);
 
+  //get seed
+  @GET('general/allSeed')
+  Future<FSeed> getSeed();
+
   //get all exams
-@GET('exam/all')
-  Future<FExam>getAllExams();
+  @GET('exam/all')
+  Future<FExam> getAllExams();
 
 //get all syllabi
   @GET('syllabi/all')
-  Future<FSyllabi>getAllSyllabi();
+  Future<FSyllabi> getAllSyllabi();
 }

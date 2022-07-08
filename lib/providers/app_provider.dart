@@ -429,6 +429,38 @@ class AppProvider extends ChangeNotifier {
     }
     return fSyllabiResponse!;
   }
+
+  //get seed
+  ApiResponse<FSeed>? _getSeedResponse;
+  ApiResponse<FSeed>? get getSeedResponse => _getSeedResponse;
+  set getSeedResponse(ApiResponse<FSeed>? value) {
+    _getSeedResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FSeed>> getSeed() async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getSeedResponse = ApiResponse.loading('');
+      try {
+        FSeed fSeed = await apiService.getSeed();
+        getSeedResponse = ApiResponse.completed(fSeed);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            getSeedResponse = ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          getSeedResponse = ApiResponse.error(e.toString());
+        }
+      }
+    } else {
+      return getSeedResponse = ApiResponse.error('No Internet Connection');
+    }
+    return getSeedResponse!;
+  }
 }
 
 dynamic throwCustomException(DioError? dioError) {
