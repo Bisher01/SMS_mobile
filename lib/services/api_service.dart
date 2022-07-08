@@ -78,4 +78,12 @@ abstract class ApiService {
   //show mentor
   @GET('mentor/show/{id}')
   Future<FMentor> getMentor(@Path('id') int id);
+
+  //get all exams
+@GET('exam/all')
+  Future<FExam>getAllExams();
+
+//get all syllabi
+  @GET('syllabi/all')
+  Future<FSyllabi>getAllSyllabi();
 }

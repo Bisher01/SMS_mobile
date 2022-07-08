@@ -207,6 +207,38 @@ class _ApiService implements ApiService {
     return value;
   }
 
+  @override
+  Future<FExam> getAllExams() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FExam>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'exam/all',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FExam.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FSyllabi> getAllSyllabi() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FSyllabi>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'syllabi/all',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FSyllabi.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

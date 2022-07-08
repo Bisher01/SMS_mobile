@@ -369,6 +369,66 @@ class AppProvider extends ChangeNotifier {
     }
     return getMentorResponse!;
   }
+
+//get all exam
+  ApiResponse<FExam>? _fExams;
+  ApiResponse<FExam>? get fExamResponse => _fExams;
+  set fExamResponse(ApiResponse<FExam>? value) {
+    _fExams = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FExam>> getAllExams() async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      fExamResponse = ApiResponse.loading('');
+      try {
+        FExam fExam = await apiService.getAllExams();
+        fExamResponse = ApiResponse.completed(fExam);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            fExamResponse = ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          fExamResponse = ApiResponse.error(e.toString());
+        }
+      }
+    }
+    return fExamResponse!;
+  }
+
+  //get all syllabi
+  ApiResponse<FSyllabi>? _fSyllabi;
+  ApiResponse<FSyllabi>? get fSyllabiResponse => _fSyllabi;
+  set fSyllabiResponse(ApiResponse<FSyllabi>? value) {
+    _fSyllabi = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FSyllabi>> getAllSyllabi() async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      fSyllabiResponse = ApiResponse.loading('');
+      try {
+        FSyllabi fSyllabi = await apiService.getAllSyllabi();
+        fSyllabiResponse = ApiResponse.completed(fSyllabi);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            fSyllabiResponse = ApiResponse.error(forcedException.toString());
+          }
+        } else {
+          fSyllabiResponse = ApiResponse.error(e.toString());
+        }
+      }
+    }
+    return fSyllabiResponse!;
+  }
 }
 
 dynamic throwCustomException(DioError? dioError) {

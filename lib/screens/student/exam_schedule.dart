@@ -92,10 +92,13 @@ class _ExamScheduleState extends State<ExamSchedule> {
               thickness: 2,
               height: 2,
             ),
-            SizedBox(height: 20,),
-            Container(
+            const SizedBox(
+              height: 20,
+            ),
+            SizedBox(
               height: widgetSize.getHeight(100, context),
               child: ListView.builder(
+                itemCount: 15,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
@@ -110,27 +113,73 @@ class _ExamScheduleState extends State<ExamSchedule> {
                       child: Card(
                         elevation: selectedTab == index ? 3 : 0,
                         color:
-                            selectedTab == index ? Colors.orange : Colors.white,
+                            selectedTab == index ? Colors.orange : Color.fromARGB(1, 250, 250, 250),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Text('S',style: TextStyle(color: selectedTab == index?Colors.white:Colors.grey,),),
-                            Text('18',style: TextStyle(color: selectedTab == index?Colors.white:Colors.black,),),
+                            Text(
+                              'S',
+                              style: TextStyle(
+                                color: selectedTab == index
+                                    ? Colors.white
+                                    : Colors.grey,
+                              ),
+                            ),
+                            Text(
+                              '18',
+                              style: TextStyle(
+                                color: selectedTab == index
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+                            ),
                             Visibility(
-                                visible: selectedTab == index,
-                                child: Container(
-                                  width: 10,
-                                  height: 10,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white,
-                                  ),
-                                )),
+                              visible: selectedTab == index,
+                              child: Container(
+                                width: 10,
+                                height: 10,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
                     ),
                   );
+                },
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: 10,
+                itemBuilder: (BuildContext context, int index) {
+                  return SizedBox(
+                      width: widgetSize.getWidth(200, context),
+                      height: widgetSize.getHeight(120, context),
+                      child: Card(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                        color: Colors.pinkAccent,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              'Complete user',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              'easy done',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ));
                 },
               ),
             ),

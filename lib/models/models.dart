@@ -9,3 +9,5 @@ export 'parent.dart';
 export 'address.dart';
 export 'auth.dart';
 export 'answer.dart';
+export 'exam.dart';
+export 'syllabi.dart';
