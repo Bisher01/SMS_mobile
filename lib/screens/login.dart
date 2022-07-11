@@ -20,6 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late final FocusNode _firstNameFocusNode;
   late final FocusNode _lastNameFocusNode;
   late final FocusNode _codeFocusNode;
+  bool isHidden = false;
 
   @override
   void initState() {
@@ -62,6 +63,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Column(
                         children: [
                           TextFormField(
+                            validator: (String? text) {
+                              if (text == null || text == '' || text.isEmpty) {
+                                return 'Can\'t be empty';
+                              }
+                              if (text.length < 3) {
+                                return 'too short';
+                              }
+                              return null;
+                            },
                             controller: _firstNameController,
                             focusNode: _firstNameFocusNode,
                             keyboardType: TextInputType.emailAddress,
@@ -141,6 +151,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 10,
                           ),
                           TextFormField(
+                            validator: (String? text) {
+                              if (text == null || text == '' || text.isEmpty) {
+                                return 'Can\'t be empty';
+                              }
+                              if (text.length < 3) {
+                                return 'too short';
+                              }
+                              return null;
+                            },
                             controller: _lastNameController,
                             focusNode: _lastNameFocusNode,
                             keyboardType: TextInputType.visiblePassword,
@@ -220,6 +239,19 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 10,
                           ),
                           TextFormField(
+                            obscureText: isHidden,
+                            validator: (String? text) {
+                              if (text == null || text == '' || text.isEmpty) {
+                                return 'Can\'t be empty';
+                              }
+                              if (text.length < 6) {
+                                return 'too short';
+                              }
+                              if (text.contains(' ') == true) {
+                                return 'Invalid code format';
+                              }
+                              return null;
+                            },
                             controller: _codeController,
                             focusNode: _codeFocusNode,
                             keyboardType: TextInputType.visiblePassword,
@@ -227,9 +259,21 @@ class _LoginScreenState extends State<LoginScreen> {
                             showCursor: true,
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  isHidden
+                                      ? Icons.remove_red_eye_rounded
+                                      : Icons.add,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    isHidden = !isHidden;
+                                  });
+                                },
+                              ),
                               hintText: 'Code',
-                              border: OutlineInputBorder(
+                              border: const OutlineInputBorder(
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(
                                     20,
@@ -319,39 +363,39 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.pushNamed(context, '/exam_schedule');
-                        // onPressed: () async {
-                        //   //Focus.of(context).unfocus();
-                        //   if (await Provider.of<AppProvider>(context,
-                        //           listen: false)
-                        //       .checkInternet()) {
-                        //     var response = await Provider.of<AppProvider>(context, listen: false)
-                        //         .login(
-                        //             _firstNameController.text,
-                        //             _lastNameController.text,
-                        //             _codeController.text).then((value){
-                        //               if(value.data!.role == 'teacher'){
-                        //                 Provider.of<AppProvider>(context, listen: false).getTeacher(value.data!.id!);
-                        //               }
-                        //               else if(value.data!.role == 'student'){
-                        //                 Provider.of<AppProvider>(context, listen: false).getStudent(value.data!.id!);
-                        //               }
-                        //               else if(value.data!.role == 'mentor'){
-                        //                 Provider.of<AppProvider>(context, listen: false).getMentor(value.data!.id!);
-                        //               }else{
-                        //
-                        //               }
-                        //     });
-                        //     if(response.status == Status.COMPLETED ){
-                        //       if(response.data!=null && response.data!.status!){
-                        //         Navigator.pushNamed(context, '/schedule');
-                        //       }
-                        //
-                        //     }
-                        //
-                        //   }
-
-
+                          if (_formKey.currentState!.validate()) {
+                            Navigator.pushNamed(context, '/exam_schedule');
+                            // onPressed: () async {
+                            //   //Focus.of(context).unfocus();
+                            //   if (await Provider.of<AppProvider>(context,
+                            //           listen: false)
+                            //       .checkInternet()) {
+                            //     var response = await Provider.of<AppProvider>(context, listen: false)
+                            //         .login(
+                            //             _firstNameController.text,
+                            //             _lastNameController.text,
+                            //             _codeController.text).then((value){
+                            //               if(value.data!.role == 'teacher'){
+                            //                 Provider.of<AppProvider>(context, listen: false).getTeacher(value.data!.id!);
+                            //               }
+                            //               else if(value.data!.role == 'student'){
+                            //                 Provider.of<AppProvider>(context, listen: false).getStudent(value.data!.id!);
+                            //               }
+                            //               else if(value.data!.role == 'mentor'){
+                            //                 Provider.of<AppProvider>(context, listen: false).getMentor(value.data!.id!);
+                            //               }else{
+                            //
+                            //               }
+                            //     });
+                            //     if(response.status == Status.COMPLETED ){
+                            //       if(response.data!=null && response.data!.status!){
+                            //         Navigator.pushNamed(context, '/schedule');
+                            //       }
+                            //
+                            //     }
+                            //
+                            //   }
+                          }
                         },
                         child: const Text(
                           'Log In',
