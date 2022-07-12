@@ -286,7 +286,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                               ),
-                              disabledBorder: OutlineInputBorder(
+                              disabledBorder: const OutlineInputBorder(
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(
                                     20,
@@ -299,7 +299,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                               ),
-                              enabledBorder: OutlineInputBorder(
+                              enabledBorder: const OutlineInputBorder(
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(
                                     20,
@@ -312,7 +312,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                               ),
-                              errorBorder: OutlineInputBorder(
+                              errorBorder: const OutlineInputBorder(
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(
                                     20,
@@ -323,7 +323,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   color: Colors.red,
                                 ),
                               ),
-                              focusedBorder: OutlineInputBorder(
+                              focusedBorder: const OutlineInputBorder(
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(
                                     20,
@@ -365,8 +365,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             Navigator.pushNamed(context, '/exam_schedule');
-                            // onPressed: () async {
-                            //   //Focus.of(context).unfocus();
+                           // onPressed: () async {
+                              //Focus.of(context).unfocus();
                             //   if (await Provider.of<AppProvider>(context,
                             //           listen: false)
                             //       .checkInternet()) {
@@ -389,6 +389,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             //     });
                             //     if(response.status == Status.COMPLETED ){
                             //       if(response.data!=null && response.data!.status!){
+                            // Provider.of<AppProvider>(context,listen:false).setToken('');
                             //         Navigator.pushNamed(context, '/schedule');
                             //       }
                             //

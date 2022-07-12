@@ -7,6 +7,13 @@ import '../models/models.dart';
 import '../services/api_exception.dart';
 
 class AppProvider extends ChangeNotifier {
+  //token box
+  void setToken(String token) {
+    var box = Boxes.getAuthBox();
+    //box.clear();
+    box.put('token', token);
+    notifyListeners();
+  }
   //check connection
   bool isConnected = false;
   Future<bool> checkInternet() async {
