@@ -11,6 +11,8 @@ void main() async{
   await Hive.initFlutter();
   await Hive.openBox<bool>('local');
   await Hive.openBox<String>('auth');
+  await Hive.openBox<String>('role');
+  await Hive.openBox<int>('id');
   runApp(const MyApp());
 }
 

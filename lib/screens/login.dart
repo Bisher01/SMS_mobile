@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (text == null || text == '' || text.isEmpty) {
                                 return 'Can\'t be empty';
                               }
-                              if (text.length < 3) {
+                              if (text.length < 2) {
                                 return 'too short';
                               }
                               return null;
@@ -155,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (text == null || text == '' || text.isEmpty) {
                                 return 'Can\'t be empty';
                               }
-                              if (text.length < 3) {
+                              if (text.length < 2) {
                                 return 'too short';
                               }
                               return null;
@@ -244,7 +244,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (text == null || text == '' || text.isEmpty) {
                                 return 'Can\'t be empty';
                               }
-                              if (text.length < 6) {
+                              if (text.length < 8) {
                                 return 'too short';
                               }
                               if (text.contains(' ') == true) {
@@ -362,42 +362,49 @@ class _LoginScreenState extends State<LoginScreen> {
                             0Xff2BC3BB,
                           ),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            Navigator.pushNamed(context, '/exam_schedule');
-                           // onPressed: () async {
-                              //Focus.of(context).unfocus();
-                            //   if (await Provider.of<AppProvider>(context,
-                            //           listen: false)
-                            //       .checkInternet()) {
-                            //     var response = await Provider.of<AppProvider>(context, listen: false)
-                            //         .login(
-                            //             _firstNameController.text,
-                            //             _lastNameController.text,
-                            //             _codeController.text).then((value){
-                            //               if(value.data!.role == 'teacher'){
-                            //                 Provider.of<AppProvider>(context, listen: false).getTeacher(value.data!.id!);
-                            //               }
-                            //               else if(value.data!.role == 'student'){
-                            //                 Provider.of<AppProvider>(context, listen: false).getStudent(value.data!.id!);
-                            //               }
-                            //               else if(value.data!.role == 'mentor'){
-                            //                 Provider.of<AppProvider>(context, listen: false).getMentor(value.data!.id!);
-                            //               }else{
-                            //
-                            //               }
-                            //     });
-                            //     if(response.status == Status.COMPLETED ){
-                            //       if(response.data!=null && response.data!.status!){
-                            // Provider.of<AppProvider>(context,listen:false).setToken('');
-                            //         Navigator.pushNamed(context, '/schedule');
-                            //       }
-                            //
-                            //     }
-                            //
-                            //   }
+                            //Focus.of(context).unfocus();
+                            final navigator = Navigator.of(context);
+                            final provider = Provider.of<AppProvider>(context,
+                                listen: false);
+                            if (await provider.checkInternet()) {
+                              var response = await Provider.of<AppProvider>(
+                                      context,
+                                      listen: false)
+                                  .login(
+                                      _firstNameController.text,
+                                      _lastNameController.text,
+                                      _codeController.text);
+                              //     .then((value) {
+                              //   if (value.data!.role == 'teacher') {
+                              //     Provider.of<AppProvider>(context,
+                              //             listen: false)
+                              //         .getTeacher(value.data!.id!);
+                              //   } else if (value.data!.role == 'student') {
+                              //     Provider.of<AppProvider>(context,
+                              //             listen: false)
+                              //         .getStudent(value.data!.id!);
+                              //   } else if (value.data!.role == 'mentor') {
+                              //     Provider.of<AppProvider>(context,
+                              //             listen: false)
+                              //         .getMentor(value.data!.id!);
+                              //   } else {}
+                              // });
+                              if (response.status == Status.COMPLETED) {
+                                if (response.data != null &&
+                                    response.data!.status!) {
+                                  provider.setToken(response.data!.key!.token!);
+                                  provider.setId(response.data!.id!);
+                                  provider.setRole(response.data!.role!);
+                                  navigator.pushReplacementNamed('/schedule');
+                                  //Navigator.pushNamed(context, '/schedule');
+                                }
+                              }
+                            }
                           }
                         },
+                        // },
                         child: const Text(
                           'Log In',
                         ),

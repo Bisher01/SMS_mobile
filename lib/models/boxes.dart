@@ -10,4 +10,10 @@ class Boxes {
   static Box<String> getAuthBox() {
     return Hive.box<String>('auth');
   }
+  static Box<String> getRoleBox() {
+    return Hive.box<String>('role');
+  }
+  static Box<int> getIdBox() {
+    return Hive.box<int>('id');
+  }
 }

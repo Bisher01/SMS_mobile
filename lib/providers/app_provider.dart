@@ -14,6 +14,20 @@ class AppProvider extends ChangeNotifier {
     box.put('token', token);
     notifyListeners();
   }
+  //role box
+  void setRole(String role) {
+    var box = Boxes.getRoleBox();
+    //box.clear();
+    box.put('role', role);
+    notifyListeners();
+  }
+  //id box
+  void setId(int id) {
+    var box = Boxes.getIdBox();
+    //box.clear();
+    box.put('id', id);
+    notifyListeners();
+  }
   //check connection
   bool isConnected = false;
   Future<bool> checkInternet() async {
