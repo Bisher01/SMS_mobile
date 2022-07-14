@@ -37,29 +37,32 @@ class _ExamScheduleState extends State<ExamSchedule> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      days[DateTime.now().weekday],
-                      style: TextStyle(
-                          color: Colors.grey[500],
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'ChakraPetch',
-                          letterSpacing: 0.5),
-                    ),
-                    Text(
-                      '${months[DateTime.now().month]} ${DateTime.now().year.toString().substring(2)}',
-                      style: TextStyle(
-                          color: Colors.grey[500],
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'ChakraPetch',
-                          letterSpacing: 0.5),
-                    )
-                  ],
+                IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back_ios,size: 30,)),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        days[DateTime.now().weekday],
+                        style: TextStyle(
+                            color: Colors.grey[500],
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'ChakraPetch',
+                            letterSpacing: 0.5),
+                      ),
+                      Text(
+                        '${months[DateTime.now().month]} ${DateTime.now().year.toString().substring(2)}',
+                        style: TextStyle(
+                            color: Colors.grey[500],
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'ChakraPetch',
+                            letterSpacing: 0.5),
+                      )
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   width: 10,

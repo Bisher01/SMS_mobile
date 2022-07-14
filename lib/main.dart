@@ -25,10 +25,11 @@ class MyApp extends StatelessWidget {
     var box = Boxes.getAuthBox();
     String? token = box.get('token');
     bool isToken;
-    if(token != 'error' && token!='' && token!=null)
+    if(token != 'error' && token!='' && token!=null) {
       isToken = true;
-    else
+    } else {
       isToken = false;
+    }
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AppProvider()),
@@ -37,13 +38,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(),
-        initialRoute: !isToken?'/login':'/schedule',
-        routes: {
-          '/login': (context) => const LoginScreen(),
-          '/schedule': (context) => const Schedule(),
-          '/quiz': (context) => const Quiz(),
-          '/exam_schedule':(context) => const ExamSchedule(),
-        },
+        home: MainScreen(),
       ),
     );
   }

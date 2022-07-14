@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_mobile/providers/providers.dart';
+import 'package:sms_mobile/screens/screens.dart';
 import '../services/api_response.dart';
 import '../utill/utill.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -364,7 +366,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            //Focus.of(context).unfocus();
+                            _firstNameFocusNode.unfocus();
+                            _lastNameFocusNode.unfocus();
+                            _codeFocusNode.unfocus();
                             final navigator = Navigator.of(context);
                             final provider = Provider.of<AppProvider>(context,
                                 listen: false);
@@ -397,8 +401,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                   provider.setToken(response.data!.key!.token!);
                                   provider.setId(response.data!.id!);
                                   provider.setRole(response.data!.role!);
-                                  navigator.pushReplacementNamed('/schedule');
-                                  //Navigator.pushNamed(context, '/schedule');
+                                  Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      child: MainScreen(),
+                                      type:
+                                          PageTransitionType.bottomToTopJoined,
+                                      childCurrent: widget,
+                                      duration: Duration(milliseconds: 300),
+                                    ),
+                                  );
                                 }
                               }
                             }
