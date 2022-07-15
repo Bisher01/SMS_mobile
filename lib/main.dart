@@ -43,6 +43,40 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(),
+        // home: StudentProfilePage(
+        //   student: Student(
+        //     picture: 'assets/jj.jpg',
+        //     f_name: 'jooudi',
+        //     l_name: 'kab',
+        //     code: '0019203043',
+        //     email: 'jjj@g.co',
+        //     birthdate: '20-9-2020',
+        //     address_id: 1,
+        //     religion_id: 1,
+        //     gender_id: 1,
+        //     grade_id: 1,
+        //     blood_id: 1,
+        //     class_id: 1,
+        //     classroom_id: 1,
+        //     nationality_id: 1,
+        //     parent_id: 1,
+        //     parent: Parent(
+        //       mother_name: 'mnn',
+        //       father_name: 'kn',
+        //       national_number: '10294030',
+        //       email: 'sd@fmv.,b',
+        //       jop: 'nn',
+        //       phone: '-9993',
+        //       code: '10293903',
+        //     ),
+        //     address: Address(
+        //       city: 'Syria',
+        //       town: 'dam',
+        //       street: 'tt',
+        //     ),
+        //     id: 1,
+        //   ),
+        // ),
         home: TeacherProfilePage(
           teacher: Teacher(
             picture: 'assets/jj.jpg',
@@ -59,6 +93,7 @@ class MyApp extends StatelessWidget {
             id: 1,
           ),
         ),
+
         // home: !isFirst
         //     ? const WelcomeScreen()
         //     : !isToken
