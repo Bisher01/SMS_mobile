@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:sms_mobile/utill/widget_size.dart';
+import '../providers/app_provider.dart';
 import '../screens/screens.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -72,7 +75,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         Visibility(
                           visible: isLast,
                           child: Padding(
-                            padding: const EdgeInsets.only(top:12.0),
+                            padding: const EdgeInsets.only(top: 12.0),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 shape: const RoundedRectangleBorder(
@@ -88,7 +91,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 ),
                               ),
                               onPressed: () {
-                                Navigator.pushReplacementNamed(context, '/login');
+                                Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    child: LoginScreen(),
+                                    type: PageTransitionType.bottomToTopJoined,
+                                    childCurrent: widget,
+                                    duration: Duration(milliseconds: 300),
+                                  ),
+                                );
+                                Provider.of<AppProvider>(context, listen: false)
+                                    .setWelcome();
                               },
                               child: const Text(
                                 'Continue to login',
@@ -107,7 +120,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         .toList();
 
     List<Widget> indicator() => List<Widget>.generate(
-          slides.length ,
+          slides.length,
           (index) => Container(
             margin: const EdgeInsets.symmetric(horizontal: 3.0),
             height: 10.0,
@@ -134,14 +147,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         children: <Widget>[
           PageView.builder(
             controller: _pageViewController,
-            itemCount: slides.length ,
+            itemCount: slides.length,
             itemBuilder: (BuildContext context, int index) {
               _pageViewController.addListener(() {
                 setState(() {
                   currentPage = _pageViewController.page!;
-                  if (currentPage == 3 ) {
+                  if (currentPage == 3) {
                     isLast = true;
-                  } if (currentPage < 3 ){
+                  }
+                  if (currentPage < 3) {
                     isLast = false;
                   }
                 });
@@ -152,36 +166,40 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              margin: const EdgeInsets.only(top: 70.0),
-              padding: const EdgeInsets.symmetric(vertical: 40.0),
-              child: SmoothPageIndicator(
-                controller: _pageViewController, count: 4,
-                effect: WormEffect(
-                  activeDotColor: const Color(
-                    0XFF256075,
+                margin: const EdgeInsets.only(top: 70.0),
+                padding: const EdgeInsets.symmetric(vertical: 40.0),
+                child: SmoothPageIndicator(
+                  controller: _pageViewController,
+                  count: 4,
+                  effect: WormEffect(
+                    activeDotColor: const Color(
+                      0XFF256075,
+                    ),
+                    dotColor: const Color(
+                      0XFF256075,
+                    ).withOpacity(0.2),
+                    paintStyle: PaintingStyle.fill,
+                    dotHeight: 12,
+                    dotWidth: 12,
+                    spacing: 14,
                   ),
-                  dotColor: const Color(
-                    0XFF256075,
-                  ).withOpacity(0.2),
-                  paintStyle: PaintingStyle.fill,
-                  dotHeight: 12,
-                  dotWidth: 12,
-                  spacing: 14,
-
-                ),
-
-                onDotClicked: (index){
-                  setState((){
-                    _pageViewController.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.ease);
-                    currentPage=index.toDouble();
-                  });
-                },
-
-              )
-            ),
+                  onDotClicked: (index) {
+                    setState(() {
+                      _pageViewController.animateToPage(index,
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.ease);
+                      currentPage = index.toDouble();
+                    });
+                  },
+                )),
           ),
         ],
       ),
     );
+  }
+
+  @override
+  dispose() {
+    super.dispose();
   }
 }

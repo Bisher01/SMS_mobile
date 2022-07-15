@@ -14,6 +14,7 @@ class AppProvider extends ChangeNotifier {
     box.put('token', token);
     notifyListeners();
   }
+
   //role box
   void setRole(String role) {
     var box = Boxes.getRoleBox();
@@ -21,6 +22,19 @@ class AppProvider extends ChangeNotifier {
     box.put('role', role);
     notifyListeners();
   }
+
+  //get role
+  String getRole() {
+    var box = Boxes.getRoleBox();
+    return box.get('role') ?? "";
+  }
+
+  //get id
+  int getId() {
+    var box = Boxes.getIdBox();
+    return box.get('id') ?? 0;
+  }
+
   //id box
   void setId(int id) {
     var box = Boxes.getIdBox();
@@ -28,6 +42,15 @@ class AppProvider extends ChangeNotifier {
     box.put('id', id);
     notifyListeners();
   }
+
+  //welcome box
+  void setWelcome() {
+    var box = Boxes.getWelcomeBox();
+    //box.clear();
+    box.put('welcome', true);
+    notifyListeners();
+  }
+
   //check connection
   bool isConnected = false;
   Future<bool> checkInternet() async {
@@ -391,8 +414,6 @@ class AppProvider extends ChangeNotifier {
     return getMentorResponse!;
   }
 
-
-
   //get all syllabi
   ApiResponse<FSyllabi>? _fSyllabi;
   ApiResponse<FSyllabi>? get fSyllabiResponse => _fSyllabi;
@@ -464,8 +485,8 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<ApiResponse<Delete>> addLessonsToDay(
-      int id,
-      ) async {
+    int id,
+  ) async {
     FormData formData = FormData.fromMap({'_method': 'PUT'});
     ApiService apiService = ApiService(Dio());
     if (await checkInternet()) {
@@ -501,11 +522,11 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<ApiResponse<Delete>> addSubjectsToTeacher(
-      int id,
-      int classId,
-      int classroomId,
-      int subjectId,
-      ) async {
+    int id,
+    int classId,
+    int classroomId,
+    int subjectId,
+  ) async {
     FormData formData = FormData.fromMap({
       '_method': 'put',
       'subject_id': subjectId,
@@ -546,8 +567,8 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<ApiResponse<Delete>> addClassroomToClass(
-      int id,
-      ) async {
+    int id,
+  ) async {
     ApiService apiService = ApiService(Dio());
     if (await checkInternet()) {
       FormData formData = FormData.fromMap({'_method': 'PUT'});
@@ -583,8 +604,8 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<ApiResponse<Delete>> addSubjectsToClass(
-      int id,
-      ) async {
+    int id,
+  ) async {
     ApiService apiService = ApiService(Dio());
     if (await checkInternet()) {
       addSubjectsToClassResponse = ApiResponse.loading('');
@@ -708,18 +729,19 @@ class AppProvider extends ChangeNotifier {
 
   //set student exam mark
   ApiResponse<FMark>? _setStudentExamMarkResponse;
-  ApiResponse<FMark>? get setStudentExamMarkResponse => _setStudentExamMarkResponse;
+  ApiResponse<FMark>? get setStudentExamMarkResponse =>
+      _setStudentExamMarkResponse;
   set setStudentExamMarkResponse(ApiResponse<FMark>? value) {
     _setStudentExamMarkResponse = value;
     notifyListeners();
   }
 
-  Future<ApiResponse<FMark>> setStudentExamMark(int id1,int id2) async {
+  Future<ApiResponse<FMark>> setStudentExamMark(int id1, int id2) async {
     ApiService apiService = ApiService(Dio());
     if (await checkInternet()) {
       setStudentExamMarkResponse = ApiResponse.loading('');
       try {
-        FMark fmark = await apiService.setStudentExamMark(id1,id2);
+        FMark fmark = await apiService.setStudentExamMark(id1, id2);
         setStudentExamMarkResponse = ApiResponse.completed(fmark);
       } catch (e) {
         if (e is DioError) {
@@ -733,7 +755,8 @@ class AppProvider extends ChangeNotifier {
         return setStudentExamMarkResponse = ApiResponse.error(e.toString());
       }
     } else {
-      return setStudentExamMarkResponse = ApiResponse.error('No Internet Connection');
+      return setStudentExamMarkResponse =
+          ApiResponse.error('No Internet Connection');
     }
     return setStudentExamMarkResponse!;
   }
@@ -765,7 +788,8 @@ class AppProvider extends ChangeNotifier {
         return getStudentExamResponse = ApiResponse.error(e.toString());
       }
     } else {
-      return getStudentExamResponse = ApiResponse.error('No Internet Connection');
+      return getStudentExamResponse =
+          ApiResponse.error('No Internet Connection');
     }
     return getStudentExamResponse!;
   }
@@ -801,7 +825,8 @@ class AppProvider extends ChangeNotifier {
     }
     return getClassExamResponse!;
   }
-///==============================================///
+
+  ///==============================================///
 }
 
 dynamic throwCustomException(DioError? dioError) {

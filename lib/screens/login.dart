@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_mobile/providers/providers.dart';
@@ -266,7 +267,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 icon: Icon(
                                   isHidden
                                       ? Icons.remove_red_eye_rounded
-                                      : Icons.add,
+                                      : Icons.remove_red_eye_outlined,
+                                  color: const Color(0Xff2BC3BB),
                                 ),
                                 onPressed: () {
                                   setState(() {
@@ -369,7 +371,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             _firstNameFocusNode.unfocus();
                             _lastNameFocusNode.unfocus();
                             _codeFocusNode.unfocus();
-                            final navigator = Navigator.of(context);
                             final provider = Provider.of<AppProvider>(context,
                                 listen: false);
                             if (await provider.checkInternet()) {
@@ -395,20 +396,38 @@ class _LoginScreenState extends State<LoginScreen> {
                               //         .getMentor(value.data!.id!);
                               //   } else {}
                               // });
+                              if (response.status == Status.LOADING) {
+                                EasyLoading.showToast(
+                                  'Loading...',
+                                  duration: const Duration(
+                                    milliseconds: 300,
+                                  ),
+                                );
+                              }
+                              if (response.status == Status.ERROR) {
+                                EasyLoading.showError(response.message!,
+                                    dismissOnTap: true);
+                              }
                               if (response.status == Status.COMPLETED) {
                                 if (response.data != null &&
                                     response.data!.status!) {
+                                  EasyLoading.showSuccess(
+                                      response.data!.message!,
+                                      dismissOnTap: true);
+                                  provider.setToken(response
+                                      .data!.key!.token
+                                      .toString());
                                   provider.setToken(response.data!.key!.token!);
                                   provider.setId(response.data!.id!);
                                   provider.setRole(response.data!.role!);
                                   Navigator.push(
                                     context,
                                     PageTransition(
-                                      child: MainScreen(),
+                                      child: const MainScreen(),
                                       type:
                                           PageTransitionType.bottomToTopJoined,
                                       childCurrent: widget,
-                                      duration: Duration(milliseconds: 300),
+                                      duration: const Duration(milliseconds: 300),
                                     ),
                                   );
                                 }

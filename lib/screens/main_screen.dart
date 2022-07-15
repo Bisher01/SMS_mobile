@@ -39,7 +39,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       ),
       body: GridView.count(
         padding: EdgeInsets.only(top: 15,left: 10,right: 10,bottom: 30),
-
         crossAxisCount: 2,
         children: [
           Card(

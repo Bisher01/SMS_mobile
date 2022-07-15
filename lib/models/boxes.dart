@@ -16,4 +16,7 @@ class Boxes {
   static Box<int> getIdBox() {
     return Hive.box<int>('id');
   }
+  static Box<bool> getWelcomeBox() {
+    return Hive.box<bool>('welcome');
+  }
 }
