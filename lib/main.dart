@@ -3,7 +3,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_mobile/providers/providers.dart';
 import 'package:sms_mobile/screens/screens.dart';
-import 'package:sms_mobile/screens/student/quiz.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../models/models.dart';
 
@@ -21,7 +20,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     var box = Boxes.getAuthBox();
@@ -77,28 +75,31 @@ class MyApp extends StatelessWidget {
         //     id: 1,
         //   ),
         // ),
-        home: TeacherProfilePage(
-          teacher: Teacher(
-            picture: 'assets/jj.jpg',
-            f_name: 'jooudi',
-            l_name: 'kab',
-            code: '0019203043',
-            email: 'jjj@g.co',
-            salary: '200000',
-            joining_date: '20-9-2020',
-            address_id: 1,
-            religion_id: 1,
-            gender_id: 1,
-            grade_id: 1,
-            id: 1,
-          ),
-        ),
 
-        // home: !isFirst
-        //     ? const WelcomeScreen()
-        //     : !isToken
-        //         ? const LoginScreen()
-        //         : const MainScreen(),
+        // home: TeacherProfilePage(
+        //   teacher: Teacher(
+        //     picture: 'assets/jj.jpg',
+        //     f_name: 'jooudi',
+        //     l_name: 'kab',
+        //     code: '0019203043',
+        //     email: 'jjj@g.co',
+        //     salary: '200000',
+        //     joining_date: '20-9-2020',
+        //     address_id: 1,
+        //     religion_id: 1,
+        //     gender_id: 1,
+        //     grade_id: 1,
+        //     id: 1,
+        //   ),
+        // ),
+
+        home: !isFirst
+            ? const WelcomeScreen()
+            : !isToken
+                ? const LoginScreen()
+                : const MainScreen(),
+
+       // home: ParentMainScreen(),
       ),
     );
   }

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import '../screens/screens.dart';
+import '../screens.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+class TeacherMainScreen extends StatefulWidget {
+  const TeacherMainScreen({Key? key}) : super(key: key);
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<TeacherMainScreen> createState() => _TeacherMainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
+class _TeacherMainScreenState extends State<TeacherMainScreen>
+    with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
@@ -49,9 +50,11 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         centerTitle: false,
       ),
       body: GridView.count(
-        padding: const EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 30),
+        padding:
+            const EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 30),
         crossAxisCount: 2,
         children: [
+          //profile
           Card(
               elevation: 3,
               shadowColor: Colors.black,
@@ -82,36 +85,39 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   ],
                 ),
               )),
+          //homework
           Card(
-              elevation: 3,
-              shadowColor: Colors.black,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(16),
-                ),
+            elevation: 3,
+            shadowColor: Colors.black,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(16),
               ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 20, left: 20, right: 20, bottom: 10),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/icons/homework 2.png',
-                      height: 100,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 20, left: 20, right: 20, bottom: 10),
+              child: Column(
+                children: [
+                  Image.asset(
+                    'assets/icons/homework 2.png',
+                    height: 100,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    'Homework',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      'Homework',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                      ),
-                    )
-                  ],
-                ),
-              )),
+                  )
+                ],
+              ),
+            ),
+          ),
+          //exam schedule
           InkWell(
             onTap: () {
               Navigator.push(
@@ -155,6 +161,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   ),
                 )),
           ),
+          //marks
           Card(
               elevation: 3,
               shadowColor: Colors.black,
@@ -185,6 +192,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   ],
                 ),
               )),
+          //schedule
           InkWell(
             onTap: () {
               Navigator.push(
@@ -228,36 +236,39 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   ),
                 )),
           ),
+          //meetings
           Card(
-              elevation: 3,
-              shadowColor: Colors.black,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(16),
-                ),
+            elevation: 3,
+            shadowColor: Colors.black,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(16),
               ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 20, left: 20, right: 20, bottom: 10),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/icons/meeting.png',
-                      height: 100,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 20, left: 20, right: 20, bottom: 10),
+              child: Column(
+                children: [
+                  Image.asset(
+                    'assets/icons/meeting.png',
+                    height: 100,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    'Meetings',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      'Meetings',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                      ),
-                    )
-                  ],
-                ),
-              )),
+                  )
+                ],
+              ),
+            ),
+          ),
+          //announcements
           Card(
               elevation: 3,
               shadowColor: Colors.black,
@@ -288,6 +299,38 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   ],
                 ),
               )),
+          //exams
+          Card(
+            elevation: 3,
+            shadowColor: Colors.black,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(16),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 20, left: 20, right: 20, bottom: 10),
+              child: Column(
+                children: [
+                  Image.asset(
+                    'assets/icons/exam.png',
+                    height: 100,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    'Exams',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import '../screens/screens.dart';
+import '../screens.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+class StudentMainScreen extends StatefulWidget {
+  const StudentMainScreen({Key? key}) : super(key: key);
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<StudentMainScreen> createState() => _StudentMainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
+class _StudentMainScreenState extends State<StudentMainScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
@@ -52,6 +52,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         padding: const EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 30),
         crossAxisCount: 2,
         children: [
+          //profile
           Card(
               elevation: 3,
               shadowColor: Colors.black,
@@ -82,6 +83,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   ],
                 ),
               )),
+          //homework
           Card(
               elevation: 3,
               shadowColor: Colors.black,
@@ -112,6 +114,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   ],
                 ),
               )),
+          //exam schedule
           InkWell(
             onTap: () {
               Navigator.push(
@@ -155,6 +158,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   ),
                 )),
           ),
+          //marks
           Card(
               elevation: 3,
               shadowColor: Colors.black,
@@ -185,6 +189,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   ],
                 ),
               )),
+          //schedule
           InkWell(
             onTap: () {
               Navigator.push(
@@ -228,6 +233,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   ),
                 )),
           ),
+          //meetings
           Card(
               elevation: 3,
               shadowColor: Colors.black,
@@ -258,6 +264,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   ],
                 ),
               )),
+          //announcements
           Card(
               elevation: 3,
               shadowColor: Colors.black,
