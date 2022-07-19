@@ -419,10 +419,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                   provider.setToken(response.data!.key!.token!);
                                   provider.setId(response.data!.id!);
                                   provider.setRole(response.data!.role!);
+                                  final role = response.data!.role!;
                                   Navigator.push(
                                     context,
                                     PageTransition(
-                                      child: const MainScreen(),
+                                      child: role == 'teacher'
+                                          ? const TeacherMainScreen()
+                                          : role == 'parent'
+                                              ? const ParentMainScreen()
+                                              : role == 'student'
+                                                  ? const StudentMainScreen()
+                                                  : role == 'mentor'
+                                                      ? const MentorMainScreen()
+                                                      : const MainScreen(),
                                       type:
                                           PageTransitionType.bottomToTopJoined,
                                       childCurrent: widget,
