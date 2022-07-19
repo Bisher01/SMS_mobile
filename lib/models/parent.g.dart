@@ -7,9 +7,7 @@ part of 'parent.dart';
 // **************************************************************************
 
 Parent _$ParentFromJson(Map<String, dynamic> json) => Parent(
-      updated_at: json['updated_at'] as String?,
       id: json['id'] as int?,
-      created_at: json['created_at'] as String?,
       phone: json['phone'] as String?,
       code: json['code'] as String?,
       email: json['email'] as String?,
@@ -28,8 +26,6 @@ Map<String, dynamic> _$ParentToJson(Parent instance) => <String, dynamic>{
       'phone': instance.phone,
       'email': instance.email,
       'jop': instance.jop,
-      'created_at': instance.created_at,
-      'updated_at': instance.updated_at,
     };
 
 FParent _$FParentFromJson(Map<String, dynamic> json) => FParent(

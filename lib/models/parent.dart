@@ -12,10 +12,16 @@ class Parent {
   String? phone;
   String? email;
   String? jop;
-  String? created_at;
-  String? updated_at;
 
-  Parent({this.updated_at, this.id, this.created_at, this.phone,this.code,this.email,this.father_name,this.jop,this.mother_name,this.national_number});
+  Parent(
+      {this.id,
+      this.phone,
+      this.code,
+      this.email,
+      this.father_name,
+      this.jop,
+      this.mother_name,
+      this.national_number});
 
   factory Parent.fromJson(Map<String, dynamic> json) => _$ParentFromJson(json);
   Map<String, dynamic> toJson() => _$ParentToJson(this);

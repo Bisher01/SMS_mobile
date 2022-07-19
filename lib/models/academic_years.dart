@@ -6,10 +6,8 @@ part 'academic_years.g.dart';
 class AcademicYears {
   int? id;
   String? date;
-  String? created_at;
-  String? updated_at;
 
-  AcademicYears({this.updated_at, this.id, this.created_at, this.date});
+  AcademicYears({this.id, this.date});
 
   factory AcademicYears.fromJson(Map<String, dynamic> json) =>
       _$AcademicYearsFromJson(json);

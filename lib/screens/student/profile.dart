@@ -74,7 +74,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                         image: DecorationImage(
                           fit: BoxFit.cover,
                           image: NetworkImage(
-                            student.picture!,
+                            'http://127.0.0.1:8000/storage${student.picture!}',
                           ),
                           colorFilter: ColorFilter.mode(
                             Colors.black54.withOpacity(0.8),
@@ -279,7 +279,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                               ),
                               //grade
                               Text(
-                                "Grade: ${student.grade_id}",
+                                "Grade: ${student.grade!.name!}",
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16,
@@ -287,7 +287,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                               ),
                               //class
                               Text(
-                                "Class: ${student.class_id}",
+                                "Class: ${student.claass!.name!}",
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16,
@@ -295,7 +295,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                               ),
                               //classroom
                               Text(
-                                "Classroom: ${student.classroom_id}",
+                                "Classroom: ${student.classroom!.name!}",
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16,
@@ -318,7 +318,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                               ),
                               //Gender
                               Text(
-                                "Gender: ${student.gender_id}",
+                                "Gender: ${student.gender!.id!}",
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16,
@@ -326,7 +326,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                               ),
                               //Religion
                               Text(
-                                "Religion: ${student.religion_id}",
+                                "Religion: ${student.religion!.name!}",
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16,
@@ -334,7 +334,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                               ),
                               //nationality
                               Text(
-                                "Nationality: ${student.nationality_id}",
+                                "Nationality: ${student.nationality!.name!}",
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16,
@@ -342,7 +342,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                               ),
                               //blood
                               Text(
-                                "Blood type: ${student.blood_id}",
+                                "Blood type: ${student.blood!.type!}",
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16,
@@ -394,8 +394,9 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                           ),
                           left: 45),
                       child: CircleAvatar(
+                        backgroundColor: Colors.white,
                         backgroundImage: NetworkImage(
-                          student.picture!,
+                          'http://127.0.0.1:8000/storage${student.picture!}',
                         ),
                         radius: 60,
                       ),

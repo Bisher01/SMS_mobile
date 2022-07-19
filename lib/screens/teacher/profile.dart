@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sms_mobile/screens/screens.dart';
 import 'package:sms_mobile/utill/utill.dart';
-
-import '../../models/models.dart';
 import '../../providers/app_provider.dart';
 import '../../components/error.dart' as er;
 import '../../services/api_response.dart';
@@ -22,7 +19,6 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
   @override
   initState() {
     final id = Provider.of<AppProvider>(context, listen: false).getId();
-    final role = Provider.of<AppProvider>(context, listen: false).getRole();
     Provider.of<AppProvider>(context, listen: false).getTeacher(id);
     super.initState();
   }
@@ -35,7 +31,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
         backgroundColor: Colors.transparent,
         title: const Text('Teacher Profile'),
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
           ),
           onPressed: () {
@@ -59,11 +55,14 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                 return Shimmer.fromColors(
                   baseColor: Colors.grey,
                   highlightColor: Colors.white,
+
                   ///TODO: change
                   child: const CircularProgressIndicator(),
                 );
               case Status.ERROR:
-                return er.Error(errorMsg: provider.getTeacherResponse!.message!,);
+                return er.Error(
+                  errorMsg: provider.getTeacherResponse!.message!,
+                );
               case Status.COMPLETED:
                 final teacher = provider.getTeacherResponse!.data!.teacher![0];
                 return Stack(
@@ -75,7 +74,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                         image: DecorationImage(
                           fit: BoxFit.cover,
                           image: NetworkImage(
-                            teacher.picture!,
+                            'http://127.0.0.1:8000/storage${teacher.picture!}',
                           ),
                           colorFilter: ColorFilter.mode(
                             Colors.black54.withOpacity(0.8),
@@ -145,7 +144,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                                   fontSize: 16,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               const Text(
@@ -184,7 +183,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                                   fontSize: 16,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               const Text(
@@ -223,7 +222,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                                   fontSize: 16,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               const Text(
@@ -301,7 +300,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                           left: 45),
                       child: CircleAvatar(
                         backgroundImage: NetworkImage(
-                          teacher.picture!,
+                          'http://127.0.0.1:8000/storage${teacher.picture!}',
                         ),
                         radius: 60,
                       ),
@@ -312,6 +311,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                 return Shimmer.fromColors(
                   baseColor: Colors.grey,
                   highlightColor: Colors.white,
+
                   ///TODO: change
                   child: Container(),
                 );
@@ -320,6 +320,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
           return Shimmer.fromColors(
             baseColor: Colors.grey,
             highlightColor: Colors.white,
+
             ///TODO: change
             child: Container(),
           );

@@ -12,45 +12,56 @@ class Student {
   @JsonKey(defaultValue: '')
   String? picture;
   String? birthdate;
-  int? nationality_id;
   int? parent_id;
   int? blood_id;
   int? gender_id;
+  int? nationality_id;
   int? religion_id;
   int? grade_id;
   int? class_id;
   int? classroom_id;
   int? academic_year_id;
   int? address_id;
-  String? deleted_at;
-  Parent? parent;
+  Grade? grade;
+  Class? claass;
+  Classroom? classroom;
+  AcademicYears? academic_year;
   Address? address;
-  String? created_at;
-  String? updated_at;
+  Parent? parent;
+  Blood? blood;
+  Religion? religion;
+  Gender? gender;
+  Nationality? nationality;
 
-  Student(
-      {this.academic_year_id,
-      this.address_id,
-      this.birthdate,
-      this.blood_id,
-      this.class_id,
-      this.classroom_id,
-      this.code,
-      this.created_at,
-      this.deleted_at,
-      this.email,
-      this.f_name,
-      this.gender_id,
-      this.grade_id,
-      this.id,
-      this.l_name,
-      this.nationality_id,
-      this.parent_id,
-      this.picture,
-      this.parent,
-      this.address,
-      this.religion_id,
-      this.updated_at});
+  Student({
+    this.academic_year_id,
+    this.address_id,
+    this.birthdate,
+    this.blood_id,
+    this.class_id,
+    this.classroom_id,
+    this.code,
+    this.email,
+    this.f_name,
+    this.gender_id,
+    this.grade_id,
+    this.id,
+    this.l_name,
+    this.nationality_id,
+    this.parent_id,
+    this.picture,
+    this.parent,
+    this.address,
+    this.religion_id,
+    this.religion,
+    this.classroom,
+    this.nationality,
+    this.academic_year,
+    this.blood,
+    this.claass,
+    this.gender,
+    this.grade,
+  });
 
   factory Student.fromJson(Map<String, dynamic> json) =>
       _$StudentFromJson(json);

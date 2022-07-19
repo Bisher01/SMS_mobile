@@ -14,8 +14,6 @@ Student _$StudentFromJson(Map<String, dynamic> json) => Student(
       class_id: json['class_id'] as int?,
       classroom_id: json['classroom_id'] as int?,
       code: json['code'] as String?,
-      created_at: json['created_at'] as String?,
-      deleted_at: json['deleted_at'] as String?,
       email: json['email'] as String?,
       f_name: json['f_name'] as String?,
       gender_id: json['gender_id'] as int?,
@@ -32,7 +30,31 @@ Student _$StudentFromJson(Map<String, dynamic> json) => Student(
           ? null
           : Address.fromJson(json['address'] as Map<String, dynamic>),
       religion_id: json['religion_id'] as int?,
-      updated_at: json['updated_at'] as String?,
+      religion: json['religion'] == null
+          ? null
+          : Religion.fromJson(json['religion'] as Map<String, dynamic>),
+      classroom: json['classroom'] == null
+          ? null
+          : Classroom.fromJson(json['classroom'] as Map<String, dynamic>),
+      nationality: json['nationality'] == null
+          ? null
+          : Nationality.fromJson(json['nationality'] as Map<String, dynamic>),
+      academic_year: json['academic_year'] == null
+          ? null
+          : AcademicYears.fromJson(
+              json['academic_year'] as Map<String, dynamic>),
+      blood: json['blood'] == null
+          ? null
+          : Blood.fromJson(json['blood'] as Map<String, dynamic>),
+      claass: json['claass'] == null
+          ? null
+          : Class.fromJson(json['claass'] as Map<String, dynamic>),
+      gender: json['gender'] == null
+          ? null
+          : Gender.fromJson(json['gender'] as Map<String, dynamic>),
+      grade: json['grade'] == null
+          ? null
+          : Grade.fromJson(json['grade'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$StudentToJson(Student instance) => <String, dynamic>{
@@ -43,21 +65,26 @@ Map<String, dynamic> _$StudentToJson(Student instance) => <String, dynamic>{
       'code': instance.code,
       'picture': instance.picture,
       'birthdate': instance.birthdate,
-      'nationality_id': instance.nationality_id,
       'parent_id': instance.parent_id,
       'blood_id': instance.blood_id,
       'gender_id': instance.gender_id,
+      'nationality_id': instance.nationality_id,
       'religion_id': instance.religion_id,
       'grade_id': instance.grade_id,
       'class_id': instance.class_id,
       'classroom_id': instance.classroom_id,
       'academic_year_id': instance.academic_year_id,
       'address_id': instance.address_id,
-      'deleted_at': instance.deleted_at,
-      'parent': instance.parent,
+      'grade': instance.grade,
+      'claass': instance.claass,
+      'classroom': instance.classroom,
+      'academic_year': instance.academic_year,
       'address': instance.address,
-      'created_at': instance.created_at,
-      'updated_at': instance.updated_at,
+      'parent': instance.parent,
+      'blood': instance.blood,
+      'religion': instance.religion,
+      'gender': instance.gender,
+      'nationality': instance.nationality,
     };
 
 FStudent _$FStudentFromJson(Map<String, dynamic> json) => FStudent(
