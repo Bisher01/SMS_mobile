@@ -74,24 +74,31 @@ class _QuizState extends State<Quiz> {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             width: 15,
-          )
+          ),
         ],
       ),
       body: PageView.builder(
           scrollDirection: Axis.vertical,
           itemCount: 4,
           itemBuilder: (context, index) {
-            if(answers.length<index+1) {
-              answers.add(Answer(questionId: index, choiceId: 0));
+            if (answers.length < index + 1) {
+              answers.add(
+                Answer(
+                  questionId: index,
+                  choiceId: 0,
+                ),
+              );
             }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

@@ -204,7 +204,6 @@ class AppProvider extends ChangeNotifier {
         Auth auth = await apiService.login(formData);
         authResponse = ApiResponse.completed(auth);
       } catch (e) {
-        print(e);
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -412,6 +411,38 @@ class AppProvider extends ChangeNotifier {
       }
     }
     return getMentorResponse!;
+  }
+
+  //get parent
+  ApiResponse<FParent>? _getParentResponse;
+  ApiResponse<FParent>? get getParentResponse => _getParentResponse;
+  set getParentResponse(ApiResponse<FParent>? value) {
+    _getParentResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FParent>> getParent(int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getParentResponse = ApiResponse.loading('');
+      try {
+        FParent fParent = await apiService.getParent(id);
+        getParentResponse = ApiResponse.completed(fParent);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return getParentResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return getParentResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return getParentResponse = ApiResponse.error('No Internet Connection');
+    }
+    return getParentResponse!;
   }
 
   //get all syllabi

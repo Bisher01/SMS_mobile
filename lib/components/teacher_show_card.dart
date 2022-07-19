@@ -5,7 +5,7 @@ import '../utill/widget_size.dart';
 
 class TeacherShowCard extends StatefulWidget {
   final Teacher teacher;
-  const TeacherShowCard({required this.teacher,Key? key}) : super(key: key);
+  const TeacherShowCard({required this.teacher, Key? key}) : super(key: key);
 
   @override
   State<TeacherShowCard> createState() => _TeacherShowCardState();

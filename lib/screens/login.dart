@@ -414,9 +414,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   EasyLoading.showSuccess(
                                       response.data!.message!,
                                       dismissOnTap: true);
-                                  provider.setToken(response
-                                      .data!.key!.token
-                                      .toString());
+                                  provider.setToken(
+                                      response.data!.key!.token.toString());
                                   provider.setToken(response.data!.key!.token!);
                                   provider.setId(response.data!.id!);
                                   provider.setRole(response.data!.role!);
@@ -427,7 +426,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       type:
                                           PageTransitionType.bottomToTopJoined,
                                       childCurrent: widget,
-                                      duration: const Duration(milliseconds: 300),
+                                      duration:
+                                          const Duration(milliseconds: 300),
                                     ),
                                   );
                                 }

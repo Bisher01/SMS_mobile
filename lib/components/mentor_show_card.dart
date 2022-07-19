@@ -5,7 +5,7 @@ import '../utill/widget_size.dart';
 
 class MentorShowCard extends StatefulWidget {
   final Mentor mentor;
-  const MentorShowCard({required this.mentor,Key? key}) : super(key: key);
+  const MentorShowCard({required this.mentor, Key? key}) : super(key: key);
 
   @override
   State<MentorShowCard> createState() => _MentorShowCardState();
@@ -51,8 +51,7 @@ class _MentorShowCardState extends State<MentorShowCard> {
                         const Text(
                           "mentor's name:",
                         ),
-                        Text(
-                            '${widget.mentor.f_name} ${widget.mentor.l_name}'),
+                        Text('${widget.mentor.f_name} ${widget.mentor.l_name}'),
                       ],
                     ),
                     Row(
@@ -155,16 +154,16 @@ class _MentorShowCardState extends State<MentorShowCard> {
                   children: [
                     //town
                     Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const Text(
-                        'mentor town',
-                      ),
-                      Text(
-                        widget.mentor.address_id.toString(),
-                      ),
-                    ],
-                  ),
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Text(
+                          'mentor town',
+                        ),
+                        Text(
+                          widget.mentor.address_id.toString(),
+                        ),
+                      ],
+                    ),
                     //street
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,

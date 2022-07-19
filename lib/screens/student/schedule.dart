@@ -12,7 +12,12 @@ class _ScheduleState extends State<Schedule> {
   double _width = 10;
   bool isOpened = false;
   int selectedDay = 1;
-  List<Color> color = [const Color.fromRGBO(128, 196, 215, 1),const Color.fromRGBO(219, 128, 75, 1),const Color.fromRGBO(148, 112, 169, 1),const Color.fromRGBO(224, 173, 87, 1)];
+  List<Color> color = [
+    const Color.fromRGBO(128, 196, 215, 1),
+    const Color.fromRGBO(219, 128, 75, 1),
+    const Color.fromRGBO(148, 112, 169, 1),
+    const Color.fromRGBO(224, 173, 87, 1)
+  ];
   List<String> days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   List<String> months = [
     'Jan',
@@ -458,7 +463,15 @@ class _ScheduleState extends State<Schedule> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back_ios,size: 30,)),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(
+                          Icons.arrow_back_ios,
+                          size: 30,
+                        ),
+                      ),
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -563,7 +576,7 @@ class _ScheduleState extends State<Schedule> {
                                     borderRadius: const BorderRadius.all(
                                       Radius.circular(12),
                                     ),
-                                    color: color[index%4]),
+                                    color: color[index % 4]),
                                 constraints: BoxConstraints.expand(
                                   height: 150,
                                   width: isOpened
@@ -600,7 +613,9 @@ class _ScheduleState extends State<Schedule> {
                                           backgroundImage: NetworkImage(
                                               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQkqF4GNbddpeM38Iq_ac9DyUcRr7VXkVVAmQcgyi6Xv6F5bcf3mlZOUxm47kO7UYuBIg&usqp=CAU'),
                                         ),
-                                        SizedBox(width: 6,),
+                                        SizedBox(
+                                          width: 6,
+                                        ),
                                         Text(
                                           'Ms.Joudi',
                                           style: TextStyle(

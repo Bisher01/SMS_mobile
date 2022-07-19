@@ -79,6 +79,9 @@ abstract class ApiService {
   @GET('mentor/show/{id}')
   Future<FMentor> getMentor(@Path('id') int id);
 
+  //show parent
+  @GET('parent/show/{id}')
+  Future<FParent> getParent(@Path('id') int id);
   //get seed
   @GET('general/allSeed')
   Future<FSeed> getSeed();

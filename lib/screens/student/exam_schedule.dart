@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sms_mobile/components/components.dart';
 import 'package:sms_mobile/utill/utill.dart';
 
 class ExamSchedule extends StatefulWidget {
@@ -30,14 +29,24 @@ class _ExamScheduleState extends State<ExamSchedule> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(
+          12.0,
+        ),
         child: Column(
           children: [
             Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back_ios,size: 30,)),
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                    size: 30,
+                  ),
+                ),
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -115,8 +124,9 @@ class _ExamScheduleState extends State<ExamSchedule> {
                       height: widgetSize.getHeight(110, context),
                       child: Card(
                         elevation: selectedTab == index ? 3 : 0,
-                        color:
-                            selectedTab == index ? Colors.orange : Color.fromARGB(1, 250, 250, 250),
+                        color: selectedTab == index
+                            ? Colors.orange
+                            : const Color.fromARGB(1, 250, 250, 250),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -141,7 +151,7 @@ class _ExamScheduleState extends State<ExamSchedule> {
                               child: Container(
                                 width: 10,
                                 height: 10,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: Colors.white,
                                 ),
@@ -163,11 +173,12 @@ class _ExamScheduleState extends State<ExamSchedule> {
                       width: widgetSize.getWidth(200, context),
                       height: widgetSize.getHeight(120, context),
                       child: Card(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)),
                         color: Colors.pinkAccent,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
+                          children: const [
                             Text(
                               'Complete user',
                               style: TextStyle(

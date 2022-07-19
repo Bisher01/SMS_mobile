@@ -9,7 +9,8 @@ class MentorMainScreen extends StatefulWidget {
   State<MentorMainScreen> createState() => _MentorMainScreenState();
 }
 
-class _MentorMainScreenState extends State<MentorMainScreen> with TickerProviderStateMixin {
+class _MentorMainScreenState extends State<MentorMainScreen>
+    with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
@@ -38,7 +39,7 @@ class _MentorMainScreenState extends State<MentorMainScreen> with TickerProvider
           )
         ],
         title: const Text(
-          'Bisher Hasani',
+          'Main Screen',
           maxLines: 1,
           style: TextStyle(
             fontWeight: FontWeight.w600,
@@ -49,40 +50,54 @@ class _MentorMainScreenState extends State<MentorMainScreen> with TickerProvider
         centerTitle: false,
       ),
       body: GridView.count(
-        padding: const EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 30),
+        padding:
+            const EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 30),
         crossAxisCount: 2,
         children: [
           //profile
-          Card(
-              elevation: 3,
-              shadowColor: Colors.black,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(16),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: const MentorProfilePage(),
+                  type: PageTransitionType.leftToRightPop,
+                  childCurrent: widget,
+                  duration: const Duration(milliseconds: 400),
                 ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 20, left: 20, right: 20, bottom: 10),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/icons/user-2.png',
-                      height: 100,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      'Profile',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
+              );
+            },
+            child: Card(
+                elevation: 3,
+                shadowColor: Colors.black,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(16),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 20, right: 20, bottom: 10),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/icons/user-2.png',
+                        height: 100,
                       ),
-                    )
-                  ],
-                ),
-              )),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Profile',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                      )
+                    ],
+                  ),
+                )),
+          ),
           //exam schedule
           InkWell(
             onTap: () {
@@ -234,36 +249,49 @@ class _MentorMainScreenState extends State<MentorMainScreen> with TickerProvider
                 ),
               )),
           //attendance
-          Card(
-              elevation: 3,
-              shadowColor: Colors.black,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(16),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: const MentorAttendanceScreen(),
+                  type: PageTransitionType.leftToRightPop,
+                  childCurrent: widget,
+                  duration: const Duration(milliseconds: 400),
                 ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 20, left: 20, right: 20, bottom: 10),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/icons/attendance.png',
-                      height: 100,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      'Attendance',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
+              );
+            },
+            child: Card(
+                elevation: 3,
+                shadowColor: Colors.black,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(16),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 20, right: 20, bottom: 10),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/icons/attendance.png',
+                        height: 100,
                       ),
-                    )
-                  ],
-                ),
-              )),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Attendance',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                      )
+                    ],
+                  ),
+                )),
+          ),
         ],
       ),
     );

@@ -38,7 +38,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           )
         ],
         title: const Text(
-          'Bisher Hasani',
+          'Main Screen',
           maxLines: 1,
           style: TextStyle(
             fontWeight: FontWeight.w600,
@@ -49,7 +49,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         centerTitle: false,
       ),
       body: GridView.count(
-        padding: const EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 30),
+        padding:
+            const EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 30),
         crossAxisCount: 2,
         children: [
           Card(

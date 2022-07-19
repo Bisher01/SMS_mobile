@@ -8,6 +8,7 @@ export 'parent/profile.dart';
 export 'parent/main_screen.dart';
 export 'mentor/profile.dart';
 export 'mentor/main_screen.dart';
+export 'mentor/attendance.dart';
 export 'student/schedule.dart';
 export 'student/exam_schedule.dart';
 export 'student/profile.dart';

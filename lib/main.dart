@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_mobile/providers/providers.dart';
+import 'package:sms_mobile/screens/mentor/attendance.dart';
 import 'package:sms_mobile/screens/screens.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../models/models.dart';
@@ -32,6 +33,9 @@ class MyApp extends StatelessWidget {
     } else {
       isToken = false;
     }
+    var box1 = Boxes.getRoleBox();
+    String? role = box1.get('role');
+    print(role);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AppProvider()),
@@ -41,65 +45,21 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(),
-        // home: StudentProfilePage(
-        //   student: Student(
-        //     picture: 'assets/jj.jpg',
-        //     f_name: 'jooudi',
-        //     l_name: 'kab',
-        //     code: '0019203043',
-        //     email: 'jjj@g.co',
-        //     birthdate: '20-9-2020',
-        //     address_id: 1,
-        //     religion_id: 1,
-        //     gender_id: 1,
-        //     grade_id: 1,
-        //     blood_id: 1,
-        //     class_id: 1,
-        //     classroom_id: 1,
-        //     nationality_id: 1,
-        //     parent_id: 1,
-        //     parent: Parent(
-        //       mother_name: 'mnn',
-        //       father_name: 'kn',
-        //       national_number: '10294030',
-        //       email: 'sd@fmv.,b',
-        //       jop: 'nn',
-        //       phone: '-9993',
-        //       code: '10293903',
-        //     ),
-        //     address: Address(
-        //       city: 'Syria',
-        //       town: 'dam',
-        //       street: 'tt',
-        //     ),
-        //     id: 1,
-        //   ),
-        // ),
-
-        // home: TeacherProfilePage(
-        //   teacher: Teacher(
-        //     picture: 'assets/jj.jpg',
-        //     f_name: 'jooudi',
-        //     l_name: 'kab',
-        //     code: '0019203043',
-        //     email: 'jjj@g.co',
-        //     salary: '200000',
-        //     joining_date: '20-9-2020',
-        //     address_id: 1,
-        //     religion_id: 1,
-        //     gender_id: 1,
-        //     grade_id: 1,
-        //     id: 1,
-        //   ),
-        // ),
-
+        //home: MentorAttendanceScreen(),
         home: !isFirst
             ? const WelcomeScreen()
             : !isToken
                 ? const LoginScreen()
-                : const MainScreen(),
+                : role == 'teacher'
+                    ? const TeacherMainScreen()
+                    : role == 'parent'
+                        ? const ParentMainScreen()
+                        : role == 'student'
+                            ? const StudentMainScreen()
+                            : role == 'mentor'
+                                ? const MentorMainScreen()
+                                : const MainScreen(),
 
-       // home: ParentMainScreen(),
       ),
     );
   }

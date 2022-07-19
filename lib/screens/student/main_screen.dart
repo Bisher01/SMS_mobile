@@ -9,7 +9,8 @@ class StudentMainScreen extends StatefulWidget {
   State<StudentMainScreen> createState() => _StudentMainScreenState();
 }
 
-class _StudentMainScreenState extends State<StudentMainScreen> with TickerProviderStateMixin {
+class _StudentMainScreenState extends State<StudentMainScreen>
+    with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
@@ -38,7 +39,7 @@ class _StudentMainScreenState extends State<StudentMainScreen> with TickerProvid
           )
         ],
         title: const Text(
-          'Bisher Hasani',
+          'Main Screen',
           maxLines: 1,
           style: TextStyle(
             fontWeight: FontWeight.w600,
@@ -49,40 +50,54 @@ class _StudentMainScreenState extends State<StudentMainScreen> with TickerProvid
         centerTitle: false,
       ),
       body: GridView.count(
-        padding: const EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 30),
+        padding:
+            const EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 30),
         crossAxisCount: 2,
         children: [
           //profile
-          Card(
-              elevation: 3,
-              shadowColor: Colors.black,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(16),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: const StudentProfilePage(),
+                  type: PageTransitionType.leftToRightPop,
+                  childCurrent: widget,
+                  duration: const Duration(milliseconds: 400),
                 ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 20, left: 20, right: 20, bottom: 10),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/icons/user-2.png',
-                      height: 100,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      'Profile',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
+              );
+            },
+            child: Card(
+                elevation: 3,
+                shadowColor: Colors.black,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(16),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 20, right: 20, bottom: 10),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/icons/user-2.png',
+                        height: 100,
                       ),
-                    )
-                  ],
-                ),
-              )),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Profile',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                      )
+                    ],
+                  ),
+                )),
+          ),
           //homework
           Card(
               elevation: 3,

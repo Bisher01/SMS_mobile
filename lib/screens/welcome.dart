@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:sms_mobile/utill/widget_size.dart';
 import '../providers/app_provider.dart';
 import '../screens/screens.dart';
 
@@ -94,10 +93,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 Navigator.push(
                                   context,
                                   PageTransition(
-                                    child: LoginScreen(),
+                                    child: const LoginScreen(),
                                     type: PageTransitionType.bottomToTopJoined,
                                     childCurrent: widget,
-                                    duration: Duration(milliseconds: 300),
+                                    duration: const Duration(milliseconds: 300),
                                   ),
                                 );
                                 Provider.of<AppProvider>(context, listen: false)
@@ -119,28 +118,28 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         )
         .toList();
 
-    List<Widget> indicator() => List<Widget>.generate(
-          slides.length,
-          (index) => Container(
-            margin: const EdgeInsets.symmetric(horizontal: 3.0),
-            height: 10.0,
-            width: 10.0,
-            decoration: BoxDecoration(
-              color: currentPage.round() == index
-                  ? const Color(
-                      0XFF256075,
-                    )
-                  : const Color(
-                      0XFF256075,
-                    ).withOpacity(
-                      0.2,
-                    ),
-              borderRadius: BorderRadius.circular(
-                10.0,
-              ),
-            ),
-          ),
-        );
+    // List<Widget> indicator() => List<Widget>.generate(
+    //       slides.length,
+    //       (index) => Container(
+    //         margin: const EdgeInsets.symmetric(horizontal: 3.0),
+    //         height: 10.0,
+    //         width: 10.0,
+    //         decoration: BoxDecoration(
+    //           color: currentPage.round() == index
+    //               ? const Color(
+    //                   0XFF256075,
+    //                 )
+    //               : const Color(
+    //                   0XFF256075,
+    //                 ).withOpacity(
+    //                   0.2,
+    //                 ),
+    //           borderRadius: BorderRadius.circular(
+    //             10.0,
+    //           ),
+    //         ),
+    //       ),
+    //     );
 
     return Scaffold(
       body: Stack(
@@ -186,7 +185,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   onDotClicked: (index) {
                     setState(() {
                       _pageViewController.animateToPage(index,
-                          duration: Duration(milliseconds: 500),
+                          duration: const Duration(milliseconds: 500),
                           curve: Curves.ease);
                       currentPage = index.toDouble();
                     });
