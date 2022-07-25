@@ -59,12 +59,6 @@ Questions _$QuestionsFromJson(Map<String, dynamic> json) => Questions(
       id: json['id'] as int?,
       text: json['text'] as String?,
       teacherSubjectsId: json['teacherSubjectsId'] as int?,
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
       choices: (json['choices'] as List<dynamic>?)
           ?.map((e) => Choices.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -74,8 +68,6 @@ Map<String, dynamic> _$QuestionsToJson(Questions instance) => <String, dynamic>{
       'id': instance.id,
       'text': instance.text,
       'teacherSubjectsId': instance.teacherSubjectsId,
-      'createdAt': instance.createdAt?.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
       'choices': instance.choices,
     };
 
@@ -84,12 +76,6 @@ Choices _$ChoicesFromJson(Map<String, dynamic> json) => Choices(
       text: json['text'] as String?,
       status: json['status'] as int?,
       questionId: json['questionId'] as int?,
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
     );
 
 Map<String, dynamic> _$ChoicesToJson(Choices instance) => <String, dynamic>{
@@ -97,6 +83,20 @@ Map<String, dynamic> _$ChoicesToJson(Choices instance) => <String, dynamic>{
       'text': instance.text,
       'status': instance.status,
       'questionId': instance.questionId,
-      'createdAt': instance.createdAt?.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
+    };
+
+QuestionsBank _$QuestionsBankFromJson(Map<String, dynamic> json) =>
+    QuestionsBank(
+      status: json['status'] as String?,
+      message: json['message'] as String?,
+      questions: (json['questions'] as List<dynamic>?)
+          ?.map((e) => Questions.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$QuestionsBankToJson(QuestionsBank instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'questions': instance.questions,
     };

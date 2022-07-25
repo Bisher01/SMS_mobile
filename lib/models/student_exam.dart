@@ -58,16 +58,12 @@ class Questions {
   int? id;
   String? text;
   int? teacherSubjectsId;
-  DateTime? createdAt;
-  DateTime? updatedAt;
   List<Choices>? choices;
 
   Questions({
     this.id,
     this.text,
     this.teacherSubjectsId,
-    this.createdAt,
-    this.updatedAt,
     this.choices,
   });
 
@@ -83,18 +79,26 @@ class Choices {
   String? text;
   int? status;
   int? questionId;
-  DateTime? createdAt;
-  DateTime? updatedAt;
 
   Choices({
     this.id,
     this.text,
     this.status,
     this.questionId,
-    this.createdAt,
-    this.updatedAt,
   });
 
   factory Choices.fromJson(Map<String, dynamic> json) => _$ChoicesFromJson(json);
   Map<String, dynamic> toJson() => _$ChoicesToJson(this);
+}
+
+
+@JsonSerializable()
+class QuestionsBank{
+  String? status;
+  String? message;
+  List<Questions>? questions;
+  QuestionsBank({this.status,this.message,this.questions});
+  factory QuestionsBank.fromJson(Map<String, dynamic> json) => _$QuestionsBankFromJson(json);
+  Map<String, dynamic> toJson() => _$QuestionsBankToJson(this);
+
 }
