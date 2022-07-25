@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-
+import '../models/models.dart';
 part 'teacher.g.dart';
 
 @JsonSerializable()
@@ -17,24 +17,31 @@ class Teacher {
   int? religion_id;
   int? gender_id;
   int? grade_id;
-  String? created_at;
-  String? updated_at;
+  Gender? gender;
+  Religion? religion;
+  Address? address;
+  Grade? grade;
+  List<Subject>? subjects;
 
-  Teacher(
-      {this.picture,
-      this.address_id,
-      this.religion_id,
-      this.code,
-      this.created_at,
-      this.email,
-      this.f_name,
-      this.gender_id,
-      this.grade_id,
-      this.id,
-      this.l_name,
-      this.updated_at,
-      this.joining_date,
-      this.salary,});
+  Teacher({
+    this.picture,
+    this.address_id,
+    this.religion_id,
+    this.code,
+    this.email,
+    this.f_name,
+    this.gender_id,
+    this.grade_id,
+    this.id,
+    this.l_name,
+    this.joining_date,
+    this.salary,
+    this.address,
+    this.religion,
+    this.gender,
+    this.grade,
+    this.subjects,
+  });
 
   factory Teacher.fromJson(Map<String, dynamic> json) =>
       _$TeacherFromJson(json);

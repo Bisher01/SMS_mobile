@@ -1,9 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:sms_mobile/models/models.dart';
 
 part 'seed.g.dart';
 
 @JsonSerializable()
 class Seed{
+  @JsonKey(name: 'Academic Years')
+  List<AcademicYears>? academicYears;
   List<Bloods>? bloods;
   List<Classes>? classes;
   List<Genders>? genders;
@@ -13,6 +16,7 @@ class Seed{
 
   Seed({
 
+    this.academicYears,
     this.nationality,
     this.bloods,
     this.classes,
@@ -63,11 +67,13 @@ class Classes{
   int? id;
   int? grade_id;
   String? name;
+  List <Classroom>? classroom;
 
   Classes({
     this.id,
     this.grade_id,
     this.name,
+    this.classroom,
   });
 
   factory Classes.fromJson(Map<String, dynamic> json) =>

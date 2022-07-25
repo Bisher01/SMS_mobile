@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import '../models/add_question.dart';
 import '../services/api_response.dart';
 import '../services/api_service.dart';
 import '../models/models.dart';
@@ -857,7 +858,40 @@ class AppProvider extends ChangeNotifier {
     return getClassExamResponse!;
   }
 
-  ///==============================================///
+  //add question to bank
+  ApiResponse<Delete>? _addExamQuestionResponse;
+  ApiResponse<Delete>? get addExamQuestionResponse => _addExamQuestionResponse;
+  set addExamQuestionResponse(ApiResponse<Delete>? value) {
+    _addExamQuestionResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> addExamQuestion(Map<String,dynamic> question) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      addExamQuestionResponse = ApiResponse.loading('');
+      try {
+        Delete delete = await apiService.addExamQuestion(question);
+        addExamQuestionResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return addExamQuestionResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return addExamQuestionResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return addExamQuestionResponse = ApiResponse.error('No Internet Connection');
+    }
+    return addExamQuestionResponse!;
+  }
+
+
+///==============================================///
 }
 
 dynamic throwCustomException(DioError? dioError) {

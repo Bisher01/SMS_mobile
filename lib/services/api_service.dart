@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:sms_mobile/models/add_question.dart';
 import '../models/models.dart';
 
 part 'api_service.g.dart';
@@ -108,7 +109,6 @@ abstract class ApiService {
 
 //=================================================//
 
-
 //============Exams=========//
 
 //get all exams
@@ -123,7 +123,7 @@ abstract class ApiService {
 
   //delete exam
   @DELETE('exam/delete/{id}')
-  Future<Delete> deleteExam(@Path('id')int id);
+  Future<Delete> deleteExam(@Path('id') int id);
 
   //set student exam mark
   @POST('exam/mark/{id1}/{id2}')
@@ -136,5 +136,11 @@ abstract class ApiService {
   //get class exam
   @GET('exam/classExam/{id}')
   Future<FExam> getClassExam(@Path('id') int id);
+
+  ///////////===========Questions===========///////////
+  //add question to bank
+  @POST('question/add')
+  Future<Delete> addExamQuestion(@Body() Map<String,dynamic> question);
+
 //=================================================//
 }

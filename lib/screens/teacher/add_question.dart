@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sms_mobile/models/add_question.dart';
+import 'package:sms_mobile/providers/providers.dart';
 import 'package:sms_mobile/utill/utill.dart';
 import '../../models/models.dart';
 
 class AddQuestion extends StatefulWidget {
-  const AddQuestion({Key? key}) : super(key: key);
+  final int classes;
+  final int subject;
+  const AddQuestion({required this.classes, required this.subject, Key? key})
+      : super(key: key);
 
   @override
   State<AddQuestion> createState() => _AddQuestionState();
@@ -24,6 +29,8 @@ class _AddQuestionState extends State<AddQuestion> {
   late final FocusNode _choice3FocusNode;
   late final FocusNode _choice4FocusNode;
   late final FocusNode _choice5FocusNode;
+  List<Choice> choice = [];
+  int selected = 0;
   @override
   void initState() {
     _questionFocusNode = FocusNode();
@@ -37,7 +44,6 @@ class _AddQuestionState extends State<AddQuestion> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -130,20 +136,27 @@ class _AddQuestionState extends State<AddQuestion> {
                                 right: 8,
                                 left: 8,
                               ),
-                              child: Container(
-                                height: 40,
-                                width: 40,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Color.fromRGBO(70, 73, 81, 1),
-                                ),
-                                child: const Center(
-                                  child: Text(
-                                    'A',
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    selected = 1;
+                                  });
+                                },
+                                child: Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Color.fromRGBO(70, 73, 81, 1),
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      'A',
+                                      style: TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -211,19 +224,26 @@ class _AddQuestionState extends State<AddQuestion> {
                                 right: 8,
                                 left: 8,
                               ),
-                              child: Container(
-                                height: 40,
-                                width: 40,
-                                decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Color.fromRGBO(70, 73, 81, 1)),
-                                child: const Center(
-                                  child: Text(
-                                    'B',
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    selected = 2;
+                                  });
+                                },
+                                child: Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Color.fromRGBO(70, 73, 81, 1)),
+                                  child: const Center(
+                                    child: Text(
+                                      'B',
+                                      style: TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -293,19 +313,27 @@ class _AddQuestionState extends State<AddQuestion> {
                                       right: 8,
                                       left: 8,
                                     ),
-                                    child: Container(
-                                      height: 40,
-                                      width: 40,
-                                      decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Color.fromRGBO(70, 73, 81, 1)),
-                                      child: const Center(
-                                        child: Text(
-                                          'C',
-                                          style: TextStyle(
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
+                                    child: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          selected = 3;
+                                        });
+                                      },
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color:
+                                                Color.fromRGBO(70, 73, 81, 1)),
+                                        child: const Center(
+                                          child: Text(
+                                            'C',
+                                            style: TextStyle(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -376,19 +404,27 @@ class _AddQuestionState extends State<AddQuestion> {
                                       right: 8,
                                       left: 8,
                                     ),
-                                    child: Container(
-                                      height: 40,
-                                      width: 40,
-                                      decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Color.fromRGBO(70, 73, 81, 1)),
-                                      child: const Center(
-                                        child: Text(
-                                          'D',
-                                          style: TextStyle(
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
+                                    child: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          selected = 4;
+                                        });
+                                      },
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color:
+                                                Color.fromRGBO(70, 73, 81, 1)),
+                                        child: const Center(
+                                          child: Text(
+                                            'D',
+                                            style: TextStyle(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -459,19 +495,27 @@ class _AddQuestionState extends State<AddQuestion> {
                                       right: 8,
                                       left: 8,
                                     ),
-                                    child: Container(
-                                      height: 40,
-                                      width: 40,
-                                      decoration: const BoxDecoration(
+                                    child: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          selected = 5;
+                                        });
+                                      },
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: const BoxDecoration(
                                           shape: BoxShape.circle,
-                                          color: Color.fromRGBO(70, 73, 81, 1)),
-                                      child: const Center(
-                                        child: Text(
-                                          'E',
-                                          style: TextStyle(
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
+                                          color: Color.fromRGBO(70, 73, 81, 1),
+                                        ),
+                                        child: const Center(
+                                          child: Text(
+                                            'E',
+                                            style: TextStyle(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -547,7 +591,7 @@ class _AddQuestionState extends State<AddQuestion> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         InkWell(
-                          child: Icon(
+                          child: const Icon(
                             Icons.remove,
                             color: Colors.white,
                           ),
@@ -567,7 +611,7 @@ class _AddQuestionState extends State<AddQuestion> {
                           ),
                         ),
                         InkWell(
-                          child: Icon(
+                          child: const Icon(
                             Icons.add,
                             color: Colors.white,
                           ),
@@ -592,9 +636,46 @@ class _AddQuestionState extends State<AddQuestion> {
                       ),
                     ),
                     child: InkWell(
-                      onTap: () {},
-                      child: Center(
-                        child: const Text(
+                      onTap: () {
+                        AddQuestionModel question = AddQuestionModel(
+                          teacherId:
+                              Provider.of<AppProvider>(context, listen: false)
+                                  .getId()
+                                  .toString(),
+                          classId: widget.classes.toString(),
+                          subjectId: widget.subject.toString(),
+                          question: [
+                            Question(text: _questionController.text,
+                                choices: [
+                              Choice(
+                                text: _choice1Controller.text,
+                                status: selected == 1 ? 1 : 0,
+                              ),
+                              Choice(
+                                text: _choice2Controller.text,
+                                status: selected == 2 ? 1 : 0,
+                              ),
+                              if (numOfChoices > 2)
+                                Choice(
+                                  text: _choice3Controller.text,
+                                  status: selected == 3 ? 1 : 0,
+                                ),
+                              if (numOfChoices > 3)
+                                Choice(
+                                  text: _choice4Controller.text,
+                                  status: selected == 4 ? 1 : 0,
+                                ),
+                              if (numOfChoices > 4)
+                                Choice(
+                                  text: _choice5Controller.text,
+                                  status: selected == 5 ? 1 : 0,
+                                ),
+                            ]),
+                          ],
+                        );
+                      },
+                      child: const Center(
+                        child: Text(
                           'Submit',
                           style: TextStyle(
                             color: Colors.white,

@@ -7,6 +7,9 @@ part of 'seed.dart';
 // **************************************************************************
 
 Seed _$SeedFromJson(Map<String, dynamic> json) => Seed(
+      academicYears: (json['Academic Years'] as List<dynamic>?)
+          ?.map((e) => AcademicYears.fromJson(e as Map<String, dynamic>))
+          .toList(),
       nationality: (json['nationality'] as List<dynamic>?)
           ?.map((e) => Nationalities.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -28,6 +31,7 @@ Seed _$SeedFromJson(Map<String, dynamic> json) => Seed(
     );
 
 Map<String, dynamic> _$SeedToJson(Seed instance) => <String, dynamic>{
+      'Academic Years': instance.academicYears,
       'bloods': instance.bloods,
       'classes': instance.classes,
       'genders': instance.genders,
@@ -64,12 +68,16 @@ Classes _$ClassesFromJson(Map<String, dynamic> json) => Classes(
       id: json['id'] as int?,
       grade_id: json['grade_id'] as int?,
       name: json['name'] as String?,
+      classroom: (json['classroom'] as List<dynamic>?)
+          ?.map((e) => Classroom.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$ClassesToJson(Classes instance) => <String, dynamic>{
       'id': instance.id,
       'grade_id': instance.grade_id,
       'name': instance.name,
+      'classroom': instance.classroom,
     };
 
 Genders _$GendersFromJson(Map<String, dynamic> json) => Genders(

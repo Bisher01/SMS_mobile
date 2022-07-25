@@ -9,15 +9,19 @@ part of 'mentor.dart';
 Mentor _$MentorFromJson(Map<String, dynamic> json) => Mentor(
       address_id: json['address_id'] as int?,
       code: json['code'] as String?,
-      created_at: json['created_at'] as String?,
       email: json['email'] as String?,
       f_name: json['f_name'] as String?,
       id: json['id'] as int?,
       l_name: json['l_name'] as String?,
-      updated_at: json['updated_at'] as String?,
       joining_date: json['joining_date'] as String?,
       class_id: json['class_id'] as int?,
       phone: json['phone'] as String?,
+      address: json['address'] == null
+          ? null
+          : Address.fromJson(json['address'] as Map<String, dynamic>),
+      classes: json['class'] == null
+          ? null
+          : Class.fromJson(json['class'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$MentorToJson(Mentor instance) => <String, dynamic>{
@@ -30,8 +34,8 @@ Map<String, dynamic> _$MentorToJson(Mentor instance) => <String, dynamic>{
       'phone': instance.phone,
       'class_id': instance.class_id,
       'address_id': instance.address_id,
-      'created_at': instance.created_at,
-      'updated_at': instance.updated_at,
+      'class': instance.classes,
+      'address': instance.address,
     };
 
 FMentor _$FMentorFromJson(Map<String, dynamic> json) => FMentor(
