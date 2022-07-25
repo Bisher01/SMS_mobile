@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_mobile/models/add_question.dart';
@@ -637,42 +639,75 @@ class _AddQuestionState extends State<AddQuestion> {
                     ),
                     child: InkWell(
                       onTap: () {
-                        AddQuestionModel question = AddQuestionModel(
-                          teacherId:
-                              Provider.of<AppProvider>(context, listen: false)
-                                  .getId()
-                                  .toString(),
-                          classId: widget.classes.toString(),
-                          subjectId: widget.subject.toString(),
-                          question: [
-                            Question(text: _questionController.text,
-                                choices: [
-                              Choice(
-                                text: _choice1Controller.text,
-                                status: selected == 1 ? 1 : 0,
-                              ),
-                              Choice(
-                                text: _choice2Controller.text,
-                                status: selected == 2 ? 1 : 0,
-                              ),
-                              if (numOfChoices > 2)
-                                Choice(
-                                  text: _choice3Controller.text,
-                                  status: selected == 3 ? 1 : 0,
-                                ),
-                              if (numOfChoices > 3)
-                                Choice(
-                                  text: _choice4Controller.text,
-                                  status: selected == 4 ? 1 : 0,
-                                ),
-                              if (numOfChoices > 4)
-                                Choice(
-                                  text: _choice5Controller.text,
-                                  status: selected == 5 ? 1 : 0,
-                                ),
-                            ]),
-                          ],
+                        List<Choice> choices = [
+                          Choice(
+                            text: _choice1Controller.text,
+                            status: selected == 1 ? 1 : 0,
+                          ),
+                          Choice(
+                            text: _choice2Controller.text,
+                            status: selected == 2 ? 1 : 0,
+                          ),
+                          if (numOfChoices > 2)
+                            Choice(
+                              text: _choice3Controller.text,
+                              status: selected == 3 ? 1 : 0,
+                            ),
+                          if (numOfChoices > 3)
+                            Choice(
+                              text: _choice4Controller.text,
+                              status: selected == 4 ? 1 : 0,
+                            ),
+                          if (numOfChoices > 4)
+                            Choice(
+                              text: _choice5Controller.text,
+                              status: selected == 5 ? 1 : 0,
+                            ),
+                        ];
+                        List<Question> question = [
+                          Question(
+                            text: _questionController.text,
+                            chioces: choices,
+                          ),
+                        ];
+                        AddQuestionModel addQuestion = AddQuestionModel(
+                          teacherId: '1',
+                          classId: '1',
+                          subjectId: '1',
+                          question: question,
+                          // question: <Question>[
+                          //   Question(
+                          //       text: _questionController.text,
+                          //       choices: <Choice>[
+                          //         Choice(
+                          //           text: _choice1Controller.text,
+                          //           status: selected == 1 ? 1 : 0,
+                          //         ),
+                          //         Choice(
+                          //           text: _choice2Controller.text,
+                          //           status: selected == 2 ? 1 : 0,
+                          //         ),
+                          //         if (numOfChoices > 2)
+                          //           Choice(
+                          //             text: _choice3Controller.text,
+                          //             status: selected == 3 ? 1 : 0,
+                          //           ),
+                          //         if (numOfChoices > 3)
+                          //           Choice(
+                          //             text: _choice4Controller.text,
+                          //             status: selected == 4 ? 1 : 0,
+                          //           ),
+                          //         if (numOfChoices > 4)
+                          //           Choice(
+                          //             text: _choice5Controller.text,
+                          //             status: selected == 5 ? 1 : 0,
+                          //           ),
+                          //       ]),
+                          // ],
                         );
+
+                        Provider.of<AppProvider>(context, listen: false)
+                            .addExamQuestion(addQuestion.toJson());
                       },
                       child: const Center(
                         child: Text(

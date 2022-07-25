@@ -18,14 +18,14 @@ Map<String, dynamic> _$ChoiceToJson(Choice instance) => <String, dynamic>{
 
 Question _$QuestionFromJson(Map<String, dynamic> json) => Question(
       text: json['text'] as String?,
-      choices: (json['choices'] as List<dynamic>?)
+  chioces: (json['chioces'] as List<dynamic>?)
           ?.map((e) => Choice.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$QuestionToJson(Question instance) => <String, dynamic>{
       'text': instance.text,
-      'choices': instance.choices,
+      'chioces': instance.chioces,
     };
 
 AddQuestionModel _$AddQuestionModelFromJson(Map<String, dynamic> json) =>
@@ -43,5 +43,5 @@ Map<String, dynamic> _$AddQuestionModelToJson(AddQuestionModel instance) =>
       'class_id': instance.classId,
       'teacher_id': instance.teacherId,
       'subject_id': instance.subjectId,
-      'question': instance.question,
+      'question': jsonEncode(instance.question),
     };

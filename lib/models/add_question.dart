@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'add_question.g.dart';
@@ -14,8 +16,8 @@ class Choice{
 @JsonSerializable()
 class Question{
   String? text;
-  List<Choice>? choices;
-  Question({this.text,this.choices});
+  List<Choice>? chioces;
+  Question({this.text,this.chioces});
   factory Question.fromJson(Map<String,dynamic>json ) => _$QuestionFromJson(json);
   Map<String,dynamic> toJson() => _$QuestionToJson(this);
 }
