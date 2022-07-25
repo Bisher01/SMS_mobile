@@ -4,6 +4,7 @@ export '../screens/data/welcome_items.dart';
 export 'main_screen.dart';
 export 'teacher/profile.dart';
 export 'teacher/main_screen.dart';
+export 'teacher/add_question.dart';
 export 'parent/profile.dart';
 export 'parent/main_screen.dart';
 export 'mentor/profile.dart';
