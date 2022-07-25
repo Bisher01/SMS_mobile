@@ -10,7 +10,7 @@ part of 'api_service.dart';
 
 class _ApiService implements ApiService {
   _ApiService(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://10.0.2.2:8000/api/';
+    baseUrl ??= 'http://127.0.0.1:8000/api/';
   }
 
   final Dio _dio;
@@ -384,7 +384,7 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<FExam> getStudentExam(id) async {
+  Future<StudentExam> getStudentExam(id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -395,7 +395,7 @@ class _ApiService implements ApiService {
                 .compose(_dio.options, 'exam/getExam/${id}',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = FExam.fromJson(_result.data!);
+    final value = StudentExam.fromJson(_result.data!);
     return value;
   }
 

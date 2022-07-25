@@ -31,12 +31,6 @@ ExamData _$ExamDataFromJson(Map<String, dynamic> json) => ExamData(
       examNameId: json['examNameId'] as int?,
       subjectMarkId: json['subjectMarkId'] as int?,
       seasonId: json['seasonId'] as int?,
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
       questions: (json['questions'] as List<dynamic>?)
           ?.map((e) => Questions.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -50,8 +44,6 @@ Map<String, dynamic> _$ExamDataToJson(ExamData instance) => <String, dynamic>{
       'examNameId': instance.examNameId,
       'subjectMarkId': instance.subjectMarkId,
       'seasonId': instance.seasonId,
-      'createdAt': instance.createdAt?.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
       'questions': instance.questions,
     };
 

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:sms_mobile/models/student_exam.dart';
 import '../models/add_question.dart';
 import '../services/api_response.dart';
 import '../services/api_service.dart';
@@ -794,20 +795,20 @@ class AppProvider extends ChangeNotifier {
   }
 
   //get student exam
-  ApiResponse<FExam>? _getStudentExamResponse;
-  ApiResponse<FExam>? get getStudentExamResponse => _getStudentExamResponse;
-  set getStudentExamResponse(ApiResponse<FExam>? value) {
+  ApiResponse<StudentExam>? _getStudentExamResponse;
+  ApiResponse<StudentExam>? get getStudentExamResponse => _getStudentExamResponse;
+  set getStudentExamResponse(ApiResponse<StudentExam>? value) {
     _getStudentExamResponse = value;
     notifyListeners();
   }
 
-  Future<ApiResponse<FExam>> getStudentExam(int id) async {
+  Future<ApiResponse<StudentExam>> getStudentExam(int id) async {
     ApiService apiService = ApiService(Dio());
     if (await checkInternet()) {
       getStudentExamResponse = ApiResponse.loading('');
       try {
-        FExam fexam = await apiService.getStudentExam(id);
-        getStudentExamResponse = ApiResponse.completed(fexam);
+        StudentExam exam = await apiService.getStudentExam(id);
+        getStudentExamResponse = ApiResponse.completed(exam);
       } catch (e) {
         if (e is DioError) {
           try {

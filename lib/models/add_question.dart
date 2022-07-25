@@ -16,8 +16,8 @@ class Choice{
 @JsonSerializable()
 class Question{
   String? text;
-  List<Choice>? chioces;
-  Question({this.text,this.chioces});
+  List<Choice> chioces;
+  Question({this.text,required this.chioces});
   factory Question.fromJson(Map<String,dynamic>json ) => _$QuestionFromJson(json);
   Map<String,dynamic> toJson() => _$QuestionToJson(this);
 }
@@ -30,8 +30,8 @@ class AddQuestionModel{
   String? teacherId;
   @JsonKey(name: 'subject_id')
   String? subjectId;
-  List<Question>? question;
-  AddQuestionModel({this.classId,this.question,this.subjectId,this.teacherId});
+  List<Question> question;
+  AddQuestionModel({this.classId,required this.question,this.subjectId,this.teacherId});
   factory AddQuestionModel.fromJson(Map<String,dynamic>json ) => _$AddQuestionModelFromJson(json);
   Map<String,dynamic> toJson() => _$AddQuestionModelToJson(this);
 }

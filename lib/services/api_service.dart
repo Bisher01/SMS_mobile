@@ -3,11 +3,12 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:sms_mobile/models/add_question.dart';
+import 'package:sms_mobile/models/student_exam.dart';
 import '../models/models.dart';
 
 part 'api_service.g.dart';
 
-@RestApi(baseUrl: 'http://10.0.2.2:8000/api/')
+@RestApi(baseUrl: 'http://127.0.0.1:8000/api/')
 abstract class ApiService {
   factory ApiService(Dio dio, {BuildContext? context, String? baseUrl}) {
     dio.interceptors.add(InterceptorsWrapper(
@@ -131,7 +132,7 @@ abstract class ApiService {
 
   //get student exam
   @GET('exam/getExam/{id}')
-  Future<FExam> getStudentExam(@Path('id') int id);
+  Future<StudentExam> getStudentExam(@Path('id') int id);
 
   //get class exam
   @GET('exam/classExam/{id}')

@@ -30,8 +30,6 @@ class ExamData {
   int? examNameId;
   int? subjectMarkId;
   int? seasonId;
-  DateTime? createdAt;
-  DateTime? updatedAt;
   List<Questions>? questions;
 
   ExamData({
@@ -42,8 +40,6 @@ class ExamData {
     this.examNameId,
     this.subjectMarkId,
     this.seasonId,
-    this.createdAt,
-    this.updatedAt,
     this.questions,
   });
 

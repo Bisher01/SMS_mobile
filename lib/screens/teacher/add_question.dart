@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_mobile/models/add_question.dart';
@@ -145,11 +144,11 @@ class _AddQuestionState extends State<AddQuestion> {
                                   });
                                 },
                                 child: Container(
-                                  height: 40,
-                                  width: 40,
-                                  decoration: const BoxDecoration(
+                                  height: 45,
+                                  width: 45,
+                                  decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: Color.fromRGBO(70, 73, 81, 1),
+                                    color: selected==1?Colors.orange[400]:const Color.fromRGBO(70, 73, 81, 1),
                                   ),
                                   child: const Center(
                                     child: Text(
@@ -233,11 +232,11 @@ class _AddQuestionState extends State<AddQuestion> {
                                   });
                                 },
                                 child: Container(
-                                  height: 40,
-                                  width: 40,
-                                  decoration: const BoxDecoration(
+                                  height: 45,
+                                  width: 45,
+                                  decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: Color.fromRGBO(70, 73, 81, 1)),
+                                      color: selected==2?Colors.orange[400]:Color.fromRGBO(70, 73, 81, 1)),
                                   child: const Center(
                                     child: Text(
                                       'B',
@@ -322,12 +321,12 @@ class _AddQuestionState extends State<AddQuestion> {
                                         });
                                       },
                                       child: Container(
-                                        height: 40,
-                                        width: 40,
-                                        decoration: const BoxDecoration(
+                                        height: 45,
+                                        width: 45,
+                                        decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             color:
-                                                Color.fromRGBO(70, 73, 81, 1)),
+                                                selected==3?Colors.orange[400]:Color.fromRGBO(70, 73, 81, 1)),
                                         child: const Center(
                                           child: Text(
                                             'C',
@@ -413,12 +412,12 @@ class _AddQuestionState extends State<AddQuestion> {
                                         });
                                       },
                                       child: Container(
-                                        height: 40,
-                                        width: 40,
-                                        decoration: const BoxDecoration(
+                                        height: 45,
+                                        width: 45,
+                                        decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             color:
-                                                Color.fromRGBO(70, 73, 81, 1)),
+                                                selected==4?Colors.orange[400]:Color.fromRGBO(70, 73, 81, 1)),
                                         child: const Center(
                                           child: Text(
                                             'D',
@@ -504,11 +503,11 @@ class _AddQuestionState extends State<AddQuestion> {
                                         });
                                       },
                                       child: Container(
-                                        height: 40,
-                                        width: 40,
-                                        decoration: const BoxDecoration(
+                                        height: 45,
+                                        width: 45,
+                                        decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          color: Color.fromRGBO(70, 73, 81, 1),
+                                          color: selected==5?Colors.orange[400]:Color.fromRGBO(70, 73, 81, 1),
                                         ),
                                         child: const Center(
                                           child: Text(
@@ -581,12 +580,12 @@ class _AddQuestionState extends State<AddQuestion> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    width: widgetSize.getWidth(170, context),
-                    height: widgetSize.getHeight(45, context),
+                    width: widgetSize.getWidth(180, context),
+                    height: widgetSize.getHeight(50, context),
                     decoration: BoxDecoration(
                       color: Colors.orange[400],
                       borderRadius: const BorderRadius.all(
-                        Radius.circular(18),
+                        Radius.circular(24),
                       ),
                     ),
                     child: Row(
@@ -606,7 +605,7 @@ class _AddQuestionState extends State<AddQuestion> {
                           },
                         ),
                         const Text(
-                          'Choices',
+                          'Choice',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 17,
@@ -629,12 +628,12 @@ class _AddQuestionState extends State<AddQuestion> {
                     ),
                   ),
                   Container(
-                    width: widgetSize.getWidth(170, context),
-                    height: widgetSize.getHeight(45, context),
+                    width: widgetSize.getWidth(180, context),
+                    height: widgetSize.getHeight(50, context),
                     decoration: BoxDecoration(
                       color: Colors.orange[400],
                       borderRadius: const BorderRadius.all(
-                        Radius.circular(18),
+                        Radius.circular(24),
                       ),
                     ),
                     child: InkWell(
@@ -675,39 +674,9 @@ class _AddQuestionState extends State<AddQuestion> {
                           classId: '1',
                           subjectId: '1',
                           question: question,
-                          // question: <Question>[
-                          //   Question(
-                          //       text: _questionController.text,
-                          //       choices: <Choice>[
-                          //         Choice(
-                          //           text: _choice1Controller.text,
-                          //           status: selected == 1 ? 1 : 0,
-                          //         ),
-                          //         Choice(
-                          //           text: _choice2Controller.text,
-                          //           status: selected == 2 ? 1 : 0,
-                          //         ),
-                          //         if (numOfChoices > 2)
-                          //           Choice(
-                          //             text: _choice3Controller.text,
-                          //             status: selected == 3 ? 1 : 0,
-                          //           ),
-                          //         if (numOfChoices > 3)
-                          //           Choice(
-                          //             text: _choice4Controller.text,
-                          //             status: selected == 4 ? 1 : 0,
-                          //           ),
-                          //         if (numOfChoices > 4)
-                          //           Choice(
-                          //             text: _choice5Controller.text,
-                          //             status: selected == 5 ? 1 : 0,
-                          //           ),
-                          //       ]),
-                          // ],
                         );
-
-                        Provider.of<AppProvider>(context, listen: false)
-                            .addExamQuestion(addQuestion.toJson());
+                         Provider.of<AppProvider>(context, listen: false)
+                             .addExamQuestion(addQuestion.toJson());
                       },
                       child: const Center(
                         child: Text(
