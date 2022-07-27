@@ -25,9 +25,11 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
     super.initState();
   }
 
-  var classes = ['1', '2', '3', '4', '5', '6'];
   int selectedSubject = 0;
   int selectedClass = 0;
+  int subjectId = 0;
+  int classId = 0;
+  int examId = 0;
   String? examDDV;
   List<String> examTypes = ['First', 'Second', 'Mid', 'Finals'];
 
@@ -145,6 +147,11 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                                         setState(() {
                                           selectedSubject = index;
                                         });
+                                        subjectId = provider
+                                            .getTeacherSubjectsResponse!
+                                            .data!
+                                            .data![index]
+                                            .id!;
                                       },
                                       clipBehavior: Clip.antiAlias,
                                       controller: fixedExtentScrollController,
@@ -153,7 +160,11 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                                       offAxisFraction: -0.0,
                                       diameterRatio: 2,
                                       itemExtent: 60,
-                                      children: provider.getTeacherSubjectsResponse!.data!.data!.map((e) {
+                                      children: provider
+                                          .getTeacherSubjectsResponse!
+                                          .data!
+                                          .data!
+                                          .map((e) {
                                         return Row(
                                           children: <Widget>[
                                             Expanded(
@@ -217,6 +228,13 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                                         setState(() {
                                           selectedClass = index;
                                         });
+                                        classId = provider
+                                            .getTeacherSubjectsResponse!
+                                            .data!
+                                            .data![selectedSubject]
+                                            .class_classroom![index]
+                                            .classes!
+                                            .id!;
                                       },
                                       clipBehavior: Clip.antiAlias,
                                       controller: fixedExtentScrollController,
@@ -225,7 +243,12 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                                       offAxisFraction: -0.0,
                                       diameterRatio: 2,
                                       itemExtent: 60,
-                                      children: classes.map((e) {
+                                      children: provider
+                                          .getTeacherSubjectsResponse!
+                                          .data!
+                                          .data![selectedSubject]
+                                          .class_classroom!
+                                          .map((e) {
                                         return Row(
                                           children: <Widget>[
                                             Expanded(
@@ -244,7 +267,7 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                                                     16.0,
                                                   ),
                                                   child: Text(
-                                                    e,
+                                                    e.classrooms!.name!,
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                         fontSize: 18.0,
@@ -265,9 +288,10 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                           ],
                         ),
                       );
-                    case Status.ERROR: return err.Error(
-                      errorMsg: provider.getStudentExamResponse!.message!,
-                    );
+                    case Status.ERROR:
+                      return err.Error(
+                        errorMsg: provider.getStudentExamResponse!.message!,
+                      );
                     default:
                       return Container();
                   }
