@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:sms_mobile/providers/providers.dart';
 import 'package:sms_mobile/utill/utill.dart';
 import '../../components/error.dart' as err;
@@ -14,12 +16,17 @@ class ExamSchedule extends StatefulWidget {
 }
 
 class _ExamScheduleState extends State<ExamSchedule> {
+  final ItemScrollController itemScrollController = ItemScrollController();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
+
   @override
   initState() {
     Provider.of<AppProvider>(context, listen: false).getClassExam(3);
     super.initState();
   }
 
+  int containerColor = -1;
   int selectedTab = 0;
   List<String> days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   List<String> months = [
@@ -49,10 +56,13 @@ class _ExamScheduleState extends State<ExamSchedule> {
               if (provider.getClassExamResponse != null) {
                 switch (provider.getClassExamResponse!.status) {
                   case Status.LOADING:
-                    return CircularProgressIndicator(
-                      color: Colors.orange[400],
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.orange[400],
+                      ),
                     );
                   case Status.COMPLETED:
+                    var exams = provider.getClassExamResponse!.data!.exams;
                     return Column(
                       children: [
                         Row(
@@ -139,17 +149,46 @@ class _ExamScheduleState extends State<ExamSchedule> {
                                 onTap: () {
                                   setState(() {
                                     selectedTab = index;
+                                    itemScrollController.scrollTo(
+                                        index: index,
+                                        duration: const Duration(seconds: 3),
+                                        curve: Curves.easeInOutCubic);
+                                    containerColor = index;
+                                    Future.delayed(
+                                        const Duration(
+                                          seconds: 3,
+                                        ), () {
+                                      setState(() {
+                                        containerColor = -1;
+                                      });
+                                    });
+                                    // itemScrollController.jumpTo(index: index);
                                   });
                                 },
                                 child: SizedBox(
-                                  width: widgetSize.getWidth(50, context,),
-                                  height: widgetSize.getHeight(110, context,),
-                                  child: Card(
+                                  width: widgetSize.getWidth(
+                                    60,
+                                    context,
+                                  ),
+                                  height: widgetSize.getHeight(
+                                    110,
+                                    context,
+                                  ),
+                                  child: Card(borderOnForeground: false,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        10,
+                                      ),
+                                    ),
                                     elevation: selectedTab == index ? 3 : 0,
                                     color: selectedTab == index
                                         ? Colors.orange
                                         : const Color.fromARGB(
-                                            1, 250, 250, 250,),
+                                            1,
+                                            250,
+                                            250,
+                                            250,
+                                          ).withOpacity(0.9),
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceAround,
@@ -164,14 +203,14 @@ class _ExamScheduleState extends State<ExamSchedule> {
                                                 : Colors.grey,
                                           ),
                                         ),
-                                        Text(
-                                          '/',
-                                          style: TextStyle(
-                                            color: selectedTab == index
-                                                ? Colors.white
-                                                : Colors.grey,
-                                          ),
-                                        ),
+                                        // Text(
+                                        //   '/',
+                                        //   style: TextStyle(
+                                        //     color: selectedTab == index
+                                        //         ? Colors.white
+                                        //         : Colors.grey,
+                                        //   ),
+                                        // ),
                                         Text(
                                           provider.getClassExamResponse!.data!
                                               .exams![index].start!.month
@@ -201,39 +240,160 @@ class _ExamScheduleState extends State<ExamSchedule> {
                             },
                           ),
                         ),
+                        const SizedBox(
+                          height: 12,
+                        ),
                         Expanded(
-                          child: ListView.builder(
-                            itemCount: 10,
+                          child: ScrollablePositionedList.builder(
+                            itemCount: exams!.length,
+                            itemPositionsListener: itemPositionsListener,
+                            itemScrollController: itemScrollController,
                             itemBuilder: (BuildContext context, int index) {
                               return SizedBox(
-                                  width: widgetSize.getWidth(200, context),
-                                  height: widgetSize.getHeight(120, context),
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                        15,
+                                width: widgetSize.getWidth(240, context),
+                                height: widgetSize.getHeight(180, context),
+                                child: Stack(
+                                  fit: StackFit.expand,
+                                  children: [
+                                    SizedBox(
+                                      width: widgetSize.getWidth(200, context),
+                                      height:
+                                          widgetSize.getHeight(140, context),
+                                      child: Card(
+                                        elevation: 5,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            15,
+                                          ),
+                                        ),
+                                        color: Colors.pinkAccent,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 12,
+                                          ),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        exams[index]
+                                                            .subject_mark!
+                                                            .subject!
+                                                            .name!,
+                                                        style: const TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 18,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    width: 20,
+                                                    height: 20,
+                                                    child: IconButton(
+                                                      onPressed: () {},
+                                                      icon: const Icon(
+                                                        Icons.arrow_forward_ios,
+                                                        color: Colors.white,
+                                                        size: 12,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  const Text(
+                                                    "Start date: ",
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.w900,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    "${exams[index].start!.year.toString()}-${exams[index].start!.month.toString()}-${exams[index].start!.day.toString()} ${exams[index].start!.hour.toString()}:${exams[index].start!.minute.toString()}",
+                                                    style: const TextStyle(
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      const Text(
+                                                        "Duration: ",
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.w900,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        "${exams[index].end!.difference(exams[index].start!).inMinutes} minutes",
+                                                        style: const TextStyle(
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      const Text(
+                                                        "Mark: ",
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.w900,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        "Mark: ${provider.getClassExamResponse!.data!.exams![index].mark!}",
+                                                        style: const TextStyle(
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                    color: Colors.pinkAccent,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: const [
-                                        Text(
-                                          'Complete user',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: containerColor == index
+                                            ? Colors.grey[100]?.withOpacity(0.8)
+                                            : Colors.transparent,
+                                        borderRadius: BorderRadius.circular(
+                                          15,
                                         ),
-                                        Text(
-                                          'easy done',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ],
+                                      ),
+                                      width: widgetSize.getWidth(240, context),
+                                      height:
+                                          widgetSize.getHeight(180, context),
                                     ),
-                                  ));
+                                  ],
+                                ),
+                              );
                             },
                           ),
                         ),
