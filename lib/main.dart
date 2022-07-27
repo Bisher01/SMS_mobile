@@ -6,7 +6,7 @@ import 'package:sms_mobile/screens/mentor/attendance.dart';
 import 'package:sms_mobile/screens/screens.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../models/models.dart';
-
+import 'package:sms_mobile/screens/student/exam_schedule.dart' as ex;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(),
-        home: SelectClassSubject(),
+        home: const ex.ExamSchedule(),
         // home: !isFirst
         //     ? const WelcomeScreen()
         //     : !isToken

@@ -107,7 +107,6 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
             ),
             Consumer<AppProvider>(
               builder: (context, provider, child) {
-                print(provider.getTeacherSubjectsResponse!.data!.data![0].name);
                 if (provider.getTeacherSubjectsResponse != null) {
                   switch (provider.getTeacherSubjectsResponse!.status) {
                     case Status.LOADING:

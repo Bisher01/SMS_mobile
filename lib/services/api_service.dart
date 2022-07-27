@@ -135,9 +135,9 @@ abstract class ApiService {
   @GET('exam/getExam/{id}')
   Future<StudentExam> getStudentExam(@Path('id') int id);
 
-  //get class exam
+  //get class exam ((schedule))
   @GET('exam/classExam/{id}')
-  Future<FExam> getClassExam(@Path('id') int id);
+  Future<ExamSchedule> getClassExam(@Path('id') int id);
 
   ///////////===========Questions===========///////////
   //add question to bank

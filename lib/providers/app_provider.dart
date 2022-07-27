@@ -829,19 +829,19 @@ class AppProvider extends ChangeNotifier {
   }
 
   //get class exam
-  ApiResponse<FExam>? _getClassExamResponse;
-  ApiResponse<FExam>? get getClassExamResponse => _getClassExamResponse;
-  set getClassExamResponse(ApiResponse<FExam>? value) {
+  ApiResponse<ExamSchedule>? _getClassExamResponse;
+  ApiResponse<ExamSchedule>? get getClassExamResponse => _getClassExamResponse;
+  set getClassExamResponse(ApiResponse<ExamSchedule>? value) {
     _getClassExamResponse = value;
     notifyListeners();
   }
 
-  Future<ApiResponse<FExam>> getClassExam(int id) async {
+  Future<ApiResponse<ExamSchedule>> getClassExam(int id) async {
     ApiService apiService = ApiService(Dio());
     if (await checkInternet()) {
       getClassExamResponse = ApiResponse.loading('');
       try {
-        FExam fexam = await apiService.getClassExam(id);
+        ExamSchedule fexam = await apiService.getClassExam(id);
         getClassExamResponse = ApiResponse.completed(fexam);
       } catch (e) {
         if (e is DioError) {
