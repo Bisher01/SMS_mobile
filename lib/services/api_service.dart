@@ -149,7 +149,7 @@ abstract class ApiService {
 //========================MOBILE=========================//
 
   //get teacher subjects and classes
-  @GET('mobile/teacherWithSubjects/{id}')
+  @GET('teacher/teacherWithSubjects/{id}')
   Future<SubjectClass> getTeacherSubjects(@Path('id') int id);
 
 //=================================================//

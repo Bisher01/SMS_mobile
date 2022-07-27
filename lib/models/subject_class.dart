@@ -22,56 +22,20 @@ class SubjectClass {
 @JsonSerializable()
 class TeacherData {
   int? id;
-  String? f_name;
-  String? l_name;
-  String? email;
-  String? code;
-  String? joining_date;
-  @JsonKey(defaultValue: '')
-  String? picture;
-  String? salary;
-  int? address_id;
-  int? religion_id;
-  int? gender_id;
-  int? grade_id;
-  List<Subjects>? subjects;
+  String? name;
+  List<ClassClassroom>? class_classroom;
 
-  TeacherData(
-      {this.subjects,
-      this.id,
-      this.picture,
-      this.code,
-      this.email,
-      this.grade_id,
-      this.religion_id,
-      this.gender_id,
-      this.address_id,
-      this.salary,
-      this.joining_date,
-      this.l_name,
-      this.f_name});
+  TeacherData({
+    this.class_classroom,
+    this.id,
+    this.name,
+  });
 
   factory TeacherData.fromJson(Map<String, dynamic> json) =>
       _$TeacherDataFromJson(json);
   Map<String, dynamic> toJson() => _$TeacherDataToJson(this);
 }
 
-@JsonSerializable()
-class Subjects {
-  int? id;
-  String? name;
-  List<ClassClassroom>? class_classroom;
-
-  Subjects({
-    this.id,
-    this.name,
-    this.class_classroom,
-  });
-
-  factory Subjects.fromJson(Map<String, dynamic> json) =>
-      _$SubjectsFromJson(json);
-  Map<String, dynamic> toJson() => _$SubjectsToJson(this);
-}
 
 @JsonSerializable()
 class ClassClassroom {

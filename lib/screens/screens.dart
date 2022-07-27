@@ -6,7 +6,6 @@ export 'teacher/profile.dart';
 export 'teacher/main_screen.dart';
 export 'teacher/add_question.dart';
 export 'teacher/select_class_subject.dart';
-export 'teacher/all_exams.dart';
 export 'parent/profile.dart';
 export 'parent/main_screen.dart';
 export 'mentor/profile.dart';

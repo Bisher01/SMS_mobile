@@ -441,7 +441,7 @@ class _ApiService implements ApiService {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<SubjectClass>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'mobile/teacherWithSubjects/${id}',
+                .compose(_dio.options, 'teacher/teacherWithSubjects/${id}',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = SubjectClass.fromJson(_result.data!);
