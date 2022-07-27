@@ -1,10 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_mobile/models/add_question.dart';
 import 'package:sms_mobile/providers/providers.dart';
 import 'package:sms_mobile/utill/utill.dart';
 import '../../models/models.dart';
+import '../../services/api_response.dart';
 
 class AddQuestion extends StatefulWidget {
   final int classes;
@@ -148,7 +151,9 @@ class _AddQuestionState extends State<AddQuestion> {
                                   width: 45,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: selected==1?Colors.orange[400]:const Color.fromRGBO(70, 73, 81, 1),
+                                    color: selected == 1
+                                        ? Colors.orange[400]
+                                        : const Color.fromRGBO(70, 73, 81, 1),
                                   ),
                                   child: const Center(
                                     child: Text(
@@ -236,7 +241,9 @@ class _AddQuestionState extends State<AddQuestion> {
                                   width: 45,
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: selected==2?Colors.orange[400]:Color.fromRGBO(70, 73, 81, 1)),
+                                      color: selected == 2
+                                          ? Colors.orange[400]
+                                          : Color.fromRGBO(70, 73, 81, 1)),
                                   child: const Center(
                                     child: Text(
                                       'B',
@@ -325,8 +332,10 @@ class _AddQuestionState extends State<AddQuestion> {
                                         width: 45,
                                         decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color:
-                                                selected==3?Colors.orange[400]:Color.fromRGBO(70, 73, 81, 1)),
+                                            color: selected == 3
+                                                ? Colors.orange[400]
+                                                : Color.fromRGBO(
+                                                    70, 73, 81, 1)),
                                         child: const Center(
                                           child: Text(
                                             'C',
@@ -416,8 +425,10 @@ class _AddQuestionState extends State<AddQuestion> {
                                         width: 45,
                                         decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color:
-                                                selected==4?Colors.orange[400]:Color.fromRGBO(70, 73, 81, 1)),
+                                            color: selected == 4
+                                                ? Colors.orange[400]
+                                                : Color.fromRGBO(
+                                                    70, 73, 81, 1)),
                                         child: const Center(
                                           child: Text(
                                             'D',
@@ -507,7 +518,9 @@ class _AddQuestionState extends State<AddQuestion> {
                                         width: 45,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          color: selected==5?Colors.orange[400]:Color.fromRGBO(70, 73, 81, 1),
+                                          color: selected == 5
+                                              ? Colors.orange[400]
+                                              : Color.fromRGBO(70, 73, 81, 1),
                                         ),
                                         child: const Center(
                                           child: Text(
@@ -637,7 +650,7 @@ class _AddQuestionState extends State<AddQuestion> {
                       ),
                     ),
                     child: InkWell(
-                      onTap: () {
+                      onTap: () async {
                         List<Choice> choices = [
                           Choice(
                             text: _choice1Controller.text,
@@ -675,8 +688,44 @@ class _AddQuestionState extends State<AddQuestion> {
                           subjectId: '1',
                           question: question,
                         );
-                         Provider.of<AppProvider>(context, listen: false)
-                             .addExamQuestion(addQuestion.toJson());
+                        var provider =
+                            Provider.of<AppProvider>(context, listen: false);
+                        if (await provider.checkInternet()) {
+                          var response = await Provider.of<AppProvider>(context,
+                                  listen: false)
+                              .addExamQuestion(addQuestion.toJson());
+                          if (response.status == Status.LOADING) {
+                            EasyLoading.showToast(
+                              'Loading...',
+                              duration: const Duration(
+                                milliseconds: 300,
+                              ),
+                            );
+                          }
+                          if (response.status == Status.ERROR) {
+                            EasyLoading.showError(response.message!,
+                                dismissOnTap: true);
+                          }
+                          if (response.status == Status.COMPLETED) {
+                            if (response.data != null &&
+                                response.data!.status!) {
+                              EasyLoading.showSuccess(response.data!.message!,
+                                  dismissOnTap: true);
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  child: AddQuestion(
+                                    classes: 1,
+                                    subject: 1,
+                                  ),
+                                  type: PageTransitionType.bottomToTopJoined,
+                                  childCurrent: widget,
+                                  duration: const Duration(milliseconds: 300),
+                                ),
+                              );
+                            }
+                          }
+                        }
                       },
                       child: const Center(
                         child: Text(

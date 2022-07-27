@@ -23,3 +23,4 @@ export 'religion.dart';
 export 'exam_answers.dart';
 export 'student_exam.dart';
 export 'add_question.dart';
+export 'subject_class.dart';

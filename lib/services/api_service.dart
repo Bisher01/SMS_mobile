@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:sms_mobile/models/add_question.dart';
 import 'package:sms_mobile/models/student_exam.dart';
+import 'package:sms_mobile/models/subject_class.dart';
 import '../models/models.dart';
 
 part 'api_service.g.dart';
@@ -141,7 +142,15 @@ abstract class ApiService {
   ///////////===========Questions===========///////////
   //add question to bank
   @POST('question/add')
-  Future<Delete> addExamQuestion(@Body() Map<String,dynamic> question);
+  Future<Delete> addExamQuestion(@Body() Map<String, dynamic> question);
+
+//=================================================//
+
+//========================MOBILE=========================//
+
+  //get teacher subjects and classes
+  @GET('mobile/teacherWithSubjects/{id}')
+  Future<SubjectClass> getTeacherSubjects(@Path('id') int id);
 
 //=================================================//
 }

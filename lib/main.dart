@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(),
-        home: Quiz(),
+        home: AllExamsScreen(),
         // home: !isFirst
         //     ? const WelcomeScreen()
         //     : !isToken
@@ -59,7 +59,6 @@ class MyApp extends StatelessWidget {
         //                     : role == 'mentor'
         //                         ? const MentorMainScreen()
         //                         : const MainScreen(),
-
       ),
     );
   }

@@ -27,8 +27,11 @@ class ExamData {
   DateTime? start;
   DateTime? end;
   int? mark;
+  @JsonKey(name: 'exam_name_id')
   int? examNameId;
+  @JsonKey(name: 'subject_mark_id')
   int? subjectMarkId;
+  @JsonKey(name: 'season_id')
   int? seasonId;
   List<Questions>? questions;
 

@@ -6,11 +6,11 @@ part 'mark.g.dart';
 class FMark {
   bool? status;
   String? message;
-  List<int>? marks;
+  List<int>? mark;
   FMark({
     this.message,
     this.status,
-    this.marks,
+    this.mark,
   });
 
   factory FMark.fromJson(Map<String, dynamic> json) => _$FMarkFromJson(json);

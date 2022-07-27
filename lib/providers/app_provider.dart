@@ -796,7 +796,8 @@ class AppProvider extends ChangeNotifier {
 
   //get student exam
   ApiResponse<StudentExam>? _getStudentExamResponse;
-  ApiResponse<StudentExam>? get getStudentExamResponse => _getStudentExamResponse;
+  ApiResponse<StudentExam>? get getStudentExamResponse =>
+      _getStudentExamResponse;
   set getStudentExamResponse(ApiResponse<StudentExam>? value) {
     _getStudentExamResponse = value;
     notifyListeners();
@@ -867,7 +868,8 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<ApiResponse<Delete>> addExamQuestion(Map<String,dynamic> question) async {
+  Future<ApiResponse<Delete>> addExamQuestion(
+      Map<String, dynamic> question) async {
     ApiService apiService = ApiService(Dio());
     if (await checkInternet()) {
       addExamQuestionResponse = ApiResponse.loading('');
@@ -886,13 +888,51 @@ class AppProvider extends ChangeNotifier {
         return addExamQuestionResponse = ApiResponse.error(e.toString());
       }
     } else {
-      return addExamQuestionResponse = ApiResponse.error('No Internet Connection');
+      return addExamQuestionResponse =
+          ApiResponse.error('No Internet Connection');
     }
     return addExamQuestionResponse!;
   }
 
+  ///==============================================///
 
-///==============================================///
+  ///======================MOBILE========================///
+
+  // //get teacher subjects and classes
+  ApiResponse<SubjectClass>? _getTeacherSubjectsResponse;
+  ApiResponse<SubjectClass>? get getTeacherSubjectsResponse =>
+      _getTeacherSubjectsResponse;
+  set getTeacherSubjectsResponse(ApiResponse<SubjectClass>? value) {
+    _getTeacherSubjectsResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<SubjectClass>> getTeacherSubjects(int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getTeacherSubjectsResponse = ApiResponse.loading('');
+      try {
+        SubjectClass subjectclass = await apiService.getTeacherSubjects(id);
+        getTeacherSubjectsResponse = ApiResponse.completed(subjectclass);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return getTeacherSubjectsResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return getTeacherSubjectsResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return getTeacherSubjectsResponse =
+          ApiResponse.error('No Internet Connection');
+    }
+    return getTeacherSubjectsResponse!;
+  }
+
+  ///==============================================///
 }
 
 dynamic throwCustomException(DioError? dioError) {

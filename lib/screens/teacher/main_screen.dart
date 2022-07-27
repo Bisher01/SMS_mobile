@@ -313,34 +313,47 @@ class _TeacherMainScreenState extends State<TeacherMainScreen>
                 ),
               )),
           //exams
-          Card(
-            elevation: 3,
-            shadowColor: Colors.black,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(16),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: const AllExamsScreen(),
+                  type: PageTransitionType.leftToRightPop,
+                  childCurrent: widget,
+                  duration: const Duration(milliseconds: 400),
+                ),
+              );
+            },
+            child: Card(
+              elevation: 3,
+              shadowColor: Colors.black,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(16),
+                ),
               ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  top: 20, left: 20, right: 20, bottom: 10),
-              child: Column(
-                children: [
-                  Image.asset(
-                    'assets/icons/exam.png',
-                    height: 100,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    'Exams',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    top: 20, left: 20, right: 20, bottom: 10),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/icons/exam.png',
+                      height: 100,
                     ),
-                  )
-                ],
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text(
+                      'Exams',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
