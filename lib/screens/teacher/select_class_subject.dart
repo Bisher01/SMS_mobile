@@ -105,7 +105,7 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
             ),
             Consumer<AppProvider>(
               builder: (context, provider, child) {
-                print(provider.getTeacherSubjectsResponse?.data);
+                print(provider.getTeacherSubjectsResponse!.data!.data![0].name);
                 if (provider.getTeacherSubjectsResponse != null) {
                   switch (provider.getTeacherSubjectsResponse!.status) {
                     case Status.LOADING:
@@ -153,7 +153,7 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                                       offAxisFraction: -0.0,
                                       diameterRatio: 2,
                                       itemExtent: 60,
-                                      children: classes.map((e) {
+                                      children: provider.getTeacherSubjectsResponse!.data!.data!.map((e) {
                                         return Row(
                                           children: <Widget>[
                                             Expanded(
@@ -172,7 +172,7 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                                                     16.0,
                                                   ),
                                                   child: Text(
-                                                    e,
+                                                    e.name!,
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                         fontSize: 18.0,
