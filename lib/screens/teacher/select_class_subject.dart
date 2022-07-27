@@ -335,7 +335,20 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                     ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      child: AddQuestion(
+                        classes: classId,
+                        subject: subjectId,
+                      ),
+                      type: PageTransitionType.leftToRightPop,
+                      childCurrent: widget,
+                      duration: const Duration(milliseconds: 400),
+                    ),
+                  );
+                },
                 child: const Text(
                   'add a new question to bank',
                   style: TextStyle(
