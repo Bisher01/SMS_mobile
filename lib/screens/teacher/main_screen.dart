@@ -136,7 +136,7 @@ class _TeacherMainScreenState extends State<TeacherMainScreen>
               Navigator.push(
                 context,
                 PageTransition(
-                  child: const ExamSchedule(),
+                  child: const ExamSchedule(studentId: 3,),
                   type: PageTransitionType.leftToRightPop,
                   childCurrent: widget,
                   duration: const Duration(milliseconds: 400),

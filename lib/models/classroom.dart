@@ -5,7 +5,7 @@ part 'classroom.g.dart';
 @JsonSerializable()
 class Classroom {
   int? id;
-  String? name;
+  int? name;
   int? max_number;
 
   Classroom({this.id, this.name, this.max_number});

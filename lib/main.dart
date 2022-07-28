@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(),
-        home: const ex.ExamSchedule(),
+        home: const SelectChild(),
         // home: !isFirst
         //     ? const WelcomeScreen()
         //     : !isToken

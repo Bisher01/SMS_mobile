@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 import '../screens.dart';
+import '../../providers/app_provider.dart';
 
 class StudentMainScreen extends StatefulWidget {
   const StudentMainScreen({Key? key}) : super(key: key);
@@ -135,7 +137,10 @@ class _StudentMainScreenState extends State<StudentMainScreen>
               Navigator.push(
                 context,
                 PageTransition(
-                  child: const ExamSchedule(),
+                  child: ExamSchedule(
+                    studentId: Provider.of<AppProvider>(context, listen: false)
+                        .getId(),
+                  ),
                   type: PageTransitionType.leftToRightPop,
                   childCurrent: widget,
                   duration: const Duration(milliseconds: 400),

@@ -266,7 +266,7 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                                                     16.0,
                                                   ),
                                                   child: Text(
-                                                    e.classrooms!.name!,
+                                                    e.classrooms!.name!.toString(),
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                         fontSize: 18.0,

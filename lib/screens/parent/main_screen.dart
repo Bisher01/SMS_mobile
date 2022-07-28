@@ -135,7 +135,7 @@ class _ParentMainScreenState extends State<ParentMainScreen>
               Navigator.push(
                 context,
                 PageTransition(
-                  child: const ExamSchedule(),
+                  child: const SelectChild(),
                   type: PageTransitionType.leftToRightPop,
                   childCurrent: widget,
                   duration: const Duration(milliseconds: 400),

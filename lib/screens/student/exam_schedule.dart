@@ -9,7 +9,8 @@ import '../../components/error.dart' as err;
 import '../../services/api_response.dart';
 
 class ExamSchedule extends StatefulWidget {
-  const ExamSchedule({Key? key}) : super(key: key);
+  final int studentId;
+  const ExamSchedule({required this.studentId,Key? key}) : super(key: key);
 
   @override
   State<ExamSchedule> createState() => _ExamScheduleState();
@@ -22,7 +23,7 @@ class _ExamScheduleState extends State<ExamSchedule> {
 
   @override
   initState() {
-    Provider.of<AppProvider>(context, listen: false).getClassExam(3);
+    Provider.of<AppProvider>(context, listen: false).getClassExam(widget.studentId);
     super.initState();
   }
 
