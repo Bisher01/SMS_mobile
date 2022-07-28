@@ -85,6 +85,7 @@ abstract class ApiService {
   //show parent
   @GET('parent/show/{id}')
   Future<FParent> getParent(@Path('id') int id);
+
   //get seed
   @GET('general/allSeed')
   Future<FSeed> getSeed();
@@ -151,6 +152,10 @@ abstract class ApiService {
   //get teacher subjects and classes
   @GET('teacher/teacherWithSubjects/{id}')
   Future<SubjectClass> getTeacherSubjects(@Path('id') int id);
+
+  //get parents children
+  @GET('parent/child/{id}')
+  Future<FNewParent> getParentChild(@Path('id') int id);
 
 //=================================================//
 }

@@ -15,7 +15,7 @@ class _StudentSmallCardState extends State<StudentSmallCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(
             20,
@@ -40,17 +40,17 @@ class _StudentSmallCardState extends State<StudentSmallCard> {
             ),
             Text(
               "Name: ${widget.student.f_name} ${widget.student.l_name}",
-              style: TextStyle(color: Colors.black54),
+              style: const TextStyle(color: Colors.black54),
             ),
             Text(
               "Email: ${widget.student.email}",
-              style: TextStyle(color: Colors.black54),
+              style: const TextStyle(color: Colors.black54),
             ),
             Text(
               "Class: ${widget.student.claass!.name!}",
-              style: TextStyle(color: Colors.black54),
+              style: const TextStyle(color: Colors.black54),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
           ],

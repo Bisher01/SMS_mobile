@@ -25,3 +25,4 @@ export 'student_exam.dart';
 export 'add_question.dart';
 export 'subject_class.dart';
 export 'exam_schedule.dart';
+export 'new_parent.dart';

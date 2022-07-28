@@ -932,6 +932,41 @@ class AppProvider extends ChangeNotifier {
     return getTeacherSubjectsResponse!;
   }
 
+
+  //get parents children
+  ApiResponse<FNewParent>? _getParentChildResponse;
+  ApiResponse<FNewParent>? get getParentChildResponse => _getParentChildResponse;
+  set getParentChildResponse(ApiResponse<FNewParent>? value) {
+    _getParentChildResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FNewParent>> getParentChild(int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getParentChildResponse = ApiResponse.loading('');
+      try {
+        FNewParent fnewparent = await apiService.getParentChild(id);
+        getParentChildResponse = ApiResponse.completed(fnewparent);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return getParentChildResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return getParentChildResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return getParentChildResponse = ApiResponse.error('No Internet Connection');
+    }
+    return getParentChildResponse!;
+  }
+
+
+
   ///==============================================///
 }
 

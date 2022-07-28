@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
+import 'package:sms_mobile/providers/providers.dart';
 import '../screens.dart';
 
 class ParentMainScreen extends StatefulWidget {
@@ -135,7 +137,9 @@ class _ParentMainScreenState extends State<ParentMainScreen>
               Navigator.push(
                 context,
                 PageTransition(
-                  child: const SelectChild(),
+                  child: SelectChild(
+                      id: Provider.of<AppProvider>(context, listen: false)
+                          .getId()),
                   type: PageTransitionType.leftToRightPop,
                   childCurrent: widget,
                   duration: const Duration(milliseconds: 400),

@@ -10,18 +10,18 @@ import '../../models/models.dart';
 import '../screens.dart';
 import '../../screens/student/exam_schedule.dart' as ex;
 
-class SelectChild extends StatefulWidget {
+class AddOralMark extends StatefulWidget {
   final int id;
-  const SelectChild({required this.id, Key? key}) : super(key: key);
+  const AddOralMark({required this.id, Key? key}) : super(key: key);
 
   @override
-  State<SelectChild> createState() => _SelectChildState();
+  State<AddOralMark> createState() => _AddOralMarkState();
 }
 
-class _SelectChildState extends State<SelectChild> {
+class _AddOralMarkState extends State<AddOralMark> {
   @override
   initState() {
-    Provider.of<AppProvider>(context, listen: false).getParentChild(widget.id);
+    Provider.of<AppProvider>(context, listen: false).getAllStudents();
     super.initState();
   }
 
@@ -32,7 +32,7 @@ class _SelectChildState extends State<SelectChild> {
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          title: const Text('Choose child'),
+          title: const Text('Choose student',),
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back,
@@ -51,14 +51,14 @@ class _SelectChildState extends State<SelectChild> {
           ),
         ),
         body: Consumer<AppProvider>(builder: (context, provider, child) {
-          if (provider.getParentChildResponse != null) {
-            var response = provider.getParentChildResponse;
+          if (provider.fStudentResponse != null) {
+            var response = provider.fStudentResponse;
             switch (response?.status) {
               case Status.LOADING:
                 return Shimmer.fromColors(
-                  baseColor: Colors.grey,
-                  highlightColor: Colors.white,
-                  child: CircularProgressIndicator(color: Colors.orange[400],)
+                    baseColor: Colors.grey,
+                    highlightColor: Colors.white,
+                    child: CircularProgressIndicator(color: Colors.orange[400],)
                 );
               case Status.ERROR:
                 return Error(
@@ -69,7 +69,7 @@ class _SelectChildState extends State<SelectChild> {
                   child: GridView.builder(
                     scrollDirection: Axis.vertical,
                     controller: ScrollController(),
-                    itemCount: response!.data!.parent![0].child!.length,
+                    itemCount: response!.data!.student!.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       childAspectRatio: widgetSize.getWidth(200, context) /
@@ -78,25 +78,8 @@ class _SelectChildState extends State<SelectChild> {
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              PageTransition(
-                                child: ex.ExamSchedule(
-                                  studentId: provider.getParentChildResponse!
-                                      .data!.parent![0].child![index].id!,
-                                ),
-                                type: PageTransitionType.leftToRightPop,
-                                childCurrent: widget,
-                                duration: const Duration(milliseconds: 400),
-                              ),
-                            );
-                          },
-                          child: StudentSmallCard(
-                            student: provider.getParentChildResponse!.data!
-                                .parent![0].child![index],
-                          ),
+                        child: AddOralMarkCard(
+                          student: response.data!.student![index],
                         ),
                       );
                     },
