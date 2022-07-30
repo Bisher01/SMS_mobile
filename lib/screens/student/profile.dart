@@ -287,7 +287,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                               ),
                               //class
                               Text(
-                                "Class: ${student.claass!.name!}",
+                                "Class: ${student.class_classroom!.classes!.name}",
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16,
@@ -295,7 +295,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                               ),
                               //classroom
                               Text(
-                                "Classroom: ${student.classroom!.name!}",
+                                "Classroom: ${student.class_classroom!.classrooms!.name.toString()}",
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16,

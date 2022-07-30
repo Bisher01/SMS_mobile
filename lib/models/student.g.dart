@@ -11,8 +11,6 @@ Student _$StudentFromJson(Map<String, dynamic> json) => Student(
       address_id: json['address_id'] as int?,
       birthdate: json['birthdate'] as String?,
       blood_id: json['blood_id'] as int?,
-      class_id: json['class_id'] as int?,
-      classroom_id: json['classroom_id'] as int?,
       code: json['code'] as String?,
       email: json['email'] as String?,
       f_name: json['f_name'] as String?,
@@ -33,9 +31,6 @@ Student _$StudentFromJson(Map<String, dynamic> json) => Student(
       religion: json['religion'] == null
           ? null
           : Religion.fromJson(json['religion'] as Map<String, dynamic>),
-      classroom: json['classroom'] == null
-          ? null
-          : Classroom.fromJson(json['classroom'] as Map<String, dynamic>),
       nationality: json['nationality'] == null
           ? null
           : Nationality.fromJson(json['nationality'] as Map<String, dynamic>),
@@ -46,16 +41,18 @@ Student _$StudentFromJson(Map<String, dynamic> json) => Student(
       blood: json['blood'] == null
           ? null
           : Blood.fromJson(json['blood'] as Map<String, dynamic>),
-      claass: json['claass'] == null
-          ? null
-          : Class.fromJson(json['claass'] as Map<String, dynamic>),
       gender: json['gender'] == null
           ? null
           : Gender.fromJson(json['gender'] as Map<String, dynamic>),
       grade: json['grade'] == null
           ? null
           : Grade.fromJson(json['grade'] as Map<String, dynamic>),
-    );
+    )
+      ..class_classroom_id = json['class_classroom_id'] as int?
+      ..class_classroom = json['class_classroom'] == null
+          ? null
+          : ClassClassroom.fromJson(
+              json['class_classroom'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$StudentToJson(Student instance) => <String, dynamic>{
       'id': instance.id,
@@ -71,13 +68,11 @@ Map<String, dynamic> _$StudentToJson(Student instance) => <String, dynamic>{
       'nationality_id': instance.nationality_id,
       'religion_id': instance.religion_id,
       'grade_id': instance.grade_id,
-      'class_id': instance.class_id,
-      'classroom_id': instance.classroom_id,
+      'class_classroom_id': instance.class_classroom_id,
       'academic_year_id': instance.academic_year_id,
       'address_id': instance.address_id,
       'grade': instance.grade,
-      'claass': instance.claass,
-      'classroom': instance.classroom,
+      'class_classroom': instance.class_classroom,
       'academic_year': instance.academic_year,
       'address': instance.address,
       'parent': instance.parent,

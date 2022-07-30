@@ -47,7 +47,7 @@ class _StudentSmallCardState extends State<StudentSmallCard> {
               style: const TextStyle(color: Colors.black54),
             ),
             Text(
-              "Class: ${widget.student.claass!.name!}",
+              "Class: ${widget.student.class_classroom!.classes!.name!}",
               style: const TextStyle(color: Colors.black54),
             ),
             const SizedBox(

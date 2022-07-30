@@ -901,12 +901,14 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<ApiResponse<QuestionsBank>> getAllQuestions(int teacherId , int classId , int subjectId) async {
+  Future<ApiResponse<QuestionsBank>> getAllQuestions(
+      int teacherId, int classId, int subjectId) async {
     ApiService apiService = ApiService(Dio());
     if (await checkInternet()) {
       questionBankResponse = ApiResponse.loading('');
       try {
-        QuestionsBank questionsBank = await apiService.getAllQuestions(teacherId: teacherId,classId: classId,subjectId: subjectId);
+        QuestionsBank questionsBank = await apiService.getAllQuestions(
+            teacherId: teacherId, classId: classId, subjectId: subjectId);
         questionBankResponse = ApiResponse.completed(questionsBank);
       } catch (e) {
         if (e is DioError) {
@@ -963,10 +965,10 @@ class AppProvider extends ChangeNotifier {
     return getTeacherSubjectsResponse!;
   }
 
-
   //get parents children
   ApiResponse<FNewParent>? _getParentChildResponse;
-  ApiResponse<FNewParent>? get getParentChildResponse => _getParentChildResponse;
+  ApiResponse<FNewParent>? get getParentChildResponse =>
+      _getParentChildResponse;
   set getParentChildResponse(ApiResponse<FNewParent>? value) {
     _getParentChildResponse = value;
     notifyListeners();
@@ -991,12 +993,102 @@ class AppProvider extends ChangeNotifier {
         return getParentChildResponse = ApiResponse.error(e.toString());
       }
     } else {
-      return getParentChildResponse = ApiResponse.error('No Internet Connection');
+      return getParentChildResponse =
+          ApiResponse.error('No Internet Connection');
     }
     return getParentChildResponse!;
   }
 
+  //get teacher's students
+  ApiResponse<FStudent>? _getTeacherStudentsResponse;
+  ApiResponse<FStudent>? get getTeacherStudentsResponse =>
+      _getTeacherStudentsResponse;
+  set getTeacherStudentsResponse(ApiResponse<FStudent>? value) {
+    _getTeacherStudentsResponse = value;
+    notifyListeners();
+  }
 
+  Future<ApiResponse<FStudent>> getTeacherStudents(
+      int teacherId, int subjectId, int classId, int classroomId) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getTeacherStudentsResponse = ApiResponse.loading('');
+      try {
+        FormData formData = FormData.fromMap({
+          "teacher_id": teacherId,
+          "subject_id": subjectId,
+          "class_id": classId,
+          "classroom_id": classroomId,
+        });
+        FStudent fstudent = await apiService.getTeacherStudents(formData);
+        getTeacherStudentsResponse = ApiResponse.completed(fstudent);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return getTeacherStudentsResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return getTeacherStudentsResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return getTeacherStudentsResponse =
+          ApiResponse.error('No Internet Connection');
+    }
+    return getTeacherStudentsResponse!;
+  }
+
+  //add oral mark to student
+  ApiResponse<Delete>? _addStudentOralMarkResponse;
+  ApiResponse<Delete>? get addStudentOralMarkResponse =>
+      _addStudentOralMarkResponse;
+  set addStudentOralMarkResponse(ApiResponse<Delete>? value) {
+    _addStudentOralMarkResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> addStudentOralMark(
+      int teacherId,
+      int subjectId,
+      int classId,
+      int classroomId,
+      int studentId,
+      int seasonId,
+      int mark) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      addStudentOralMarkResponse = ApiResponse.loading('');
+      try {
+        FormData formData = FormData.fromMap({
+          "teacher_id": teacherId,
+          "subject_id": subjectId,
+          "class_id": classId,
+          "classroom_id": classroomId,
+          "student_id": studentId,
+          "season_id": seasonId,
+          "mark": mark,
+        });
+        Delete delete = await apiService.addStudentOralMark(formData);
+        addStudentOralMarkResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return addStudentOralMarkResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return addStudentOralMarkResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return addStudentOralMarkResponse =
+          ApiResponse.error('No Internet Connection');
+    }
+    return addStudentOralMarkResponse!;
+  }
 
   ///==============================================///
 }

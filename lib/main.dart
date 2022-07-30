@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(),
-        home:  MultiplicationTable(),
+        home:  SelectClassSubjectClassroom(),
         // home: !isFirst
         //     ? const WelcomeScreen()
         //     : !isToken

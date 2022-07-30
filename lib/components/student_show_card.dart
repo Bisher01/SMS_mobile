@@ -203,7 +203,7 @@ class _StudentShowCardState extends State<StudentShowCard> {
                           'student class',
                         ),
                         Text(
-                          widget.student.class_id.toString(),
+                          widget.student.class_classroom!.classes!.name!,
                         ),
                       ],
                     ),
@@ -233,7 +233,7 @@ class _StudentShowCardState extends State<StudentShowCard> {
                           'student classroom',
                         ),
                         Text(
-                          widget.student.classroom_id.toString(),
+                          widget.student.class_classroom!.classrooms!.name!.toString(),
                         ),
                       ],
                     ),

@@ -8,6 +8,7 @@ export 'teacher/add_question.dart';
 export 'teacher/select_class_subject.dart';
 export 'teacher/add_oral_mark.dart';
 export 'teacher/question_bank.dart';
+export 'teacher/select_class_subject_classroom.dart';
 export 'parent/profile.dart';
 export 'parent/main_screen.dart';
 export 'parent/select_child.dart';

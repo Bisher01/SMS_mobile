@@ -146,8 +146,10 @@ abstract class ApiService {
   Future<Delete> addExamQuestion(@Body() Map<String, dynamic> question);
 
   @POST('question/all')
-  Future<QuestionsBank> getAllQuestions({@Field('teacher_id') int? teacherId,
-      @Field('class_id') int? classId, @Field('subject_id') int? subjectId});
+  Future<QuestionsBank> getAllQuestions(
+      {@Field('teacher_id') int? teacherId,
+      @Field('class_id') int? classId,
+      @Field('subject_id') int? subjectId});
 
 //=================================================//
 
@@ -160,6 +162,14 @@ abstract class ApiService {
   //get parents children
   @GET('parent/child/{id}')
   Future<FNewParent> getParentChild(@Path('id') int id);
+
+  //get teacher's students
+  @POST('quiz/students-oral-quiz')
+  Future<FStudent> getTeacherStudents(@Body() FormData formData);
+
+   //add oral mark to student
+  @POST('quiz/add-oral-quiz')
+  Future<Delete> addStudentOralMark(@Body() FormData formData);
 
 //=================================================//
 }

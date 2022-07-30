@@ -18,13 +18,11 @@ class Student {
   int? nationality_id;
   int? religion_id;
   int? grade_id;
-  int? class_id;
-  int? classroom_id;
+  int? class_classroom_id;
   int? academic_year_id;
   int? address_id;
   Grade? grade;
-  Class? claass;
-  Classroom? classroom;
+  ClassClassroom? class_classroom;
   AcademicYears? academic_year;
   Address? address;
   Parent? parent;
@@ -33,13 +31,12 @@ class Student {
   Gender? gender;
   Nationality? nationality;
 
+
   Student({
     this.academic_year_id,
     this.address_id,
     this.birthdate,
     this.blood_id,
-    this.class_id,
-    this.classroom_id,
     this.code,
     this.email,
     this.f_name,
@@ -54,11 +51,9 @@ class Student {
     this.address,
     this.religion_id,
     this.religion,
-    this.classroom,
     this.nationality,
     this.academic_year,
     this.blood,
-    this.claass,
     this.gender,
     this.grade,
   });

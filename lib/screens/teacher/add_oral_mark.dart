@@ -21,7 +21,8 @@ class AddOralMark extends StatefulWidget {
 class _AddOralMarkState extends State<AddOralMark> {
   @override
   initState() {
-    Provider.of<AppProvider>(context, listen: false).getAllStudents();
+    Provider.of<AppProvider>(context, listen: false)
+        .getTeacherStudents(widget.id, widget.id, widget.id, widget.id);
     super.initState();
   }
 
@@ -32,7 +33,9 @@ class _AddOralMarkState extends State<AddOralMark> {
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          title: const Text('Choose student',),
+          title: const Text(
+            'Choose student',
+          ),
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back,
@@ -51,15 +54,16 @@ class _AddOralMarkState extends State<AddOralMark> {
           ),
         ),
         body: Consumer<AppProvider>(builder: (context, provider, child) {
-          if (provider.fStudentResponse != null) {
-            var response = provider.fStudentResponse;
+          if (provider.getTeacherStudentsResponse != null) {
+            var response = provider.getTeacherStudentsResponse;
             switch (response?.status) {
               case Status.LOADING:
                 return Shimmer.fromColors(
                     baseColor: Colors.grey,
                     highlightColor: Colors.white,
-                    child: CircularProgressIndicator(color: Colors.orange[400],)
-                );
+                    child: CircularProgressIndicator(
+                      color: Colors.orange[400],
+                    ));
               case Status.ERROR:
                 return Error(
                   errorMsg: response!.message!,
@@ -89,15 +93,13 @@ class _AddOralMarkState extends State<AddOralMark> {
                 return Shimmer.fromColors(
                     baseColor: Colors.grey,
                     highlightColor: Colors.white,
-                    child: Container(
-                    ));
+                    child: Container());
             }
           }
           return Shimmer.fromColors(
               baseColor: Colors.grey,
               highlightColor: Colors.white,
-              child: Container(
-              ));
+              child: Container());
         }),
       ),
     );
