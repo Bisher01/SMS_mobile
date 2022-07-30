@@ -21,6 +21,7 @@ export 'grade.dart';
 export 'nationality.dart';
 export 'religion.dart';
 export 'exam_answers.dart';
+export 'add_exam.dart';
 export 'student_exam.dart';
 export 'add_question.dart';
 export 'subject_class.dart';

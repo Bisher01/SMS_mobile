@@ -145,6 +145,10 @@ abstract class ApiService {
   @POST('question/add')
   Future<Delete> addExamQuestion(@Body() Map<String, dynamic> question);
 
+  @POST('question/all')
+  Future<QuestionsBank> getAllQuestions({@Field('teacher_id') int? teacherId,
+      @Field('class_id') int? classId, @Field('subject_id') int? subjectId});
+
 //=================================================//
 
 //========================MOBILE=========================//

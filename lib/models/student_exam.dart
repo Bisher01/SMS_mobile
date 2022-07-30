@@ -56,6 +56,7 @@ class Questions {
 
   int? id;
   String? text;
+  @JsonKey(name: 'teacher_subject_id')
   int? teacherSubjectsId;
   List<Choices>? choices;
 
@@ -77,6 +78,7 @@ class Choices {
   int? id;
   String? text;
   int? status;
+  @JsonKey(name: 'question_id')
   int? questionId;
 
   Choices({
@@ -93,7 +95,7 @@ class Choices {
 
 @JsonSerializable()
 class QuestionsBank{
-  String? status;
+  bool? status;
   String? message;
   List<Questions>? questions;
   QuestionsBank({this.status,this.message,this.questions});

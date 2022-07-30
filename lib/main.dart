@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(),
-        home:  AddOralMark(id: 1,),
+        home:  QuestionsBankScreen(classId: 1,subjectId: 1,),
         // home: !isFirst
         //     ? const WelcomeScreen()
         //     : !isToken

@@ -894,6 +894,37 @@ class AppProvider extends ChangeNotifier {
     return addExamQuestionResponse!;
   }
 
+  ApiResponse<QuestionsBank>? _questionBankResponse;
+  ApiResponse<QuestionsBank>? get questionBankResponse => _questionBankResponse;
+  set questionBankResponse(ApiResponse<QuestionsBank>? value) {
+    _questionBankResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<QuestionsBank>> getAllQuestions(int teacherId , int classId , int subjectId) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      questionBankResponse = ApiResponse.loading('');
+      try {
+        QuestionsBank questionsBank = await apiService.getAllQuestions(teacherId: teacherId,classId: classId,subjectId: subjectId);
+        questionBankResponse = ApiResponse.completed(questionsBank);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return questionBankResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return questionBankResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return questionBankResponse = ApiResponse.error('No Internet Connection');
+    }
+    return questionBankResponse!;
+  }
+
   ///==============================================///
 
   ///======================MOBILE========================///

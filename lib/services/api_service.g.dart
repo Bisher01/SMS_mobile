@@ -433,6 +433,28 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<QuestionsBank> getAllQuestions({teacherId, classId, subjectId}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'teacher_id': teacherId,
+      'class_id': classId,
+      'subject_id': subjectId
+    };
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<QuestionsBank>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'question/all',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = QuestionsBank.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<SubjectClass> getTeacherSubjects(id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

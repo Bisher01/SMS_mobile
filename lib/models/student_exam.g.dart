@@ -50,7 +50,7 @@ Map<String, dynamic> _$ExamDataToJson(ExamData instance) => <String, dynamic>{
 Questions _$QuestionsFromJson(Map<String, dynamic> json) => Questions(
       id: json['id'] as int?,
       text: json['text'] as String?,
-      teacherSubjectsId: json['teacherSubjectsId'] as int?,
+      teacherSubjectsId: json['teacher_subject_id'] as int?,
       choices: (json['choices'] as List<dynamic>?)
           ?.map((e) => Choices.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -59,7 +59,7 @@ Questions _$QuestionsFromJson(Map<String, dynamic> json) => Questions(
 Map<String, dynamic> _$QuestionsToJson(Questions instance) => <String, dynamic>{
       'id': instance.id,
       'text': instance.text,
-      'teacherSubjectsId': instance.teacherSubjectsId,
+      'teacher_subject_id': instance.teacherSubjectsId,
       'choices': instance.choices,
     };
 
@@ -67,19 +67,19 @@ Choices _$ChoicesFromJson(Map<String, dynamic> json) => Choices(
       id: json['id'] as int?,
       text: json['text'] as String?,
       status: json['status'] as int?,
-      questionId: json['questionId'] as int?,
+      questionId: json['question_id'] as int?,
     );
 
 Map<String, dynamic> _$ChoicesToJson(Choices instance) => <String, dynamic>{
       'id': instance.id,
       'text': instance.text,
       'status': instance.status,
-      'questionId': instance.questionId,
+      'question_id': instance.questionId,
     };
 
 QuestionsBank _$QuestionsBankFromJson(Map<String, dynamic> json) =>
     QuestionsBank(
-      status: json['status'] as String?,
+      status: json['status'] as bool?,
       message: json['message'] as String?,
       questions: (json['questions'] as List<dynamic>?)
           ?.map((e) => Questions.fromJson(e as Map<String, dynamic>))
