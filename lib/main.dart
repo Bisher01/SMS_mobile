@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
+import 'package:sms_mobile/models/resultant.dart';
 import 'package:sms_mobile/providers/providers.dart';
 import 'package:sms_mobile/screens/mentor/attendance.dart';
 import 'package:sms_mobile/screens/screens.dart';
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(),
-        home:  QuestionsBankScreen(classId: 1,subjectId: 1,),
+        home:  MultiplicationTable(),
         // home: !isFirst
         //     ? const WelcomeScreen()
         //     : !isToken

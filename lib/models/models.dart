@@ -27,3 +27,4 @@ export 'add_question.dart';
 export 'subject_class.dart';
 export 'exam_schedule.dart';
 export 'new_parent.dart';
+export 'resultant.dart';
