@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:sms_mobile/models/models.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
+import 'package:sms_mobile/providers/app_provider.dart';
+import 'package:sms_mobile/screens/screens.dart';
+import '../../components/error.dart' as err;
 
-class MultiplicationTableCell extends StatelessWidget {
-   final dynamic value;
+import '../../services/api_response.dart';
+
+class Cell extends StatelessWidget {
+  final dynamic value;
   final Color? color;
-  const MultiplicationTableCell({
+  const Cell({
+    Key? key,
     this.value,
     this.color,
-  });
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,7 +33,7 @@ class MultiplicationTableCell extends StatelessWidget {
       alignment: Alignment.center,
       child: Text(
         '${value ?? ''}',
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 16.0,
         ),
       ),
@@ -32,33 +41,45 @@ class MultiplicationTableCell extends StatelessWidget {
   }
 }
 
-class TableHead extends StatelessWidget {
-  List<String> head = ["Full mark","quiz", "Exam","Test","Oral","Total mark"];
+class Head extends StatelessWidget {
+  final List<String> head = [
+    "Full mark",
+    "quiz",
+    "Exam",
+    "Test",
+    "Oral",
+    "Total mark"
+  ];
   final ScrollController? scrollController;
-  TableHead({
-    @required this.scrollController,
-  });
+  Head({
+    Key? key,
+    required this.scrollController,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      color: Colors.teal,
       height: 80,
       child: Row(
         children: [
-          MultiplicationTableCell(
+          Cell(
             color: Colors.yellow.withOpacity(0.3),
             value: "Subject",
           ),
           Expanded(
-            child: ListView(
-              controller: scrollController,
-              physics: ClampingScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              children: List.generate(6, (index) {
-                return MultiplicationTableCell(
-                  color: Colors.yellow.withOpacity(0.3),
-                  value: head[index],
-                );
-              }),
+            child: Container(
+              color: Colors.yellowAccent,
+              child: ListView(
+                controller: scrollController,
+                physics: const ClampingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                children: List.generate(6, (index) {
+                  return Cell(
+                    color: Colors.yellow.withOpacity(0.3),
+                    value: head[index],
+                  );
+                }),
+              ),
             ),
           ),
         ],
@@ -67,26 +88,29 @@ class TableHead extends StatelessWidget {
   }
 }
 
-class TableBody extends StatefulWidget {
+class Body extends StatefulWidget {
   final ScrollController? scrollController;
-  TableBody({
-    @required this.scrollController,
-  });
+  const Body({
+    Key? key,
+    required this.scrollController,
+  }) : super(key: key);
   @override
-  _TableBodyState createState() => _TableBodyState();
+  _BodyState createState() => _BodyState();
 }
 
-class _TableBodyState extends State<TableBody> {
-  LinkedScrollControllerGroup? _controllers;
-  ScrollController? _firstColumnController;
-  ScrollController? _restColumnsController;
+class _BodyState extends State<Body> {
   @override
-  void initState() {
-    super.initState();
+  initState() {
+    Provider.of<AppProvider>(context, listen: false).getStudentResultant(1, 1);
     _controllers = LinkedScrollControllerGroup();
     _firstColumnController = _controllers!.addAndGet();
     _restColumnsController = _controllers!.addAndGet();
+    super.initState();
   }
+
+  LinkedScrollControllerGroup? _controllers;
+  ScrollController? _firstColumnController;
+  ScrollController? _restColumnsController;
 
   @override
   void dispose() {
@@ -97,55 +121,103 @@ class _TableBodyState extends State<TableBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(
-          width: 80,
-          child: ListView(
-            controller: _firstColumnController,
-            physics: ClampingScrollPhysics(),
-            children: List.generate(6, (index) {
-              return MultiplicationTableCell(
-                color: Colors.red.withOpacity(0.3),
-                value: index + 2,
+    return Consumer<AppProvider>(
+      builder: (context, provider, child) {
+        if (provider.getStudentResultantResponse != null) {
+          var response = provider.getStudentResultantResponse;
+          switch (response?.status) {
+            case Status.LOADING:
+              return Shimmer.fromColors(
+                  baseColor: Colors.grey,
+                  highlightColor: Colors.white,
+                  child: CircularProgressIndicator(
+                    color: Colors.orange[400],
+                  ));
+            case Status.ERROR:
+              return err.Error(
+                errorMsg: response!.message!,
               );
-            }),
-          ),
-        ),
-        Expanded(
-          child: SingleChildScrollView(
-            controller: widget.scrollController,
-            scrollDirection: Axis.horizontal,
-            physics: const ClampingScrollPhysics(),
-            child: SizedBox(
-              width: (6) * 80,
-              child: ListView(
-                controller: _restColumnsController,
-                physics: const ClampingScrollPhysics(),
-                children: List.generate(6, (y) {
-                  return Row(
-                    children: List.generate(6, (x) {
-                      return MultiplicationTableCell(
-                        value: (x + 2) * (y + 2),
-                      );
-                    }),
-                  );
-                }),
-              ),
-            ),
-          ),
-        ),
-      ],
+            case Status.COMPLETED:
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Container(
+                    color: Colors.tealAccent,
+                    width: 80,
+                    child: ListView(
+                      controller: _firstColumnController,
+                      physics: const ClampingScrollPhysics(),
+                      children: List.generate(response!.data!.resultant!.length,
+                          (index) {
+                        return Cell(
+                          color: Colors.black.withOpacity(0.3),
+                          value: response.data!.resultant![index].subjectName,
+                        );
+                      }),
+                    ),
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      controller: widget.scrollController,
+                      scrollDirection: Axis.horizontal,
+                      physics: const ClampingScrollPhysics(),
+                      child: Container(
+                        color: Colors.pinkAccent,
+                        width: (7) * 80,
+                        child: ListView(
+                          controller: _restColumnsController,
+                          physics: const ClampingScrollPhysics(),
+                          children: List.generate(
+                              response.data!.resultant!.length, (y) {
+                            return Row(
+                              children: List.generate(7, (x) {
+                                return Cell(
+                                  color: Colors.purple,
+                                  value: x == 0
+                                      ? response.data!.resultant![y].subjectMark
+                                      : x == 1
+                                          ? response.data!.resultant![y].quize
+                                          : x == 2
+                                              ? response
+                                                  .data!.resultant![y].exam
+                                              : x == 3
+                                                  ? response
+                                                      .data!.resultant![y].test
+                                                  : x == 4
+                                                      ? response
+                                                          .data!
+                                                          .resultant![y]
+                                                          .oralTest
+                                                      : response
+                                                          .data!
+                                                          .resultant![y]
+                                                          .totalMark,
+                                );
+                              }),
+                            );
+                          }),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+          }
+        }
+        return Container();
+      },
     );
   }
 }
 
-class MultiplicationTable extends StatefulWidget {
+class Resultants extends StatefulWidget {
+  const Resultants({Key? key}) : super(key: key);
+
   @override
-  _MultiplicationTableState createState() => _MultiplicationTableState();
+  _ResultantsState createState() => _ResultantsState();
 }
 
-class _MultiplicationTableState extends State<MultiplicationTable> {
+class _ResultantsState extends State<Resultants> {
   LinkedScrollControllerGroup? _controllers;
   ScrollController? _headController;
   ScrollController? _bodyController;
@@ -168,13 +240,35 @@ class _MultiplicationTableState extends State<MultiplicationTable> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          title: const Text('Resultants'),
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+            ),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                PageTransition(
+                  type: PageTransitionType.bottomToTopJoined,
+                  childCurrent: widget,
+                  duration: const Duration(milliseconds: 300),
+                  child: const StudentMainScreen(),
+                ),
+              );
+            },
+          ),
+        ),
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            TableHead(
+            Head(
               scrollController: _headController,
             ),
             Expanded(
-              child: TableBody(
+              child: Body(
                 scrollController: _bodyController,
               ),
             ),
@@ -184,4 +278,3 @@ class _MultiplicationTableState extends State<MultiplicationTable> {
     );
   }
 }
-

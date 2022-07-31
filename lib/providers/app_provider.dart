@@ -1090,6 +1090,40 @@ class AppProvider extends ChangeNotifier {
     return addStudentOralMarkResponse!;
   }
 
+  //get student resultants
+  ApiResponse<FResultant>? _getStudentResultantResponse;
+  ApiResponse<FResultant>? get getStudentResultantResponse =>
+      _getStudentResultantResponse;
+  set getStudentResultantResponse(ApiResponse<FResultant>? value) {
+    _getStudentResultantResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FResultant>> getStudentResultant(int student, int season) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getStudentResultantResponse = ApiResponse.loading('');
+      try {
+        FResultant fresultant = await apiService.getStudentResultant(student,season);
+        getStudentResultantResponse = ApiResponse.completed(fresultant);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return getStudentResultantResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return getStudentResultantResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return getStudentResultantResponse =
+          ApiResponse.error('No Internet Connection');
+    }
+    return getStudentResultantResponse!;
+  }
+
   ///==============================================///
 }
 

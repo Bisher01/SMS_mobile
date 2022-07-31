@@ -5,12 +5,12 @@ part 'resultant.g.dart';
 @JsonSerializable()
 class Resultant {
   String? subjectName;
-  int? subjectMark;
-  int? quize;
-  int? exam;
-  int? test;
-  int? oralTest;
-  int? totalMark;
+  double? subjectMark;
+  double? quize;
+  double? exam;
+  double? test;
+  double? oralTest;
+  double? totalMark;
 
 
 

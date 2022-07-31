@@ -167,9 +167,14 @@ abstract class ApiService {
   @POST('quiz/students-oral-quiz')
   Future<FStudent> getTeacherStudents(@Body() FormData formData);
 
-   //add oral mark to student
+  //add oral mark to student
   @POST('quiz/add-oral-quiz')
   Future<Delete> addStudentOralMark(@Body() FormData formData);
+
+  //get student resultants
+  @GET('resultant/{id1}/{id2}')
+  Future<FResultant> getStudentResultant(
+      @Path('id1') int id1, @Path('id2') int id2);
 
 //=================================================//
 }

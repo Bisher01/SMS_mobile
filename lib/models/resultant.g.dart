@@ -7,13 +7,13 @@ part of 'resultant.dart';
 // **************************************************************************
 
 Resultant _$ResultantFromJson(Map<String, dynamic> json) => Resultant(
-      exam: json['exam'] as int?,
-      oralTest: json['oralTest'] as int?,
-      quize: json['quize'] as int?,
-      subjectMark: json['subjectMark'] as int?,
+      exam: (json['exam'] as num?)?.toDouble(),
+      oralTest: (json['oralTest'] as num?)?.toDouble(),
+      quize: (json['quize'] as num?)?.toDouble(),
+      subjectMark: (json['subjectMark'] as num?)?.toDouble(),
       subjectName: json['subjectName'] as String?,
-      test: json['test'] as int?,
-      totalMark: json['totalMark'] as int?,
+      test: (json['test'] as num?)?.toDouble(),
+      totalMark: (json['totalMark'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$ResultantToJson(Resultant instance) => <String, dynamic>{

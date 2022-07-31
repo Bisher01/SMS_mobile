@@ -29,12 +29,12 @@ class _SelectClassSubjectClassroomState
 
   int selectedSubject = 0;
   int selectedClass = 0;
-  int selectedClassroom=0;
+  int selectedClassroom = 0;
   int subjectId = 0;
   int classId = 0;
   int classroomId = 0;
   String? subjectDDV;
-  List<String> examTypes = ['First', 'Second', 'Mid', 'Finals'];
+  List<String> subjects = [];
 
   @override
   Widget build(BuildContext context) {
@@ -68,56 +68,56 @@ class _SelectClassSubjectClassroomState
         padding: const EdgeInsets.symmetric(
           horizontal: 10,
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 15,
-              ),
-              child: Column(
-                children: [
-                  const Text(
-                    'Select exam type:',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  DropdownButton<String>(
-                      hint: const Text(
-                        'Exam type',
+        child: Consumer<AppProvider>(
+          builder: (context, provider, child) {
+            if (provider.getTeacherSubjectsResponse != null) {
+              switch (provider.getTeacherSubjectsResponse!.status) {
+                case Status.LOADING:
+                  return CircularProgressIndicator(
+                    color: Colors.orange[400],
+                  );
+                case Status.COMPLETED:
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          top: 15,
+                        ),
+                        child: Column(
+                          children: [
+                            const Text(
+                              'Select subject:',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            DropdownButton<String>(
+                                hint: const Text(
+                                  'Subject',
+                                ),
+                                value: subjectDDV,
+                                elevation: 16,
+                                underline: Container(
+                                  height: 2,
+                                  color: Colors.orange[400],
+                                ),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    subjectDDV = newValue ?? 'Subject';
+                                  });
+                                },
+                                items: subjects.map((e) {
+                                  return DropdownMenuItem<String>(
+                                    value: e,
+                                    child: Text(e),
+                                  );
+                                }).toList()),
+                          ],
+                        ),
                       ),
-                      value: examDDV,
-                      elevation: 16,
-                      underline: Container(
-                        height: 2,
-                        color: Colors.orange[400],
-                      ),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          examDDV = newValue ?? 'Exam type';
-                        });
-                      },
-                      items: examTypes.map((e) {
-                        return DropdownMenuItem<String>(
-                          value: e,
-                          child: Text(e),
-                        );
-                      }).toList()),
-                ],
-              ),
-            ),
-            Consumer<AppProvider>(
-              builder: (context, provider, child) {
-                if (provider.getTeacherSubjectsResponse != null) {
-                  switch (provider.getTeacherSubjectsResponse!.status) {
-                    case Status.LOADING:
-                      return CircularProgressIndicator(
-                        color: Colors.orange[400],
-                      );
-                    case Status.COMPLETED:
-                      return SizedBox(
+                      SizedBox(
                         height: widgetSize.getHeight(
                           350,
                           context,
@@ -125,87 +125,6 @@ class _SelectClassSubjectClassroomState
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Flexible(
-                              fit: FlexFit.tight,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Padding(
-                                    padding: EdgeInsets.only(
-                                      bottom: 20,
-                                    ),
-                                    child: Text(
-                                      'Select subject: ',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                  Flexible(
-                                    fit: FlexFit.loose,
-                                    child: ListWheelScrollView(
-                                      onSelectedItemChanged: (index) {
-                                        setState(() {
-                                          selectedSubject = index;
-                                        });
-                                        subjectId = provider
-                                            .getTeacherSubjectsResponse!
-                                            .data!
-                                            .data![index]
-                                            .id!;
-                                      },
-                                      clipBehavior: Clip.antiAlias,
-                                      controller: fixedExtentScrollController,
-                                      physics: const FixedExtentScrollPhysics(),
-                                      perspective: 0.005,
-                                      offAxisFraction: -0.0,
-                                      diameterRatio: 2,
-                                      itemExtent: 60,
-                                      children: provider
-                                          .getTeacherSubjectsResponse!
-                                          .data!
-                                          .data!
-                                          .map((e) {
-                                        return Row(
-                                          children: <Widget>[
-                                            Expanded(
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white70,
-                                                  border: Border.all(
-                                                      color: Colors.orange),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                    12,
-                                                  ),
-                                                ),
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                    16.0,
-                                                  ),
-                                                  child: Text(
-                                                    e.name!,
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontSize: 18.0,
-                                                        color:
-                                                            Colors.orange[400]),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      }).toList(),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
                             Flexible(
                               fit: FlexFit.tight,
                               child: Column(
@@ -269,6 +188,90 @@ class _SelectClassSubjectClassroomState
                                                     16.0,
                                                   ),
                                                   child: Text(
+                                                    e.classes!.name!,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 18.0,
+                                                        color:
+                                                            Colors.orange[400]),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Flexible(
+                              fit: FlexFit.tight,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(
+                                      bottom: 20,
+                                    ),
+                                    child: Text(
+                                      'Select classroom: ',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ),
+                                  Flexible(
+                                    fit: FlexFit.loose,
+                                    child: ListWheelScrollView(
+                                      onSelectedItemChanged: (index) {
+                                        setState(() {
+                                          selectedClassroom = index;
+                                        });
+                                        classId = provider
+                                            .getTeacherSubjectsResponse!
+                                            .data!
+                                            .data![selectedSubject]
+                                            .class_classroom![index]
+                                            .classrooms!
+                                            .id!;
+                                      },
+                                      clipBehavior: Clip.antiAlias,
+                                      controller: fixedExtentScrollController,
+                                      physics: const FixedExtentScrollPhysics(),
+                                      perspective: 0.005,
+                                      offAxisFraction: -0.0,
+                                      diameterRatio: 2,
+                                      itemExtent: 60,
+                                      children: provider
+                                          .getTeacherSubjectsResponse!
+                                          .data!
+                                          .data![selectedSubject]
+                                          .class_classroom!
+                                          .map((e) {
+                                        return Row(
+                                          children: <Widget>[
+                                            Expanded(
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white70,
+                                                  border: Border.all(
+                                                      color: Colors.orange),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                    12,
+                                                  ),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                    16.0,
+                                                  ),
+                                                  child: Text(
                                                     e.classrooms!.name!
                                                         .toString(),
                                                     textAlign: TextAlign.center,
@@ -290,58 +293,57 @@ class _SelectClassSubjectClassroomState
                             ),
                           ],
                         ),
-                      );
-                    case Status.ERROR:
-                      return err.Error(
-                        errorMsg: provider.getStudentExamResponse!.message!,
-                      );
-                    default:
-                      return Container();
-                  }
-                }
-                return Container();
-              },
-            ),
-
-            SizedBox(
-              height: widgetSize.getHeight(50, context),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  elevation: 2,
-                  primary: Colors.orange[400],
-                  shadowColor: Colors.white70,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      10,
-                    ),
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    PageTransition(
-                      child: AddOralMark(
-                        id: 1,
                       ),
-                      type: PageTransitionType.leftToRightPop,
-                      childCurrent: widget,
-                      duration: const Duration(milliseconds: 400),
-                    ),
+                      SizedBox(
+                        height: widgetSize.getHeight(50, context),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            elevation: 2,
+                            primary: Colors.orange[400],
+                            shadowColor: Colors.white70,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                10,
+                              ),
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                child: AddOralMark(
+                                  id: 1,
+                                ),
+                                type: PageTransitionType.leftToRightPop,
+                                childCurrent: widget,
+                                duration: const Duration(milliseconds: 400),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            'Add oral marks to students',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      )
+                    ],
                   );
-                },
-                child: const Text(
-                  'add a new question to bank',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 18),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 25,
-            )
-          ],
+                case Status.ERROR:
+                  return err.Error(
+                    errorMsg: provider.getStudentExamResponse!.message!,
+                  );
+                default:
+                  return Container();
+              }
+            }
+            return Container();
+          },
         ),
       ),
     );
