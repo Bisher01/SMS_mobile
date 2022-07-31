@@ -163,14 +163,14 @@ class _BodyState extends State<Body> {
                       physics: const ClampingScrollPhysics(),
                       child: Container(
                         color: Colors.pinkAccent,
-                        width: (7) * 80,
+                        width: (6) * 80,
                         child: ListView(
                           controller: _restColumnsController,
                           physics: const ClampingScrollPhysics(),
                           children: List.generate(
                               response.data!.resultant!.length, (y) {
                             return Row(
-                              children: List.generate(7, (x) {
+                              children: List.generate(6, (x) {
                                 return Cell(
                                   color: Colors.purple,
                                   value: x == 0
@@ -238,30 +238,30 @@ class _ResultantsState extends State<Resultants> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          title: const Text('Resultants'),
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back,
-            ),
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                PageTransition(
-                  type: PageTransitionType.bottomToTopJoined,
-                  childCurrent: widget,
-                  duration: const Duration(milliseconds: 300),
-                  child: const StudentMainScreen(),
-                ),
-              );
-            },
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        title: const Text('Resultants'),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
           ),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              PageTransition(
+                type: PageTransitionType.bottomToTopJoined,
+                childCurrent: widget,
+                duration: const Duration(milliseconds: 300),
+                child: const StudentMainScreen(),
+              ),
+            );
+          },
         ),
-        body: Column(
+      ),
+      body: SafeArea(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Head(
