@@ -11,8 +11,15 @@ import '../screens.dart';
 import '../../screens/student/exam_schedule.dart' as ex;
 
 class AddOralMark extends StatefulWidget {
-  final int id;
-  const AddOralMark({required this.id, Key? key}) : super(key: key);
+  final int subjectId;
+  final int classId;
+  final int classroomId;
+  const AddOralMark(
+      {required this.subjectId,
+      required this.classId,
+      required this.classroomId,
+      Key? key})
+      : super(key: key);
 
   @override
   State<AddOralMark> createState() => _AddOralMarkState();
@@ -21,8 +28,9 @@ class AddOralMark extends StatefulWidget {
 class _AddOralMarkState extends State<AddOralMark> {
   @override
   initState() {
+    int id = Provider.of<AppProvider>(context, listen: false).getId();
     Provider.of<AppProvider>(context, listen: false)
-        .getTeacherStudents(widget.id, widget.id, widget.id, widget.id);
+        .getTeacherStudents(id, widget.subjectId, widget.classId, widget.classroomId);
     super.initState();
   }
 

@@ -55,9 +55,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                 return Shimmer.fromColors(
                   baseColor: Colors.grey,
                   highlightColor: Colors.white,
-
-                  ///TODO: change
-                  child: const CircularProgressIndicator(),
+                  child:  CircularProgressIndicator(color: Colors.orange[400],),
                 );
               case Status.ERROR:
                 return er.Error(

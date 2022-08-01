@@ -717,12 +717,12 @@ class _ExamScreenState extends State<ExamScreen> {
                                       ),
                                     ),
                                     onPressed: () async {
-                                      // int studentId = provider.getId();
+                                      int studentId = provider.getId();
                                       var response =
                                           await Provider.of<AppProvider>(
                                                   context,
                                                   listen: false)
-                                              .setStudentExamMark(4, 1);
+                                              .setStudentExamMark(widget.examId, studentId);
                                       if (await provider.checkInternet()) {
                                         if (response.status == Status.LOADING) {
                                           EasyLoading.showToast(

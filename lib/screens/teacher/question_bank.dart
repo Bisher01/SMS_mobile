@@ -41,7 +41,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
   @override
   initState() {
     _markController = TextEditingController();
-    Provider.of<AppProvider>(context, listen: false).getAllQuestions(1,1,1);
+    int id = Provider.of<AppProvider>(context,listen: false).getId();
+    Provider.of<AppProvider>(context, listen: false).getAllQuestions(id,widget.classId,widget.subjectId);
     super.initState();
   }
 
@@ -59,8 +60,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
         backgroundColor: const Color.fromRGBO(251, 250, 250, 1),
         elevation: 0,
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.edit,color: Colors.black,)),
-          IconButton(onPressed: (){}, icon: Icon(Icons.delete,color: Colors.black,))
+          IconButton(onPressed: (){}, icon: const Icon(Icons.edit,color: Colors.black,),),
+          IconButton(onPressed: (){}, icon: const Icon(Icons.delete,color: Colors.black,),)
         ],
         title: Row(
           mainAxisSize: MainAxisSize.max,
@@ -147,9 +148,9 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                               ),
                               Row(
                                 children: [
-                                  Text(
+                                  const Text(
                                     'Mark',
-                                     style: const TextStyle(
+                                     style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 22,
                                       color: Colors.grey,
@@ -588,7 +589,7 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                             )
                             : const SizedBox(),
                         Container(
-                          margin: EdgeInsets.only(top: 100),
+                          margin: const EdgeInsets.only(top: 100),
                           width: widgetSize.getWidth(200, context),
                           height: widgetSize.getHeight(50, context),
                           child: ElevatedButton(

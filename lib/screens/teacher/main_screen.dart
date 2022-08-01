@@ -29,17 +29,50 @@ class _TeacherMainScreenState extends State<TeacherMainScreen>
         elevation: 0,
         backgroundColor: Colors.white,
         actions: [
-          Image.asset(
-            'assets/icons/gear.png',
-            height: 40,
-            width: 40,
+          GestureDetector(
+            onDoubleTap: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Log Out'),
+                      content: Text(
+                        'Are you sure you want to log out?',
+                      ),
+                      elevation: 2,
+                      actions: [
+                        TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Log out',
+                          style: TextStyle(color: Colors.orange[300],),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(color: Colors.orange[300],),
+                          ),
+                        ),
+                      ],
+                    );
+                  });
+            },
+            child: Image.asset(
+              'assets/icons/gear.png',
+              height: 40,
+              width: 40,
+            ),
           ),
           const SizedBox(
             width: 10,
           )
         ],
         title: const Text(
-          'Bisher Hasani',
+          'Main Screen',
           maxLines: 1,
           style: TextStyle(
             fontWeight: FontWeight.w600,
@@ -60,7 +93,7 @@ class _TeacherMainScreenState extends State<TeacherMainScreen>
               Navigator.push(
                 context,
                 PageTransition(
-                  child: TeacherProfilePage(),
+                  child: const TeacherProfilePage(),
                   type: PageTransitionType.leftToRightPop,
                   childCurrent: widget,
                   duration: const Duration(milliseconds: 400),
@@ -136,7 +169,9 @@ class _TeacherMainScreenState extends State<TeacherMainScreen>
               Navigator.push(
                 context,
                 PageTransition(
-                  child: const ExamSchedule(studentId: 3,),
+                  child: const ExamSchedule(
+                    studentId: 3,
+                  ),
                   type: PageTransitionType.leftToRightPop,
                   childCurrent: widget,
                   duration: const Duration(milliseconds: 400),
@@ -175,36 +210,49 @@ class _TeacherMainScreenState extends State<TeacherMainScreen>
                 )),
           ),
           //marks
-          Card(
-              elevation: 3,
-              shadowColor: Colors.black,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(16),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: const SelectClassSubjectClassroom(),
+                  type: PageTransitionType.leftToRightPop,
+                  childCurrent: widget,
+                  duration: const Duration(milliseconds: 400),
                 ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 20, left: 20, right: 20, bottom: 10),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/icons/score.png',
-                      height: 100,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      'Marks',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
+              );
+            },
+            child: Card(
+                elevation: 3,
+                shadowColor: Colors.black,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(16),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 20, right: 20, bottom: 10),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/icons/score.png',
+                        height: 100,
                       ),
-                    )
-                  ],
-                ),
-              )),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Marks',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                      )
+                    ],
+                  ),
+                )),
+          ),
           //schedule
           InkWell(
             onTap: () {

@@ -31,10 +31,43 @@ class _ParentMainScreenState extends State<ParentMainScreen>
         elevation: 0,
         backgroundColor: Colors.white,
         actions: [
-          Image.asset(
-            'assets/icons/gear.png',
-            height: 40,
-            width: 40,
+          GestureDetector(
+            onDoubleTap: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Log Out'),
+                      content: Text(
+                        'Are you sure you want to log out?',
+                      ),
+                      elevation: 2,
+                      actions: [
+                        TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Log out',
+                            style: TextStyle(color: Colors.orange[300],),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(color: Colors.orange[300],),
+                          ),
+                        ),
+                      ],
+                    );
+                  });
+            },
+            child: Image.asset(
+              'assets/icons/gear.png',
+              height: 40,
+              width: 40,
+            ),
           ),
           const SizedBox(
             width: 10,

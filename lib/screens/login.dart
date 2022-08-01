@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late final FocusNode _firstNameFocusNode;
   late final FocusNode _lastNameFocusNode;
   late final FocusNode _codeFocusNode;
-  bool isHidden = false;
+  bool isHidden = true;
 
   @override
   void initState() {

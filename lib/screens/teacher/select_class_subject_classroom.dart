@@ -23,7 +23,8 @@ class _SelectClassSubjectClassroomState
 
   @override
   initState() {
-    Provider.of<AppProvider>(context, listen: false).getTeacherSubjects(1);
+    int id = Provider.of<AppProvider>(context, listen: false).getId();
+    Provider.of<AppProvider>(context, listen: false).getTeacherSubjects(id);
     super.initState();
   }
 
@@ -312,7 +313,9 @@ class _SelectClassSubjectClassroomState
                               context,
                               PageTransition(
                                 child: AddOralMark(
-                                  id: 1,
+                                subjectId: subjectId,
+                                  classId: classId,
+                                  classroomId: classroomId,
                                 ),
                                 type: PageTransitionType.leftToRightPop,
                                 childCurrent: widget,

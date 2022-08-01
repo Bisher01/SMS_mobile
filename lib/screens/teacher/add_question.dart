@@ -243,7 +243,7 @@ class _AddQuestionState extends State<AddQuestion> {
                                       shape: BoxShape.circle,
                                       color: selected == 2
                                           ? Colors.orange[400]
-                                          : Color.fromRGBO(70, 73, 81, 1)),
+                                          : const Color.fromRGBO(70, 73, 81, 1)),
                                   child: const Center(
                                     child: Text(
                                       'B',
@@ -334,7 +334,7 @@ class _AddQuestionState extends State<AddQuestion> {
                                             shape: BoxShape.circle,
                                             color: selected == 3
                                                 ? Colors.orange[400]
-                                                : Color.fromRGBO(
+                                                : const Color.fromRGBO(
                                                     70, 73, 81, 1)),
                                         child: const Center(
                                           child: Text(
@@ -427,7 +427,7 @@ class _AddQuestionState extends State<AddQuestion> {
                                             shape: BoxShape.circle,
                                             color: selected == 4
                                                 ? Colors.orange[400]
-                                                : Color.fromRGBO(
+                                                : const Color.fromRGBO(
                                                     70, 73, 81, 1)),
                                         child: const Center(
                                           child: Text(
@@ -520,7 +520,7 @@ class _AddQuestionState extends State<AddQuestion> {
                                           shape: BoxShape.circle,
                                           color: selected == 5
                                               ? Colors.orange[400]
-                                              : Color.fromRGBO(70, 73, 81, 1),
+                                              : const Color.fromRGBO(70, 73, 81, 1),
                                         ),
                                         child: const Center(
                                           child: Text(
@@ -683,9 +683,9 @@ class _AddQuestionState extends State<AddQuestion> {
                           ),
                         ];
                         AddQuestionModel addQuestion = AddQuestionModel(
-                          teacherId: '1',
-                          classId: '1',
-                          subjectId: '1',
+                          teacherId: Provider.of<AppProvider>(context,listen: false).getId().toString(),
+                          classId: widget.classes.toString(),
+                          subjectId: widget.subject.toString(),
                           question: question,
                         );
                         var provider =
@@ -714,7 +714,7 @@ class _AddQuestionState extends State<AddQuestion> {
                               Navigator.push(
                                 context,
                                 PageTransition(
-                                  child: AddQuestion(
+                                  child: const AddQuestion(
                                     classes: 1,
                                     subject: 1,
                                   ),

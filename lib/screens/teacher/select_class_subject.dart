@@ -311,7 +311,17 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                     ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      child:  QuestionsBankScreen(classId: classId, subjectId: subjectId),
+                      type: PageTransitionType.leftToRightPop,
+                      childCurrent: widget,
+                      duration: const Duration(milliseconds: 400),
+                    ),
+                  );
+                },
                 child: const Text(
                   'add a new exam from bank',
                   style: TextStyle(

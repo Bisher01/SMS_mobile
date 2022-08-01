@@ -30,6 +30,12 @@ class _ExamScheduleState extends State<ExamSchedule> {
     super.initState();
   }
 
+  List<Color> cardColor = [
+    Color.fromRGBO(242, 216, 199, 1),
+    Color.fromRGBO(244, 230, 202, 1),
+    Color.fromRGBO(225, 174, 86, 1),
+    Color.fromRGBO(148, 111, 169, 1)
+  ];
   int containerColor = -1;
   int selectedTab = 0;
   List<String> days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -271,7 +277,13 @@ class _ExamScheduleState extends State<ExamSchedule> {
                                             15,
                                           ),
                                         ),
-                                        color: Colors.pinkAccent,
+                                        color: index % 4 == 0
+                                            ? cardColor[0]
+                                            : index % 4 == 1
+                                                ? cardColor[1]
+                                                : index % 4 == 2
+                                                    ? cardColor[2]
+                                                    : cardColor[3],
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
                                             horizontal: 12,
@@ -303,38 +315,38 @@ class _ExamScheduleState extends State<ExamSchedule> {
                                                       ),
                                                     ],
                                                   ),
-                                                  SizedBox(
-                                                    width: 20,
-                                                    height: 20,
-                                                    child: IconButton(
-                                                      onPressed: () {
-                                                        print('pressed');
-                                                        Navigator.push(
-                                                          context,
-                                                          PageTransition(
-                                                            child: ExamScreen(
-                                                              examId:
-                                                                  exams[index]
-                                                                      .id!,
-                                                            ),
-                                                            type: PageTransitionType
-                                                                .leftToRightPop,
-                                                            childCurrent:
-                                                                widget,
-                                                            duration:
-                                                                const Duration(
-                                                                    milliseconds:
-                                                                        400),
-                                                          ),
-                                                        );
-                                                      },
-                                                      icon: const Icon(
-                                                        Icons.arrow_forward_ios,
-                                                        color: Colors.white,
-                                                        size: 12,
-                                                      ),
-                                                    ),
-                                                  ),
+                                                  // SizedBox(
+                                                  //   width: 20,
+                                                  //   height: 20,
+                                                  //   child: IconButton(
+                                                  //     onPressed: () {
+                                                  //       print('pressed');
+                                                  //       Navigator.push(
+                                                  //         context,
+                                                  //         PageTransition(
+                                                  //           child: ExamScreen(
+                                                  //             examId:
+                                                  //                 exams[index]
+                                                  //                     .id!,
+                                                  //           ),
+                                                  //           type: PageTransitionType
+                                                  //               .leftToRightPop,
+                                                  //           childCurrent:
+                                                  //               widget,
+                                                  //           duration:
+                                                  //               const Duration(
+                                                  //                   milliseconds:
+                                                  //                       400),
+                                                  //         ),
+                                                  //       );
+                                                  //     },
+                                                  //     icon: const Icon(
+                                                  //       Icons.arrow_forward_ios,
+                                                  //       color: Colors.white,
+                                                  //       size: 12,
+                                                  //     ),
+                                                  //   ),
+                                                  // ),
                                                 ],
                                               ),
                                               Row(
@@ -415,6 +427,34 @@ class _ExamScheduleState extends State<ExamSchedule> {
                                       width: widgetSize.getWidth(240, context),
                                       height:
                                           widgetSize.getHeight(180, context),
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 16, right: 8),
+                                        child: IconButton(
+                                          onPressed: () {
+                                            print('pressed');
+                                            Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                child: ExamScreen(
+                                                  examId: exams[index].id!,
+                                                ),
+                                                type: PageTransitionType
+                                                    .leftToRightPop,
+                                                childCurrent: widget,
+                                                duration: const Duration(
+                                                    milliseconds: 400),
+                                              ),
+                                            );
+                                          },
+                                          icon: const Icon(
+                                            Icons.arrow_forward_ios,
+                                            color: Colors.white,
+                                            size: 18,
+                                          ),
+                                          alignment: Alignment.topRight,
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
