@@ -5,6 +5,7 @@ import 'package:sms_mobile/models/resultant.dart';
 import 'package:sms_mobile/providers/providers.dart';
 import 'package:sms_mobile/screens/mentor/attendance.dart';
 import 'package:sms_mobile/screens/screens.dart';
+import 'package:sms_mobile/screens/student/exam.dart' as ex;
 import 'package:hive_flutter/hive_flutter.dart';
 import '../models/models.dart';
 import 'package:sms_mobile/screens/student/exam_schedule.dart' as ex;
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(),
-        home:  Resultants(),
+        home:  MentorAttendanceScreen(),
         // home: !isFirst
         //     ? const WelcomeScreen()
         //     : !isToken

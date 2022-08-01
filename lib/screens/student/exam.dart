@@ -36,7 +36,7 @@ class _ExamState extends State<Exam> {
 
   @override
   initState() {
-    Provider.of<AppProvider>(context, listen: false).getStudentExam(3);
+    Provider.of<AppProvider>(context, listen: false).getStudentExam(4);
     super.initState();
   }
 
@@ -721,7 +721,7 @@ class _ExamState extends State<Exam> {
                                           await Provider.of<AppProvider>(
                                                   context,
                                                   listen: false)
-                                              .setStudentExamMark(3, 2);
+                                              .setStudentExamMark(4, 1);
                                       if (await provider.checkInternet()) {
                                         if (response.status == Status.LOADING) {
                                           EasyLoading.showToast(
