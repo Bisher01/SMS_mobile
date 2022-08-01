@@ -381,21 +381,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                       _firstNameController.text,
                                       _lastNameController.text,
                                       _codeController.text);
-                              //     .then((value) {
-                              //   if (value.data!.role == 'teacher') {
-                              //     Provider.of<AppProvider>(context,
-                              //             listen: false)
-                              //         .getTeacher(value.data!.id!);
-                              //   } else if (value.data!.role == 'student') {
-                              //     Provider.of<AppProvider>(context,
-                              //             listen: false)
-                              //         .getStudent(value.data!.id!);
-                              //   } else if (value.data!.role == 'mentor') {
-                              //     Provider.of<AppProvider>(context,
-                              //             listen: false)
-                              //         .getMentor(value.data!.id!);
-                              //   } else {}
-                              // });
                               if (response.status == Status.LOADING) {
                                 EasyLoading.showToast(
                                   'Loading...',
@@ -441,6 +426,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   );
                                 }
                               }
+                            } else {
+                              EasyLoading.showError('No Internet Connection',
+                                  dismissOnTap: true);
                             }
                           }
                         },

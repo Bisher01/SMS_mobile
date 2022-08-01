@@ -9,14 +9,15 @@ import '../../models/models.dart';
 import '../../services/api_response.dart';
 import '../../components/error.dart' as err;
 
-class Exam extends StatefulWidget {
-  const Exam({Key? key}) : super(key: key);
+class ExamScreen extends StatefulWidget {
+  final int examId;
+  const ExamScreen({required this.examId,Key? key}) : super(key: key);
 
   @override
-  State<Exam> createState() => _ExamState();
+  State<ExamScreen> createState() => _ExamScreenState();
 }
 
-class _ExamState extends State<Exam> {
+class _ExamScreenState extends State<ExamScreen> {
   List<Answer> answers = [];
   List<String> days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   List<String> months = [
@@ -36,7 +37,7 @@ class _ExamState extends State<Exam> {
 
   @override
   initState() {
-    Provider.of<AppProvider>(context, listen: false).getStudentExam(4);
+    Provider.of<AppProvider>(context, listen: false).getStudentExam(widget.examId);
     super.initState();
   }
 

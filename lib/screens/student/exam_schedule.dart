@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:sms_mobile/providers/providers.dart';
+import 'package:sms_mobile/screens/screens.dart';
 import 'package:sms_mobile/utill/utill.dart';
 import '../../components/error.dart' as err;
 
@@ -10,7 +12,7 @@ import '../../services/api_response.dart';
 
 class ExamSchedule extends StatefulWidget {
   final int studentId;
-  const ExamSchedule({required this.studentId,Key? key}) : super(key: key);
+  const ExamSchedule({required this.studentId, Key? key}) : super(key: key);
 
   @override
   State<ExamSchedule> createState() => _ExamScheduleState();
@@ -23,7 +25,8 @@ class _ExamScheduleState extends State<ExamSchedule> {
 
   @override
   initState() {
-    Provider.of<AppProvider>(context, listen: false).getClassExam(widget.studentId);
+    Provider.of<AppProvider>(context, listen: false)
+        .getClassExam(widget.studentId);
     super.initState();
   }
 
@@ -175,7 +178,8 @@ class _ExamScheduleState extends State<ExamSchedule> {
                                     110,
                                     context,
                                   ),
-                                  child: Card(borderOnForeground: false,
+                                  child: Card(
+                                    borderOnForeground: false,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(
                                         10,
@@ -303,7 +307,27 @@ class _ExamScheduleState extends State<ExamSchedule> {
                                                     width: 20,
                                                     height: 20,
                                                     child: IconButton(
-                                                      onPressed: () {},
+                                                      onPressed: () {
+                                                        print('pressed');
+                                                        Navigator.push(
+                                                          context,
+                                                          PageTransition(
+                                                            child: ExamScreen(
+                                                              examId:
+                                                                  exams[index]
+                                                                      .id!,
+                                                            ),
+                                                            type: PageTransitionType
+                                                                .leftToRightPop,
+                                                            childCurrent:
+                                                                widget,
+                                                            duration:
+                                                                const Duration(
+                                                                    milliseconds:
+                                                                        400),
+                                                          ),
+                                                        );
+                                                      },
                                                       icon: const Icon(
                                                         Icons.arrow_forward_ios,
                                                         color: Colors.white,

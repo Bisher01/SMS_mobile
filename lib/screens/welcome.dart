@@ -118,28 +118,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         )
         .toList();
 
-    // List<Widget> indicator() => List<Widget>.generate(
-    //       slides.length,
-    //       (index) => Container(
-    //         margin: const EdgeInsets.symmetric(horizontal: 3.0),
-    //         height: 10.0,
-    //         width: 10.0,
-    //         decoration: BoxDecoration(
-    //           color: currentPage.round() == index
-    //               ? const Color(
-    //                   0XFF256075,
-    //                 )
-    //               : const Color(
-    //                   0XFF256075,
-    //                 ).withOpacity(
-    //                   0.2,
-    //                 ),
-    //           borderRadius: BorderRadius.circular(
-    //             10.0,
-    //           ),
-    //         ),
-    //       ),
-    //     );
 
     return Scaffold(
       body: Stack(

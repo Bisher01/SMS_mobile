@@ -90,8 +90,10 @@ class Head extends StatelessWidget {
 
 class Body extends StatefulWidget {
   final ScrollController? scrollController;
+  final int studentId;
   const Body({
     Key? key,
+    required this.studentId,
     required this.scrollController,
   }) : super(key: key);
   @override
@@ -101,7 +103,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   initState() {
-    Provider.of<AppProvider>(context, listen: false).getStudentResultant(1, 1);
+    Provider.of<AppProvider>(context, listen: false).getStudentResultant(widget.studentId, 1);
     _controllers = LinkedScrollControllerGroup();
     _firstColumnController = _controllers!.addAndGet();
     _restColumnsController = _controllers!.addAndGet();
@@ -211,7 +213,9 @@ class _BodyState extends State<Body> {
 }
 
 class Resultants extends StatefulWidget {
-  const Resultants({Key? key}) : super(key: key);
+  final int studentId;
+  final bool isParent;
+  const Resultants({required this.studentId,required this.isParent,Key? key}) : super(key: key);
 
   @override
   _ResultantsState createState() => _ResultantsState();
@@ -254,7 +258,7 @@ class _ResultantsState extends State<Resultants> {
                 type: PageTransitionType.bottomToTopJoined,
                 childCurrent: widget,
                 duration: const Duration(milliseconds: 300),
-                child: const StudentMainScreen(),
+                child: widget.isParent?const ParentMainScreen():const StudentMainScreen(),
               ),
             );
           },
@@ -269,6 +273,7 @@ class _ResultantsState extends State<Resultants> {
             ),
             Expanded(
               child: Body(
+                studentId: widget.studentId,
                 scrollController: _bodyController,
               ),
             ),

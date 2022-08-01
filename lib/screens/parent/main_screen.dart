@@ -137,9 +137,10 @@ class _ParentMainScreenState extends State<ParentMainScreen>
               Navigator.push(
                 context,
                 PageTransition(
-                  child: SelectChild(
-                      id: Provider.of<AppProvider>(context, listen: false)
-                          .getId()),
+                  child: ExamSchedule(
+                    studentId: Provider.of<AppProvider>(context, listen: false)
+                        .getId(),
+                  ),
                   type: PageTransitionType.leftToRightPop,
                   childCurrent: widget,
                   duration: const Duration(milliseconds: 400),
@@ -178,36 +179,53 @@ class _ParentMainScreenState extends State<ParentMainScreen>
                 )),
           ),
           //marks
-          Card(
-              elevation: 3,
-              shadowColor: Colors.black,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(16),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: Resultants(
+                    studentId: Provider.of<AppProvider>(context, listen: false)
+                        .getId(),
+                    isParent: true,
+                  ),
+                  type: PageTransitionType.leftToRightPop,
+                  childCurrent: widget,
+                  duration: const Duration(milliseconds: 400),
                 ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 20, left: 20, right: 20, bottom: 10),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/icons/score.png',
-                      height: 100,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      'Marks',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
+              );
+            },
+            child: Card(
+                elevation: 3,
+                shadowColor: Colors.black,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(16),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 20, right: 20, bottom: 10),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/icons/score.png',
+                        height: 100,
                       ),
-                    )
-                  ],
-                ),
-              )),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Marks',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                      )
+                    ],
+                  ),
+                )),
+          ),
           //schedule
           InkWell(
             onTap: () {
