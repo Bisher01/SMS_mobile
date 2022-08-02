@@ -326,7 +326,7 @@ class _SelectClassSubjectClassroomState
                             );
                           },
                           child: const Text(
-                            'Add oral marks to students',
+                            'Add quiz to students',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500,

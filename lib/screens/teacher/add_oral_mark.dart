@@ -55,7 +55,7 @@ class _AddOralMarkState extends State<AddOralMark> {
                   type: PageTransitionType.bottomToTopJoined,
                   childCurrent: widget,
                   duration: const Duration(milliseconds: 300),
-                  child: const ParentMainScreen(),
+                  child: const TeacherMainScreen(),
                 ),
               );
             },

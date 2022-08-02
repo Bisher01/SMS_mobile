@@ -131,7 +131,7 @@ class _TeacherMainScreenState extends State<TeacherMainScreen>
                   ),
                 )),
           ),
-          //quiz
+          //add new quiz
           InkWell(
             onTap: () {
               Navigator.push(
@@ -167,7 +167,7 @@ class _TeacherMainScreenState extends State<TeacherMainScreen>
                       height: 20,
                     ),
                     const Text(
-                      'Homework',
+                      'Quiz',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
@@ -224,7 +224,7 @@ class _TeacherMainScreenState extends State<TeacherMainScreen>
                   ),
                 )),
           ),
-          //marks
+          //oral marks
           InkWell(
             onTap: () {
               Navigator.push(

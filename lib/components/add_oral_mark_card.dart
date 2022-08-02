@@ -12,7 +12,13 @@ class AddOralMarkCard extends StatefulWidget {
   final int subjectId;
   final int classId;
   final int classroomId;
-  const AddOralMarkCard({required this.classroomId,required this.classId,required this.subjectId,required this.student, Key? key}) : super(key: key);
+  const AddOralMarkCard(
+      {required this.classroomId,
+      required this.classId,
+      required this.subjectId,
+      required this.student,
+      Key? key})
+      : super(key: key);
 
   @override
   State<AddOralMarkCard> createState() => _AddOralMarkCardState();
@@ -227,8 +233,14 @@ class _AddOralMarkCardState extends State<AddOralMarkCard> {
                                   var response = await Provider.of<AppProvider>(
                                           context,
                                           listen: false)
-                                      .addStudentOralMark(teacherId, widget.subjectId, widget.classId, widget.classroomId,
-                                          widget.student.id!, seasonId, mark);
+                                      .addStudentOralMark(
+                                          teacherId,
+                                          widget.subjectId,
+                                          widget.classId,
+                                          widget.classroomId,
+                                          widget.student.id!,
+                                          seasonId,
+                                          mark);
 
                                   if (response.status == Status.LOADING) {
                                     EasyLoading.showToast(
