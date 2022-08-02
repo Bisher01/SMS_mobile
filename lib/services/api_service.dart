@@ -120,7 +120,7 @@ abstract class ApiService {
 
   //add exam
   @POST('exam/add')
-  Future<Delete> addExam();
+  Future<Delete> addExam(@Body() Map<String, dynamic> exam);
 
   //edit exam
 
@@ -139,6 +139,30 @@ abstract class ApiService {
   //get class exam ((schedule))
   @GET('exam/classExam/{id}')
   Future<ExamSchedule> getClassExam(@Path('id') int id);
+
+
+  ///////////===========Quiz===========///////////
+
+
+  //get student quiz
+  @POST('quiz/getQuiz/{id}')
+  Future<StudentQuiz> getStudentQuiz(@Path('id') int id);
+
+  //get student quiz mark
+  @POST('quiz/mark/{id1}/{id2}')
+  Future<FMark> getStudentQuizMark(@Path('id1') int id1, @Path('id2') int id2);
+
+  //get quiz schedule
+  //@GET('quiz/schedule/{id1}/{id2}')
+
+
+
+  //add quiz
+  @POST('api/quiz/add')
+  Future<Delete> addQuiz(@Body() Map<String, dynamic> quiz);
+
+
+
 
   ///////////===========Questions===========///////////
   //add question to bank

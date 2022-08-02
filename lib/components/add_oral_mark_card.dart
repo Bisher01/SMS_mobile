@@ -9,7 +9,10 @@ import '../services/api_response.dart';
 
 class AddOralMarkCard extends StatefulWidget {
   final Student student;
-  const AddOralMarkCard({required this.student, Key? key}) : super(key: key);
+  final int subjectId;
+  final int classId;
+  final int classroomId;
+  const AddOralMarkCard({required this.classroomId,required this.classId,required this.subjectId,required this.student, Key? key}) : super(key: key);
 
   @override
   State<AddOralMarkCard> createState() => _AddOralMarkCardState();
@@ -215,6 +218,7 @@ class _AddOralMarkCardState extends State<AddOralMarkCard> {
                               _markFocusNode.unfocus();
                               final provider = Provider.of<AppProvider>(context,
                                   listen: false);
+                              final teacherId = provider.getId();
                               if (await provider.checkInternet()) {
                                 try {
                                   int mark = int.parse(_markController.text);
@@ -223,7 +227,7 @@ class _AddOralMarkCardState extends State<AddOralMarkCard> {
                                   var response = await Provider.of<AppProvider>(
                                           context,
                                           listen: false)
-                                      .addStudentOralMark(1, 1, 1, 1,
+                                      .addStudentOralMark(teacherId, widget.subjectId, widget.classId, widget.classroomId,
                                           widget.student.id!, seasonId, mark);
 
                                   if (response.status == Status.LOADING) {

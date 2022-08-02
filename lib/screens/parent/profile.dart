@@ -19,7 +19,7 @@ class _ParentProfilePageState extends State<ParentProfilePage> {
   @override
   initState() {
     final id = Provider.of<AppProvider>(context, listen: false).getId();
-    Provider.of<AppProvider>(context, listen: false).getParent(id);
+    Provider.of<AppProvider>(context, listen: false).getStudent(id);
     super.initState();
   }
 
@@ -49,8 +49,8 @@ class _ParentProfilePageState extends State<ParentProfilePage> {
       ),
       body: Consumer<AppProvider>(
         builder: (context, provider, child) {
-          if (provider.getParentResponse != null) {
-            switch (provider.getParentResponse?.status) {
+          if (provider.getStudentResponse != null) {
+            switch (provider.getStudentResponse?.status) {
               case Status.LOADING:
                 return Shimmer.fromColors(
                   baseColor: Colors.grey,
@@ -59,10 +59,10 @@ class _ParentProfilePageState extends State<ParentProfilePage> {
                 );
               case Status.ERROR:
                 return er.Error(
-                  errorMsg: provider.getParentResponse!.message!,
+                  errorMsg: provider.getStudentResponse!.message!,
                 );
               case Status.COMPLETED:
-                final parent = provider.getParentResponse!.data!.parent![0];
+                final parent = provider.getStudentResponse!.data!.student![0].parent!;
                 return Stack(
                   children: [
                     Container(

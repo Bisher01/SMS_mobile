@@ -37,8 +37,8 @@ class _StudentMainScreenState extends State<StudentMainScreen>
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      title: Text('Log Out'),
-                      content: Text(
+                      title: const Text('Log Out'),
+                      content: const Text(
                         'Are you sure you want to log out?',
                       ),
                       elevation: 2,
@@ -133,37 +133,53 @@ class _StudentMainScreenState extends State<StudentMainScreen>
                   ),
                 )),
           ),
-          //homework
-          Card(
-              elevation: 3,
-              shadowColor: Colors.black,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(16),
+          //quiz
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: QuizSchedule(
+                    studentId: Provider.of<AppProvider>(context, listen: false)
+                        .getId(),
+                  ),
+                  type: PageTransitionType.leftToRightPop,
+                  childCurrent: widget,
+                  duration: const Duration(milliseconds: 400),
                 ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 20, left: 20, right: 20, bottom: 10),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/icons/homework 2.png',
-                      height: 100,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      'Homework',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
+              );
+            },
+            child: Card(
+                elevation: 3,
+                shadowColor: Colors.black,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(16),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 20, right: 20, bottom: 10),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/icons/homework 2.png',
+                        height: 100,
                       ),
-                    )
-                  ],
-                ),
-              )),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Quiz',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                      )
+                    ],
+                  ),
+                )),
+          ),
           //exam schedule
           InkWell(
             onTap: () {

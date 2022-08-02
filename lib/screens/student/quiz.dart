@@ -9,14 +9,15 @@ import '../../models/models.dart';
 import '../../services/api_response.dart';
 import '../../components/error.dart' as err;
 
-class Quiz extends StatefulWidget {
-  const Quiz({Key? key}) : super(key: key);
+class QuizScreen extends StatefulWidget {
+  final int quizId;
+  const QuizScreen({required this.quizId,Key? key}) : super(key: key);
 
   @override
-  State<Quiz> createState() => _QuizState();
+  State<QuizScreen> createState() => _QuizScreenState();
 }
 
-class _QuizState extends State<Quiz> {
+class _QuizScreenState extends State<QuizScreen> {
   List<Answer> answers = [];
   List<String> days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   List<String> months = [
@@ -36,7 +37,7 @@ class _QuizState extends State<Quiz> {
 
   @override
   initState() {
-    Provider.of<AppProvider>(context, listen: false).getStudentExam(3);
+    Provider.of<AppProvider>(context, listen: false).getStudentQuiz(widget.quizId);
     super.initState();
   }
 
@@ -95,8 +96,8 @@ class _QuizState extends State<Quiz> {
         ],
       ),
       body: Consumer<AppProvider>(builder: (context, provider, child) {
-        if (provider.getStudentExamResponse != null) {
-          switch (provider.getStudentExamResponse!.status) {
+        if (provider.getStudentQuizResponse != null) {
+          switch (provider.getStudentQuizResponse!.status) {
             case Status.LOADING:
               return CircularProgressIndicator(
                 color: Colors.orange[400],
@@ -104,13 +105,13 @@ class _QuizState extends State<Quiz> {
             case Status.COMPLETED:
               return PageView.builder(
                   scrollDirection: Axis.vertical,
-                  itemCount: provider.getStudentExamResponse!.data!.exams![0]
+                  itemCount: provider.getStudentQuizResponse!.data!.data![0]
                       .questions!.length,
                   itemBuilder: (context, index) {
                     if (answers.length < index + 1) {
                       answers.add(
                         Answer(
-                          id: provider.getStudentExamResponse!.data!.exams![0]
+                          id: provider.getStudentQuizResponse!.data!.data![0]
                               .questions![index].id!
                               .toString(),
                           choice: '0',
@@ -137,7 +138,7 @@ class _QuizState extends State<Quiz> {
                                 ),
                               ),
                               Text(
-                                '${provider.getStudentExamResponse!.data!.exams![0].end!.difference(DateTime.now()).inMinutes} min',
+                                '${provider.getStudentQuizResponse!.data!.data![0].end!.difference(DateTime.now()).inMinutes} min',
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 22,
@@ -157,7 +158,7 @@ class _QuizState extends State<Quiz> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 15.0, vertical: 20),
                           child: Text(
-                            '${index + 1}. ${provider.getStudentExamResponse!.data!.exams![0].questions![index].text} ',
+                            '${index + 1}. ${provider.getStudentQuizResponse!.data!.data![0].questions![index].text} ',
                             style: const TextStyle(
                               color: Colors.black,
                               fontSize: 20,
@@ -206,9 +207,9 @@ class _QuizState extends State<Quiz> {
                                 child: Center(
                                   child: Text(
                                     provider
-                                        .getStudentExamResponse!
+                                        .getStudentQuizResponse!
                                         .data!
-                                        .exams![0]
+                                        .data![0]
                                         .questions![index]
                                         .choices![0]
                                         .text!,
@@ -298,9 +299,9 @@ class _QuizState extends State<Quiz> {
                                 child: Center(
                                   child: Text(
                                     provider
-                                        .getStudentExamResponse!
+                                        .getStudentQuizResponse!
                                         .data!
-                                        .exams![0]
+                                        .data![0]
                                         .questions![index]
                                         .choices![1]
                                         .text!,
@@ -351,9 +352,9 @@ class _QuizState extends State<Quiz> {
                         ),
                         SizedBox(
                           height: provider
-                              .getStudentExamResponse!
+                              .getStudentQuizResponse!
                               .data!
-                              .exams![0]
+                              .data![0]
                               .questions![index]
                               .choices!
                               .length >
@@ -361,7 +362,7 @@ class _QuizState extends State<Quiz> {
                               ? 10
                               : 0,
                         ),
-                        provider.getStudentExamResponse!.data!.exams![0]
+                        provider.getStudentQuizResponse!.data!.data![0]
                             .questions![index].choices!.length >
                             2
                             ? GestureDetector(
@@ -406,9 +407,9 @@ class _QuizState extends State<Quiz> {
                                 child: Center(
                                   child: Text(
                                     provider
-                                        .getStudentExamResponse!
+                                        .getStudentQuizResponse!
                                         .data!
-                                        .exams![0]
+                                        .data![0]
                                         .questions![index]
                                         .choices![2]
                                         .text!,
@@ -466,9 +467,9 @@ class _QuizState extends State<Quiz> {
                             : const SizedBox(),
                         SizedBox(
                           height: provider
-                              .getStudentExamResponse!
+                              .getStudentQuizResponse!
                               .data!
-                              .exams![0]
+                              .data![0]
                               .questions![index]
                               .choices!
                               .length >
@@ -476,7 +477,7 @@ class _QuizState extends State<Quiz> {
                               ? 10
                               : 0,
                         ),
-                        provider.getStudentExamResponse!.data!.exams![0]
+                        provider.getStudentQuizResponse!.data!.data![0]
                             .questions![index].choices!.length >
                             3
                             ? GestureDetector(
@@ -521,9 +522,9 @@ class _QuizState extends State<Quiz> {
                                 child: Center(
                                   child: Text(
                                     provider
-                                        .getStudentExamResponse!
+                                        .getStudentQuizResponse!
                                         .data!
-                                        .exams![0]
+                                        .data![0]
                                         .questions![index]
                                         .choices![3]
                                         .text!,
@@ -581,9 +582,9 @@ class _QuizState extends State<Quiz> {
                             : const SizedBox(),
                         SizedBox(
                           height: provider
-                              .getStudentExamResponse!
+                              .getStudentQuizResponse!
                               .data!
-                              .exams![0]
+                              .data![0]
                               .questions![index]
                               .choices!
                               .length >
@@ -591,7 +592,7 @@ class _QuizState extends State<Quiz> {
                               ? 10
                               : 0,
                         ),
-                        provider.getStudentExamResponse!.data!.exams![0]
+                        provider.getStudentQuizResponse!.data!.data![0]
                             .questions![index].choices!.length >
                             4
                             ? GestureDetector(
@@ -636,9 +637,9 @@ class _QuizState extends State<Quiz> {
                                 child: Center(
                                   child: Text(
                                     provider
-                                        .getStudentExamResponse!
+                                        .getStudentQuizResponse!
                                         .data!
-                                        .exams![0]
+                                        .data![0]
                                         .questions![index]
                                         .choices![4]
                                         .text!,
@@ -695,7 +696,7 @@ class _QuizState extends State<Quiz> {
                         )
                             : const SizedBox(),
                         index + 1 ==
-                            provider.getStudentExamResponse!.data!.exams![0]
+                            provider.getStudentQuizResponse!.data!.data![0]
                                 .questions!.length
                             ? Padding(
                           padding: const EdgeInsets.only(
@@ -716,12 +717,12 @@ class _QuizState extends State<Quiz> {
                                 ),
                               ),
                               onPressed: () async {
-                                // int studentId = provider.getId();
+                                int studentId = provider.getId();
                                 var response =
                                 await Provider.of<AppProvider>(
                                     context,
                                     listen: false)
-                                    .setStudentExamMark(3, 2);
+                                    .getStudentQuizMark(widget.quizId, studentId);
                                 if (await provider.checkInternet()) {
                                   if (response.status == Status.LOADING) {
                                     EasyLoading.showToast(
@@ -776,7 +777,7 @@ class _QuizState extends State<Quiz> {
                                                 response.data!.message!,
                                               ),
                                               content: Text(
-                                                'Your mark is: ${response.data!.mark![0]
+                                                'Your mark is: ${response.data!.mark!
                                                     .toString()}',
                                               ),
                                             );
@@ -813,7 +814,7 @@ class _QuizState extends State<Quiz> {
                   });
             case Status.ERROR:
               return err.Error(
-                errorMsg: provider.getStudentExamResponse!.message!,
+                errorMsg: provider.getStudentQuizResponse!.message!,
               );
             default:
               return Container();

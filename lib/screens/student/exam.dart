@@ -777,7 +777,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                                       response.data!.message!,
                                                     ),
                                                     content: Text(
-                                                      'Your mark is: ${response.data!.mark![0]
+                                                      'Your mark is: ${response.data!.mark!
                                                           .toString()}',
                                                     ),
                                                   );

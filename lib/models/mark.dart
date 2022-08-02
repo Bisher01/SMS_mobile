@@ -6,7 +6,7 @@ part 'mark.g.dart';
 class FMark {
   bool? status;
   String? message;
-  List<int>? mark;
+  int? mark;
   FMark({
     this.message,
     this.status,

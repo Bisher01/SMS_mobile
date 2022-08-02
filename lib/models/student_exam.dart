@@ -56,7 +56,7 @@ class Questions {
 
   int? id;
   String? text;
-  @JsonKey(name: 'teacher_subject_id')
+  @JsonKey(name: 'teacher_subjects_id')
   int? teacherSubjectsId;
   List<Choices>? choices;
 

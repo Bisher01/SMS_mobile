@@ -22,3 +22,4 @@ export 'student/exam.dart';
 export 'student/main_screen.dart';
 export 'student/quiz.dart';
 export 'student/resultants.dart';
+export 'student/quiz_schedule.dart';

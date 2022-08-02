@@ -9,7 +9,7 @@ part of 'mark.dart';
 FMark _$FMarkFromJson(Map<String, dynamic> json) => FMark(
       message: json['message'] as String?,
       status: json['status'] as bool?,
-      mark: (json['mark'] as List<dynamic>?)?.map((e) => e as int).toList(),
+      mark: json['mark'] as int?,
     );
 
 Map<String, dynamic> _$FMarkToJson(FMark instance) => <String, dynamic>{

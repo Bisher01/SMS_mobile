@@ -336,11 +336,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<Delete> addExam() async {
+  Future<Delete> addExam(exam) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
+    _data.addAll(exam);
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<Delete>(
             Options(method: 'POST', headers: _headers, extra: _extra)
@@ -412,6 +413,55 @@ class _ApiService implements ApiService {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ExamSchedule.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<StudentQuiz> getStudentQuiz(id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<StudentQuiz>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'quiz/getQuiz/${id}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = StudentQuiz.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FMark> getStudentQuizMark(id1, id2) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FMark>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'quiz/mark/${id1}/${id2}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FMark.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<Delete> addQuiz(quiz) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(quiz);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<Delete>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'api/quiz/add',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = Delete.fromJson(_result.data!);
     return value;
   }
 

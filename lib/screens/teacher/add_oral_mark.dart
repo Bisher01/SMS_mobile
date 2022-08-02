@@ -91,6 +91,9 @@ class _AddOralMarkState extends State<AddOralMark> {
                       return Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: AddOralMarkCard(
+                          classroomId: widget.classroomId,
+                          classId: widget.classId,
+                          subjectId: widget.subjectId,
                           student: response.data!.student![index],
                         ),
                       );

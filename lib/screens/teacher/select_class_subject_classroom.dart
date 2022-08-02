@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:sms_mobile/screens/teacher/add_quiz.dart';
 import 'package:sms_mobile/utill/utill.dart';
 
 import '../../providers/app_provider.dart';
@@ -9,7 +10,8 @@ import '../screens.dart';
 import '../../components/error.dart' as err;
 
 class SelectClassSubjectClassroom extends StatefulWidget {
-  const SelectClassSubjectClassroom({Key? key}) : super(key: key);
+  final bool addOralMark;
+  const SelectClassSubjectClassroom({required this.addOralMark,Key? key}) : super(key: key);
 
   @override
   State<SelectClassSubjectClassroom> createState() =>
@@ -312,11 +314,11 @@ class _SelectClassSubjectClassroomState
                             Navigator.push(
                               context,
                               PageTransition(
-                                child: AddOralMark(
+                                child: widget.addOralMark?AddOralMark(
                                 subjectId: subjectId,
                                   classId: classId,
                                   classroomId: classroomId,
-                                ),
+                                ):AddQuizScreen(classId: classId, subjectId: subjectId, classroomId: classroomId),
                                 type: PageTransitionType.leftToRightPop,
                                 childCurrent: widget,
                                 duration: const Duration(milliseconds: 400),

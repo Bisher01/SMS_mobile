@@ -28,3 +28,4 @@ export 'subject_class.dart';
 export 'exam_schedule.dart';
 export 'new_parent.dart';
 export 'resultant.dart';
+export 'student_quiz.dart';

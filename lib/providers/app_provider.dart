@@ -703,12 +703,12 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<ApiResponse<Delete>> addExam() async {
+  Future<ApiResponse<Delete>> addExam(Map<String, dynamic> exam) async {
     ApiService apiService = ApiService(Dio());
     if (await checkInternet()) {
       addExamResponse = ApiResponse.loading('');
       try {
-        Delete delete = await apiService.addExam();
+        Delete delete = await apiService.addExam(exam);
         addExamResponse = ApiResponse.completed(delete);
       } catch (e) {
         if (e is DioError) {
@@ -926,6 +926,111 @@ class AppProvider extends ChangeNotifier {
     }
     return questionBankResponse!;
   }
+
+  /////////////==========Quiz==========//////////////
+
+  //get student quiz
+  ApiResponse<StudentQuiz>? _getStudentQuizResponse;
+  ApiResponse<StudentQuiz>? get getStudentQuizResponse => _getStudentQuizResponse;
+  set getStudentQuizResponse(ApiResponse<StudentQuiz>? value) {
+    _getStudentQuizResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<StudentQuiz>> getStudentQuiz(int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getStudentQuizResponse = ApiResponse.loading('');
+      try {
+        StudentQuiz studentquiz = await apiService.getStudentQuiz(id);
+        getStudentQuizResponse = ApiResponse.completed(studentquiz);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return getStudentQuizResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return getStudentQuizResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return getStudentQuizResponse = ApiResponse.error('No Internet Connection');
+    }
+    return getStudentQuizResponse!;
+  }
+
+  //get student quiz mark
+  ApiResponse<FMark>? _getStudentQuizMarkResponse;
+  ApiResponse<FMark>? get getStudentQuizMarkResponse => _getStudentQuizMarkResponse;
+  set getStudentQuizMarkResponse(ApiResponse<FMark>? value) {
+    _getStudentQuizMarkResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FMark>> getStudentQuizMark(int id1,int id2) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getStudentQuizMarkResponse = ApiResponse.loading('');
+      try {
+        FMark fmark = await apiService.getStudentQuizMark(id1,id2);
+        getStudentQuizMarkResponse = ApiResponse.completed(fmark);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return getStudentQuizMarkResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return getStudentQuizMarkResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return getStudentQuizMarkResponse = ApiResponse.error('No Internet Connection');
+    }
+    return getStudentQuizMarkResponse!;
+  }
+
+  //add quiz
+  ApiResponse<Delete>? _addQuizResponse;
+  ApiResponse<Delete>? get addQuizResponse => _addQuizResponse;
+  set addQuizResponse(ApiResponse<Delete>? value) {
+    _addQuizResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> addQuiz(Map<String, dynamic> quiz) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      addQuizResponse = ApiResponse.loading('');
+      try {
+        Delete delete = await apiService.addQuiz(quiz);
+        addQuizResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return addQuizResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return addQuizResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return addQuizResponse = ApiResponse.error('No Internet Connection');
+    }
+    return addQuizResponse!;
+  }
+
+
+
+
+
+
+  ////////================================///////////
 
   ///==============================================///
 
