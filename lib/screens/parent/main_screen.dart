@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_mobile/providers/providers.dart';
+import '../../models/boxes.dart';
+import '../../services/api_response.dart';
 import '../screens.dart';
 
 class ParentMainScreen extends StatefulWidget {
@@ -44,10 +47,57 @@ class _ParentMainScreenState extends State<ParentMainScreen>
                       elevation: 2,
                       actions: [
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            final provider = Provider.of<AppProvider>(context,
+                                listen: false);
+                            String token = provider.getToken();
+                            if (await provider.checkInternet()) {
+                              var response = await Provider.of<AppProvider>(
+                                  context,
+                                  listen: false)
+                                  .logout('Bearer $token');
+                              if (response.status == Status.LOADING) {
+                                EasyLoading.showToast(
+                                  'Loading...',
+                                  duration: const Duration(
+                                    milliseconds: 300,
+                                  ),
+                                );
+                              }
+                              if (response.status == Status.ERROR) {
+                                EasyLoading.showError(response.message!,
+                                    dismissOnTap: true);
+                              }
+                              if (response.status == Status.COMPLETED) {
+                                if (response.data != null ) {
+                                  EasyLoading.showSuccess(
+                                      response.data!.message!,
+                                      dismissOnTap: true);
+                                  Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      child: LoginScreen(),
+                                      type:
+                                      PageTransitionType.bottomToTopJoined,
+                                      childCurrent: widget,
+                                      duration:
+                                      const Duration(milliseconds: 300),
+                                    ),
+                                  );
+                                }
+                                var box = Boxes.getAuthBox();
+                                box.clear();
+                              }
+                            } else {
+                              EasyLoading.showError('No Internet Connection',
+                                  dismissOnTap: true);
+                            }
+                          },
                           child: Text(
                             'Log out',
-                            style: TextStyle(color: Colors.orange[300],),
+                            style: TextStyle(
+                              color: Colors.orange[300],
+                            ),
                           ),
                         ),
                         TextButton(

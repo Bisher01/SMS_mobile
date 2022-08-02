@@ -54,6 +54,10 @@ abstract class ApiService {
   @POST('general/login')
   Future<Auth> login(@Body() FormData formData);
 
+  //all logout
+  @POST('general/logout')
+  Future <LogOut>logout(@Header('Authorization') String token);
+
   //all subjects
   @GET('subject/all')
   Future<FSubject> getAllSubjects();
@@ -140,9 +144,7 @@ abstract class ApiService {
   @GET('exam/classExam/{id}')
   Future<ExamSchedule> getClassExam(@Path('id') int id);
 
-
   ///////////===========Quiz===========///////////
-
 
   //get student quiz
   @POST('quiz/getQuiz/{id}')
@@ -154,16 +156,12 @@ abstract class ApiService {
 
   //get quiz schedule
   @GET('quiz/schedule/{id1}/{id2}')
-  Future<QuizSchedule> getClassroomQuizSchedule(@Path('id1') int id1,@Path('id2') int id2);
-
-
+  Future<QuizSchedule> getClassroomQuizSchedule(
+      @Path('id1') int id1, @Path('id2') int id2);
 
   //add quiz
   @POST('api/quiz/add')
   Future<Delete> addQuiz(@Body() Map<String, dynamic> quiz);
-
-
-
 
   ///////////===========Questions===========///////////
   //add question to bank

@@ -30,3 +30,4 @@ export 'new_parent.dart';
 export 'resultant.dart';
 export 'student_quiz.dart';
 export 'quiz_schedule.dart';
+export 'log_out.dart';

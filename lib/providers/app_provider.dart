@@ -25,6 +25,12 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  //get token
+  String getToken(){
+    var box = Boxes.getAuthBox();
+    return box.get('token')??"";
+  }
+
   //get role
   String getRole() {
     var box = Boxes.getRoleBox();
@@ -221,6 +227,40 @@ class AppProvider extends ChangeNotifier {
     }
     return authResponse!;
   }
+
+  //all logout
+  ApiResponse<LogOut>? _logoutResponse;
+  ApiResponse<LogOut>? get logoutResponse => _logoutResponse;
+  set logoutResponse(ApiResponse<LogOut>? value) {
+    _logoutResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<LogOut>> logout(String token) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      logoutResponse = ApiResponse.loading('');
+      try {
+        LogOut logout = await apiService.logout(token);
+        logoutResponse = ApiResponse.completed(logout);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return logoutResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return logoutResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return logoutResponse = ApiResponse.error('No Internet Connection');
+    }
+    return logoutResponse!;
+  }
+
+
 
   //get all classrooms
   ApiResponse<FClassroom>? _fClassrooms;
@@ -814,6 +854,7 @@ class AppProvider extends ChangeNotifier {
         if (e is DioError) {
           try {
             throwCustomException(e);
+
           } catch (forcedException) {
             return getStudentExamResponse =
                 ApiResponse.error(forcedException.toString());
@@ -1082,7 +1123,9 @@ class AppProvider extends ChangeNotifier {
       try {
         SubjectClass subjectclass = await apiService.getTeacherSubjects(id);
         getTeacherSubjectsResponse = ApiResponse.completed(subjectclass);
+        print('completed');
       } catch (e) {
+        print(e);
         if (e is DioError) {
           try {
             throwCustomException(e);
