@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -21,20 +20,20 @@ class QuizSchedule extends StatefulWidget {
 class _QuizScheduleState extends State<QuizSchedule> {
   final ItemScrollController itemScrollController = ItemScrollController();
   final ItemPositionsListener itemPositionsListener =
-  ItemPositionsListener.create();
+      ItemPositionsListener.create();
 
   @override
   initState() {
     Provider.of<AppProvider>(context, listen: false)
-        .getClassExam(widget.studentId);
+        .getClassroomQuizSchedule(widget.studentId, widget.studentId);
     super.initState();
   }
 
   List<Color> cardColor = [
-    Color.fromRGBO(242, 216, 199, 1),
-    Color.fromRGBO(244, 230, 202, 1),
-    Color.fromRGBO(225, 174, 86, 1),
-    Color.fromRGBO(148, 111, 169, 1)
+    const Color.fromRGBO(242, 216, 199, 1),
+    const Color.fromRGBO(244, 230, 202, 1),
+    const Color.fromRGBO(225, 174, 86, 1),
+    const Color.fromRGBO(148, 111, 169, 1)
   ];
   int containerColor = -1;
   int selectedTab = 0;
@@ -63,8 +62,8 @@ class _QuizScheduleState extends State<QuizSchedule> {
           ),
           child: Consumer<AppProvider>(
             builder: (context, provider, child) {
-              if (provider.getClassExamResponse != null) {
-                switch (provider.getClassExamResponse!.status) {
+              if (provider.getClassroomQuizScheduleResponse != null) {
+                switch (provider.getClassroomQuizScheduleResponse!.status) {
                   case Status.LOADING:
                     return Center(
                       child: CircularProgressIndicator(
@@ -72,7 +71,8 @@ class _QuizScheduleState extends State<QuizSchedule> {
                       ),
                     );
                   case Status.COMPLETED:
-                    var exams = provider.getClassExamResponse!.data!.exams;
+                    var quiz = provider
+                        .getClassroomQuizScheduleResponse!.data!.quizzes;
                     return Column(
                       children: [
                         Row(
@@ -152,7 +152,10 @@ class _QuizScheduleState extends State<QuizSchedule> {
                           height: widgetSize.getHeight(100, context),
                           child: ListView.builder(
                             itemCount: provider
-                                .getClassExamResponse!.data!.exams!.length,
+                                .getClassroomQuizScheduleResponse!
+                                .data!
+                                .quizzes!
+                                .length,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (BuildContext context, int index) {
                               return InkWell(
@@ -195,18 +198,22 @@ class _QuizScheduleState extends State<QuizSchedule> {
                                     color: selectedTab == index
                                         ? Colors.orange
                                         : const Color.fromARGB(
-                                      1,
-                                      250,
-                                      250,
-                                      250,
-                                    ).withOpacity(0.9),
+                                            1,
+                                            250,
+                                            250,
+                                            250,
+                                          ).withOpacity(0.9),
                                     child: Column(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                          MainAxisAlignment.spaceAround,
                                       children: [
                                         Text(
-                                          provider.getClassExamResponse!.data!
-                                              .exams![index].start!.day
+                                          provider
+                                              .getClassroomQuizScheduleResponse!
+                                              .data!
+                                              .quizzes![index]
+                                              .start!
+                                              .day
                                               .toString(),
                                           style: TextStyle(
                                             color: selectedTab == index
@@ -223,8 +230,12 @@ class _QuizScheduleState extends State<QuizSchedule> {
                                         //   ),
                                         // ),
                                         Text(
-                                          provider.getClassExamResponse!.data!
-                                              .exams![index].start!.month
+                                          provider
+                                              .getClassroomQuizScheduleResponse!
+                                              .data!
+                                              .quizzes![index]
+                                              .start!
+                                              .month
                                               .toString(),
                                           style: TextStyle(
                                             color: selectedTab == index
@@ -256,7 +267,7 @@ class _QuizScheduleState extends State<QuizSchedule> {
                         ),
                         Expanded(
                           child: ScrollablePositionedList.builder(
-                            itemCount: exams!.length,
+                            itemCount: quiz!.length,
                             itemPositionsListener: itemPositionsListener,
                             itemScrollController: itemScrollController,
                             itemBuilder: (BuildContext context, int index) {
@@ -269,7 +280,7 @@ class _QuizScheduleState extends State<QuizSchedule> {
                                     SizedBox(
                                       width: widgetSize.getWidth(200, context),
                                       height:
-                                      widgetSize.getHeight(140, context),
+                                          widgetSize.getHeight(140, context),
                                       child: Card(
                                         elevation: 5,
                                         shape: RoundedRectangleBorder(
@@ -280,36 +291,36 @@ class _QuizScheduleState extends State<QuizSchedule> {
                                         color: index % 4 == 0
                                             ? cardColor[0]
                                             : index % 4 == 1
-                                            ? cardColor[1]
-                                            : index % 4 == 2
-                                            ? cardColor[2]
-                                            : cardColor[3],
+                                                ? cardColor[1]
+                                                : index % 4 == 2
+                                                    ? cardColor[2]
+                                                    : cardColor[3],
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
                                             horizontal: 12,
                                           ),
                                           child: Column(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
+                                                MainAxisAlignment.spaceEvenly,
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   Row(
                                                     children: [
                                                       Text(
-                                                        exams[index]
-                                                            .subject_mark!
+                                                        quiz[index]
+                                                            .teacher_and_subject!
                                                             .subject!
                                                             .name!,
                                                         style: const TextStyle(
                                                           color: Colors.white,
                                                           fontWeight:
-                                                          FontWeight.bold,
+                                                              FontWeight.bold,
                                                           fontSize: 18,
                                                         ),
                                                       ),
@@ -356,11 +367,11 @@ class _QuizScheduleState extends State<QuizSchedule> {
                                                     style: TextStyle(
                                                       color: Colors.white,
                                                       fontWeight:
-                                                      FontWeight.w900,
+                                                          FontWeight.w900,
                                                     ),
                                                   ),
                                                   Text(
-                                                    "${exams[index].start!.year.toString()}-${exams[index].start!.month.toString()}-${exams[index].start!.day.toString()} ${exams[index].start!.hour.toString()}:${exams[index].start!.minute.toString()}",
+                                                    "${quiz[index].start!.year.toString()}-${quiz[index].start!.month.toString()}-${quiz[index].start!.day.toString()} ${quiz[index].start!.hour.toString()}:${quiz[index].start!.minute.toString()}",
                                                     style: const TextStyle(
                                                       color: Colors.white,
                                                     ),
@@ -369,8 +380,8 @@ class _QuizScheduleState extends State<QuizSchedule> {
                                               ),
                                               Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   Row(
                                                     children: [
@@ -379,11 +390,11 @@ class _QuizScheduleState extends State<QuizSchedule> {
                                                         style: TextStyle(
                                                           color: Colors.white,
                                                           fontWeight:
-                                                          FontWeight.w900,
+                                                              FontWeight.w900,
                                                         ),
                                                       ),
                                                       Text(
-                                                        "${exams[index].end!.difference(exams[index].start!).inMinutes} minutes",
+                                                        "${quiz[index].end!.difference(quiz[index].start!).inMinutes} minutes",
                                                         style: const TextStyle(
                                                           color: Colors.white,
                                                         ),
@@ -397,11 +408,11 @@ class _QuizScheduleState extends State<QuizSchedule> {
                                                         style: TextStyle(
                                                           color: Colors.white,
                                                           fontWeight:
-                                                          FontWeight.w900,
+                                                              FontWeight.w900,
                                                         ),
                                                       ),
                                                       Text(
-                                                        "Mark: ${provider.getClassExamResponse!.data!.exams![index].mark!}",
+                                                        "Mark: ${provider.getClassroomQuizScheduleResponse!.data!.quizzes![index].mark!}",
                                                         style: const TextStyle(
                                                           color: Colors.white,
                                                         ),
@@ -426,10 +437,10 @@ class _QuizScheduleState extends State<QuizSchedule> {
                                       ),
                                       width: widgetSize.getWidth(240, context),
                                       height:
-                                      widgetSize.getHeight(180, context),
+                                          widgetSize.getHeight(180, context),
                                       child: Padding(
-                                        padding:
-                                        const EdgeInsets.only(top: 16, right: 8),
+                                        padding: const EdgeInsets.only(
+                                            top: 16, right: 8),
                                         child: IconButton(
                                           onPressed: () {
                                             Navigator.push(
@@ -437,7 +448,7 @@ class _QuizScheduleState extends State<QuizSchedule> {
                                               PageTransition(
                                                 ///TODO change to quiz id
                                                 child: QuizScreen(
-                                                  quizId: exams[index].id!,
+                                                  quizId: quiz[index].id!,
                                                 ),
                                                 type: PageTransitionType
                                                     .leftToRightPop,
@@ -466,7 +477,7 @@ class _QuizScheduleState extends State<QuizSchedule> {
                     );
                   case Status.ERROR:
                     return err.Error(
-                      errorMsg: provider.getClassExamResponse!.message!,
+                      errorMsg: provider.getClassroomQuizScheduleResponse!.message!,
                     );
                   default:
                     return Container();

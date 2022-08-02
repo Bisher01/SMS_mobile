@@ -136,11 +136,11 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                     if (answers.length < index + 1) {
                       answers.add(
                         Answer(
-                          id: provider
+                          questionId: provider
                               .questionBankResponse!.data!.questions![index].id!
-                              .toString(),
-                          choice: '0',
-                        ),
+                             ,
+                          choiceId: 0,
+                        )
                       );
                     }
                     return Column(

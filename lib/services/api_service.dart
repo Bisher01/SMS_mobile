@@ -153,7 +153,8 @@ abstract class ApiService {
   Future<FMark> getStudentQuizMark(@Path('id1') int id1, @Path('id2') int id2);
 
   //get quiz schedule
-  //@GET('quiz/schedule/{id1}/{id2}')
+  @GET('quiz/schedule/{id1}/{id2}')
+  Future<QuizSchedule> getClassroomQuizSchedule(@Path('id1') int id1,@Path('id2') int id2);
 
 
 

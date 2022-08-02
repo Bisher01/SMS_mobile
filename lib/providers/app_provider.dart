@@ -1025,7 +1025,37 @@ class AppProvider extends ChangeNotifier {
     return addQuizResponse!;
   }
 
+//get quiz schedule
+  ApiResponse<QuizSchedule>? _getClassroomQuizScheduleResponse;
+  ApiResponse<QuizSchedule>? get getClassroomQuizScheduleResponse => _getClassroomQuizScheduleResponse;
+  set getClassroomQuizScheduleResponse(ApiResponse<QuizSchedule>? value) {
+    _getClassroomQuizScheduleResponse = value;
+    notifyListeners();
+  }
 
+  Future<ApiResponse<QuizSchedule>> getClassroomQuizSchedule(int classId,int classroomId) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getClassroomQuizScheduleResponse = ApiResponse.loading('');
+      try {
+        QuizSchedule quizschedule = await apiService.getClassroomQuizSchedule(classId,classroomId);
+        getClassroomQuizScheduleResponse = ApiResponse.completed(quizschedule);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return getClassroomQuizScheduleResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return getClassroomQuizScheduleResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return getClassroomQuizScheduleResponse = ApiResponse.error('No Internet Connection');
+    }
+    return getClassroomQuizScheduleResponse!;
+  }
 
 
 

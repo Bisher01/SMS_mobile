@@ -7,23 +7,23 @@ part of 'exam_answers.dart';
 // **************************************************************************
 
 Answer _$AnswerFromJson(Map<String, dynamic> json) => Answer(
-      id: json['id'] as String?,
-      choice: json['choise'] as String?,
+      questionId: json['question_id'] as int?,
+      choiceId: json['choice_id'] as int?,
     );
 
 Map<String, dynamic> _$AnswerToJson(Answer instance) => <String, dynamic>{
-      'id': instance.id,
-      'choise': instance.choice,
+      'question_id': instance.questionId,
+      'choice_id': instance.choiceId,
     };
 
 QuestionsAnswers _$QuestionsAnswersFromJson(Map<String, dynamic> json) =>
     QuestionsAnswers(
-      answers: (json['question'] as List<dynamic>?)
+      answers: (json['questions'] as List<dynamic>?)
           ?.map((e) => Answer.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$QuestionsAnswersToJson(QuestionsAnswers instance) =>
     <String, dynamic>{
-      'question': instance.answers,
+      'questions': instance.answers,
     };

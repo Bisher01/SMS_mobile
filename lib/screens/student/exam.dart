@@ -111,10 +111,10 @@ class _ExamScreenState extends State<ExamScreen> {
                     if (answers.length < index + 1) {
                       answers.add(
                         Answer(
-                          id: provider.getStudentExamResponse!.data!.exams![0]
+                          questionId: provider.getStudentExamResponse!.data!.exams![0]
                               .questions![index].id!
-                              .toString(),
-                          choice: '0',
+                              ,
+                          choiceId: 0,
                         ),
                       );
                     }
@@ -172,19 +172,19 @@ class _ExamScreenState extends State<ExamScreen> {
                         GestureDetector(
                           onTap: () {
                             setState(() {
-                              if (answers[index].choice == '1') {
-                                answers[index].choice = '0';
+                              if (answers[index].choiceId == 1) {
+                                answers[index].choiceId = 0;
                               } else {
-                                answers[index].choice = '1';
+                                answers[index].choiceId = 1;
                               }
                             });
                           },
                           onPanStart: (details) {
                             setState(() {
-                              if (answers[index].choice == '1') {
-                                answers[index].choice = '0';
+                              if (answers[index].choiceId == 1) {
+                                answers[index].choiceId = 0;
                               } else {
-                                answers[index].choice = '1';
+                                answers[index].choiceId = 1;
                               }
                             });
                           },
@@ -196,7 +196,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                   borderRadius: const BorderRadius.all(
                                     Radius.circular(30),
                                   ),
-                                  color: answers[index].choice == '1'
+                                  color: answers[index].choiceId == 1
                                       ? Colors.orange[400]
                                       : const Color.fromRGBO(70, 73, 81, 1),
                                 ),
@@ -214,7 +214,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                         .choices![0]
                                         .text!,
                                     style: TextStyle(
-                                      color: answers[index].choice == '1'
+                                      color: answers[index].choiceId == 1
                                           ? Colors.black
                                           : Colors.white,
                                       fontSize: 18,
@@ -223,20 +223,20 @@ class _ExamScreenState extends State<ExamScreen> {
                                 ),
                               ),
                               AnimatedPositioned(
-                                left: answers[index].choice == '1'
+                                left: answers[index].choiceId == 1
                                     ? width - 85
                                     : 5,
                                 top: 5,
                                 duration: const Duration(milliseconds: 500),
                                 child: AnimatedRotation(
-                                  turns: answers[index].choice == '1' ? 1 : 0,
+                                  turns: answers[index].choiceId == 1 ? 1 : 0,
                                   duration: const Duration(milliseconds: 500),
                                   child: Container(
                                     height: 50,
                                     width: 50,
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: answers[index].choice == '1'
+                                        color: answers[index].choiceId == 1
                                             ? const Color.fromRGBO(
                                                 70, 73, 81, 1)
                                             : Colors.orange[400]),
@@ -246,7 +246,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                         style: TextStyle(
                                           fontSize: 24,
                                           fontWeight: FontWeight.bold,
-                                          color: answers[index].choice == '1'
+                                          color: answers[index].choiceId == 1
                                               ? Colors.white
                                               : Colors.black,
                                         ),
@@ -264,19 +264,19 @@ class _ExamScreenState extends State<ExamScreen> {
                         GestureDetector(
                           onTap: () {
                             setState(() {
-                              if (answers[index].choice == '2') {
-                                answers[index].choice = '0';
+                              if (answers[index].choiceId == 2) {
+                                answers[index].choiceId = 0;
                               } else {
-                                answers[index].choice = '2';
+                                answers[index].choiceId = 2;
                               }
                             });
                           },
                           onPanStart: (details) {
                             setState(() {
-                              if (answers[index].choice == '2') {
-                                answers[index].choice = '0';
+                              if (answers[index].choiceId == 2) {
+                                answers[index].choiceId = 0;
                               } else {
-                                answers[index].choice = '2';
+                                answers[index].choiceId = 2;
                               }
                             });
                           },
@@ -288,7 +288,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                   borderRadius: const BorderRadius.all(
                                     Radius.circular(30),
                                   ),
-                                  color: answers[index].choice == '2'
+                                  color: answers[index].choiceId == 2
                                       ? Colors.orange[400]
                                       : const Color.fromRGBO(70, 73, 81, 1),
                                 ),
@@ -306,7 +306,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                         .choices![1]
                                         .text!,
                                     style: TextStyle(
-                                      color: answers[index].choice == '2'
+                                      color: answers[index].choiceId == 2
                                           ? Colors.black
                                           : Colors.white,
                                       fontSize: 18,
@@ -315,20 +315,20 @@ class _ExamScreenState extends State<ExamScreen> {
                                 ),
                               ),
                               AnimatedPositioned(
-                                left: answers[index].choice == '2'
+                                left: answers[index].choiceId == 2
                                     ? width - 85
                                     : 5,
                                 top: 5,
                                 duration: const Duration(milliseconds: 500),
                                 child: AnimatedRotation(
-                                  turns: answers[index].choice == '2' ? 1 : 0,
+                                  turns: answers[index].choiceId == 2 ? 1 : 0,
                                   duration: const Duration(milliseconds: 500),
                                   child: Container(
                                     height: 50,
                                     width: 50,
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: answers[index].choice == '2'
+                                        color: answers[index].choiceId == 2
                                             ? const Color.fromRGBO(
                                                 70, 73, 81, 1)
                                             : Colors.orange[400]),
@@ -338,7 +338,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                         style: TextStyle(
                                           fontSize: 24,
                                           fontWeight: FontWeight.bold,
-                                          color: answers[index].choice == '2'
+                                          color: answers[index].choiceId == 2
                                               ? Colors.white
                                               : Colors.black,
                                         ),
@@ -368,19 +368,19 @@ class _ExamScreenState extends State<ExamScreen> {
                             ? GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    if (answers[index].choice == '3') {
-                                      answers[index].choice = '0';
+                                    if (answers[index].choiceId == 3) {
+                                      answers[index].choiceId = 0;
                                     } else {
-                                      answers[index].choice = '3';
+                                      answers[index].choiceId = 3;
                                     }
                                   });
                                 },
                                 onPanStart: (details) {
                                   setState(() {
-                                    if (answers[index].choice == '3') {
-                                      answers[index].choice = '0';
+                                    if (answers[index].choiceId == 3) {
+                                      answers[index].choiceId = 0;
                                     } else {
-                                      answers[index].choice = '3';
+                                      answers[index].choiceId = 3;
                                     }
                                   });
                                 },
@@ -393,7 +393,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                         borderRadius: const BorderRadius.all(
                                           Radius.circular(30),
                                         ),
-                                        color: answers[index].choice == '3'
+                                        color: answers[index].choiceId == 3
                                             ? Colors.orange[400]
                                             : const Color.fromRGBO(
                                                 70, 73, 81, 1),
@@ -414,7 +414,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                               .choices![2]
                                               .text!,
                                           style: TextStyle(
-                                            color: answers[index].choice == '3'
+                                            color: answers[index].choiceId == 3
                                                 ? Colors.black
                                                 : Colors.white,
                                             fontSize: 18,
@@ -423,14 +423,14 @@ class _ExamScreenState extends State<ExamScreen> {
                                       ),
                                     ),
                                     AnimatedPositioned(
-                                      left: answers[index].choice == '3'
+                                      left: answers[index].choiceId == 3
                                           ? width - 85
                                           : 5,
                                       top: 5,
                                       duration:
                                           const Duration(milliseconds: 500),
                                       child: AnimatedRotation(
-                                        turns: answers[index].choice == '3'
+                                        turns: answers[index].choiceId == 3
                                             ? 1
                                             : 0,
                                         duration:
@@ -441,7 +441,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                           decoration: BoxDecoration(
                                               shape: BoxShape.circle,
                                               color:
-                                                  answers[index].choice == '3'
+                                                  answers[index].choiceId == 3
                                                       ? const Color.fromRGBO(
                                                           70, 73, 81, 1)
                                                       : Colors.orange[400]),
@@ -452,7 +452,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                                 fontSize: 24,
                                                 fontWeight: FontWeight.bold,
                                                 color:
-                                                    answers[index].choice == '3'
+                                                    answers[index].choiceId == 3
                                                         ? Colors.white
                                                         : Colors.black,
                                               ),
@@ -483,19 +483,19 @@ class _ExamScreenState extends State<ExamScreen> {
                             ? GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    if (answers[index].choice == '4') {
-                                      answers[index].choice = '0';
+                                    if (answers[index].choiceId == 4) {
+                                      answers[index].choiceId = 0;
                                     } else {
-                                      answers[index].choice = '4';
+                                      answers[index].choiceId = 4;
                                     }
                                   });
                                 },
                                 onPanStart: (details) {
                                   setState(() {
-                                    if (answers[index].choice == '4') {
-                                      answers[index].choice = '0';
+                                    if (answers[index].choiceId == 4) {
+                                      answers[index].choiceId = 0;
                                     } else {
-                                      answers[index].choice = '4';
+                                      answers[index].choiceId = 4;
                                     }
                                   });
                                 },
@@ -508,7 +508,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                         borderRadius: const BorderRadius.all(
                                           Radius.circular(30),
                                         ),
-                                        color: answers[index].choice == '4'
+                                        color: answers[index].choiceId == 4
                                             ? Colors.orange[400]
                                             : const Color.fromRGBO(
                                                 70, 73, 81, 1),
@@ -529,7 +529,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                               .choices![3]
                                               .text!,
                                           style: TextStyle(
-                                            color: answers[index].choice == '4'
+                                            color: answers[index].choiceId == 4
                                                 ? Colors.black
                                                 : Colors.white,
                                             fontSize: 18,
@@ -538,14 +538,14 @@ class _ExamScreenState extends State<ExamScreen> {
                                       ),
                                     ),
                                     AnimatedPositioned(
-                                      left: answers[index].choice == '4'
+                                      left: answers[index].choiceId == 4
                                           ? width - 85
                                           : 5,
                                       top: 5,
                                       duration:
                                           const Duration(milliseconds: 500),
                                       child: AnimatedRotation(
-                                        turns: answers[index].choice == '4'
+                                        turns: answers[index].choiceId == 4
                                             ? 1
                                             : 0,
                                         duration:
@@ -556,7 +556,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                           decoration: BoxDecoration(
                                               shape: BoxShape.circle,
                                               color:
-                                                  answers[index].choice == '4'
+                                                  answers[index].choiceId == 4
                                                       ? const Color.fromRGBO(
                                                           70, 73, 81, 1)
                                                       : Colors.orange[400]),
@@ -567,7 +567,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                                 fontSize: 24,
                                                 fontWeight: FontWeight.bold,
                                                 color:
-                                                    answers[index].choice == '4'
+                                                    answers[index].choiceId == 4
                                                         ? Colors.white
                                                         : Colors.black,
                                               ),
@@ -598,19 +598,19 @@ class _ExamScreenState extends State<ExamScreen> {
                             ? GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    if (answers[index].choice == '5') {
-                                      answers[index].choice = '0';
+                                    if (answers[index].choiceId == 5) {
+                                      answers[index].choiceId = 0;
                                     } else {
-                                      answers[index].choice = '5';
+                                      answers[index].choiceId = 5;
                                     }
                                   });
                                 },
                                 onPanStart: (details) {
                                   setState(() {
-                                    if (answers[index].choice == '5') {
-                                      answers[index].choice = '0';
+                                    if (answers[index].choiceId == 5) {
+                                      answers[index].choiceId = 0;
                                     } else {
-                                      answers[index].choice = '5';
+                                      answers[index].choiceId = 5;
                                     }
                                   });
                                 },
@@ -623,7 +623,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                         borderRadius: const BorderRadius.all(
                                           Radius.circular(30),
                                         ),
-                                        color: answers[index].choice == '5'
+                                        color: answers[index].choiceId == 5
                                             ? Colors.orange[400]
                                             : const Color.fromRGBO(
                                                 70, 73, 81, 1),
@@ -644,7 +644,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                               .choices![4]
                                               .text!,
                                           style: TextStyle(
-                                            color: answers[index].choice == '5'
+                                            color: answers[index].choiceId == 5
                                                 ? Colors.black
                                                 : Colors.white,
                                             fontSize: 18,
@@ -653,14 +653,14 @@ class _ExamScreenState extends State<ExamScreen> {
                                       ),
                                     ),
                                     AnimatedPositioned(
-                                      left: answers[index].choice == '5'
+                                      left: answers[index].choiceId == 5
                                           ? width - 85
                                           : 5,
                                       top: 5,
                                       duration:
                                           const Duration(milliseconds: 500),
                                       child: AnimatedRotation(
-                                        turns: answers[index].choice == '5'
+                                        turns: answers[index].choiceId == 5
                                             ? 1
                                             : 0,
                                         duration:
@@ -671,7 +671,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                           decoration: BoxDecoration(
                                               shape: BoxShape.circle,
                                               color:
-                                                  answers[index].choice == '5'
+                                                  answers[index].choiceId == 5
                                                       ? const Color.fromRGBO(
                                                           70, 73, 81, 1)
                                                       : Colors.orange[400]),
@@ -682,7 +682,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                                 fontSize: 24,
                                                 fontWeight: FontWeight.bold,
                                                 color:
-                                                    answers[index].choice == '5'
+                                                    answers[index].choiceId == 5
                                                         ? Colors.white
                                                         : Colors.black,
                                               ),

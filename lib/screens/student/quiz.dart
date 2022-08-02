@@ -11,7 +11,7 @@ import '../../components/error.dart' as err;
 
 class QuizScreen extends StatefulWidget {
   final int quizId;
-  const QuizScreen({required this.quizId,Key? key}) : super(key: key);
+  const QuizScreen({required this.quizId, Key? key}) : super(key: key);
 
   @override
   State<QuizScreen> createState() => _QuizScreenState();
@@ -37,7 +37,8 @@ class _QuizScreenState extends State<QuizScreen> {
 
   @override
   initState() {
-    Provider.of<AppProvider>(context, listen: false).getStudentQuiz(widget.quizId);
+    Provider.of<AppProvider>(context, listen: false)
+        .getStudentQuiz(widget.quizId);
     super.initState();
   }
 
@@ -105,16 +106,15 @@ class _QuizScreenState extends State<QuizScreen> {
             case Status.COMPLETED:
               return PageView.builder(
                   scrollDirection: Axis.vertical,
-                  itemCount: provider.getStudentQuizResponse!.data!.data![0]
-                      .questions!.length,
+                  itemCount: provider
+                      .getStudentQuizResponse!.data!.data![0].questions!.length,
                   itemBuilder: (context, index) {
                     if (answers.length < index + 1) {
                       answers.add(
                         Answer(
-                          id: provider.getStudentQuizResponse!.data!.data![0]
-                              .questions![index].id!
-                              .toString(),
-                          choice: '0',
+                          questionId: provider.getStudentQuizResponse!.data!
+                              .data![0].questions![index].id!,
+                          choiceId: 0,
                         ),
                       );
                     }
@@ -172,19 +172,19 @@ class _QuizScreenState extends State<QuizScreen> {
                         GestureDetector(
                           onTap: () {
                             setState(() {
-                              if (answers[index].choice == '1') {
-                                answers[index].choice = '0';
+                              if (answers[index].choiceId == 1) {
+                                answers[index].choiceId = 0;
                               } else {
-                                answers[index].choice = '1';
+                                answers[index].choiceId = 1;
                               }
                             });
                           },
                           onPanStart: (details) {
                             setState(() {
-                              if (answers[index].choice == '1') {
-                                answers[index].choice = '0';
+                              if (answers[index].choiceId == 1) {
+                                answers[index].choiceId = 0;
                               } else {
-                                answers[index].choice = '1';
+                                answers[index].choiceId = 1;
                               }
                             });
                           },
@@ -196,7 +196,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                   borderRadius: const BorderRadius.all(
                                     Radius.circular(30),
                                   ),
-                                  color: answers[index].choice == '1'
+                                  color: answers[index].choiceId == 1
                                       ? Colors.orange[400]
                                       : const Color.fromRGBO(70, 73, 81, 1),
                                 ),
@@ -214,7 +214,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                         .choices![0]
                                         .text!,
                                     style: TextStyle(
-                                      color: answers[index].choice == '1'
+                                      color: answers[index].choiceId == 1
                                           ? Colors.black
                                           : Colors.white,
                                       fontSize: 18,
@@ -223,22 +223,22 @@ class _QuizScreenState extends State<QuizScreen> {
                                 ),
                               ),
                               AnimatedPositioned(
-                                left: answers[index].choice == '1'
+                                left: answers[index].choiceId == 1
                                     ? width - 85
                                     : 5,
                                 top: 5,
                                 duration: const Duration(milliseconds: 500),
                                 child: AnimatedRotation(
-                                  turns: answers[index].choice == '1' ? 1 : 0,
+                                  turns: answers[index].choiceId == 1 ? 1 : 0,
                                   duration: const Duration(milliseconds: 500),
                                   child: Container(
                                     height: 50,
                                     width: 50,
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: answers[index].choice == '1'
+                                        color: answers[index].choiceId == 1
                                             ? const Color.fromRGBO(
-                                            70, 73, 81, 1)
+                                                70, 73, 81, 1)
                                             : Colors.orange[400]),
                                     child: Center(
                                       child: Text(
@@ -246,7 +246,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                         style: TextStyle(
                                           fontSize: 24,
                                           fontWeight: FontWeight.bold,
-                                          color: answers[index].choice == '1'
+                                          color: answers[index].choiceId == 1
                                               ? Colors.white
                                               : Colors.black,
                                         ),
@@ -264,19 +264,19 @@ class _QuizScreenState extends State<QuizScreen> {
                         GestureDetector(
                           onTap: () {
                             setState(() {
-                              if (answers[index].choice == '2') {
-                                answers[index].choice = '0';
+                              if (answers[index].choiceId == 2) {
+                                answers[index].choiceId = 0;
                               } else {
-                                answers[index].choice = '2';
+                                answers[index].choiceId = 2;
                               }
                             });
                           },
                           onPanStart: (details) {
                             setState(() {
-                              if (answers[index].choice == '2') {
-                                answers[index].choice = '0';
+                              if (answers[index].choiceId == 2) {
+                                answers[index].choiceId = 0;
                               } else {
-                                answers[index].choice = '2';
+                                answers[index].choiceId = 2;
                               }
                             });
                           },
@@ -288,7 +288,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                   borderRadius: const BorderRadius.all(
                                     Radius.circular(30),
                                   ),
-                                  color: answers[index].choice == '2'
+                                  color: answers[index].choiceId == 2
                                       ? Colors.orange[400]
                                       : const Color.fromRGBO(70, 73, 81, 1),
                                 ),
@@ -306,7 +306,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                         .choices![1]
                                         .text!,
                                     style: TextStyle(
-                                      color: answers[index].choice == '2'
+                                      color: answers[index].choiceId == 2
                                           ? Colors.black
                                           : Colors.white,
                                       fontSize: 18,
@@ -315,22 +315,22 @@ class _QuizScreenState extends State<QuizScreen> {
                                 ),
                               ),
                               AnimatedPositioned(
-                                left: answers[index].choice == '2'
+                                left: answers[index].choiceId == 2
                                     ? width - 85
                                     : 5,
                                 top: 5,
                                 duration: const Duration(milliseconds: 500),
                                 child: AnimatedRotation(
-                                  turns: answers[index].choice == '2' ? 1 : 0,
+                                  turns: answers[index].choiceId == 2 ? 1 : 0,
                                   duration: const Duration(milliseconds: 500),
                                   child: Container(
                                     height: 50,
                                     width: 50,
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: answers[index].choice == '2'
+                                        color: answers[index].choiceId == 2
                                             ? const Color.fromRGBO(
-                                            70, 73, 81, 1)
+                                                70, 73, 81, 1)
                                             : Colors.orange[400]),
                                     child: Center(
                                       child: Text(
@@ -338,7 +338,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                         style: TextStyle(
                                           fontSize: 24,
                                           fontWeight: FontWeight.bold,
-                                          color: answers[index].choice == '2'
+                                          color: answers[index].choiceId == 2
                                               ? Colors.white
                                               : Colors.black,
                                         ),
@@ -352,462 +352,468 @@ class _QuizScreenState extends State<QuizScreen> {
                         ),
                         SizedBox(
                           height: provider
-                              .getStudentQuizResponse!
-                              .data!
-                              .data![0]
-                              .questions![index]
-                              .choices!
-                              .length >
-                              2
+                                      .getStudentQuizResponse!
+                                      .data!
+                                      .data![0]
+                                      .questions![index]
+                                      .choices!
+                                      .length >
+                                  2
                               ? 10
                               : 0,
                         ),
                         provider.getStudentQuizResponse!.data!.data![0]
-                            .questions![index].choices!.length >
-                            2
+                                    .questions![index].choices!.length >
+                                2
                             ? GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              if (answers[index].choice == '3') {
-                                answers[index].choice = '0';
-                              } else {
-                                answers[index].choice = '3';
-                              }
-                            });
-                          },
-                          onPanStart: (details) {
-                            setState(() {
-                              if (answers[index].choice == '3') {
-                                answers[index].choice = '0';
-                              } else {
-                                answers[index].choice = '3';
-                              }
-                            });
-                          },
-                          child: Stack(
-                            children: [
-                              AnimatedContainer(
-                                duration:
-                                const Duration(milliseconds: 500),
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(30),
-                                  ),
-                                  color: answers[index].choice == '3'
-                                      ? Colors.orange[400]
-                                      : const Color.fromRGBO(
-                                      70, 73, 81, 1),
-                                ),
-                                constraints: BoxConstraints.expand(
-                                  width:
-                                  MediaQuery.of(context).size.width -
-                                      30,
-                                  height: 60,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    provider
-                                        .getStudentQuizResponse!
-                                        .data!
-                                        .data![0]
-                                        .questions![index]
-                                        .choices![2]
-                                        .text!,
-                                    style: TextStyle(
-                                      color: answers[index].choice == '3'
-                                          ? Colors.black
-                                          : Colors.white,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              AnimatedPositioned(
-                                left: answers[index].choice == '3'
-                                    ? width - 85
-                                    : 5,
-                                top: 5,
-                                duration:
-                                const Duration(milliseconds: 500),
-                                child: AnimatedRotation(
-                                  turns: answers[index].choice == '3'
-                                      ? 1
-                                      : 0,
-                                  duration:
-                                  const Duration(milliseconds: 500),
-                                  child: Container(
-                                    height: 50,
-                                    width: 50,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color:
-                                        answers[index].choice == '3'
-                                            ? const Color.fromRGBO(
-                                            70, 73, 81, 1)
-                                            : Colors.orange[400]),
-                                    child: Center(
-                                      child: Text(
-                                        'C',
-                                        style: TextStyle(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold,
-                                          color:
-                                          answers[index].choice == '3'
-                                              ? Colors.white
-                                              : Colors.black,
+                                onTap: () {
+                                  setState(() {
+                                    if (answers[index].choiceId == 3) {
+                                      answers[index].choiceId = 0;
+                                    } else {
+                                      answers[index].choiceId = 3;
+                                    }
+                                  });
+                                },
+                                onPanStart: (details) {
+                                  setState(() {
+                                    if (answers[index].choiceId == 3) {
+                                      answers[index].choiceId = 0;
+                                    } else {
+                                      answers[index].choiceId = 3;
+                                    }
+                                  });
+                                },
+                                child: Stack(
+                                  children: [
+                                    AnimatedContainer(
+                                      duration:
+                                          const Duration(milliseconds: 500),
+                                      decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(30),
+                                        ),
+                                        color: answers[index].choiceId == 3
+                                            ? Colors.orange[400]
+                                            : const Color.fromRGBO(
+                                                70, 73, 81, 1),
+                                      ),
+                                      constraints: BoxConstraints.expand(
+                                        width:
+                                            MediaQuery.of(context).size.width -
+                                                30,
+                                        height: 60,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          provider
+                                              .getStudentQuizResponse!
+                                              .data!
+                                              .data![0]
+                                              .questions![index]
+                                              .choices![2]
+                                              .text!,
+                                          style: TextStyle(
+                                            color:
+                                                answers[index].choiceId == 3
+                                                    ? Colors.black
+                                                    : Colors.white,
+                                            fontSize: 18,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
+                                    AnimatedPositioned(
+                                      left: answers[index].choiceId == 3
+                                          ? width - 85
+                                          : 5,
+                                      top: 5,
+                                      duration:
+                                          const Duration(milliseconds: 500),
+                                      child: AnimatedRotation(
+                                        turns: answers[index].choiceId == 3
+                                            ? 1
+                                            : 0,
+                                        duration:
+                                            const Duration(milliseconds: 500),
+                                        child: Container(
+                                          height: 50,
+                                          width: 50,
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color:
+                                                  answers[index].choiceId == 3
+                                                      ? const Color.fromRGBO(
+                                                          70, 73, 81, 1)
+                                                      : Colors.orange[400]),
+                                          child: Center(
+                                            child: Text(
+                                              'C',
+                                              style: TextStyle(
+                                                fontSize: 24,
+                                                fontWeight: FontWeight.bold,
+                                                color:
+                                                    answers[index].choiceId ==
+                                                            3
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
                                 ),
                               )
-                            ],
-                          ),
-                        )
                             : const SizedBox(),
                         SizedBox(
                           height: provider
-                              .getStudentQuizResponse!
-                              .data!
-                              .data![0]
-                              .questions![index]
-                              .choices!
-                              .length >
-                              3
+                                      .getStudentQuizResponse!
+                                      .data!
+                                      .data![0]
+                                      .questions![index]
+                                      .choices!
+                                      .length >
+                                  3
                               ? 10
                               : 0,
                         ),
                         provider.getStudentQuizResponse!.data!.data![0]
-                            .questions![index].choices!.length >
-                            3
+                                    .questions![index].choices!.length >
+                                3
                             ? GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              if (answers[index].choice == '4') {
-                                answers[index].choice = '0';
-                              } else {
-                                answers[index].choice = '4';
-                              }
-                            });
-                          },
-                          onPanStart: (details) {
-                            setState(() {
-                              if (answers[index].choice == '4') {
-                                answers[index].choice = '0';
-                              } else {
-                                answers[index].choice = '4';
-                              }
-                            });
-                          },
-                          child: Stack(
-                            children: [
-                              AnimatedContainer(
-                                duration:
-                                const Duration(milliseconds: 500),
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(30),
-                                  ),
-                                  color: answers[index].choice == '4'
-                                      ? Colors.orange[400]
-                                      : const Color.fromRGBO(
-                                      70, 73, 81, 1),
-                                ),
-                                constraints: BoxConstraints.expand(
-                                  width:
-                                  MediaQuery.of(context).size.width -
-                                      30,
-                                  height: 60,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    provider
-                                        .getStudentQuizResponse!
-                                        .data!
-                                        .data![0]
-                                        .questions![index]
-                                        .choices![3]
-                                        .text!,
-                                    style: TextStyle(
-                                      color: answers[index].choice == '4'
-                                          ? Colors.black
-                                          : Colors.white,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              AnimatedPositioned(
-                                left: answers[index].choice == '4'
-                                    ? width - 85
-                                    : 5,
-                                top: 5,
-                                duration:
-                                const Duration(milliseconds: 500),
-                                child: AnimatedRotation(
-                                  turns: answers[index].choice == '4'
-                                      ? 1
-                                      : 0,
-                                  duration:
-                                  const Duration(milliseconds: 500),
-                                  child: Container(
-                                    height: 50,
-                                    width: 50,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color:
-                                        answers[index].choice == '4'
-                                            ? const Color.fromRGBO(
-                                            70, 73, 81, 1)
-                                            : Colors.orange[400]),
-                                    child: Center(
-                                      child: Text(
-                                        'D',
-                                        style: TextStyle(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold,
-                                          color:
-                                          answers[index].choice == '4'
-                                              ? Colors.white
-                                              : Colors.black,
+                                onTap: () {
+                                  setState(() {
+                                    if (answers[index].choiceId == 4) {
+                                      answers[index].choiceId = 0;
+                                    } else {
+                                      answers[index].choiceId = 4;
+                                    }
+                                  });
+                                },
+                                onPanStart: (details) {
+                                  setState(() {
+                                    if (answers[index].choiceId == 4) {
+                                      answers[index].choiceId = 0;
+                                    } else {
+                                      answers[index].choiceId = 4;
+                                    }
+                                  });
+                                },
+                                child: Stack(
+                                  children: [
+                                    AnimatedContainer(
+                                      duration:
+                                          const Duration(milliseconds: 500),
+                                      decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(30),
+                                        ),
+                                        color: answers[index].choiceId == 4
+                                            ? Colors.orange[400]
+                                            : const Color.fromRGBO(
+                                                70, 73, 81, 1),
+                                      ),
+                                      constraints: BoxConstraints.expand(
+                                        width:
+                                            MediaQuery.of(context).size.width -
+                                                30,
+                                        height: 60,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          provider
+                                              .getStudentQuizResponse!
+                                              .data!
+                                              .data![0]
+                                              .questions![index]
+                                              .choices![3]
+                                              .text!,
+                                          style: TextStyle(
+                                            color:
+                                                answers[index].choiceId == 4
+                                                    ? Colors.black
+                                                    : Colors.white,
+                                            fontSize: 18,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
+                                    AnimatedPositioned(
+                                      left: answers[index].choiceId == 4
+                                          ? width - 85
+                                          : 5,
+                                      top: 5,
+                                      duration:
+                                          const Duration(milliseconds: 500),
+                                      child: AnimatedRotation(
+                                        turns: answers[index].choiceId == 4
+                                            ? 1
+                                            : 0,
+                                        duration:
+                                            const Duration(milliseconds: 500),
+                                        child: Container(
+                                          height: 50,
+                                          width: 50,
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color:
+                                                  answers[index].choiceId == 4
+                                                      ? const Color.fromRGBO(
+                                                          70, 73, 81, 1)
+                                                      : Colors.orange[400]),
+                                          child: Center(
+                                            child: Text(
+                                              'D',
+                                              style: TextStyle(
+                                                fontSize: 24,
+                                                fontWeight: FontWeight.bold,
+                                                color:
+                                                    answers[index].choiceId ==
+                                                            4
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
                                 ),
                               )
-                            ],
-                          ),
-                        )
                             : const SizedBox(),
                         SizedBox(
                           height: provider
-                              .getStudentQuizResponse!
-                              .data!
-                              .data![0]
-                              .questions![index]
-                              .choices!
-                              .length >
-                              4
+                                      .getStudentQuizResponse!
+                                      .data!
+                                      .data![0]
+                                      .questions![index]
+                                      .choices!
+                                      .length >
+                                  4
                               ? 10
                               : 0,
                         ),
                         provider.getStudentQuizResponse!.data!.data![0]
-                            .questions![index].choices!.length >
-                            4
+                                    .questions![index].choices!.length >
+                                4
                             ? GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              if (answers[index].choice == '5') {
-                                answers[index].choice = '0';
-                              } else {
-                                answers[index].choice = '5';
-                              }
-                            });
-                          },
-                          onPanStart: (details) {
-                            setState(() {
-                              if (answers[index].choice == '5') {
-                                answers[index].choice = '0';
-                              } else {
-                                answers[index].choice = '5';
-                              }
-                            });
-                          },
-                          child: Stack(
-                            children: [
-                              AnimatedContainer(
-                                duration:
-                                const Duration(milliseconds: 500),
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(30),
-                                  ),
-                                  color: answers[index].choice == '5'
-                                      ? Colors.orange[400]
-                                      : const Color.fromRGBO(
-                                      70, 73, 81, 1),
-                                ),
-                                constraints: BoxConstraints.expand(
-                                  width:
-                                  MediaQuery.of(context).size.width -
-                                      30,
-                                  height: 60,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    provider
-                                        .getStudentQuizResponse!
-                                        .data!
-                                        .data![0]
-                                        .questions![index]
-                                        .choices![4]
-                                        .text!,
-                                    style: TextStyle(
-                                      color: answers[index].choice == '5'
-                                          ? Colors.black
-                                          : Colors.white,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              AnimatedPositioned(
-                                left: answers[index].choice == '5'
-                                    ? width - 85
-                                    : 5,
-                                top: 5,
-                                duration:
-                                const Duration(milliseconds: 500),
-                                child: AnimatedRotation(
-                                  turns: answers[index].choice == '5'
-                                      ? 1
-                                      : 0,
-                                  duration:
-                                  const Duration(milliseconds: 500),
-                                  child: Container(
-                                    height: 50,
-                                    width: 50,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color:
-                                        answers[index].choice == '5'
-                                            ? const Color.fromRGBO(
-                                            70, 73, 81, 1)
-                                            : Colors.orange[400]),
-                                    child: Center(
-                                      child: Text(
-                                        'E',
-                                        style: TextStyle(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold,
-                                          color:
-                                          answers[index].choice == '5'
-                                              ? Colors.white
-                                              : Colors.black,
+                                onTap: () {
+                                  setState(() {
+                                    if (answers[index].choiceId == 5) {
+                                      answers[index].choiceId = 0;
+                                    } else {
+                                      answers[index].choiceId = 5;
+                                    }
+                                  });
+                                },
+                                onPanStart: (details) {
+                                  setState(() {
+                                    if (answers[index].choiceId == 5) {
+                                      answers[index].choiceId = 0;
+                                    } else {
+                                      answers[index].choiceId = 5;
+                                    }
+                                  });
+                                },
+                                child: Stack(
+                                  children: [
+                                    AnimatedContainer(
+                                      duration:
+                                          const Duration(milliseconds: 500),
+                                      decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(30),
+                                        ),
+                                        color: answers[index].choiceId == 5
+                                            ? Colors.orange[400]
+                                            : const Color.fromRGBO(
+                                                70, 73, 81, 1),
+                                      ),
+                                      constraints: BoxConstraints.expand(
+                                        width:
+                                            MediaQuery.of(context).size.width -
+                                                30,
+                                        height: 60,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          provider
+                                              .getStudentQuizResponse!
+                                              .data!
+                                              .data![0]
+                                              .questions![index]
+                                              .choices![4]
+                                              .text!,
+                                          style: TextStyle(
+                                            color:
+                                                answers[index].choiceId == 5
+                                                    ? Colors.black
+                                                    : Colors.white,
+                                            fontSize: 18,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
+                                    AnimatedPositioned(
+                                      left: answers[index].choiceId == 5
+                                          ? width - 85
+                                          : 5,
+                                      top: 5,
+                                      duration:
+                                          const Duration(milliseconds: 500),
+                                      child: AnimatedRotation(
+                                        turns: answers[index].choiceId == 5
+                                            ? 1
+                                            : 0,
+                                        duration:
+                                            const Duration(milliseconds: 500),
+                                        child: Container(
+                                          height: 50,
+                                          width: 50,
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color:
+                                                  answers[index].choiceId == 5
+                                                      ? const Color.fromRGBO(
+                                                          70, 73, 81, 1)
+                                                      : Colors.orange[400]),
+                                          child: Center(
+                                            child: Text(
+                                              'E',
+                                              style: TextStyle(
+                                                fontSize: 24,
+                                                fontWeight: FontWeight.bold,
+                                                color:
+                                                    answers[index].choiceId ==
+                                                            5
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
                                 ),
                               )
-                            ],
-                          ),
-                        )
                             : const SizedBox(),
                         index + 1 ==
-                            provider.getStudentQuizResponse!.data!.data![0]
-                                .questions!.length
+                                provider.getStudentQuizResponse!.data!.data![0]
+                                    .questions!.length
                             ? Padding(
-                          padding: const EdgeInsets.only(
-                            top: 25,
-                          ),
-                          child: SizedBox(
-                            width: widgetSize.getWidth(150, context),
-                            height: widgetSize.getHeight(50, context),
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.orange[400],
-                                shadowColor: Colors.white70,
-                                elevation: 2,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    18,
-                                  ),
+                                padding: const EdgeInsets.only(
+                                  top: 25,
                                 ),
-                              ),
-                              onPressed: () async {
-                                int studentId = provider.getId();
-                                var response =
-                                await Provider.of<AppProvider>(
-                                    context,
-                                    listen: false)
-                                    .getStudentQuizMark(widget.quizId, studentId);
-                                if (await provider.checkInternet()) {
-                                  if (response.status == Status.LOADING) {
-                                    EasyLoading.showToast(
-                                      'Loading...',
-                                      duration: const Duration(
-                                        milliseconds: 300,
+                                child: SizedBox(
+                                  width: widgetSize.getWidth(150, context),
+                                  height: widgetSize.getHeight(50, context),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.orange[400],
+                                      shadowColor: Colors.white70,
+                                      elevation: 2,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          18,
+                                        ),
                                       ),
-                                    );
-                                  }
-                                  if (response.status == Status.ERROR) {
-                                    EasyLoading.showError(
-                                        response.message!,
-                                        dismissOnTap: true);
-                                  }
-                                  if (response.status ==
-                                      Status.COMPLETED) {
-                                    if (response.data != null &&
-                                        response.data!.status!) {
-                                      showDialog(
-                                          context: context,
-                                          builder:
-                                              (BuildContext context) {
-                                            return AlertDialog(
-                                              actions: <Widget>[
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.push(
-                                                        context,
-                                                        PageTransition(
-                                                          child:
-                                                          const StudentMainScreen(),
-                                                          type: PageTransitionType
-                                                              .bottomToTopJoined,
-                                                          childCurrent:
-                                                          widget,
-                                                          duration:
-                                                          const Duration(
-                                                              milliseconds:
-                                                              300),
+                                    ),
+                                    onPressed: () async {
+                                      int studentId = provider.getId();
+                                      var response =
+                                          await Provider.of<AppProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .getStudentQuizMark(
+                                                  widget.quizId, studentId);
+                                      if (await provider.checkInternet()) {
+                                        if (response.status == Status.LOADING) {
+                                          EasyLoading.showToast(
+                                            'Loading...',
+                                            duration: const Duration(
+                                              milliseconds: 300,
+                                            ),
+                                          );
+                                        }
+                                        if (response.status == Status.ERROR) {
+                                          EasyLoading.showError(
+                                              response.message!,
+                                              dismissOnTap: true);
+                                        }
+                                        if (response.status ==
+                                            Status.COMPLETED) {
+                                          if (response.data != null &&
+                                              response.data!.status!) {
+                                            showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    actions: <Widget>[
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.push(
+                                                          context,
+                                                          PageTransition(
+                                                            child:
+                                                                const StudentMainScreen(),
+                                                            type: PageTransitionType
+                                                                .bottomToTopJoined,
+                                                            childCurrent:
+                                                                widget,
+                                                            duration:
+                                                                const Duration(
+                                                                    milliseconds:
+                                                                        300),
+                                                          ),
+                                                        ),
+                                                        child: Text(
+                                                          'OK',
+                                                          style: TextStyle(
+                                                            color: Colors
+                                                                .orange[400],
+                                                          ),
                                                         ),
                                                       ),
-                                                  child: Text(
-                                                    'OK',
-                                                    style: TextStyle(
-                                                      color: Colors
-                                                          .orange[400],
+                                                    ],
+                                                    title: Text(
+                                                      response.data!.message!,
                                                     ),
-                                                  ),
-                                                ),
-                                              ],
-                                              title: Text(
-                                                response.data!.message!,
-                                              ),
-                                              content: Text(
-                                                'Your mark is: ${response.data!.mark!
-                                                    .toString()}',
-                                              ),
-                                            );
-                                          });
-                                      // Navigator.push(
-                                      //   context,
-                                      //   PageTransition(
-                                      //     child:
-                                      //         const StudentMainScreen(),
-                                      //     type: PageTransitionType
-                                      //         .bottomToTopJoined,
-                                      //     childCurrent: widget,
-                                      //     duration: const Duration(
-                                      //         milliseconds: 300),
-                                      //   ),
-                                      // );
-                                    }
-                                  }
-                                }
-                              },
-                              child: const Text(
-                                'Submit',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
+                                                    content: Text(
+                                                      'Your mark is: ${response.data!.mark!.toString()}',
+                                                    ),
+                                                  );
+                                                });
+                                            // Navigator.push(
+                                            //   context,
+                                            //   PageTransition(
+                                            //     child:
+                                            //         const StudentMainScreen(),
+                                            //     type: PageTransitionType
+                                            //         .bottomToTopJoined,
+                                            //     childCurrent: widget,
+                                            //     duration: const Duration(
+                                            //         milliseconds: 300),
+                                            //   ),
+                                            // );
+                                          }
+                                        }
+                                      }
+                                    },
+                                    child: const Text(
+                                      'Submit',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
-                        )
+                              )
                             : const SizedBox(),
                       ],
                     );
