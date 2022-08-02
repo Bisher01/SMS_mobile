@@ -18,6 +18,8 @@ class QuizSchedule extends StatefulWidget {
 }
 
 class _QuizScheduleState extends State<QuizSchedule> {
+  int? classId;
+  int? classroomId;
   final ItemScrollController itemScrollController = ItemScrollController();
   final ItemPositionsListener itemPositionsListener =
       ItemPositionsListener.create();
@@ -25,7 +27,13 @@ class _QuizScheduleState extends State<QuizSchedule> {
   @override
   initState() {
     Provider.of<AppProvider>(context, listen: false)
-        .getClassroomQuizSchedule(widget.studentId, widget.studentId);
+        .getStudent(widget.studentId)
+        .then((value) {
+      classId = value.data!.student![0].class_classroom!.class_id;
+      classroomId = value.data!.student![0].class_classroom!.classroom_id;
+    });
+    Provider.of<AppProvider>(context, listen: false)
+        .getClassroomQuizSchedule(classId!, classroomId!);
     super.initState();
   }
 
@@ -477,7 +485,8 @@ class _QuizScheduleState extends State<QuizSchedule> {
                     );
                   case Status.ERROR:
                     return err.Error(
-                      errorMsg: provider.getClassroomQuizScheduleResponse!.message!,
+                      errorMsg:
+                          provider.getClassroomQuizScheduleResponse!.message!,
                     );
                   default:
                     return Container();

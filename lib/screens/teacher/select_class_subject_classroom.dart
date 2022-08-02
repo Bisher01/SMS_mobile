@@ -39,7 +39,7 @@ class _SelectClassSubjectClassroomState
   int selectedClassroom = 0;
   int classId = 0;
   int classroomId = 0;
-  int? subjectDDV = 0;
+  int? subjectDDV;
 
   ///TODO: selectedSubject
   @override
@@ -84,14 +84,14 @@ class _SelectClassSubjectClassroomState
                   );
                 case Status.COMPLETED:
                   {
-                    // for (int i = 0;
-                    //     i <
-                    //         provider
-                    //             .getTeacherSubjectsResponse!.data!.data!.length;
-                    //     i++) {
-                    //   subjects[provider
-                    //       .getTeacherSubjectsResponse!.data!.data![i].id!] = i;
-                    // }
+                    for (int i = 0;
+                        i <
+                            provider
+                                .getTeacherSubjectsResponse!.data!.data!.length;
+                        i++) {
+                      subjects[provider
+                          .getTeacherSubjectsResponse!.data!.data![i].id!] = i;
+                    }
 
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

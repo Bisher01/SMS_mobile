@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
     }
     var box1 = Boxes.getRoleBox();
     String? role = box1.get('role');
-    print(role);
+    //print(role);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AppProvider()),
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(),
-        home: SelectClassSubjectClassroom(addOralMark: false,),
+        //home: QuizSchedule(),
         // home: !isFirst
         //     ? const WelcomeScreen()
         //     : !isToken
