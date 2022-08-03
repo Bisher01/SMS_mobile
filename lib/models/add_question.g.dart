@@ -21,11 +21,13 @@ Question _$QuestionFromJson(Map<String, dynamic> json) => Question(
       chioces: (json['chioces'] as List<dynamic>)
           .map((e) => Choice.fromJson(e as Map<String, dynamic>))
           .toList(),
+      method: json['_method'] as String?,
     );
 
 Map<String, dynamic> _$QuestionToJson(Question instance) => <String, dynamic>{
       'text': instance.text,
       'chioces': instance.chioces,
+      '_method': instance.method,
     };
 
 AddQuestionModel _$AddQuestionModelFromJson(Map<String, dynamic> json) =>

@@ -15,7 +15,9 @@ class Choice{
 class Question{
   String? text;
   List<Choice> chioces;
-  Question({this.text,required this.chioces});
+  @JsonKey(name: '_method')
+  String? method;
+  Question({this.text,required this.chioces,this.method});
   factory Question.fromJson(Map<String,dynamic>json ) => _$QuestionFromJson(json);
   Map<String,dynamic> toJson() => _$QuestionToJson(this);
 }

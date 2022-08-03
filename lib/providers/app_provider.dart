@@ -703,6 +703,38 @@ class AppProvider extends ChangeNotifier {
 
   ///========================EXAMS==================///
 
+
+  ApiResponse<Delete>? _deleteQuestionResponse;
+  ApiResponse<Delete>? get deleteQuestionResponse => _deleteQuestionResponse;
+  set deleteQuestionResponse(ApiResponse<Delete>? value) {
+    _deleteQuestionResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> deleteQuestion(int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      deleteQuestionResponse = ApiResponse.loading('');
+      try {
+        Delete delete = await apiService.deleteQuestion(id);
+        deleteQuestionResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return deleteQuestionResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return deleteQuestionResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return deleteQuestionResponse = ApiResponse.error('No Internet Connection');
+    }
+    return deleteQuestionResponse!;
+  }
+
 //get all exam
   ApiResponse<FExam>? _fExams;
   ApiResponse<FExam>? get fExamResponse => _fExams;
@@ -897,6 +929,37 @@ class AppProvider extends ChangeNotifier {
       return getClassExamResponse = ApiResponse.error('No Internet Connection');
     }
     return getClassExamResponse!;
+  }
+
+  ApiResponse<Delete>? _editQuestionResponse;
+  ApiResponse<Delete>? get editQuestionResponse => _editQuestionResponse;
+  set editQuestionResponse(ApiResponse<Delete>? value) {
+    _editQuestionResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> editQuestion(int id,Map<String,dynamic>map) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      editQuestionResponse = ApiResponse.loading('');
+      try {
+        Delete delete = await apiService.editQuestion(id,map);
+        editQuestionResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return editQuestionResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return editQuestionResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return editQuestionResponse = ApiResponse.error('No Internet Connection');
+    }
+    return editQuestionResponse!;
   }
 
   //add question to bank

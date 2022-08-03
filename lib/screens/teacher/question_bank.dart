@@ -39,13 +39,13 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
     'Nov',
     'Dec'
   ];
-
+  int? id ;
   @override
   initState() {
     _markController = TextEditingController();
-    int id = Provider.of<AppProvider>(context, listen: false).getId();
+    id = Provider.of<AppProvider>(context, listen: false).getId();
     Provider.of<AppProvider>(context, listen: false)
-        .getAllQuestions(id, widget.classId, widget.subjectId);
+        .getAllQuestions(1, widget.classId, widget.subjectId);
     super.initState();
   }
 
@@ -63,62 +63,49 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
         backgroundColor: const Color.fromRGBO(251, 250, 250, 1),
         elevation: 0,
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.edit,
-              color: Colors.black,
-            ),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    days[DateTime.now().weekday],
+                    style: TextStyle(
+                        color: Colors.grey[500],
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'ChakraPetch',
+                        letterSpacing: 0.5),
+                  ),
+                  Text(
+                    '${months[DateTime.now().month]} ${DateTime.now().year.toString().substring(2)}',
+                    style: TextStyle(
+                        color: Colors.grey[500],
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'ChakraPetch',
+                        letterSpacing: 0.5),
+                  )
+                ],
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                DateTime.now().day.toString(),
+                style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 48,
+                    fontFamily: 'ChakraPetch'),
+              ),
+            ],
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.delete,
-              color: Colors.black,
-            ),
-          )
+          const SizedBox(width: 10,),
         ],
-        title: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  days[DateTime.now().weekday],
-                  style: TextStyle(
-                      color: Colors.grey[500],
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'ChakraPetch',
-                      letterSpacing: 0.5),
-                ),
-                Text(
-                  '${months[DateTime.now().month]} ${DateTime.now().year.toString().substring(2)}',
-                  style: TextStyle(
-                      color: Colors.grey[500],
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'ChakraPetch',
-                      letterSpacing: 0.5),
-                )
-              ],
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Text(
-              DateTime.now().day.toString(),
-              style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 48,
-                  fontFamily: 'ChakraPetch'),
-            ),
-          ],
-        ),
       ),
       body: Consumer<AppProvider>(builder: (context, provider, child) {
         if (provider.questionBankResponse != null) {
@@ -147,6 +134,41 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                Navigator.push(context, PageTransition(child: AddQuestion(subject: widget.subjectId, classes: widget.classId,question: provider.questionBankResponse!.data!.questions![index],), type: PageTransitionType.fade));
+                              },
+                              icon: const Icon(
+                                Icons.edit,
+                                color: Colors.black,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () async {
+                                if(await provider.checkInternet()){
+                                  var response = await provider.deleteQuestion(provider.questionBankResponse!.data!.questions![index].id!);
+                                  if(response.status==Status.COMPLETED){
+                                    if(response.data != null && response.data!.status!){
+                                      EasyLoading.showSuccess(response.data!.message!);
+                                      provider.getAllQuestions(1, widget.classId, widget.subjectId);
+                                    }
+                                  }
+                                }
+                                else{
+                                  EasyLoading.showError('No Internet Connection');
+                                }
+                              },
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 15,
@@ -162,6 +184,7 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                   color: Colors.grey,
                                 ),
                               ),
+                              ///TODO: fix mark controller
                               Row(
                                 children: [
                                   const Text(

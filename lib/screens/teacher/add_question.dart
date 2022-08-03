@@ -1,9 +1,8 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:sms_mobile/models/add_question.dart';
+import 'package:sms_mobile/models/models.dart';
 import 'package:sms_mobile/providers/providers.dart';
 import 'package:sms_mobile/utill/utill.dart';
 import '../../models/models.dart';
@@ -12,8 +11,12 @@ import '../../services/api_response.dart';
 class AddQuestion extends StatefulWidget {
   final int classes;
   final int subject;
-  const AddQuestion({required this.classes, required this.subject, Key? key})
-      : super(key: key);
+  Questions? question;
+  bool isEditing;
+  AddQuestion(
+      {required this.classes, required this.subject, Key? key, this.question})
+      : isEditing = (question != null),
+        super(key: key);
 
   @override
   State<AddQuestion> createState() => _AddQuestionState();
@@ -37,6 +40,26 @@ class _AddQuestionState extends State<AddQuestion> {
   int selected = 0;
   @override
   void initState() {
+    if (widget.isEditing) {
+      numOfChoices = widget.question!.choices!.length;
+      _questionController.text = widget.question!.text!;
+      _choice1Controller.text = widget.question!.choices![0].text!;
+      _choice2Controller.text = widget.question!.choices![1].text!;
+      if (numOfChoices > 2) {
+        _choice3Controller.text = widget.question!.choices![2].text!;
+      }
+      if (numOfChoices > 3) {
+        _choice4Controller.text = widget.question!.choices![3].text!;
+      }
+      if (numOfChoices > 4) {
+        _choice5Controller.text = widget.question!.choices![4].text!;
+      }
+      for (int i = 0; i < numOfChoices; i++) {
+        if (widget.question!.choices![i].status == 1) {
+          selected = i + 1;
+        }
+      }
+    }
     _questionFocusNode = FocusNode();
     _choice1FocusNode = FocusNode();
     _choice2FocusNode = FocusNode();
@@ -243,7 +266,8 @@ class _AddQuestionState extends State<AddQuestion> {
                                       shape: BoxShape.circle,
                                       color: selected == 2
                                           ? Colors.orange[400]
-                                          : const Color.fromRGBO(70, 73, 81, 1)),
+                                          : const Color.fromRGBO(
+                                              70, 73, 81, 1)),
                                   child: const Center(
                                     child: Text(
                                       'B',
@@ -520,7 +544,8 @@ class _AddQuestionState extends State<AddQuestion> {
                                           shape: BoxShape.circle,
                                           color: selected == 5
                                               ? Colors.orange[400]
-                                              : const Color.fromRGBO(70, 73, 81, 1),
+                                              : const Color.fromRGBO(
+                                                  70, 73, 81, 1),
                                         ),
                                         child: const Center(
                                           child: Text(
@@ -676,54 +701,101 @@ class _AddQuestionState extends State<AddQuestion> {
                               status: selected == 5 ? 1 : 0,
                             ),
                         ];
-                        List<Question> question = [
-                          Question(
-                            text: _questionController.text,
-                            chioces: choices,
-                          ),
-                        ];
-                        AddQuestionModel addQuestion = AddQuestionModel(
-                          teacherId: Provider.of<AppProvider>(context,listen: false).getId().toString(),
-                          classId: widget.classes.toString(),
-                          subjectId: widget.subject.toString(),
-                          question: question,
-                        );
-                        var provider =
-                            Provider.of<AppProvider>(context, listen: false);
-                        if (await provider.checkInternet()) {
-                          var response = await Provider.of<AppProvider>(context,
-                                  listen: false)
-                              .addExamQuestion(addQuestion.toJson());
-                          if (response.status == Status.LOADING) {
-                            EasyLoading.showToast(
-                              'Loading...',
-                              duration: const Duration(
-                                milliseconds: 300,
-                              ),
+                        if (widget.isEditing) {
+                            Question question = Question(
+                              text: _questionController.text,
+                              chioces: choices,
+                              method: 'PUT',
                             );
-                          }
-                          if (response.status == Status.ERROR) {
-                            EasyLoading.showError(response.message!,
-                                dismissOnTap: true);
-                          }
-                          if (response.status == Status.COMPLETED) {
-                            if (response.data != null &&
-                                response.data!.status!) {
-                              EasyLoading.showSuccess(response.data!.message!,
-                                  dismissOnTap: true);
-                              Navigator.push(
-                                context,
-                                PageTransition(
-                                  child: const AddQuestion(
-                                    classes: 1,
-                                    subject: 1,
+                            var provider =
+                            Provider.of<AppProvider>(context, listen: false);
+                            if (await provider.checkInternet()) {
+                              var response = await Provider.of<AppProvider>(
+                                  context,
+                                  listen: false)
+                                  .editQuestion(widget.question!.id!,question.toJson());
+                              if (response.status == Status.LOADING) {
+                                EasyLoading.showToast(
+                                  'Loading...',
+                                  duration: const Duration(
+                                    milliseconds: 300,
                                   ),
-                                  type: PageTransitionType.bottomToTopJoined,
-                                  childCurrent: widget,
-                                  duration: const Duration(milliseconds: 300),
+                                );
+                              }
+                              if (response.status == Status.ERROR) {
+                                EasyLoading.showError(response.message!,
+                                    dismissOnTap: true);
+                              }
+                              if (response.status == Status.COMPLETED) {
+                                if (response.data != null &&
+                                    response.data!.status!) {
+                                  EasyLoading.showSuccess(response.data!.message!,
+                                      dismissOnTap: true,duration: const Duration(seconds: 1));
+                                  Future.delayed(const Duration(seconds: 1),(){ Navigator.pop(context);});
+                                }
+                              }
+                            }
+                            else{
+                              EasyLoading.showError('No Internet Connection');
+                            }
+                        }
+                        if (!widget.isEditing) {
+                          List<Question> question = [
+                            Question(
+                              text: _questionController.text,
+                              chioces: choices,
+                            ),
+                          ];
+                          AddQuestionModel addQuestion = AddQuestionModel(
+                            teacherId:
+                                Provider.of<AppProvider>(context, listen: false)
+                                    .getId()
+                                    .toString(),
+                            classId: widget.classes.toString(),
+                            subjectId: widget.subject.toString(),
+                            question: question,
+                          );
+                          var provider =
+                              Provider.of<AppProvider>(context, listen: false);
+                          if (await provider.checkInternet()) {
+                            var response = await Provider.of<AppProvider>(
+                                    context,
+                                    listen: false)
+                                .addExamQuestion(addQuestion.toJson());
+                            if (response.status == Status.LOADING) {
+                              EasyLoading.showToast(
+                                'Loading...',
+                                duration: const Duration(
+                                  milliseconds: 300,
                                 ),
                               );
                             }
+                            if (response.status == Status.ERROR) {
+                              EasyLoading.showError(response.message!,
+                                  dismissOnTap: true);
+                            }
+                            if (response.status == Status.COMPLETED) {
+                              if (response.data != null &&
+                                  response.data!.status!) {
+                                EasyLoading.showSuccess(response.data!.message!,
+                                    dismissOnTap: true);
+                                Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    child: AddQuestion(
+                                      classes: 1,
+                                      subject: 1,
+                                    ),
+                                    type: PageTransitionType.bottomToTopJoined,
+                                    childCurrent: widget,
+                                    duration: const Duration(milliseconds: 300),
+                                  ),
+                                );
+                              }
+                            }
+                          }
+                          else{
+                            EasyLoading.showError('No Internet Connection');
                           }
                         }
                       },

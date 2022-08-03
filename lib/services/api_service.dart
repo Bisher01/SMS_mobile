@@ -178,6 +178,12 @@ abstract class ApiService {
       @Field('class_id') int? classId,
       @Field('subject_id') int? subjectId});
 
+  @DELETE('question/delete/{id}')
+  Future<Delete> deleteQuestion(@Path('id')int id);
+  
+  @POST('question/edit/{id}')
+  Future<Delete> editQuestion(@Path('id')int id,@Body() Map<String,dynamic> map);
+
 //=================================================//
 
 //========================MOBILE=========================//
