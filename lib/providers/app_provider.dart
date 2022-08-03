@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:sms_mobile/models/student_exam.dart';
-import '../models/add_question.dart';
 import '../services/api_response.dart';
 import '../services/api_service.dart';
 import '../models/models.dart';
@@ -1121,11 +1119,9 @@ class AppProvider extends ChangeNotifier {
     if (await checkInternet()) {
       getTeacherSubjectsResponse = ApiResponse.loading('');
       try {
-        SubjectClass subjectclass = await apiService.getTeacherSubjects(id);
-        getTeacherSubjectsResponse = ApiResponse.completed(subjectclass);
-        print('completed');
+        SubjectClass subjectClass = await apiService.getTeacherSubjects(id);
+        getTeacherSubjectsResponse = ApiResponse.completed(subjectClass);
       } catch (e) {
-        print(e);
         if (e is DioError) {
           try {
             throwCustomException(e);
@@ -1303,6 +1299,37 @@ class AppProvider extends ChangeNotifier {
   }
 
   ///==============================================///
+
+  ApiResponse<MentorClasses>? _mentorClassesResponse;
+  ApiResponse<MentorClasses>? get mentorClassesResponse => _mentorClassesResponse;
+  set mentorClassesResponse(ApiResponse<MentorClasses>? value) {
+    _mentorClassesResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<MentorClasses>> getMentorClasses(int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      mentorClassesResponse = ApiResponse.loading('');
+      try {
+        MentorClasses mentorClasses = await apiService.getMentorClasses(id);
+        mentorClassesResponse = ApiResponse.completed(mentorClasses);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return mentorClassesResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return mentorClassesResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return mentorClassesResponse = ApiResponse.error('No Internet Connection');
+    }
+    return mentorClassesResponse!;
+  }
 }
 
 dynamic throwCustomException(DioError? dioError) {

@@ -15,6 +15,6 @@ class ColorResources {
   static const darkGery  = Color(0xFF404040);
   static const veryLightGrey  = Color(0xFFEEEEEE);
   static const lightGreen  = Color(0xFFD0FFCE);
-  static const green  = Color(0xFF28AF00);
+  static const green  = Color(0XFF2BC3BB);
   static const ExtraLightGrey  = Color(0xFFEEEEEE);
 }
