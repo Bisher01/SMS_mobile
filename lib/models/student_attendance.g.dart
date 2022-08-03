@@ -1,12 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'student.dart';
+part of 'student_attendance.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Student _$StudentFromJson(Map<String, dynamic> json) => Student(
+FStudentAttendance _$FStudentAttendanceFromJson(Map<String, dynamic> json) =>
+    FStudentAttendance(
+      status: json['status'] as bool?,
+      message: json['message'] as String?,
+      data: (json['data'] as List<dynamic>?)
+          ?.map((e) => StudentAttendances.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$FStudentAttendanceToJson(FStudentAttendance instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'data': instance.data,
+    };
+
+StudentAttendances _$StudentAttendancesFromJson(Map<String, dynamic> json) =>
+    StudentAttendances(
       academic_year_id: json['academic_year_id'] as int?,
       address_id: json['address_id'] as int?,
       birthdate: json['birthdate'] as String?,
@@ -47,14 +64,18 @@ Student _$StudentFromJson(Map<String, dynamic> json) => Student(
       grade: json['grade'] == null
           ? null
           : Grade.fromJson(json['grade'] as Map<String, dynamic>),
-      class_classroom_id: json['class_classroom_id'] as int?,
       class_classroom: json['class_classroom'] == null
           ? null
           : ClassClassroom.fromJson(
               json['class_classroom'] as Map<String, dynamic>),
+      class_classroom_id: json['class_classroom_id'] as int?,
+      attendance: (json['attendance'] as List<dynamic>?)
+          ?.map((e) => Attendance.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
-Map<String, dynamic> _$StudentToJson(Student instance) => <String, dynamic>{
+Map<String, dynamic> _$StudentAttendancesToJson(StudentAttendances instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'f_name': instance.f_name,
       'l_name': instance.l_name,
@@ -80,18 +101,20 @@ Map<String, dynamic> _$StudentToJson(Student instance) => <String, dynamic>{
       'religion': instance.religion,
       'gender': instance.gender,
       'nationality': instance.nationality,
+      'attendance': instance.attendance,
     };
 
-FStudent _$FStudentFromJson(Map<String, dynamic> json) => FStudent(
-      status: json['status'] as bool?,
-      message: json['message'] as String?,
-      student: (json['student'] as List<dynamic>?)
-          ?.map((e) => Student.fromJson(e as Map<String, dynamic>))
-          .toList(),
+Attendance _$AttendanceFromJson(Map<String, dynamic> json) => Attendance(
+      id: json['id'] as int?,
+      studentId: json['student_id'] as int?,
+      date: json['date'] as String?,
+      statusId: json['status_id'] as int?,
     );
 
-Map<String, dynamic> _$FStudentToJson(FStudent instance) => <String, dynamic>{
-      'status': instance.status,
-      'message': instance.message,
-      'student': instance.student,
+Map<String, dynamic> _$AttendanceToJson(Attendance instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'student_id': instance.studentId,
+      'status_id': instance.statusId,
+      'date': instance.date,
     };

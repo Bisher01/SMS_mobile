@@ -56,7 +56,7 @@ abstract class ApiService {
 
   //all logout
   @POST('general/logout')
-  Future <LogOut>logout(@Header('Authorization') String token);
+  Future<LogOut> logout(@Header('Authorization') String token);
 
   //all subjects
   @GET('subject/all')
@@ -97,10 +97,6 @@ abstract class ApiService {
 //get all syllabi
   @GET('syllabi/all')
   Future<FSyllabi> getAllSyllabi();
-
-//get mentor classes
-  @GET('mentor/get-students/{id}')
-  Future<MentorClasses> getMentorClasses(@Path('id') int id);
 
   //============Management=========//
 
@@ -172,17 +168,21 @@ abstract class ApiService {
   @POST('question/add')
   Future<Delete> addExamQuestion(@Body() Map<String, dynamic> question);
 
+  //get all questions (question bank)
   @POST('question/all')
   Future<QuestionsBank> getAllQuestions(
       {@Field('teacher_id') int? teacherId,
       @Field('class_id') int? classId,
       @Field('subject_id') int? subjectId});
 
+  //delete question
   @DELETE('question/delete/{id}')
-  Future<Delete> deleteQuestion(@Path('id')int id);
-  
+  Future<Delete> deleteQuestion(@Path('id') int id);
+
+  //edit question
   @POST('question/edit/{id}')
-  Future<Delete> editQuestion(@Path('id')int id,@Body() Map<String,dynamic> map);
+  Future<Delete> editQuestion(
+      @Path('id') int id, @Body() Map<String, dynamic> map);
 
 //=================================================//
 
@@ -208,6 +208,19 @@ abstract class ApiService {
   @GET('resultant/{id1}/{id2}')
   Future<FResultant> getStudentResultant(
       @Path('id1') int id1, @Path('id2') int id2);
+
+  //get mentor classes
+  @GET('mentor/get-students/{id}')
+  Future<MentorClasses> getMentorClasses(@Path('id') int id);
+
+  //get student attendance
+  @GET('attendance/student/{id}')
+  Future<FStudentAttendance> getStudentAttendances(@Path('id') int id);
+
+//add student attendance
+  @POST('attendance/add')
+  Future<Delete> addStudentsAttendance(
+      @Body() Map<String, dynamic> map);
 
 //=================================================//
 }

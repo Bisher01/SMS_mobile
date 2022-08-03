@@ -676,70 +676,98 @@ class _AddQuestionState extends State<AddQuestion> {
                     ),
                     child: InkWell(
                       onTap: () async {
-                        List<Choice> choices = [
-                          Choice(
-                            text: _choice1Controller.text,
-                            status: selected == 1 ? 1 : 0,
-                          ),
-                          Choice(
-                            text: _choice2Controller.text,
-                            status: selected == 2 ? 1 : 0,
-                          ),
-                          if (numOfChoices > 2)
-                            Choice(
-                              text: _choice3Controller.text,
-                              status: selected == 3 ? 1 : 0,
-                            ),
-                          if (numOfChoices > 3)
-                            Choice(
-                              text: _choice4Controller.text,
-                              status: selected == 4 ? 1 : 0,
-                            ),
-                          if (numOfChoices > 4)
-                            Choice(
-                              text: _choice5Controller.text,
-                              status: selected == 5 ? 1 : 0,
-                            ),
-                        ];
                         if (widget.isEditing) {
-                            Question question = Question(
-                              text: _questionController.text,
-                              chioces: choices,
-                              method: 'PUT',
-                            );
-                            var provider =
-                            Provider.of<AppProvider>(context, listen: false);
-                            if (await provider.checkInternet()) {
-                              var response = await Provider.of<AppProvider>(
-                                  context,
-                                  listen: false)
-                                  .editQuestion(widget.question!.id!,question.toJson());
-                              if (response.status == Status.LOADING) {
-                                EasyLoading.showToast(
-                                  'Loading...',
-                                  duration: const Duration(
-                                    milliseconds: 300,
-                                  ),
-                                );
-                              }
-                              if (response.status == Status.ERROR) {
-                                EasyLoading.showError(response.message!,
-                                    dismissOnTap: true);
-                              }
-                              if (response.status == Status.COMPLETED) {
-                                if (response.data != null &&
-                                    response.data!.status!) {
-                                  EasyLoading.showSuccess(response.data!.message!,
-                                      dismissOnTap: true,duration: const Duration(seconds: 1));
-                                  Future.delayed(const Duration(seconds: 1),(){ Navigator.pop(context);});
-                                }
+                          List<EditQuestionChoices> choices = [
+                            EditQuestionChoices(
+                                text: _choice1Controller.text,
+                                status: selected == 1 ? 1 : 0,
+                                id: widget.question!.choices![0].id),
+                            EditQuestionChoices(
+                                text: _choice2Controller.text,
+                                status: selected == 2 ? 1 : 0,
+                                id: widget.question!.choices![1].id),
+                            if (numOfChoices > 2)
+                              EditQuestionChoices(
+                                  text: _choice3Controller.text,
+                                  status: selected == 3 ? 1 : 0,
+                                  id: widget.question!.choices![2].id),
+                            if (numOfChoices > 3)
+                              EditQuestionChoices(
+                                  text: _choice4Controller.text,
+                                  status: selected == 4 ? 1 : 0,
+                                  id: widget.question!.choices![3].id),
+                            if (numOfChoices > 4)
+                              EditQuestionChoices(
+                                  text: _choice5Controller.text,
+                                  status: selected == 5 ? 1 : 0,
+                                  id: widget.question!.choices![4].id),
+                          ];
+                          EditQuestionModel question = EditQuestionModel(
+                            text: _questionController.text,
+                            choices: choices,
+                            method: 'PUT',
+                          );
+                          var provider =
+                              Provider.of<AppProvider>(context, listen: false);
+                          if (await provider.checkInternet()) {
+                            var response = await Provider.of<AppProvider>(
+                                    context,
+                                    listen: false)
+                                .editQuestion(
+                                    widget.question!.id!, question.toJson());
+                            if (response.status == Status.LOADING) {
+                              EasyLoading.showToast(
+                                'Loading...',
+                                duration: const Duration(
+                                  milliseconds: 300,
+                                ),
+                              );
+                            }
+                            if (response.status == Status.ERROR) {
+                              EasyLoading.showError(response.message!,
+                                  dismissOnTap: true);
+                            }
+                            if (response.status == Status.COMPLETED) {
+                              if (response.data != null &&
+                                  response.data!.status!) {
+                                EasyLoading.showSuccess(response.data!.message!,
+                                    dismissOnTap: true,
+                                    duration: const Duration(seconds: 1));
+                                Future.delayed(const Duration(seconds: 1), () {
+                                  Navigator.pop(context);
+                                });
                               }
                             }
-                            else{
-                              EasyLoading.showError('No Internet Connection');
-                            }
+                          } else {
+                            EasyLoading.showError('No Internet Connection');
+                          }
                         }
                         if (!widget.isEditing) {
+                          List<Choice> choices = [
+                            Choice(
+                              text: _choice1Controller.text,
+                              status: selected == 1 ? 1 : 0,
+                            ),
+                            Choice(
+                              text: _choice2Controller.text,
+                              status: selected == 2 ? 1 : 0,
+                            ),
+                            if (numOfChoices > 2)
+                              Choice(
+                                text: _choice3Controller.text,
+                                status: selected == 3 ? 1 : 0,
+                              ),
+                            if (numOfChoices > 3)
+                              Choice(
+                                text: _choice4Controller.text,
+                                status: selected == 4 ? 1 : 0,
+                              ),
+                            if (numOfChoices > 4)
+                              Choice(
+                                text: _choice5Controller.text,
+                                status: selected == 5 ? 1 : 0,
+                              ),
+                          ];
                           List<Question> question = [
                             Question(
                               text: _questionController.text,
@@ -793,8 +821,7 @@ class _AddQuestionState extends State<AddQuestion> {
                                 );
                               }
                             }
-                          }
-                          else{
+                          } else {
                             EasyLoading.showError('No Internet Connection');
                           }
                         }

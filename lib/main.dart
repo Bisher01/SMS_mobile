@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(),
-        home: QuestionsBankScreen(subjectId: 1, classId: 1,),
+        home: MentorAttendanceScreen()
         // home: !isFirst
         //     ? const WelcomeScreen()
         //     : !isToken

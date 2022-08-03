@@ -53,8 +53,8 @@ class _MentorMainScreenState extends State<MentorMainScreen>
                             String token = provider.getToken();
                             if (await provider.checkInternet()) {
                               var response = await Provider.of<AppProvider>(
-                                  context,
-                                  listen: false)
+                                      context,
+                                      listen: false)
                                   .logout('Bearer $token');
                               if (response.status == Status.LOADING) {
                                 EasyLoading.showToast(
@@ -69,7 +69,7 @@ class _MentorMainScreenState extends State<MentorMainScreen>
                                     dismissOnTap: true);
                               }
                               if (response.status == Status.COMPLETED) {
-                                if (response.data != null ) {
+                                if (response.data != null) {
                                   EasyLoading.showSuccess(
                                       response.data!.message!,
                                       dismissOnTap: true);
@@ -78,10 +78,10 @@ class _MentorMainScreenState extends State<MentorMainScreen>
                                     PageTransition(
                                       child: LoginScreen(),
                                       type:
-                                      PageTransitionType.bottomToTopJoined,
+                                          PageTransitionType.bottomToTopJoined,
                                       childCurrent: widget,
                                       duration:
-                                      const Duration(milliseconds: 300),
+                                          const Duration(milliseconds: 300),
                                     ),
                                   );
                                 }
@@ -191,8 +191,9 @@ class _MentorMainScreenState extends State<MentorMainScreen>
               Navigator.push(
                 context,
                 PageTransition(
-                  child: const ExamSchedule(
-                    studentId: 3,
+                  child: MentorExamSchedule(
+                    mentorId: Provider.of<AppProvider>(context, listen: false)
+                        .getId(),
                   ),
                   type: PageTransitionType.leftToRightPop,
                   childCurrent: widget,

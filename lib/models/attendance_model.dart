@@ -5,11 +5,11 @@ part 'attendance_model.g.dart';
 
 @JsonSerializable()
 class AttendanceModel{
-  DateTime? dateTime;
-  List<StudentAttendance>? studentsAttendance;
+  String? date;
+  List<StudentAttendance>? students;
   AttendanceModel({
-    this.dateTime,
-    this.studentsAttendance,
+    this.date,
+    this.students,
 });
 
   factory AttendanceModel.fromJson(Map<String,dynamic> json) => _$AttendanceModelFromJson(json);
@@ -18,7 +18,9 @@ class AttendanceModel{
 
 @JsonSerializable()
 class StudentAttendance{
+  @JsonKey(name: 'student_id')
   int? id;
+  @JsonKey(name: 'status_id')
   int? status;
 
   StudentAttendance({

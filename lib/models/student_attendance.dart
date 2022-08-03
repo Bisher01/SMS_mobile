@@ -1,9 +1,21 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'models.dart';
-part 'student.g.dart';
+part 'student_attendance.g.dart';
+
 
 @JsonSerializable()
-class Student {
+class FStudentAttendance {
+  bool? status;
+  String? message;
+  List<StudentAttendances>? data;
+  FStudentAttendance({this.status, this.message, this.data});
+  factory FStudentAttendance.fromJson(Map<String, dynamic> json) =>
+      _$FStudentAttendanceFromJson(json);
+  Map<String, dynamic> toJson() => _$FStudentAttendanceToJson(this);
+}
+
+@JsonSerializable()
+class StudentAttendances {
   int? id;
   String? f_name;
   String? l_name;
@@ -30,9 +42,10 @@ class Student {
   Religion? religion;
   Gender? gender;
   Nationality? nationality;
+  List<Attendance>? attendance;
 
 
-  Student({
+  StudentAttendances({
     this.academic_year_id,
     this.address_id,
     this.birthdate,
@@ -56,22 +69,28 @@ class Student {
     this.blood,
     this.gender,
     this.grade,
+    this.class_classroom,
     this.class_classroom_id,
-    this.class_classroom
+    this.attendance
   });
 
-  factory Student.fromJson(Map<String, dynamic> json) =>
-      _$StudentFromJson(json);
-  Map<String, dynamic> toJson() => _$StudentToJson(this);
+  factory StudentAttendances.fromJson(Map<String, dynamic> json) =>
+      _$StudentAttendancesFromJson(json);
+  Map<String, dynamic> toJson() => _$StudentAttendancesToJson(this);
 }
 
+
+
 @JsonSerializable()
-class FStudent {
-  bool? status;
-  String? message;
-  List<Student>? student;
-  FStudent({this.status, this.message, this.student});
-  factory FStudent.fromJson(Map<String, dynamic> json) =>
-      _$FStudentFromJson(json);
-  Map<String, dynamic> toJson() => _$FStudentToJson(this);
+class Attendance{
+  int? id;
+  @JsonKey(name: 'student_id')
+  int? studentId;
+  @JsonKey(name: 'status_id')
+  int? statusId;
+  String? date;
+  Attendance({this.id,this.studentId,this.date,this.statusId});
+factory Attendance.fromJson(Map<String, dynamic> json) =>
+_$AttendanceFromJson(json);
+Map<String, dynamic> toJson() => _$AttendanceToJson(this);
 }

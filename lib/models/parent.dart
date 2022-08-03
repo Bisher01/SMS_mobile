@@ -21,7 +21,7 @@ class Parent {
       this.father_name,
       this.jop,
       this.mother_name,
-      this.national_number});
+      this.national_number,});
 
   factory Parent.fromJson(Map<String, dynamic> json) => _$ParentFromJson(json);
   Map<String, dynamic> toJson() => _$ParentToJson(this);

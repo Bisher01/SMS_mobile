@@ -32,3 +32,5 @@ export 'student_quiz.dart';
 export 'quiz_schedule.dart';
 export 'log_out.dart';
 export 'attendance_model.dart';
+export 'edit_question.dart';
+export 'student_attendance.dart';

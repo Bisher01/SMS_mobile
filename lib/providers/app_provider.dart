@@ -1168,7 +1168,7 @@ class AppProvider extends ChangeNotifier {
 
   ///======================MOBILE========================///
 
-  // //get teacher subjects and classes
+  //get teacher subjects and classes
   ApiResponse<SubjectClass>? _getTeacherSubjectsResponse;
   ApiResponse<SubjectClass>? get getTeacherSubjectsResponse =>
       _getTeacherSubjectsResponse;
@@ -1277,6 +1277,38 @@ class AppProvider extends ChangeNotifier {
     return getTeacherStudentsResponse!;
   }
 
+  // get mentor classes
+  ApiResponse<MentorClasses>? _mentorClassesResponse;
+  ApiResponse<MentorClasses>? get mentorClassesResponse => _mentorClassesResponse;
+  set mentorClassesResponse(ApiResponse<MentorClasses>? value) {
+    _mentorClassesResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<MentorClasses>> getMentorClasses(int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      mentorClassesResponse = ApiResponse.loading('');
+      try {
+        MentorClasses mentorClasses = await apiService.getMentorClasses(id);
+        mentorClassesResponse = ApiResponse.completed(mentorClasses);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return mentorClassesResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return mentorClassesResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return mentorClassesResponse = ApiResponse.error('No Internet Connection');
+    }
+    return mentorClassesResponse!;
+  }
+
   //add oral mark to student
   ApiResponse<Delete>? _addStudentOralMarkResponse;
   ApiResponse<Delete>? get addStudentOralMarkResponse =>
@@ -1363,36 +1395,79 @@ class AppProvider extends ChangeNotifier {
 
   ///==============================================///
 
-  ApiResponse<MentorClasses>? _mentorClassesResponse;
-  ApiResponse<MentorClasses>? get mentorClassesResponse => _mentorClassesResponse;
-  set mentorClassesResponse(ApiResponse<MentorClasses>? value) {
-    _mentorClassesResponse = value;
+
+
+  ///======================Attendance========================///
+
+//get student attendance
+  ApiResponse<FStudentAttendance>? _getStudentAttendancesResponse;
+  ApiResponse<FStudentAttendance>? get getStudentAttendancesResponse => _getStudentAttendancesResponse;
+  set getStudentAttendancesResponse(ApiResponse<FStudentAttendance>? value) {
+    _getStudentAttendancesResponse = value;
     notifyListeners();
   }
 
-  Future<ApiResponse<MentorClasses>> getMentorClasses(int id) async {
+  Future<ApiResponse<FStudentAttendance>> getStudentAttendances(int id) async {
     ApiService apiService = ApiService(Dio());
     if (await checkInternet()) {
-      mentorClassesResponse = ApiResponse.loading('');
+      getStudentAttendancesResponse = ApiResponse.loading('');
       try {
-        MentorClasses mentorClasses = await apiService.getMentorClasses(id);
-        mentorClassesResponse = ApiResponse.completed(mentorClasses);
+        FStudentAttendance fstudentattendance = await apiService.getStudentAttendances(id);
+        getStudentAttendancesResponse = ApiResponse.completed(fstudentattendance);
       } catch (e) {
         if (e is DioError) {
           try {
             throwCustomException(e);
           } catch (forcedException) {
-            return mentorClassesResponse =
+            return getStudentAttendancesResponse =
                 ApiResponse.error(forcedException.toString());
           }
         }
-        return mentorClassesResponse = ApiResponse.error(e.toString());
+        return getStudentAttendancesResponse = ApiResponse.error(e.toString());
       }
     } else {
-      return mentorClassesResponse = ApiResponse.error('No Internet Connection');
+      return getStudentAttendancesResponse = ApiResponse.error('No Internet Connection');
     }
-    return mentorClassesResponse!;
+    return getStudentAttendancesResponse!;
   }
+
+  //add students attendances
+  ApiResponse<Delete>? _addStudentsAttendanceResponse;
+  ApiResponse<Delete>? get addStudentsAttendanceResponse => _addStudentsAttendanceResponse;
+  set addStudentsAttendanceResponse(ApiResponse<Delete>? value) {
+    _addStudentsAttendanceResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<Delete>> addStudentsAttendance(Map <String,dynamic> map) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      addStudentsAttendanceResponse = ApiResponse.loading('');
+      try {
+        Delete delete = await apiService.addStudentsAttendance(map);
+        addStudentsAttendanceResponse = ApiResponse.completed(delete);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return addStudentsAttendanceResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return addStudentsAttendanceResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return addStudentsAttendanceResponse = ApiResponse.error('No Internet Connection');
+    }
+    return addStudentsAttendanceResponse!;
+  }
+
+
+
+  ///==============================================///
+
+
 }
 
 dynamic throwCustomException(DioError? dioError) {

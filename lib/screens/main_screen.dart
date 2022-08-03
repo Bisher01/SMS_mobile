@@ -118,7 +118,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               Navigator.push(
                 context,
                 PageTransition(
-                  child: ExamSchedule(
+                  child: StudentExamSchedule(
                     studentId: 3,
                   ),
                   type: PageTransitionType.leftToRightPop,

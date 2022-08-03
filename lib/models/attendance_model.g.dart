@@ -8,30 +8,28 @@ part of 'attendance_model.dart';
 
 AttendanceModel _$AttendanceModelFromJson(Map<String, dynamic> json) =>
     AttendanceModel(
-      dateTime: json['dateTime'] == null
-          ? null
-          : DateTime.parse(json['dateTime'] as String),
-      studentsAttendance: (json['studentsAttendance'] as List<dynamic>?)
+      date: json['date'] as String?,
+      students: (json['students'] as List<dynamic>?)
           ?.map((e) => StudentAttendance.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$AttendanceModelToJson(AttendanceModel instance) =>
     <String, dynamic>{
-      'dateTime': instance.dateTime?.toIso8601String(),
-      'studentsAttendance': instance.studentsAttendance,
+      'date': instance.date,
+      'students': instance.students,
     };
 
 StudentAttendance _$StudentAttendanceFromJson(Map<String, dynamic> json) =>
     StudentAttendance(
-      id: json['id'] as int?,
-      status: json['status'] as int?,
+      id: json['student_id'] as int?,
+      status: json['status_id'] as int?,
     );
 
 Map<String, dynamic> _$StudentAttendanceToJson(StudentAttendance instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'status': instance.status,
+      'student_id': instance.id,
+      'status_id': instance.status,
     };
 
 MentorClasses _$MentorClassesFromJson(Map<String, dynamic> json) =>

@@ -39,13 +39,13 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
     'Nov',
     'Dec'
   ];
-  int? id ;
+  int? id;
   @override
   initState() {
     _markController = TextEditingController();
     id = Provider.of<AppProvider>(context, listen: false).getId();
     Provider.of<AppProvider>(context, listen: false)
-        .getAllQuestions(1, widget.classId, widget.subjectId);
+        .getAllQuestions(id!, widget.classId, widget.subjectId);
     super.initState();
   }
 
@@ -104,7 +104,9 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
               ),
             ],
           ),
-          const SizedBox(width: 10,),
+          const SizedBox(
+            width: 10,
+          ),
         ],
       ),
       body: Consumer<AppProvider>(builder: (context, provider, child) {
@@ -121,14 +123,11 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                       provider.questionBankResponse!.data!.questions!.length,
                   itemBuilder: (context, index) {
                     if (answers.length < index + 1) {
-                      answers.add(
-                        Answer(
-                          questionId: provider
-                              .questionBankResponse!.data!.questions![index].id!
-                             ,
-                          choiceId: 0,
-                        )
-                      );
+                      answers.add(Answer(
+                        questionId: provider
+                            .questionBankResponse!.data!.questions![index].id!,
+                        choiceId: 0,
+                      ));
                     }
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -140,7 +139,18 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                           children: [
                             IconButton(
                               onPressed: () {
-                                Navigator.push(context, PageTransition(child: AddQuestion(subject: widget.subjectId, classes: widget.classId,question: provider.questionBankResponse!.data!.questions![index],), type: PageTransitionType.fade));
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        child: AddQuestion(
+                                          subject: widget.subjectId,
+                                          classes: widget.classId,
+                                          question: provider
+                                              .questionBankResponse!
+                                              .data!
+                                              .questions![index],
+                                        ),
+                                        type: PageTransitionType.fade));
                               },
                               icon: const Icon(
                                 Icons.edit,
@@ -149,17 +159,22 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                             ),
                             IconButton(
                               onPressed: () async {
-                                if(await provider.checkInternet()){
-                                  var response = await provider.deleteQuestion(provider.questionBankResponse!.data!.questions![index].id!);
-                                  if(response.status==Status.COMPLETED){
-                                    if(response.data != null && response.data!.status!){
-                                      EasyLoading.showSuccess(response.data!.message!);
-                                      provider.getAllQuestions(1, widget.classId, widget.subjectId);
+                                if (await provider.checkInternet()) {
+                                  var response = await provider.deleteQuestion(
+                                      provider.questionBankResponse!.data!
+                                          .questions![index].id!);
+                                  if (response.status == Status.COMPLETED) {
+                                    if (response.data != null &&
+                                        response.data!.status!) {
+                                      EasyLoading.showSuccess(
+                                          response.data!.message!);
+                                      provider.getAllQuestions(
+                                          id!, widget.classId, widget.subjectId);
                                     }
                                   }
-                                }
-                                else{
-                                  EasyLoading.showError('No Internet Connection');
+                                } else {
+                                  EasyLoading.showError(
+                                      'No Internet Connection');
                                 }
                               },
                               icon: const Icon(
@@ -184,6 +199,7 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                   color: Colors.grey,
                                 ),
                               ),
+
                               ///TODO: fix mark controller
                               Row(
                                 children: [

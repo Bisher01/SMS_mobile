@@ -3,6 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_mobile/providers/providers.dart';
+import 'package:sms_mobile/screens/parent/exam_schedule.dart';
 import '../../models/boxes.dart';
 import '../../services/api_response.dart';
 import '../screens.dart';
@@ -220,8 +221,8 @@ class _ParentMainScreenState extends State<ParentMainScreen>
               Navigator.push(
                 context,
                 PageTransition(
-                  child: ExamSchedule(
-                    studentId: Provider.of<AppProvider>(context, listen: false)
+                  child: ParentExamSchedule(
+                    parentId: Provider.of<AppProvider>(context, listen: false)
                         .getId(),
                   ),
                   type: PageTransitionType.leftToRightPop,
@@ -384,6 +385,50 @@ class _ParentMainScreenState extends State<ParentMainScreen>
                   ],
                 ),
               )),
+          //attendance
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: const ParentAttendanceScreen(),
+                  type: PageTransitionType.leftToRightPop,
+                  childCurrent: widget,
+                  duration: const Duration(milliseconds: 400),
+                ),
+              );
+            },
+            child: Card(
+                elevation: 3,
+                shadowColor: Colors.black,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(16),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 20, right: 20, bottom: 10),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/icons/attendance.png',
+                        height: 100,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Attendance',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                      )
+                    ],
+                  ),
+                )),
+          ),
         ],
       ),
     );

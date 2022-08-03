@@ -29,15 +29,17 @@ class AddExam {
   int? seasonId;
   List<AddQuestionToExam>? questions;
 
-  AddExam(
-      {this.questions,
-      this.subjectId,
-      this.classId,
-      this.start,
-      this.end,
-      this.examNameId,
-      this.seasonId});
+  AddExam({
+    this.questions,
+    this.subjectId,
+    this.classId,
+    this.start,
+    this.end,
+    this.examNameId,
+    this.seasonId,
+  });
 
-  factory AddExam.fromJson(Map<String,dynamic>json) => _$AddExamFromJson(json);
-  Map<String,dynamic> toJson() =>_$AddExamToJson(this);
+  factory AddExam.fromJson(Map<String, dynamic> json) =>
+      _$AddExamFromJson(json);
+  Map<String, dynamic> toJson() => _$AddExamToJson(this);
 }

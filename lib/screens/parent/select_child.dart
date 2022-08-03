@@ -83,7 +83,7 @@ class _SelectChildState extends State<SelectChild> {
                             Navigator.push(
                               context,
                               PageTransition(
-                                child: ex.ExamSchedule(
+                                child: ex.StudentExamSchedule(
                                   studentId: provider.getParentChildResponse!
                                       .data!.parent![0].child![index].id!,
                                 ),
