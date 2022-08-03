@@ -9,7 +9,6 @@ import '../../services/api_response.dart';
 import '../../components/components.dart';
 import '../screens.dart';
 
-///TODO: bisher
 
 class MentorAttendanceScreen extends StatefulWidget {
   const MentorAttendanceScreen({Key? key}) : super(key: key);
@@ -29,7 +28,7 @@ class _MentorAttendanceScreenState extends State<MentorAttendanceScreen> {
   List<StudentAttendance> attendance = [];
   int? classRoomDDV;
   Map<int, int> classrooms = {};
-  int selectedClassroom = 1;
+  int selectedClassroom = 0;
   @override
   Widget build(BuildContext context) {
     return Consumer<AppProvider>(builder: (context, provider, child) {
@@ -79,6 +78,7 @@ class _MentorAttendanceScreenState extends State<MentorAttendanceScreen> {
                         elevation: 16,
                         onChanged: (int? newValue) {
                           setState(() {
+                            attendance.clear();
                             classRoomDDV = newValue ?? 0;
                             selectedClassroom = classrooms[classRoomDDV] ?? 0;
                           });
@@ -117,10 +117,12 @@ class _MentorAttendanceScreenState extends State<MentorAttendanceScreen> {
                             mainAxisSpacing: 10,
                             crossAxisSpacing: 10,
                           ),
-                          itemCount: provider.mentorClassesResponse!.data!
+                          itemCount: classRoomDDV==null?0:provider.mentorClassesResponse!.data!
                               .mentorData![selectedClassroom].students!.length,
                           itemBuilder: (context, index) {
-                            attendance.add(StudentAttendance(id: 1, status: 0));
+                            if(attendance.length < index +1){
+                              attendance.add(StudentAttendance(id: 1, status: 0));
+                            }
                             return Card(
                               elevation: 2,
                               shape: const RoundedRectangleBorder(
@@ -160,6 +162,7 @@ class _MentorAttendanceScreenState extends State<MentorAttendanceScreen> {
                                             onTap: () {
                                               setState(() {
                                                 attendance[index].status = 1;
+                                                print(attendance);
                                               });
                                             },
                                             child: AnimatedContainer(
