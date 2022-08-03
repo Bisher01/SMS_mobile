@@ -99,7 +99,7 @@ abstract class ApiService {
   Future<FSyllabi> getAllSyllabi();
 
 //get mentor classes
-  @GET('mentor/get-student/{id}')
+  @GET('mentor/get-students/{id}')
   Future<MentorClasses> getMentorClasses(@Path('id') int id);
 
   //============Management=========//

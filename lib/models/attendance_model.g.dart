@@ -38,9 +38,9 @@ MentorClasses _$MentorClassesFromJson(Map<String, dynamic> json) =>
     MentorClasses(
       status: json['status'] as bool?,
       message: json['message'] as String?,
-      mentorData: json['data'] == null
-          ? null
-          : MentorClassesData.fromJson(json['data'] as Map<String, dynamic>),
+      mentorData: (json['data'] as List<dynamic>?)
+          ?.map((e) => MentorClassesData.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$MentorClassesToJson(MentorClasses instance) =>

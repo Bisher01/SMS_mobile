@@ -35,7 +35,7 @@ class MentorClasses{
 bool? status;
 String? message;
 @JsonKey(name: 'data')
-MentorClassesData? mentorData;
+List<MentorClassesData>? mentorData;
 
 MentorClasses({this.status,this.message,this.mentorData});
 
