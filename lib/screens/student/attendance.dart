@@ -110,7 +110,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen> {
                       crossAxisSpacing: 10,
                     ),
                     itemCount: provider.getStudentAttendancesResponse!.data!
-                        .data![0].attendance!.length,
+                        .data![0].attendances!.length,
                     // .mentorData![selectedClassroom].students!.length,
                     itemBuilder: (context, index) {
                       // attendance.add(StudentAttendance(id: 1, status: 0));
@@ -144,7 +144,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen> {
                                 ),
                                 const SizedBox(),
                                 Text(
-                                  ' ${provider.getStudentAttendancesResponse!.data!.data![0].attendance![index].date}',
+                                  ' ${provider.getStudentAttendancesResponse!.data!.data![0].attendances![index].attendance!.date}',
                                   //'${provider.mentorClassesResponse!.data!.mentorData![selectedClassroom].students![index].f_name!} ${provider.mentorClassesResponse!.data!.mentorData![classrooms[classRoomDDV]!].students![index].l_name!}',
                                   style: const TextStyle(
                                     fontSize: 18,
@@ -166,7 +166,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen> {
                                                         .getStudentAttendancesResponse!
                                                         .data!
                                                         .data![0]
-                                                        .attendance![index]
+                                                        .attendances![index]
                                                         .statusId ==
                                                     1
                                                 ? ColorResources.green
@@ -176,7 +176,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen> {
                                                     .getStudentAttendancesResponse!
                                                     .data!
                                                     .data![0]
-                                                    .attendance![index]
+                                                    .attendances![index]
                                                     .statusId ==
                                                 1
                                             ? ColorResources.green
@@ -196,7 +196,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen> {
                                                           .getStudentAttendancesResponse!
                                                           .data!
                                                           .data![0]
-                                                          .attendance![index]
+                                                          .attendances![index]
                                                           .statusId ==
                                                       1
                                                   ? Colors.white
@@ -205,7 +205,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen> {
                                                           .getStudentAttendancesResponse!
                                                           .data!
                                                           .data![0]
-                                                          .attendance![index]
+                                                          .attendances![index]
                                                           .statusId ==
                                                       1
                                                   ? 23
@@ -282,7 +282,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen> {
                                                           .getStudentAttendancesResponse!
                                                           .data!
                                                           .data![0]
-                                                          .attendance![index]
+                                                          .attendances![index]
                                                           .statusId ==
                                                       2
                                                   ? const Color.fromRGBO(
@@ -293,7 +293,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen> {
                                                       .getStudentAttendancesResponse!
                                                       .data!
                                                       .data![0]
-                                                      .attendance![index]
+                                                      .attendances![index]
                                                       .statusId ==
                                                   2
                                               ? const Color.fromRGBO(
@@ -315,7 +315,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen> {
                                                             .getStudentAttendancesResponse!
                                                             .data!
                                                             .data![0]
-                                                            .attendance![index]
+                                                            .attendances![index]
                                                             .statusId ==
                                                         2
                                                     ? Colors.white
@@ -324,7 +324,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen> {
                                                             .getStudentAttendancesResponse!
                                                             .data!
                                                             .data![0]
-                                                            .attendance![index]
+                                                            .attendances![index]
                                                             .statusId ==
                                                         2
                                                     ? 23
@@ -406,7 +406,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen> {
                                                         .getStudentAttendancesResponse!
                                                         .data!
                                                         .data![0]
-                                                        .attendance![index]
+                                                        .attendances![index]
                                                         .statusId ==
                                                     3
                                                 ? Colors.orange[400]!
@@ -416,7 +416,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen> {
                                                     .getStudentAttendancesResponse!
                                                     .data!
                                                     .data![0]
-                                                    .attendance![index]
+                                                    .attendances![index]
                                                     .statusId ==
                                                 3
                                             ? Colors.orange[400]
@@ -436,7 +436,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen> {
                                                           .getStudentAttendancesResponse!
                                                           .data!
                                                           .data![0]
-                                                          .attendance![index]
+                                                          .attendances![index]
                                                           .statusId ==
                                                       3
                                                   ? Colors.white
@@ -445,7 +445,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen> {
                                                           .getStudentAttendancesResponse!
                                                           .data!
                                                           .data![0]
-                                                          .attendance![index]
+                                                          .attendances![index]
                                                           .statusId ==
                                                       3
                                                   ? 23

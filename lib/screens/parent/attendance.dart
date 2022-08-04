@@ -110,7 +110,8 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                       crossAxisSpacing: 10,
                     ),
                     itemCount: provider.getStudentAttendancesResponse!.data!
-                        .data![0].attendance!.length,
+                        .data![0].attendances!.length,
+                    //attendance!.length,
                     // .mentorData![selectedClassroom].students!.length,
                     itemBuilder: (context, index) {
                       // attendance.add(StudentAttendance(id: 1, status: 0));
@@ -118,7 +119,7 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                         elevation: 2,
                         shape: const RoundedRectangleBorder(
                             borderRadius:
-                            BorderRadius.all(Radius.circular(16))),
+                            BorderRadius.all(Radius.circular(16,),),),
                         child: Center(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -144,7 +145,7 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                                 ),
                                 const SizedBox(),
                                 Text(
-                                  ' ${provider.getStudentAttendancesResponse!.data!.data![0].attendance![index].date}',
+                                  ' ${provider.getStudentAttendancesResponse!.data!.data![0].attendances![index].attendance!.date}',
                                   //'${provider.mentorClassesResponse!.data!.mentorData![selectedClassroom].students![index].f_name!} ${provider.mentorClassesResponse!.data!.mentorData![classrooms[classRoomDDV]!].students![index].l_name!}',
                                   style: const TextStyle(
                                     fontSize: 18,
@@ -166,7 +167,7 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                                                 .getStudentAttendancesResponse!
                                                 .data!
                                                 .data![0]
-                                                .attendance![index]
+                                                .attendances![index]
                                                 .statusId ==
                                                 1
                                                 ? ColorResources.green
@@ -176,7 +177,7 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                                             .getStudentAttendancesResponse!
                                             .data!
                                             .data![0]
-                                            .attendance![index]
+                                            .attendances![index]
                                             .statusId ==
                                             1
                                             ? ColorResources.green
@@ -196,7 +197,7 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                                                   .getStudentAttendancesResponse!
                                                   .data!
                                                   .data![0]
-                                                  .attendance![index]
+                                                  .attendances![index]
                                                   .statusId ==
                                                   1
                                                   ? Colors.white
@@ -205,7 +206,7 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                                                   .getStudentAttendancesResponse!
                                                   .data!
                                                   .data![0]
-                                                  .attendance![index]
+                                                  .attendances![index]
                                                   .statusId ==
                                                   1
                                                   ? 23
@@ -282,7 +283,7 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                                                   .getStudentAttendancesResponse!
                                                   .data!
                                                   .data![0]
-                                                  .attendance![index]
+                                                  .attendances![index]
                                                   .statusId ==
                                                   2
                                                   ? const Color.fromRGBO(
@@ -293,7 +294,7 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                                               .getStudentAttendancesResponse!
                                               .data!
                                               .data![0]
-                                              .attendance![index]
+                                              .attendances![index]
                                               .statusId ==
                                               2
                                               ? const Color.fromRGBO(
@@ -315,7 +316,7 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                                                     .getStudentAttendancesResponse!
                                                     .data!
                                                     .data![0]
-                                                    .attendance![index]
+                                                    .attendances![index]
                                                     .statusId ==
                                                     2
                                                     ? Colors.white
@@ -324,7 +325,7 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                                                     .getStudentAttendancesResponse!
                                                     .data!
                                                     .data![0]
-                                                    .attendance![index]
+                                                    .attendances![index]
                                                     .statusId ==
                                                     2
                                                     ? 23
@@ -406,7 +407,7 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                                                 .getStudentAttendancesResponse!
                                                 .data!
                                                 .data![0]
-                                                .attendance![index]
+                                                .attendances![index]
                                                 .statusId ==
                                                 3
                                                 ? Colors.orange[400]!
@@ -416,7 +417,7 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                                             .getStudentAttendancesResponse!
                                             .data!
                                             .data![0]
-                                            .attendance![index]
+                                            .attendances![index]
                                             .statusId ==
                                             3
                                             ? Colors.orange[400]
@@ -436,7 +437,7 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                                                   .getStudentAttendancesResponse!
                                                   .data!
                                                   .data![0]
-                                                  .attendance![index]
+                                                  .attendances![index]
                                                   .statusId ==
                                                   3
                                                   ? Colors.white
@@ -445,7 +446,7 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                                                   .getStudentAttendancesResponse!
                                                   .data!
                                                   .data![0]
-                                                  .attendance![index]
+                                                  .attendances![index]
                                                   .statusId ==
                                                   3
                                                   ? 23

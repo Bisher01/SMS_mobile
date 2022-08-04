@@ -69,7 +69,7 @@ StudentAttendances _$StudentAttendancesFromJson(Map<String, dynamic> json) =>
           : ClassClassroom.fromJson(
               json['class_classroom'] as Map<String, dynamic>),
       class_classroom_id: json['class_classroom_id'] as int?,
-      attendance: (json['attendance'] as List<dynamic>?)
+      attendances: (json['attendances'] as List<dynamic>?)
           ?.map((e) => Attendance.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -101,14 +101,20 @@ Map<String, dynamic> _$StudentAttendancesToJson(StudentAttendances instance) =>
       'religion': instance.religion,
       'gender': instance.gender,
       'nationality': instance.nationality,
-      'attendance': instance.attendance,
+      'attendances': instance.attendances,
     };
 
 Attendance _$AttendanceFromJson(Map<String, dynamic> json) => Attendance(
       id: json['id'] as int?,
       studentId: json['student_id'] as int?,
-      date: json['date'] as String?,
       statusId: json['status_id'] as int?,
+      status: json['status'] == null
+          ? null
+          : StatusAttendance.fromJson(json['status'] as Map<String, dynamic>),
+      attendanceId: json['attendance_id'] as int?,
+      attendance: json['attendance'] == null
+          ? null
+          : AttendanceInfo.fromJson(json['attendance'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AttendanceToJson(Attendance instance) =>
@@ -116,5 +122,31 @@ Map<String, dynamic> _$AttendanceToJson(Attendance instance) =>
       'id': instance.id,
       'student_id': instance.studentId,
       'status_id': instance.statusId,
+      'attendance_id': instance.attendanceId,
+      'status': instance.status,
+      'attendance': instance.attendance,
+    };
+
+StatusAttendance _$StatusAttendanceFromJson(Map<String, dynamic> json) =>
+    StatusAttendance(
+      id: json['id'] as int?,
+      status: json['status'] as String?,
+    );
+
+Map<String, dynamic> _$StatusAttendanceToJson(StatusAttendance instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'status': instance.status,
+    };
+
+AttendanceInfo _$AttendanceInfoFromJson(Map<String, dynamic> json) =>
+    AttendanceInfo(
+      id: json['id'] as int?,
+      date: json['date'] as String?,
+    );
+
+Map<String, dynamic> _$AttendanceInfoToJson(AttendanceInfo instance) =>
+    <String, dynamic>{
+      'id': instance.id,
       'date': instance.date,
     };
