@@ -168,8 +168,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                         response.data!.status!) {
                                       EasyLoading.showSuccess(
                                           response.data!.message!);
-                                      provider.getAllQuestions(
-                                          id!, widget.classId, widget.subjectId);
+                                      provider.getAllQuestions(id!,
+                                          widget.classId, widget.subjectId);
                                     }
                                   }
                                 } else {
@@ -792,6 +792,7 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                             .data!
                                             .questions![index]
                                             .id));
+                                    _markController.clear();
                                   },
                             child: const Text(
                               'ADD Question',

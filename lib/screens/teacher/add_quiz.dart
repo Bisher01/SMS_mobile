@@ -755,6 +755,7 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                                       .data!
                                       .questions![index]
                                       .id));
+                              _markController.clear();
                             },
                             child: const Text(
                               'ADD Question',
