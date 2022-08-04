@@ -199,8 +199,6 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                   color: Colors.grey,
                                 ),
                               ),
-
-                              ///TODO: fix mark controller
                               Row(
                                 children: [
                                   const Text(

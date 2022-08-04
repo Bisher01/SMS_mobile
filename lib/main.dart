@@ -48,20 +48,19 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(),
-        home: MentorAttendanceScreen()
-        // home: !isFirst
-        //     ? const WelcomeScreen()
-        //     : !isToken
-        //         ? const LoginScreen()
-        //         : role == 'teacher'
-        //             ? const TeacherMainScreen()
-        //             : role == 'parent'
-        //                 ? const ParentMainScreen()
-        //                 : role == 'student'
-        //                     ? const StudentMainScreen()
-        //                     : role == 'mentor'
-        //                         ? const MentorMainScreen()
-        //                         : const MainScreen(),
+        home: !isFirst
+            ? const WelcomeScreen()
+            : !isToken
+                ? const LoginScreen()
+                : role == 'teacher'
+                    ? const TeacherMainScreen()
+                    : role == 'parent'
+                        ? const ParentMainScreen()
+                        : role == 'student'
+                            ? const StudentMainScreen()
+                            : role == 'mentor'
+                                ? const MentorMainScreen()
+                                : const MainScreen(),
       ),
     );
   }
