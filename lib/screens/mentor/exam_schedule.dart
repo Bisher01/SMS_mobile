@@ -28,9 +28,9 @@ class _MentorExamScheduleState extends State<MentorExamSchedule> {
   @override
   initState() {
     ///TODO: change into class id
-    // Provider.of<AppProvider>(context, listen: false).getMentor(widget.mentorId).then((value) {
-    //   classId = value.data!.mentor![0].class_id!;
-    // });
+    Provider.of<AppProvider>(context, listen: false).getMentor(widget.mentorId).then((value) {
+      classId = value.data!.mentor![0].class_id!;
+    });
     Provider.of<AppProvider>(context, listen: false)
         .getClassExam(classId!);
     super.initState();

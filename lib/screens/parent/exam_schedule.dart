@@ -11,8 +11,9 @@ import '../../components/error.dart' as err;
 import '../../services/api_response.dart';
 
 class ParentExamSchedule extends StatefulWidget {
-  final int parentId;
-  const ParentExamSchedule({required this.parentId, Key? key}) : super(key: key);
+  final int studentId;
+  const ParentExamSchedule({required this.studentId, Key? key})
+      : super(key: key);
 
   @override
   State<ParentExamSchedule> createState() => _ParentExamScheduleState();
@@ -21,18 +22,19 @@ class ParentExamSchedule extends StatefulWidget {
 class _ParentExamScheduleState extends State<ParentExamSchedule> {
   final ItemScrollController itemScrollController = ItemScrollController();
   final ItemPositionsListener itemPositionsListener =
-  ItemPositionsListener.create();
+      ItemPositionsListener.create();
 
   int? classId;
 
   @override
   initState() {
     ///TODO: change into class id
-    // Provider.of<AppProvider>(context, listen: false).getMentor(widget.mentorId).then((value) {
-    //   classId = value.data!.mentor![0].class_id!;
-    // });
     Provider.of<AppProvider>(context, listen: false)
-        .getClassExam(classId!);
+        .getStudent(widget.studentId)
+        .then((value) {
+      classId = value.data!.student![0].class_classroom!.class_id;
+    });
+    Provider.of<AppProvider>(context, listen: false).getClassExam(classId!);
     super.initState();
   }
 
@@ -201,14 +203,14 @@ class _ParentExamScheduleState extends State<ParentExamSchedule> {
                                     color: selectedTab == index
                                         ? Colors.orange
                                         : const Color.fromARGB(
-                                      1,
-                                      250,
-                                      250,
-                                      250,
-                                    ).withOpacity(0.9),
+                                            1,
+                                            250,
+                                            250,
+                                            250,
+                                          ).withOpacity(0.9),
                                     child: Column(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                          MainAxisAlignment.spaceAround,
                                       children: [
                                         Text(
                                           provider.getClassExamResponse!.data!
@@ -275,7 +277,7 @@ class _ParentExamScheduleState extends State<ParentExamSchedule> {
                                     SizedBox(
                                       width: widgetSize.getWidth(200, context),
                                       height:
-                                      widgetSize.getHeight(140, context),
+                                          widgetSize.getHeight(140, context),
                                       child: Card(
                                         elevation: 5,
                                         shape: RoundedRectangleBorder(
@@ -286,24 +288,24 @@ class _ParentExamScheduleState extends State<ParentExamSchedule> {
                                         color: index % 4 == 0
                                             ? cardColor[0]
                                             : index % 4 == 1
-                                            ? cardColor[1]
-                                            : index % 4 == 2
-                                            ? cardColor[2]
-                                            : cardColor[3],
+                                                ? cardColor[1]
+                                                : index % 4 == 2
+                                                    ? cardColor[2]
+                                                    : cardColor[3],
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
                                             horizontal: 12,
                                           ),
                                           child: Column(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
+                                                MainAxisAlignment.spaceEvenly,
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   Row(
                                                     children: [
@@ -315,7 +317,7 @@ class _ParentExamScheduleState extends State<ParentExamSchedule> {
                                                         style: const TextStyle(
                                                           color: Colors.white,
                                                           fontWeight:
-                                                          FontWeight.bold,
+                                                              FontWeight.bold,
                                                           fontSize: 18,
                                                         ),
                                                       ),
@@ -362,7 +364,7 @@ class _ParentExamScheduleState extends State<ParentExamSchedule> {
                                                     style: TextStyle(
                                                       color: Colors.white,
                                                       fontWeight:
-                                                      FontWeight.w900,
+                                                          FontWeight.w900,
                                                     ),
                                                   ),
                                                   Text(
@@ -375,8 +377,8 @@ class _ParentExamScheduleState extends State<ParentExamSchedule> {
                                               ),
                                               Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   Row(
                                                     children: [
@@ -385,7 +387,7 @@ class _ParentExamScheduleState extends State<ParentExamSchedule> {
                                                         style: TextStyle(
                                                           color: Colors.white,
                                                           fontWeight:
-                                                          FontWeight.w900,
+                                                              FontWeight.w900,
                                                         ),
                                                       ),
                                                       Text(
@@ -403,7 +405,7 @@ class _ParentExamScheduleState extends State<ParentExamSchedule> {
                                                         style: TextStyle(
                                                           color: Colors.white,
                                                           fontWeight:
-                                                          FontWeight.w900,
+                                                              FontWeight.w900,
                                                         ),
                                                       ),
                                                       Text(
@@ -432,10 +434,10 @@ class _ParentExamScheduleState extends State<ParentExamSchedule> {
                                       ),
                                       width: widgetSize.getWidth(240, context),
                                       height:
-                                      widgetSize.getHeight(180, context),
+                                          widgetSize.getHeight(180, context),
                                       child: Padding(
-                                        padding:
-                                        const EdgeInsets.only(top: 16, right: 8),
+                                        padding: const EdgeInsets.only(
+                                            top: 16, right: 8),
                                         child: IconButton(
                                           onPressed: () {
                                             // Navigator.push(

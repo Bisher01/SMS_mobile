@@ -1464,7 +1464,38 @@ class AppProvider extends ChangeNotifier {
   }
 
 
+//get mentor class and classrooms
 
+  ApiResponse<FMentorClassrooms>? _getMentorClassroomsResponse;
+  ApiResponse<FMentorClassrooms>? get getMentorClassroomsResponse => _getMentorClassroomsResponse;
+  set getMentorClassroomsResponse(ApiResponse<FMentorClassrooms>? value) {
+    _getMentorClassroomsResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FMentorClassrooms>> getMentorClassrooms(int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getMentorClassroomsResponse = ApiResponse.loading('');
+      try {
+        FMentorClassrooms fmentorclassrooms = await apiService.getMentorClassrooms(id);
+        getMentorClassroomsResponse = ApiResponse.completed(fmentorclassrooms);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return getMentorClassroomsResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return getMentorClassroomsResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return getMentorClassroomsResponse = ApiResponse.error('No Internet Connection');
+    }
+    return getMentorClassroomsResponse!;
+  }
   ///==============================================///
 
 

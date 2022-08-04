@@ -222,7 +222,7 @@ class _ParentMainScreenState extends State<ParentMainScreen>
                 context,
                 PageTransition(
                   child: ParentExamSchedule(
-                    parentId: Provider.of<AppProvider>(context, listen: false)
+                    studentId: Provider.of<AppProvider>(context, listen: false)
                         .getId(),
                   ),
                   type: PageTransitionType.leftToRightPop,

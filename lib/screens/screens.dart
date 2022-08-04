@@ -18,6 +18,7 @@ export 'mentor/profile.dart';
 export 'mentor/main_screen.dart';
 export 'mentor/attendance.dart';
 export 'mentor/exam_schedule.dart';
+export 'mentor/show_attendance.dart';
 export 'student/schedule.dart';
 export 'student/exam_schedule.dart';
 export 'student/profile.dart';

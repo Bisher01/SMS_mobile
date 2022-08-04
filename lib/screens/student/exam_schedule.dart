@@ -28,17 +28,17 @@ class _StudentExamScheduleState extends State<StudentExamSchedule> {
   @override
   initState() {
     ///TODO: change into class id
-    // Provider.of<AppProvider>(context, listen: false).getMentor(widget.mentorId).then((value) {
-    //   classId = value.data!.mentor![0].class_id!;
-    // });
-
-
-    // Provider.of<AppProvider>(context, listen: false)
-    //     .getClassExam(classId!);
+    Provider.of<AppProvider>(context, listen: false).getStudent(widget.studentId).then((value) {
+      classId = value.data!.student![0].class_classroom!.class_id;
+    });
 
 
     Provider.of<AppProvider>(context, listen: false)
-        .getClassExam(widget.studentId);
+        .getClassExam(classId!);
+
+    //
+    // Provider.of<AppProvider>(context, listen: false)
+    //     .getClassExam(widget.studentId);
     super.initState();
   }
 

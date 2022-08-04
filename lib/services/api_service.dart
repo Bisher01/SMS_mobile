@@ -222,5 +222,9 @@ abstract class ApiService {
   Future<Delete> addStudentsAttendance(
       @Body() Map<String, dynamic> map);
 
+  //get mentor class and classrooms
+@GET('mentor/get-classrooms/{id}')
+  Future<FMentorClassrooms> getMentorClassrooms(@Path('id') int id);
+
 //=================================================//
 }
