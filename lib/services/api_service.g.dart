@@ -386,11 +386,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<FMark> setStudentExamMark(id1, id2) async {
+  Future<FMark> setStudentExamMark(id1, id2, map) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
+    _data.addAll(map);
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<FMark>(
             Options(method: 'POST', headers: _headers, extra: _extra)
@@ -441,7 +442,7 @@ class _ApiService implements ApiService {
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<StudentQuiz>(
-            Options(method: 'POST', headers: _headers, extra: _extra)
+            Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, 'quiz/getQuiz/${id}',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
@@ -450,11 +451,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<FMark> getStudentQuizMark(id1, id2) async {
+  Future<FMark> getStudentQuizMark(id1, id2, map) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
+    _data.addAll(map);
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<FMark>(
             Options(method: 'POST', headers: _headers, extra: _extra)

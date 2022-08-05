@@ -21,8 +21,8 @@ class Cell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 80,
-      height: 80,
+      width: 100,
+      height: 100,
       decoration: BoxDecoration(
         color: color,
         border: Border.all(
@@ -58,24 +58,21 @@ class Head extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.teal,
-      height: 80,
+      height: 100,
       child: Row(
         children: [
           Cell(
-            color: Colors.yellow.withOpacity(0.3),
             value: "Subject",
           ),
           Expanded(
             child: Container(
-              color: Colors.yellowAccent,
               child: ListView(
                 controller: scrollController,
                 physics: const ClampingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 children: List.generate(6, (index) {
                   return Cell(
-                    color: Colors.yellow.withOpacity(0.3),
+
                     value: head[index],
                   );
                 }),
@@ -103,7 +100,8 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   initState() {
-    Provider.of<AppProvider>(context, listen: false).getStudentResultant(widget.studentId, 1);
+    ///TODO: season id and design
+    Provider.of<AppProvider>(context, listen: false).getStudentResultant(widget.studentId, 2);
     _controllers = LinkedScrollControllerGroup();
     _firstColumnController = _controllers!.addAndGet();
     _restColumnsController = _controllers!.addAndGet();
@@ -144,15 +142,14 @@ class _BodyState extends State<Body> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Container(
-                    color: Colors.tealAccent,
-                    width: 80,
+                    width: 100,
                     child: ListView(
                       controller: _firstColumnController,
                       physics: const ClampingScrollPhysics(),
                       children: List.generate(response!.data!.resultant!.length,
                           (index) {
                         return Cell(
-                          color: Colors.black.withOpacity(0.3),
+
                           value: response.data!.resultant![index].subjectName,
                         );
                       }),
@@ -164,8 +161,7 @@ class _BodyState extends State<Body> {
                       scrollDirection: Axis.horizontal,
                       physics: const ClampingScrollPhysics(),
                       child: Container(
-                        color: Colors.pinkAccent,
-                        width: (6) * 80,
+                        width: (6) * 100,
                         child: ListView(
                           controller: _restColumnsController,
                           physics: const ClampingScrollPhysics(),
@@ -174,7 +170,7 @@ class _BodyState extends State<Body> {
                             return Row(
                               children: List.generate(6, (x) {
                                 return Cell(
-                                  color: Colors.purple,
+
                                   value: x == 0
                                       ? response.data!.resultant![y].subjectMark
                                       : x == 1

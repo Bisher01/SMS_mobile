@@ -26,14 +26,16 @@ class _QuizScheduleState extends State<QuizSchedule> {
 
   @override
   initState() {
+
     Provider.of<AppProvider>(context, listen: false)
         .getStudent(widget.studentId)
         .then((value) {
       classId = value.data!.student![0].class_classroom!.class_id;
       classroomId = value.data!.student![0].class_classroom!.classroom_id;
+      Provider.of<AppProvider>(context, listen: false)
+          .getClassroomQuizSchedule(classId!, classroomId!);
     });
-    Provider.of<AppProvider>(context, listen: false)
-        .getClassroomQuizSchedule(classId!, classroomId!);
+
     super.initState();
   }
 
@@ -321,10 +323,10 @@ class _QuizScheduleState extends State<QuizSchedule> {
                                                   Row(
                                                     children: [
                                                       Text(
-                                                        quiz[index]
-                                                            .teacher_and_subject!
-                                                            .subject!
-                                                            .name!,
+                                                        quiz[selectedTab]
+                                                            .teacher_and_subject
+                                                            !.subjects
+                                                            !.name!,
                                                         style: const TextStyle(
                                                           color: Colors.white,
                                                           fontWeight:
@@ -379,7 +381,7 @@ class _QuizScheduleState extends State<QuizSchedule> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    "${quiz[index].start!.year.toString()}-${quiz[index].start!.month.toString()}-${quiz[index].start!.day.toString()} ${quiz[index].start!.hour.toString()}:${quiz[index].start!.minute.toString()}",
+                                                    "${quiz[selectedTab].start!.year.toString()}-${quiz[selectedTab].start!.month.toString()}-${quiz[selectedTab].start!.day.toString()} ${quiz[selectedTab].start!.hour.toString()}:${quiz[selectedTab].start!.minute.toString()}",
                                                     style: const TextStyle(
                                                       color: Colors.white,
                                                     ),
@@ -402,7 +404,7 @@ class _QuizScheduleState extends State<QuizSchedule> {
                                                         ),
                                                       ),
                                                       Text(
-                                                        "${quiz[index].end!.difference(quiz[index].start!).inMinutes} minutes",
+                                                        "${quiz[selectedTab].end!.difference(quiz[selectedTab].start!).inMinutes} minutes",
                                                         style: const TextStyle(
                                                           color: Colors.white,
                                                         ),
@@ -420,7 +422,7 @@ class _QuizScheduleState extends State<QuizSchedule> {
                                                         ),
                                                       ),
                                                       Text(
-                                                        "Mark: ${provider.getClassroomQuizScheduleResponse!.data!.quizzes![index].mark!}",
+                                                        "Mark: ${provider.getClassroomQuizScheduleResponse!.data!.quizzes![selectedTab].mark!}",
                                                         style: const TextStyle(
                                                           color: Colors.white,
                                                         ),
@@ -451,12 +453,12 @@ class _QuizScheduleState extends State<QuizSchedule> {
                                             top: 16, right: 8),
                                         child: IconButton(
                                           onPressed: () {
+                                            selectedTab = index;
                                             Navigator.push(
                                               context,
                                               PageTransition(
-                                                ///TODO change to quiz id
                                                 child: QuizScreen(
-                                                  quizId: quiz[index].id!,
+                                                  quizId: quiz[selectedTab].id!,
                                                 ),
                                                 type: PageTransitionType
                                                     .leftToRightPop,

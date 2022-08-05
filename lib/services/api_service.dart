@@ -134,7 +134,7 @@ abstract class ApiService {
 
   //set student exam mark
   @POST('exam/mark/{id1}/{id2}')
-  Future<FMark> setStudentExamMark(@Path('id1') int id1, @Path('id2') int id2);
+  Future<FMark> setStudentExamMark(@Path('id1') int id1, @Path('id2') int id2,@Body()Map<String,dynamic>map);
 
   //get student exam
   @GET('exam/getExam/{id}')
@@ -147,12 +147,12 @@ abstract class ApiService {
   ///////////===========Quiz===========///////////
 
   //get student quiz
-  @POST('quiz/getQuiz/{id}')
+  @GET('quiz/getQuiz/{id}')
   Future<StudentQuiz> getStudentQuiz(@Path('id') int id);
 
   //get student quiz mark
   @POST('quiz/mark/{id1}/{id2}')
-  Future<FMark> getStudentQuizMark(@Path('id1') int id1, @Path('id2') int id2);
+  Future<FMark> getStudentQuizMark(@Path('id1') int id1, @Path('id2') int id2,@Body()Map<String,dynamic> map);
 
   //get quiz schedule
   @GET('quiz/schedule/{id1}/{id2}')

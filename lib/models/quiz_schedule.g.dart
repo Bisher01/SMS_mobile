@@ -54,9 +54,9 @@ TeacherSubject _$TeacherSubjectFromJson(Map<String, dynamic> json) =>
     TeacherSubject(
       id: json['id'] as int?,
       subject_id: json['subject_id'] as int?,
-      subject: json['subject'] == null
+      subjects: json['subjects'] == null
           ? null
-          : Subject.fromJson(json['subject'] as Map<String, dynamic>),
+          : Subject.fromJson(json['subjects'] as Map<String, dynamic>),
       class_classroom_id: json['class_classroom_id'] as int?,
       teacher_id: json['teacher_id'] as int?,
     );
@@ -67,5 +67,5 @@ Map<String, dynamic> _$TeacherSubjectToJson(TeacherSubject instance) =>
       'subject_id': instance.subject_id,
       'teacher_id': instance.teacher_id,
       'class_classroom_id': instance.class_classroom_id,
-      'subject': instance.subject,
+      'subjects': instance.subjects,
     };

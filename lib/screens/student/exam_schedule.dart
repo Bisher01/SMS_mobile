@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -12,7 +11,8 @@ import '../../services/api_response.dart';
 
 class StudentExamSchedule extends StatefulWidget {
   final int studentId;
-  const StudentExamSchedule({required this.studentId, Key? key}) : super(key: key);
+  const StudentExamSchedule({required this.studentId, Key? key})
+      : super(key: key);
 
   @override
   State<StudentExamSchedule> createState() => _StudentExamScheduleState();
@@ -27,26 +27,21 @@ class _StudentExamScheduleState extends State<StudentExamSchedule> {
 
   @override
   initState() {
-    ///TODO: change into class id
-    Provider.of<AppProvider>(context, listen: false).getStudent(widget.studentId).then((value) {
+    Provider.of<AppProvider>(context, listen: false)
+        .getStudent(widget.studentId)
+        .then((value) {
       classId = value.data!.student![0].class_classroom!.class_id;
+      Provider.of<AppProvider>(context, listen: false).getClassExam(classId!);
     });
 
-
-    Provider.of<AppProvider>(context, listen: false)
-        .getClassExam(classId!);
-
-    //
-    // Provider.of<AppProvider>(context, listen: false)
-    //     .getClassExam(widget.studentId);
     super.initState();
   }
 
   List<Color> cardColor = [
-    Color.fromRGBO(242, 216, 199, 1),
-    Color.fromRGBO(244, 230, 202, 1),
-    Color.fromRGBO(225, 174, 86, 1),
-    Color.fromRGBO(148, 111, 169, 1)
+    const Color.fromRGBO(242, 216, 199, 1),
+    const Color.fromRGBO(244, 230, 202, 1),
+    const Color.fromRGBO(225, 174, 86, 1),
+    const Color.fromRGBO(148, 111, 169, 1)
   ];
   int containerColor = -1;
   int selectedTab = 0;
@@ -314,7 +309,7 @@ class _StudentExamScheduleState extends State<StudentExamSchedule> {
                                                   Row(
                                                     children: [
                                                       Text(
-                                                        exams[index]
+                                                        exams[selectedTab]
                                                             .subject_mark!
                                                             .subject!
                                                             .name!,
@@ -372,7 +367,7 @@ class _StudentExamScheduleState extends State<StudentExamSchedule> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    "${exams[index].start!.year.toString()}-${exams[index].start!.month.toString()}-${exams[index].start!.day.toString()} ${exams[index].start!.hour.toString()}:${exams[index].start!.minute.toString()}",
+                                                    "${exams[selectedTab].start!.year.toString()}-${exams[selectedTab].start!.month.toString()}-${exams[selectedTab].start!.day.toString()} ${exams[selectedTab].start!.hour.toString()}:${exams[selectedTab].start!.minute.toString()}",
                                                     style: const TextStyle(
                                                       color: Colors.white,
                                                     ),
@@ -395,7 +390,7 @@ class _StudentExamScheduleState extends State<StudentExamSchedule> {
                                                         ),
                                                       ),
                                                       Text(
-                                                        "${exams[index].end!.difference(exams[index].start!).inMinutes} minutes",
+                                                        "${exams[selectedTab].end!.difference(exams[selectedTab].start!).inMinutes} minutes",
                                                         style: const TextStyle(
                                                           color: Colors.white,
                                                         ),
@@ -413,7 +408,7 @@ class _StudentExamScheduleState extends State<StudentExamSchedule> {
                                                         ),
                                                       ),
                                                       Text(
-                                                        "Mark: ${provider.getClassExamResponse!.data!.exams![index].mark!}",
+                                                        "Mark: ${provider.getClassExamResponse!.data!.exams![selectedTab].mark!}",
                                                         style: const TextStyle(
                                                           color: Colors.white,
                                                         ),
@@ -440,16 +435,16 @@ class _StudentExamScheduleState extends State<StudentExamSchedule> {
                                       height:
                                           widgetSize.getHeight(180, context),
                                       child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 16, right: 8),
+                                        padding: const EdgeInsets.only(
+                                            top: 16, right: 8),
                                         child: IconButton(
                                           onPressed: () {
-                                            print('pressed');
+                                            selectedTab = index;
                                             Navigator.push(
                                               context,
                                               PageTransition(
                                                 child: ExamScreen(
-                                                  examId: exams[index].id!,
+                                                  examId: exams[selectedTab].id!,
                                                 ),
                                                 type: PageTransitionType
                                                     .leftToRightPop,

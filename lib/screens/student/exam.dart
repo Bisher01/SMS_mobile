@@ -11,7 +11,7 @@ import '../../components/error.dart' as err;
 
 class ExamScreen extends StatefulWidget {
   final int examId;
-  const ExamScreen({required this.examId,Key? key}) : super(key: key);
+  const ExamScreen({required this.examId, Key? key}) : super(key: key);
 
   @override
   State<ExamScreen> createState() => _ExamScreenState();
@@ -37,7 +37,8 @@ class _ExamScreenState extends State<ExamScreen> {
 
   @override
   initState() {
-    Provider.of<AppProvider>(context, listen: false).getStudentExam(widget.examId);
+    Provider.of<AppProvider>(context, listen: false)
+        .getStudentExam(widget.examId);
     super.initState();
   }
 
@@ -111,9 +112,8 @@ class _ExamScreenState extends State<ExamScreen> {
                     if (answers.length < index + 1) {
                       answers.add(
                         Answer(
-                          questionId: provider.getStudentExamResponse!.data!.exams![0]
-                              .questions![index].id!
-                              ,
+                          questionId: provider.getStudentExamResponse!.data!
+                              .exams![0].questions![index].id!,
                           choiceId: 0,
                         ),
                       );
@@ -717,12 +717,16 @@ class _ExamScreenState extends State<ExamScreen> {
                                       ),
                                     ),
                                     onPressed: () async {
+                                      Map<String, dynamic> map = {
+                                        'questions': answers
+                                      };
                                       int studentId = provider.getId();
                                       var response =
                                           await Provider.of<AppProvider>(
                                                   context,
                                                   listen: false)
-                                              .setStudentExamMark(widget.examId, studentId);
+                                              .setStudentExamMark(
+                                                  widget.examId, studentId,map);
                                       if (await provider.checkInternet()) {
                                         if (response.status == Status.LOADING) {
                                           EasyLoading.showToast(
@@ -749,7 +753,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                                     actions: <Widget>[
                                                       TextButton(
                                                         onPressed: () =>
-                                                            Navigator.push(
+                                                            Navigator.pushReplacement(
                                                           context,
                                                           PageTransition(
                                                             child:
@@ -777,8 +781,7 @@ class _ExamScreenState extends State<ExamScreen> {
                                                       response.data!.message!,
                                                     ),
                                                     content: Text(
-                                                      'Your mark is: ${response.data!.mark!
-                                                          .toString()}',
+                                                      'Your mark is: ${response.data!.mark!.toString()}',
                                                     ),
                                                   );
                                                 });

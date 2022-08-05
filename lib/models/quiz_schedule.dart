@@ -53,12 +53,12 @@ class TeacherSubject {
   int? subject_id;
   int? teacher_id;
   int? class_classroom_id;
-  Subject? subject;
+  Subject? subjects;
 
   TeacherSubject({
     this.id,
     this.subject_id,
-    this.subject,
+    this.subjects,
     this.class_classroom_id,
     this.teacher_id,
 

@@ -379,8 +379,10 @@ class AppProvider extends ChangeNotifier {
         FStudent fStudent = await apiService.getStudent(id);
         getStudentResponse = ApiResponse.completed(fStudent);
       } catch (e) {
+        print(e);
         if (e is DioError) {
           try {
+
             throwCustomException(e);
           } catch (forcedException) {
             getStudentResponse = ApiResponse.error(forcedException.toString());
@@ -839,12 +841,12 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<ApiResponse<FMark>> setStudentExamMark(int id1, int id2) async {
+  Future<ApiResponse<FMark>> setStudentExamMark(int id1, int id2,Map<String,dynamic>map) async {
     ApiService apiService = ApiService(Dio());
     if (await checkInternet()) {
       setStudentExamMarkResponse = ApiResponse.loading('');
       try {
-        FMark fmark = await apiService.setStudentExamMark(id1, id2);
+        FMark fmark = await apiService.setStudentExamMark(id1, id2,map);
         setStudentExamMarkResponse = ApiResponse.completed(fmark);
       } catch (e) {
         if (e is DioError) {
@@ -1071,12 +1073,12 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<ApiResponse<FMark>> getStudentQuizMark(int id1,int id2) async {
+  Future<ApiResponse<FMark>> getStudentQuizMark(int id1,int id2,Map<String,dynamic> map) async {
     ApiService apiService = ApiService(Dio());
     if (await checkInternet()) {
       getStudentQuizMarkResponse = ApiResponse.loading('');
       try {
-        FMark fmark = await apiService.getStudentQuizMark(id1,id2);
+        FMark fmark = await apiService.getStudentQuizMark(id1,id2,map);
         getStudentQuizMarkResponse = ApiResponse.completed(fmark);
       } catch (e) {
         if (e is DioError) {
@@ -1143,6 +1145,7 @@ class AppProvider extends ChangeNotifier {
         QuizSchedule quizschedule = await apiService.getClassroomQuizSchedule(classId,classroomId);
         getClassroomQuizScheduleResponse = ApiResponse.completed(quizschedule);
       } catch (e) {
+        print(e);
         if (e is DioError) {
           try {
             throwCustomException(e);

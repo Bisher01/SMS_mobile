@@ -414,10 +414,9 @@ class _QuizScreenState extends State<QuizScreen> {
                                               .choices![2]
                                               .text!,
                                           style: TextStyle(
-                                            color:
-                                                answers[index].choiceId == 3
-                                                    ? Colors.black
-                                                    : Colors.white,
+                                            color: answers[index].choiceId == 3
+                                                ? Colors.black
+                                                : Colors.white,
                                             fontSize: 18,
                                           ),
                                         ),
@@ -453,8 +452,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                                 fontSize: 24,
                                                 fontWeight: FontWeight.bold,
                                                 color:
-                                                    answers[index].choiceId ==
-                                                            3
+                                                    answers[index].choiceId == 3
                                                         ? Colors.white
                                                         : Colors.black,
                                               ),
@@ -531,10 +529,9 @@ class _QuizScreenState extends State<QuizScreen> {
                                               .choices![3]
                                               .text!,
                                           style: TextStyle(
-                                            color:
-                                                answers[index].choiceId == 4
-                                                    ? Colors.black
-                                                    : Colors.white,
+                                            color: answers[index].choiceId == 4
+                                                ? Colors.black
+                                                : Colors.white,
                                             fontSize: 18,
                                           ),
                                         ),
@@ -570,8 +567,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                                 fontSize: 24,
                                                 fontWeight: FontWeight.bold,
                                                 color:
-                                                    answers[index].choiceId ==
-                                                            4
+                                                    answers[index].choiceId == 4
                                                         ? Colors.white
                                                         : Colors.black,
                                               ),
@@ -648,10 +644,9 @@ class _QuizScreenState extends State<QuizScreen> {
                                               .choices![4]
                                               .text!,
                                           style: TextStyle(
-                                            color:
-                                                answers[index].choiceId == 5
-                                                    ? Colors.black
-                                                    : Colors.white,
+                                            color: answers[index].choiceId == 5
+                                                ? Colors.black
+                                                : Colors.white,
                                             fontSize: 18,
                                           ),
                                         ),
@@ -687,8 +682,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                                 fontSize: 24,
                                                 fontWeight: FontWeight.bold,
                                                 color:
-                                                    answers[index].choiceId ==
-                                                            5
+                                                    answers[index].choiceId == 5
                                                         ? Colors.white
                                                         : Colors.black,
                                               ),
@@ -724,12 +718,15 @@ class _QuizScreenState extends State<QuizScreen> {
                                     ),
                                     onPressed: () async {
                                       int studentId = provider.getId();
+                                      Map<String, dynamic> map = {
+                                        'questions': answers
+                                      };
                                       var response =
                                           await Provider.of<AppProvider>(
                                                   context,
                                                   listen: false)
-                                              .getStudentQuizMark(
-                                                  widget.quizId, studentId);
+                                              .getStudentQuizMark(widget.quizId,
+                                                  studentId, map);
                                       if (await provider.checkInternet()) {
                                         if (response.status == Status.LOADING) {
                                           EasyLoading.showToast(
