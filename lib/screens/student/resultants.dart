@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:sms_mobile/models/models.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 import 'package:sms_mobile/providers/app_provider.dart';
@@ -116,9 +115,6 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   initState() {
-    ///TODO: season id and design
-    Provider.of<AppProvider>(context, listen: false)
-        .getStudentResultant(widget.studentId, 2);
     _controllers = LinkedScrollControllerGroup();
     _firstColumnController = _controllers!.addAndGet();
     _restColumnsController = _controllers!.addAndGet();
@@ -219,6 +215,12 @@ class _BodyState extends State<Body> {
                   ),
                 ],
               );
+            default:
+              return Center(
+                child: CircularProgressIndicator(
+                  color: Colors.orange[400],
+                ),
+              );
           }
         }
         return Container();
@@ -288,7 +290,7 @@ class _ResultantsState extends State<Resultants> {
         ),
         actions: [
           DropdownButton<String>(
-              hint: Text(
+              hint: const Text(
                 'Season',
               ),
               value: selectedSeason,
@@ -302,7 +304,8 @@ class _ResultantsState extends State<Resultants> {
                 setState(() {
                   selectedSeason = newValue ?? 'Season';
                   seasonId = seasons.indexOf(selectedSeason!)+1;
-                  print(seasonId);
+                  Provider.of<AppProvider>(context, listen: false)
+                      .getStudentResultant(widget.studentId, seasonId);
                 });
               }),
         ],
