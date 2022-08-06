@@ -72,7 +72,6 @@ class Head extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 children: List.generate(6, (index) {
                   return Cell(
-
                     value: head[index],
                   );
                 }),
@@ -101,7 +100,8 @@ class _BodyState extends State<Body> {
   @override
   initState() {
     ///TODO: season id and design
-    Provider.of<AppProvider>(context, listen: false).getStudentResultant(widget.studentId, 2);
+    Provider.of<AppProvider>(context, listen: false)
+        .getStudentResultant(widget.studentId, 2);
     _controllers = LinkedScrollControllerGroup();
     _firstColumnController = _controllers!.addAndGet();
     _restColumnsController = _controllers!.addAndGet();
@@ -149,7 +149,6 @@ class _BodyState extends State<Body> {
                       children: List.generate(response!.data!.resultant!.length,
                           (index) {
                         return Cell(
-
                           value: response.data!.resultant![index].subjectName,
                         );
                       }),
@@ -170,7 +169,6 @@ class _BodyState extends State<Body> {
                             return Row(
                               children: List.generate(6, (x) {
                                 return Cell(
-
                                   value: x == 0
                                       ? response.data!.resultant![y].subjectMark
                                       : x == 1
@@ -211,7 +209,8 @@ class _BodyState extends State<Body> {
 class Resultants extends StatefulWidget {
   final int studentId;
   final bool isParent;
-  const Resultants({required this.studentId,required this.isParent,Key? key}) : super(key: key);
+  const Resultants({required this.studentId, required this.isParent, Key? key})
+      : super(key: key);
 
   @override
   _ResultantsState createState() => _ResultantsState();
@@ -236,6 +235,10 @@ class _ResultantsState extends State<Resultants> {
     super.dispose();
   }
 
+  List<String> seasons = ['Season 1', 'Season 2'];
+  int seasonId = 0;
+  String? selectedSeason;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -254,11 +257,33 @@ class _ResultantsState extends State<Resultants> {
                 type: PageTransitionType.bottomToTopJoined,
                 childCurrent: widget,
                 duration: const Duration(milliseconds: 300),
-                child: widget.isParent?const ParentMainScreen():const StudentMainScreen(),
+                child: widget.isParent
+                    ? const ParentMainScreen()
+                    : const StudentMainScreen(),
               ),
             );
           },
         ),
+        actions: [
+          DropdownButton<String>(
+              hint: Text(
+                'Season',
+              ),
+              value: selectedSeason,
+              items: seasons
+                  .map((e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(e),
+                      ))
+                  .toList(),
+              onChanged: (newValue) {
+                setState(() {
+                  selectedSeason = newValue ?? 'Season';
+                  seasonId = seasons.indexOf(selectedSeason!)+1;
+                  print(seasonId);
+                });
+              }),
+        ],
       ),
       body: SafeArea(
         child: Column(

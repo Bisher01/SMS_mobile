@@ -8,8 +8,10 @@ part of 'log_out.dart';
 
 LogOut _$LogOutFromJson(Map<String, dynamic> json) => LogOut(
       message: json['message'] as String?,
+      status: json['status'] as bool?,
     );
 
 Map<String, dynamic> _$LogOutToJson(LogOut instance) => <String, dynamic>{
       'message': instance.message,
+      'status': instance.status,
     };

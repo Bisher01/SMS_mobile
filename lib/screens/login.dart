@@ -399,9 +399,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   EasyLoading.showSuccess(
                                       response.data!.message!,
                                       dismissOnTap: true);
+                                  print(response.data!.key!.token.toString());
                                   provider.setToken(
                                       response.data!.key!.token.toString());
                                   provider.setToken(response.data!.key!.token!);
+                                  print(provider.getToken());
                                   provider.setId(response.data!.id!);
                                   provider.setRole(response.data!.role!);
                                   final role = response.data!.role!;

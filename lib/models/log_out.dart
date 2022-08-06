@@ -5,8 +5,10 @@ part 'log_out.g.dart';
 @JsonSerializable()
 class LogOut{
   String? message;
+  bool? status;
   LogOut({
     this.message,
+    this.status,
   });
 
   factory LogOut.fromJson(Map<String, dynamic> json) =>

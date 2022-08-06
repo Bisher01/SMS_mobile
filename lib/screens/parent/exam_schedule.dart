@@ -28,21 +28,21 @@ class _ParentExamScheduleState extends State<ParentExamSchedule> {
 
   @override
   initState() {
-    ///TODO: change into class id
     Provider.of<AppProvider>(context, listen: false)
         .getStudent(widget.studentId)
         .then((value) {
       classId = value.data!.student![0].class_classroom!.class_id;
+      Provider.of<AppProvider>(context, listen: false).getClassExam(classId!);
     });
-    Provider.of<AppProvider>(context, listen: false).getClassExam(classId!);
+
     super.initState();
   }
 
   List<Color> cardColor = [
-    Color.fromRGBO(242, 216, 199, 1),
-    Color.fromRGBO(244, 230, 202, 1),
-    Color.fromRGBO(225, 174, 86, 1),
-    Color.fromRGBO(148, 111, 169, 1)
+    const Color.fromRGBO(242, 216, 199, 1),
+    const Color.fromRGBO(244, 230, 202, 1),
+    const Color.fromRGBO(225, 174, 86, 1),
+    const Color.fromRGBO(148, 111, 169, 1)
   ];
   int containerColor = -1;
   int selectedTab = 0;
@@ -169,7 +169,7 @@ class _ParentExamScheduleState extends State<ParentExamSchedule> {
                                     selectedTab = index;
                                     itemScrollController.scrollTo(
                                         index: index,
-                                        duration: const Duration(seconds: 3),
+                                        duration: const Duration(seconds: 1),
                                         curve: Curves.easeInOutCubic);
                                     containerColor = index;
                                     Future.delayed(

@@ -66,11 +66,13 @@ class _StudentMainScreenState extends State<StudentMainScreen>
                                   );
                                 }
                                 if (response.status == Status.ERROR) {
-                                  EasyLoading.showError(response.message!,
+                                  EasyLoading.showError(response.data!.message!,
                                       dismissOnTap: true);
                                 }
                                 if (response.status == Status.COMPLETED) {
                                   if (response.data != null ) {
+                                    var box = Boxes.getAuthBox();
+                                    await box.clear();
                                     EasyLoading.showSuccess(
                                         response.data!.message!,
                                         dismissOnTap: true);
@@ -86,8 +88,8 @@ class _StudentMainScreenState extends State<StudentMainScreen>
                                       ),
                                     );
                                   }
-                                  var box = Boxes.getAuthBox();
-                                  box.clear();
+                                  // var box = Boxes.getAuthBox();
+                                  // box.clear();
                                 }
                               } else {
                                 EasyLoading.showError('No Internet Connection',

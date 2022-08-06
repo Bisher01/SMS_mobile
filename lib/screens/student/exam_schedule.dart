@@ -168,7 +168,7 @@ class _StudentExamScheduleState extends State<StudentExamSchedule> {
                                     selectedTab = index;
                                     itemScrollController.scrollTo(
                                         index: index,
-                                        duration: const Duration(seconds: 3),
+                                        duration: const Duration(seconds: 1),
                                         curve: Curves.easeInOutCubic);
                                     containerColor = index;
                                     Future.delayed(

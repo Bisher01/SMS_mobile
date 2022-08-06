@@ -72,7 +72,7 @@ class _ParentProfilePageState extends State<ParentProfilePage> {
                         image: DecorationImage(
                           fit: BoxFit.cover,
                           image: const AssetImage(
-                            'assets/jj.jpg',
+                            'assets/icons/user-2.png',
                           ),
                           colorFilter: ColorFilter.mode(
                             Colors.black54.withOpacity(0.8),
@@ -234,7 +234,7 @@ class _ParentProfilePageState extends State<ParentProfilePage> {
                       ),
                       child: const CircleAvatar(
                         backgroundImage: AssetImage(
-                          'assets/jj.jpg',
+                          'assets/icons/user-2.png',
                         ),
                         radius: 60,
                       ),
