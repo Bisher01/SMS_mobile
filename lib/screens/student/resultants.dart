@@ -34,7 +34,7 @@ class Cell extends StatelessWidget {
           color: borderColor??Colors.black12,
           width: 1,
         ),
-        borderRadius: top?BorderRadius.zero:BorderRadius.all(Radius.circular(10))
+        borderRadius: top?BorderRadius.zero:const BorderRadius.only(topRight: Radius.circular(10),bottomRight: Radius.circular(10))
       ),
       alignment: Alignment.center,
       child: Text(
