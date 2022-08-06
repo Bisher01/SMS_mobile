@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sms_mobile/utill/utill.dart';
+
+import '../../providers/app_provider.dart';
 
 class Schedule extends StatefulWidget {
   const Schedule({Key? key}) : super(key: key);
@@ -34,6 +37,21 @@ class _ScheduleState extends State<Schedule> {
     'Dec'
   ];
 
+  int? classId;
+  int? classroomId;
+  @override
+  initState(){
+    ///TODO: add schedule request and link it to the ui
+    int studentId= Provider.of<AppProvider>(context, listen: false).getId();
+    Provider.of<AppProvider>(context, listen: false)
+        .getStudent(studentId)
+        .then((value) {
+      classId = value.data!.student![0].class_classroom!.class_id;
+      classroomId = value.data!.student![0].class_classroom!.classroom_id;
+      //Provider.of<AppProvider>(context, listen: false).getClassExam(classId!);
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

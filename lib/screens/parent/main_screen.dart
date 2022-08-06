@@ -26,7 +26,8 @@ class _ParentMainScreenState extends State<ParentMainScreen>
   void dispose() {
     super.dispose();
   }
-
+///TODO: schedule
+  ///TODO: remove or keep announcements
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -42,8 +43,8 @@ class _ParentMainScreenState extends State<ParentMainScreen>
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        title: Text('Log Out'),
-                        content: Text(
+                        title: const Text('Log Out'),
+                        content: const Text(
                           'Are you sure you want to log out?',
                         ),
                         elevation: 2,
@@ -80,7 +81,7 @@ class _ParentMainScreenState extends State<ParentMainScreen>
                                     Navigator.push(
                                       context,
                                       PageTransition(
-                                        child: LoginScreen(),
+                                        child: const LoginScreen(),
                                         type:
                                         PageTransitionType.bottomToTopJoined,
                                         childCurrent: widget,
