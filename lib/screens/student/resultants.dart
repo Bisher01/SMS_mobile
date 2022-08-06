@@ -13,10 +13,16 @@ import '../../services/api_response.dart';
 class Cell extends StatelessWidget {
   final dynamic value;
   final Color? color;
+  final Color? borderColor;
+  final bool head;
+  final bool top;
   const Cell({
     Key? key,
     this.value,
     this.color,
+    this.borderColor,
+    required this.head,
+    required this.top,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -26,14 +32,19 @@ class Cell extends StatelessWidget {
       decoration: BoxDecoration(
         color: color,
         border: Border.all(
-          color: Colors.black12,
-          width: 1.0,
+          color: borderColor??Colors.black12,
+          width: 1,
         ),
+        borderRadius: top?BorderRadius.zero:BorderRadius.all(Radius.circular(10))
       ),
       alignment: Alignment.center,
       child: Text(
         '${value ?? ''}',
-        style: const TextStyle(
+        style: head? TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w700,
+          color: Colors.grey[800],
+        ):const TextStyle(
           fontSize: 16.0,
         ),
       ),
@@ -63,6 +74,9 @@ class Head extends StatelessWidget {
         children: [
           Cell(
             value: "Subject",
+            head: true,
+            color: Colors.orange[400],
+            top: true,
           ),
           Expanded(
             child: Container(
@@ -73,6 +87,9 @@ class Head extends StatelessWidget {
                 children: List.generate(6, (index) {
                   return Cell(
                     value: head[index],
+                    head: true,
+                    top: true,
+                    color: Colors.orange[400],
                   );
                 }),
               ),
@@ -127,12 +144,11 @@ class _BodyState extends State<Body> {
           var response = provider.getStudentResultantResponse;
           switch (response?.status) {
             case Status.LOADING:
-              return Shimmer.fromColors(
-                  baseColor: Colors.grey,
-                  highlightColor: Colors.white,
-                  child: CircularProgressIndicator(
-                    color: Colors.orange[400],
-                  ));
+              return Center(
+                child: CircularProgressIndicator(
+                  color: Colors.orange[400],
+                ),
+              );
             case Status.ERROR:
               return err.Error(
                 errorMsg: response!.message!,
@@ -150,6 +166,9 @@ class _BodyState extends State<Body> {
                           (index) {
                         return Cell(
                           value: response.data!.resultant![index].subjectName,
+                          color: Colors.orange[100],
+                          top: false,
+                          head: true,
                         );
                       }),
                     ),
@@ -169,6 +188,8 @@ class _BodyState extends State<Body> {
                             return Row(
                               children: List.generate(6, (x) {
                                 return Cell(
+                                  top: true,
+                                  head: false,
                                   value: x == 0
                                       ? response.data!.resultant![y].subjectMark
                                       : x == 1
@@ -244,11 +265,12 @@ class _ResultantsState extends State<Resultants> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: const Text('Resultants'),
+        backgroundColor: Colors.white,
+        title: const Text('Resultants',style: TextStyle(color: Colors.black),),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
+            color: Colors.black,
           ),
           onPressed: () {
             Navigator.pushReplacement(
@@ -289,6 +311,7 @@ class _ResultantsState extends State<Resultants> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            const SizedBox(height: 10,),
             Head(
               scrollController: _headController,
             ),
