@@ -33,7 +33,7 @@ Map<String, dynamic> _$SyllabiToJson(Syllabi instance) => <String, dynamic>{
 FSyllabi _$FSyllabiFromJson(Map<String, dynamic> json) => FSyllabi(
       message: json['message'] as String?,
       status: json['status'] as bool?,
-      data: (json['data'] as List<dynamic>?)
+      syllabi: (json['syllabi'] as List<dynamic>?)
           ?.map((e) => Syllabi.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -41,5 +41,5 @@ FSyllabi _$FSyllabiFromJson(Map<String, dynamic> json) => FSyllabi(
 Map<String, dynamic> _$FSyllabiToJson(FSyllabi instance) => <String, dynamic>{
       'status': instance.status,
       'message': instance.message,
-      'data': instance.data,
+      'syllabi': instance.syllabi,
     };

@@ -58,8 +58,8 @@ class Syllabi {
 class FSyllabi {
   bool? status;
   String? message;
-  List<Syllabi>? data;
-  FSyllabi({this.message, this.status, this.data});
+  List<Syllabi>? syllabi;
+  FSyllabi({this.message, this.status, this.syllabi});
 
   factory FSyllabi.fromJson(Map<String, dynamic> json) =>
       _$FSyllabiFromJson(json);

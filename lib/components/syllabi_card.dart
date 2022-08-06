@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
+import 'package:sms_mobile/screens/student/pdf_screen.dart';
 import '../providers/app_provider.dart';
 import '../models/models.dart';
 import '../services/api_response.dart';
@@ -22,7 +23,7 @@ class _SyllabiCardState extends State<SyllabiCard> {
       elevation: 2,
       shape: RoundedRectangleBorder(
         side: BorderSide(
-          color:  const Color(
+          color: const Color(
             0Xff2BC3BB,
           ),
         ),
@@ -116,7 +117,27 @@ class _SyllabiCardState extends State<SyllabiCard> {
                 ),
               ],
             ),
-
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PdfScreen(
+                      book:
+                          'http://127.0.0.1:8000/storage/${widget.syllabi.content}',
+                    ),
+                  ),
+                );
+              },
+              child: const Text(
+                'Preview book',
+                style: TextStyle(
+                  color: Color(
+                    0Xff2BC3BB,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

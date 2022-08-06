@@ -448,6 +448,50 @@ class _ParentMainScreenState extends State<ParentMainScreen>
                     ),
                   )),
             ),
+            //syllabi
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    child:  ShowSyllabi(isStudent: false,),
+                    type: PageTransitionType.leftToRightPop,
+                    childCurrent: widget,
+                    duration: const Duration(milliseconds: 400),
+                  ),
+                );
+              },
+              child: Card(
+                  elevation: 3,
+                  shadowColor: Colors.black,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(16),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 20, left: 20, right: 20, bottom: 10),
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          'assets/icons/books.png',
+                          height: 100,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const Text(
+                          'Syllabi',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                          ),
+                        )
+                      ],
+                    ),
+                  )),
+            ),
           ],
         ),
       ),

@@ -53,8 +53,8 @@ class _TeacherMainScreenState extends State<TeacherMainScreen>
                             String token = provider.getToken();
                             if (await provider.checkInternet()) {
                               var response = await Provider.of<AppProvider>(
-                                      context,
-                                      listen: false)
+                                  context,
+                                  listen: false)
                                   .logout('Bearer $token');
                               if (response.status == Status.LOADING) {
                                 EasyLoading.showToast(
@@ -65,28 +65,29 @@ class _TeacherMainScreenState extends State<TeacherMainScreen>
                                 );
                               }
                               if (response.status == Status.ERROR) {
-                                EasyLoading.showError(response.message!,
+                                EasyLoading.showError(response.data!.message!,
                                     dismissOnTap: true);
                               }
                               if (response.status == Status.COMPLETED) {
-                                if (response.data != null) {
+                                if (response.data != null ) {
+                                  var box = Boxes.getAuthBox();
+                                  await box.clear();
                                   EasyLoading.showSuccess(
                                       response.data!.message!,
                                       dismissOnTap: true);
                                   Navigator.push(
                                     context,
                                     PageTransition(
-                                      child: LoginScreen(),
+                                      child: const LoginScreen(),
                                       type:
-                                          PageTransitionType.bottomToTopJoined,
+                                      PageTransitionType.bottomToTopJoined,
                                       childCurrent: widget,
                                       duration:
-                                          const Duration(milliseconds: 300),
+                                      const Duration(milliseconds: 300),
                                     ),
                                   );
                                 }
-                                var box = Boxes.getAuthBox();
-                                box.clear();
+
                               }
                             } else {
                               EasyLoading.showError('No Internet Connection',

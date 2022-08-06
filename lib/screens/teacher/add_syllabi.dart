@@ -1,5 +1,4 @@
-import 'dart:convert';
-import 'dart:io';
+import 'package:dio/dio.dart';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,8 @@ import '../../providers/app_provider.dart';
 import '../../services/api_response.dart';
 import '../screens.dart';
 import '../../components/error.dart' as err;
+import 'package:http_parser/http_parser.dart';
+import 'package:path/path.dart' as pt;
 
 class AddSyllabi extends StatefulWidget {
   const AddSyllabi({Key? key}) : super(key: key);
@@ -33,10 +34,10 @@ class _AddSyllabiState extends State<AddSyllabi> {
 
   int selectedSubject = 0;
   int selectedClass = 0;
-  int subjectId = 0;
-  int classId = 0;
+  int subjectId = 1;
+  int classId = 1;
 
-  File? file;
+///TODO: class id and subject id are not changing
   FilePickerResult? result;
   void selectFile(int classId, int subjectId) async {
     try {
@@ -45,10 +46,13 @@ class _AddSyllabiState extends State<AddSyllabi> {
     } catch (e) {}
 
     if (result != null && result!.files.isNotEmpty) {
-      file = File(result!.files.single.path!);
+      var file = await MultipartFile.fromFile(result!.files.single.path!,
+          filename: pt.basename(result!.files.single.path!),
+          contentType:
+              MediaType("image", pt.basename(result!.files.single.path!)));
       final provider = Provider.of<AppProvider>(context, listen: false);
       if (await provider.checkInternet()) {
-        var response = await provider.addSyllabi(classId, subjectId, file!);
+        var response = await provider.addSyllabi(classId, subjectId, file);
         if (response.status == Status.LOADING) {
           EasyLoading.showToast(
             'Loading...',

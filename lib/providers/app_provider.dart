@@ -525,13 +525,15 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<ApiResponse<FSyllabi>> addSyllabi(
-      int classId, int subjectId, File content) async {
+      int classId, int subjectId, MultipartFile content) async {
     ApiService apiService = ApiService(Dio());
     FormData formData = FormData.fromMap({
       'class_id': classId,
       'subject_id': subjectId,
-      'content': content,
+      // 'content': content,
     });
+    formData.files.add(MapEntry('content', content));
+    print(formData.fields[0]);
     if (await checkInternet()) {
       addSyllabiResponse = ApiResponse.loading('');
       try {

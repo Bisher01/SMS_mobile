@@ -56,8 +56,8 @@ class _StudentMainScreenState extends State<StudentMainScreen>
                               String token = provider.getToken();
                               if (await provider.checkInternet()) {
                                 var response = await Provider.of<AppProvider>(
-                                    context,
-                                    listen: false)
+                                        context,
+                                        listen: false)
                                     .logout('Bearer $token');
                                 if (response.status == Status.LOADING) {
                                   EasyLoading.showToast(
@@ -72,7 +72,7 @@ class _StudentMainScreenState extends State<StudentMainScreen>
                                       dismissOnTap: true);
                                 }
                                 if (response.status == Status.COMPLETED) {
-                                  if (response.data != null ) {
+                                  if (response.data != null) {
                                     var box = Boxes.getAuthBox();
                                     await box.clear();
                                     EasyLoading.showSuccess(
@@ -82,11 +82,11 @@ class _StudentMainScreenState extends State<StudentMainScreen>
                                       context,
                                       PageTransition(
                                         child: LoginScreen(),
-                                        type:
-                                        PageTransitionType.bottomToTopJoined,
+                                        type: PageTransitionType
+                                            .bottomToTopJoined,
                                         childCurrent: widget,
                                         duration:
-                                        const Duration(milliseconds: 300),
+                                            const Duration(milliseconds: 300),
                                       ),
                                     );
                                   }
@@ -111,7 +111,9 @@ class _StudentMainScreenState extends State<StudentMainScreen>
                             },
                             child: Text(
                               'Cancel',
-                              style: TextStyle(color: Colors.orange[300],),
+                              style: TextStyle(
+                                color: Colors.orange[300],
+                              ),
                             ),
                           ),
                         ],
@@ -195,8 +197,9 @@ class _StudentMainScreenState extends State<StudentMainScreen>
                   context,
                   PageTransition(
                     child: QuizSchedule(
-                      studentId: Provider.of<AppProvider>(context, listen: false)
-                          .getId(),
+                      studentId:
+                          Provider.of<AppProvider>(context, listen: false)
+                              .getId(),
                     ),
                     type: PageTransitionType.leftToRightPop,
                     childCurrent: widget,
@@ -242,8 +245,9 @@ class _StudentMainScreenState extends State<StudentMainScreen>
                   context,
                   PageTransition(
                     child: StudentExamSchedule(
-                      studentId: Provider.of<AppProvider>(context, listen: false)
-                          .getId(),
+                      studentId:
+                          Provider.of<AppProvider>(context, listen: false)
+                              .getId(),
                     ),
                     type: PageTransitionType.leftToRightPop,
                     childCurrent: widget,
@@ -289,8 +293,9 @@ class _StudentMainScreenState extends State<StudentMainScreen>
                   context,
                   PageTransition(
                     child: Resultants(
-                      studentId: Provider.of<AppProvider>(context, listen: false)
-                          .getId(),
+                      studentId:
+                          Provider.of<AppProvider>(context, listen: false)
+                              .getId(),
                       isParent: false,
                     ),
                     type: PageTransitionType.leftToRightPop,
@@ -450,42 +455,46 @@ class _StudentMainScreenState extends State<StudentMainScreen>
                 );
               },
               child: Card(
-                  elevation: 3,
-                  shadowColor: Colors.black,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(16),
-                    ),
+                elevation: 3,
+                shadowColor: Colors.black,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(16),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 20, left: 20, right: 20, bottom: 10),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/icons/attendance.png',
-                          height: 100,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 20, right: 20, bottom: 10),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/icons/attendance.png',
+                        height: 100,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Attendance',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Text(
-                          'Attendance',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),),
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ),
+            //syllabi
             InkWell(
               onTap: () {
                 Navigator.push(
                   context,
                   PageTransition(
-                    child: const ShowSyllabi(),
+                    child: ShowSyllabi(
+                      isStudent: true,
+                    ),
                     type: PageTransitionType.leftToRightPop,
                     childCurrent: widget,
                     duration: const Duration(milliseconds: 400),
