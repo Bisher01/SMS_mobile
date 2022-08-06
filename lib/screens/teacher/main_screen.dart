@@ -69,7 +69,7 @@ class _TeacherMainScreenState extends State<TeacherMainScreen>
                                     dismissOnTap: true);
                               }
                               if (response.status == Status.COMPLETED) {
-                                if (response.data != null ) {
+                                if (response.data != null) {
                                   EasyLoading.showSuccess(
                                       response.data!.message!,
                                       dismissOnTap: true);
@@ -437,7 +437,7 @@ class _TeacherMainScreenState extends State<TeacherMainScreen>
               Navigator.push(
                 context,
                 PageTransition(
-                  child: const SelectClassSubject(),
+                  child: const AddSyllabi(),
                   type: PageTransitionType.leftToRightPop,
                   childCurrent: widget,
                   duration: const Duration(milliseconds: 400),
@@ -475,6 +475,50 @@ class _TeacherMainScreenState extends State<TeacherMainScreen>
                 ),
               ),
             ),
+          ),
+          //syllabi
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: const AddSyllabi(),
+                  type: PageTransitionType.leftToRightPop,
+                  childCurrent: widget,
+                  duration: const Duration(milliseconds: 400),
+                ),
+              );
+            },
+            child: Card(
+                elevation: 3,
+                shadowColor: Colors.black,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(16),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 20, right: 20, bottom: 10),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/icons/books.png',
+                        height: 100,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Syllabi',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                      )
+                    ],
+                  ),
+                )),
           ),
         ],
       ),

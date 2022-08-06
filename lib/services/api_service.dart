@@ -94,10 +94,6 @@ abstract class ApiService {
   @GET('general/allSeed')
   Future<FSeed> getSeed();
 
-//get all syllabi
-  @GET('syllabi/all')
-  Future<FSyllabi> getAllSyllabi();
-
   //============Management=========//
 
   @POST('management/add/lessons/{id}')
@@ -134,7 +130,8 @@ abstract class ApiService {
 
   //set student exam mark
   @POST('exam/mark/{id1}/{id2}')
-  Future<FMark> setStudentExamMark(@Path('id1') int id1, @Path('id2') int id2,@Body()Map<String,dynamic>map);
+  Future<FMark> setStudentExamMark(@Path('id1') int id1, @Path('id2') int id2,
+      @Body() Map<String, dynamic> map);
 
   //get student exam
   @GET('exam/getExam/{id}')
@@ -152,7 +149,8 @@ abstract class ApiService {
 
   //get student quiz mark
   @POST('quiz/mark/{id1}/{id2}')
-  Future<FMark> getStudentQuizMark(@Path('id1') int id1, @Path('id2') int id2,@Body()Map<String,dynamic> map);
+  Future<FMark> getStudentQuizMark(@Path('id1') int id1, @Path('id2') int id2,
+      @Body() Map<String, dynamic> map);
 
   //get quiz schedule
   @GET('quiz/schedule/{id1}/{id2}')
@@ -219,12 +217,20 @@ abstract class ApiService {
 
 //add student attendance
   @POST('attendance/add')
-  Future<Delete> addStudentsAttendance(
-      @Body() Map<String, dynamic> map);
+  Future<Delete> addStudentsAttendance(@Body() Map<String, dynamic> map);
 
   //get mentor class and classrooms
-@GET('mentor/get-classrooms/{id}')
+  @GET('mentor/get-classrooms/{id}')
   Future<FMentorClassrooms> getMentorClassrooms(@Path('id') int id);
 
+//=================================================//
+
+//=======================SYLLABI==========================//
+  //get all syllabi
+  @GET('syllabi/all/{id}')
+  Future<FSyllabi> getAllSyllabi(@Path('id') int id);
+  //add syllabi
+  @POST('syllabi/add')
+  Future<FSyllabi> addSyllabi(@Body() FormData formData);
 //=================================================//
 }

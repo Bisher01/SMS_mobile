@@ -1,4 +1,9 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_mobile/utill/utill.dart';
@@ -8,20 +13,20 @@ import '../../services/api_response.dart';
 import '../screens.dart';
 import '../../components/error.dart' as err;
 
-class SelectClassSubject extends StatefulWidget {
-  const SelectClassSubject({Key? key}) : super(key: key);
+class AddSyllabi extends StatefulWidget {
+  const AddSyllabi({Key? key}) : super(key: key);
 
   @override
-  State<SelectClassSubject> createState() => _SelectClassSubjectState();
+  State<AddSyllabi> createState() => _AddSyllabiState();
 }
 
-class _SelectClassSubjectState extends State<SelectClassSubject> {
+class _AddSyllabiState extends State<AddSyllabi> {
   FixedExtentScrollController fixedExtentScrollController =
       FixedExtentScrollController();
 
   @override
   initState() {
-    int id = Provider.of<AppProvider>(context,listen: false).getId();
+    int id = Provider.of<AppProvider>(context, listen: false).getId();
     Provider.of<AppProvider>(context, listen: false).getTeacherSubjects(id);
     super.initState();
   }
@@ -30,9 +35,40 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
   int selectedClass = 0;
   int subjectId = 0;
   int classId = 0;
-  int examId = 0;
-  String? examDDV;
-  List<String> examTypes = ['First', 'Second', 'Mid', 'Finals'];
+
+  File? file;
+  FilePickerResult? result;
+  void selectFile(int classId, int subjectId) async {
+    try {
+      result = await FilePicker.platform
+          .pickFiles(type: FileType.any, allowMultiple: false);
+    } catch (e) {}
+
+    if (result != null && result!.files.isNotEmpty) {
+      file = File(result!.files.single.path!);
+      final provider = Provider.of<AppProvider>(context, listen: false);
+      if (await provider.checkInternet()) {
+        var response = await provider.addSyllabi(classId, subjectId, file!);
+        if (response.status == Status.LOADING) {
+          EasyLoading.showToast(
+            'Loading...',
+            duration: const Duration(
+              milliseconds: 300,
+            ),
+          );
+        }
+        if (response.status == Status.ERROR) {
+          EasyLoading.showError(response.data!.message!, dismissOnTap: true);
+        }
+        if (response.status == Status.COMPLETED) {
+          if (response.data != null && response.data!.status!) {
+            EasyLoading.showSuccess(response.data!.message!,
+                dismissOnTap: true);
+          }
+        }
+      } else {}
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,43 +105,6 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 15,
-              ),
-              child: Column(
-                children: [
-                  const Text(
-                    'Select exam type:',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  DropdownButton<String>(
-                      hint: const Text(
-                        'Exam type',
-                      ),
-                      value: examDDV,
-                      elevation: 16,
-                      underline: Container(
-                        height: 2,
-                        color: Colors.orange[400],
-                      ),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          examDDV = newValue ?? 'Exam type';
-                        });
-                      },
-                      items: examTypes.map((e) {
-                        return DropdownMenuItem<String>(
-                          value: e,
-                          child: Text(e),
-                        );
-                      }).toList()),
-                ],
-              ),
-            ),
             Consumer<AppProvider>(
               builder: (context, provider, child) {
                 if (provider.getTeacherSubjectsResponse != null) {
@@ -267,7 +266,8 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                                                     16.0,
                                                   ),
                                                   child: Text(
-                                                    e.classrooms!.name!.toString(),
+                                                    e.classrooms!.name!
+                                                        .toString(),
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                         fontSize: 18.0,
@@ -312,55 +312,11 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                     ),
                   ),
                 ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    PageTransition(
-                      child:  QuestionsBankScreen(classId: classId, subjectId: subjectId),
-                      type: PageTransitionType.leftToRightPop,
-                      childCurrent: widget,
-                      duration: const Duration(milliseconds: 400),
-                    ),
-                  );
+                onPressed: () async {
+                  selectFile(classId, subjectId);
                 },
                 child: const Text(
-                  'add a new exam from bank',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 18),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: widgetSize.getHeight(50, context),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  elevation: 2,
-                  primary: Colors.orange[400],
-                  shadowColor: Colors.white70,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      10,
-                    ),
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    PageTransition(
-                      child: AddQuestion(
-                        classes: classId,
-                        subject: subjectId,
-                      ),
-                      type: PageTransitionType.leftToRightPop,
-                      childCurrent: widget,
-                      duration: const Duration(milliseconds: 400),
-                    ),
-                  );
-                },
-                child: const Text(
-                  'add a new question to bank',
+                  'add a new book for this subject',
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w500,

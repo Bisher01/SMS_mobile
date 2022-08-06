@@ -257,22 +257,6 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<FSyllabi> getAllSyllabi() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<FSyllabi>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'syllabi/all',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = FSyllabi.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
   Future<Delete> addLessonsToDay(formData, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -714,6 +698,38 @@ class _ApiService implements ApiService {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = FMentorClassrooms.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FSyllabi> getAllSyllabi(id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FSyllabi>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'syllabi/all/${id}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FSyllabi.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FSyllabi> addSyllabi(formData) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = formData;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FSyllabi>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'syllabi/add',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FSyllabi.fromJson(_result.data!);
     return value;
   }
 
