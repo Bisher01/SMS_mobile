@@ -895,18 +895,6 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                                     ),
                                                   );
                                                 });
-                                            // Navigator.push(
-                                            //   context,
-                                            //   PageTransition(
-                                            //     child:
-                                            //         const StudentMainScreen(),
-                                            //     type: PageTransitionType
-                                            //         .bottomToTopJoined,
-                                            //     childCurrent: widget,
-                                            //     duration: const Duration(
-                                            //         milliseconds: 300),
-                                            //   ),
-                                            // );
                                           }
                                         }
                                       }

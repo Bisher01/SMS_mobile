@@ -35,3 +35,7 @@ export 'attendance_model.dart';
 export 'edit_question.dart';
 export 'student_attendance.dart';
 export 'mentor_classrooms.dart';
+export 'teacher_timetable.dart';
+export 'teacher_online_class.dart';
+export 'student_online_class.dart';
+export 'add_online_class.dart';

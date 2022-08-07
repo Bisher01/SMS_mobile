@@ -733,6 +733,70 @@ class _ApiService implements ApiService {
     return value;
   }
 
+  @override
+  Future<FTeacherTimeTable> getTeacherTimetable(id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FTeacherTimeTable>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'timetable/teacherTimetable/${id}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FTeacherTimeTable.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FTeacherOnlineClass> getTeacherOnlineClass(id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FTeacherOnlineClass>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'onlineClass/teacher/${id}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FTeacherOnlineClass.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FStudentOnlineClass> getStudentOnlineClass(id1, id2) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FStudentOnlineClass>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'onlineClass/student/${id1}/${id2}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FStudentOnlineClass.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FAddOnlineClass> addOnlineClass(formData) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = formData;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FAddOnlineClass>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'onlineClass/add',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FAddOnlineClass.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

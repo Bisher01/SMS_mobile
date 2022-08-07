@@ -269,7 +269,7 @@ class _MentorMainScreenState extends State<MentorMainScreen>
               Navigator.push(
                 context,
                 PageTransition(
-                  child: const Schedule(),
+                  child: const StudentSchedule(),
                   type: PageTransitionType.leftToRightPop,
                   childCurrent: widget,
                   duration: const Duration(milliseconds: 400),

@@ -233,4 +233,26 @@ abstract class ApiService {
   @POST('syllabi/add')
   Future<FSyllabi> addSyllabi(@Body() FormData formData);
 //=================================================//
+
+//=================timetable======================//
+
+  //get teacher timetable
+  @GET('timetable/teacherTimetable/{id}')
+  Future<FTeacherTimeTable> getTeacherTimetable(@Path('id') int id);
+  //=============================================//
+
+  //======================ONLINE CLASS=======================//
+  //get teacher online class
+  @GET('onlineClass/teacher/{id}')
+  Future<FTeacherOnlineClass> getTeacherOnlineClass(@Path('id') int id);
+
+  //get student online class
+  @GET('onlineClass/student/{id1}/{id2}')
+  Future<FStudentOnlineClass> getStudentOnlineClass(
+      @Path('id1') int id1, @Path('id2') int id2);
+
+//add online class
+  @POST('onlineClass/add')
+  Future<FAddOnlineClass> addOnlineClass(@Body() FormData formData);
+//=============================================//
 }

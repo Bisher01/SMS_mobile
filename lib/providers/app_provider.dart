@@ -1560,6 +1560,169 @@ class AppProvider extends ChangeNotifier {
 
   ///==============================================///
 
+  ///======================TIMETABLE========================///
+//get teacher timetable
+  ApiResponse<FTeacherTimeTable>? _getTeacherTimetableResponse;
+  ApiResponse<FTeacherTimeTable>? get getTeacherTimetableResponse =>
+      _getTeacherTimetableResponse;
+  set getTeacherTimetableResponse(ApiResponse<FTeacherTimeTable>? value) {
+    _getTeacherTimetableResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FTeacherTimeTable>> getTeacherTimetable(int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getTeacherTimetableResponse = ApiResponse.loading('');
+      try {
+        FTeacherTimeTable fteachertimetable =
+            await apiService.getTeacherTimetable(id);
+        getTeacherTimetableResponse = ApiResponse.completed(fteachertimetable);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return getTeacherTimetableResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return getTeacherTimetableResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return getTeacherTimetableResponse =
+          ApiResponse.error('No Internet Connection');
+    }
+    return getTeacherTimetableResponse!;
+  }
+
+  ///==============================================///
+
+  ///=====================ONLINE CLASS=========================///
+//get teacher online class
+  ApiResponse<FTeacherOnlineClass>? _getTeacherOnlineClassResponse;
+  ApiResponse<FTeacherOnlineClass>? get getTeacherOnlineClassResponse =>
+      _getTeacherOnlineClassResponse;
+  set getTeacherOnlineClassResponse(ApiResponse<FTeacherOnlineClass>? value) {
+    _getTeacherOnlineClassResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FTeacherOnlineClass>> getTeacherOnlineClass(int id) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getTeacherOnlineClassResponse = ApiResponse.loading('');
+      try {
+        FTeacherOnlineClass fteacheronlineclass =
+            await apiService.getTeacherOnlineClass(id);
+        getTeacherOnlineClassResponse =
+            ApiResponse.completed(fteacheronlineclass);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return getTeacherOnlineClassResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return getTeacherOnlineClassResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return getTeacherOnlineClassResponse =
+          ApiResponse.error('No Internet Connection');
+    }
+    return getTeacherOnlineClassResponse!;
+  }
+
+  //get student online class
+  ApiResponse<FStudentOnlineClass>? _getStudentOnlineClassResponse;
+  ApiResponse<FStudentOnlineClass>? get getStudentOnlineClassResponse =>
+      _getStudentOnlineClassResponse;
+  set getStudentOnlineClassResponse(ApiResponse<FStudentOnlineClass>? value) {
+    _getStudentOnlineClassResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FStudentOnlineClass>> getStudentOnlineClass(
+      int classId, int classroomId) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getStudentOnlineClassResponse = ApiResponse.loading('');
+      try {
+        FStudentOnlineClass fstudentonlineclass =
+            await apiService.getStudentOnlineClass(classId, classroomId);
+        getStudentOnlineClassResponse =
+            ApiResponse.completed(fstudentonlineclass);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return getStudentOnlineClassResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return getStudentOnlineClassResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return getStudentOnlineClassResponse =
+          ApiResponse.error('No Internet Connection');
+    }
+    return getStudentOnlineClassResponse!;
+  }
+
+  //add online class
+  ApiResponse<FAddOnlineClass>? _addOnlineClassResponse;
+  ApiResponse<FAddOnlineClass>? get addOnlineClassResponse =>
+      _addOnlineClassResponse;
+  set addOnlineClassResponse(ApiResponse<FAddOnlineClass>? value) {
+    _addOnlineClassResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FAddOnlineClass>> addOnlineClass(
+      {required int classId,
+      required int subjectId,
+      required int teacherId,
+      required int classroomId,
+      required String link,
+      required DateTime date}) async {
+    ApiService apiService = ApiService(Dio());
+    FormData formData = FormData.fromMap({
+      'class_id': classId,
+      'classroom_id': classroomId,
+      'subject_id': subjectId,
+      'teacher_id': teacherId,
+      'date': date,
+      'link': link,
+    });
+    if (await checkInternet()) {
+      addOnlineClassResponse = ApiResponse.loading('');
+      try {
+        FAddOnlineClass faddonlineclass =
+            await apiService.addOnlineClass(formData);
+        addOnlineClassResponse = ApiResponse.completed(faddonlineclass);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return addOnlineClassResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return addOnlineClassResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return addOnlineClassResponse =
+          ApiResponse.error('No Internet Connection');
+    }
+    return addOnlineClassResponse!;
+  }
+
+  ///==============================================///
+
 }
 
 dynamic throwCustomException(DioError? dioError) {

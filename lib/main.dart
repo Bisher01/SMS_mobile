@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
-import 'package:sms_mobile/models/resultant.dart';
 import 'package:sms_mobile/providers/providers.dart';
-import 'package:sms_mobile/screens/mentor/attendance.dart';
 import 'package:sms_mobile/screens/screens.dart';
-import 'package:sms_mobile/screens/student/exam.dart' as ex;
-import 'package:sms_mobile/screens/teacher/question_bank.dart' as qb;
 import 'package:hive_flutter/hive_flutter.dart';
 import '../models/models.dart';
-import 'package:sms_mobile/screens/student/exam_schedule.dart' as ex;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();

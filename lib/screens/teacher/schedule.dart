@@ -4,14 +4,14 @@ import 'package:sms_mobile/utill/utill.dart';
 
 import '../../providers/app_provider.dart';
 
-class StudentSchedule extends StatefulWidget {
-  const StudentSchedule({Key? key}) : super(key: key);
+class TeacherSchedule extends StatefulWidget {
+  const TeacherSchedule({Key? key}) : super(key: key);
 
   @override
-  State<StudentSchedule> createState() => _StudentScheduleState();
+  State<TeacherSchedule> createState() => _TeacherScheduleState();
 }
 
-class _StudentScheduleState extends State<StudentSchedule> {
+class _TeacherScheduleState extends State<TeacherSchedule> {
   double _width = 10;
   bool isOpened = false;
   int selectedDay = 1;
@@ -40,18 +40,14 @@ class _StudentScheduleState extends State<StudentSchedule> {
   int? classId;
   int? classroomId;
   @override
-  initState(){
+  initState() {
     ///TODO: add schedule request and link it to the ui
-    int studentId= Provider.of<AppProvider>(context, listen: false).getId();
+    int teacherId = Provider.of<AppProvider>(context, listen: false).getId();
     Provider.of<AppProvider>(context, listen: false)
-        .getStudent(studentId)
-        .then((value) {
-      classId = value.data!.student![0].class_classroom!.class_id;
-      classroomId = value.data!.student![0].class_classroom!.classroom_id;
-      //Provider.of<AppProvider>(context, listen: false).getClassExam(classId!);
-    });
+        .getTeacherTimetable(teacherId);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -496,7 +492,7 @@ class _StudentScheduleState extends State<StudentSchedule> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              days[DateTime.now().weekday-1],
+                              days[DateTime.now().weekday - 1],
                               style: TextStyle(
                                   color: Colors.grey[500],
                                   fontSize: 18,
@@ -505,7 +501,7 @@ class _StudentScheduleState extends State<StudentSchedule> {
                                   letterSpacing: 0.5),
                             ),
                             Text(
-                              '${months[DateTime.now().month-1]} ${DateTime.now().year.toString().substring(2)}',
+                              '${months[DateTime.now().month - 1]} ${DateTime.now().year.toString().substring(2)}',
                               style: TextStyle(
                                   color: Colors.grey[500],
                                   fontSize: 18,

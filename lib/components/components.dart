@@ -5,3 +5,5 @@ export './mentor_show_card.dart';
 export './student_small_card.dart';
 export './add_oral_mark_card.dart';
 export './syllabi_card.dart';
+export './student_online_class_card.dart';
+export './teacher_online_class_card.dart';

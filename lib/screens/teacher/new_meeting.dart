@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_mobile/models/models.dart';
@@ -10,18 +11,14 @@ import '../../services/api_response.dart';
 import '../screens.dart';
 import '../../components/error.dart' as err;
 
-class SelectClassSubjectClassroom extends StatefulWidget {
-  final bool addOralMark;
-  const SelectClassSubjectClassroom({required this.addOralMark, Key? key})
-      : super(key: key);
+class NewMeeting extends StatefulWidget {
+  const NewMeeting({Key? key}) : super(key: key);
 
   @override
-  State<SelectClassSubjectClassroom> createState() =>
-      _SelectClassSubjectClassroomState();
+  State<NewMeeting> createState() => _NewMeetingState();
 }
 
-class _SelectClassSubjectClassroomState
-    extends State<SelectClassSubjectClassroom> {
+class _NewMeetingState extends State<NewMeeting> {
   FixedExtentScrollController fixedExtentScrollController =
       FixedExtentScrollController();
 
@@ -41,6 +38,36 @@ class _SelectClassSubjectClassroomState
   int classroomId = 0;
   int? subjectDDV;
 
+  TextEditingController controller = TextEditingController();
+  DateTime? _selectedDate;
+
+  void _presentDatePicker() {
+    showDatePicker(
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            primaryColor: const Color(0Xff2BC3BB),
+            colorScheme: const ColorScheme.light(primary: Color(0Xff2BC3BB)),
+            buttonTheme:
+                const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+          ),
+          child: child!,
+        );
+      },
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2010),
+      lastDate: DateTime(2030),
+    ).then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      }
+      setState(() {
+        _selectedDate = pickedDate;
+      });
+    });
+  }
+
   ///TODO: selectedSubject
   @override
   Widget build(BuildContext context) {
@@ -58,15 +85,7 @@ class _SelectClassSubjectClassroomState
             Icons.arrow_back,
           ),
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              PageTransition(
-                type: PageTransitionType.bottomToTopJoined,
-                childCurrent: widget,
-                duration: const Duration(milliseconds: 300),
-                child: const TeacherMainScreen(),
-              ),
-            );
+            Navigator.pop(context);
           },
         ),
       ),
@@ -319,6 +338,17 @@ class _SelectClassSubjectClassroomState
                             ],
                           ),
                         ),
+                        TextField(
+                          controller: controller,
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            _presentDatePicker();
+                          },
+                          child: Text(
+                            'Select date',
+                          ),
+                        ),
                         SizedBox(
                           height: widgetSize.getHeight(50, context),
                           child: ElevatedButton(
@@ -332,28 +362,76 @@ class _SelectClassSubjectClassroomState
                                 ),
                               ),
                             ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                PageTransition(
-                                  child: widget.addOralMark
-                                      ? AddOralMark(
-                                          subjectId: subjectDDV!,
-                                          classId: classId,
-                                          classroomId: classroomId,
-                                        )
-                                      : AddQuizScreen(
-                                          classId: classId,
-                                          subjectId: subjectDDV!,
-                                          classroomId: classroomId),
-                                  type: PageTransitionType.leftToRightPop,
-                                  childCurrent: widget,
-                                  duration: const Duration(milliseconds: 400),
-                                ),
-                              );
+                            onPressed: () async {
+                              int id = Provider.of<AppProvider>(context,listen: false).getId();
+                              var response = await Provider.of<AppProvider>(context,listen: false).addOnlineClass(
+                                  classId: classId, subjectId: subjectDDV!, teacherId: id, classroomId: classroomId,
+                                  link: controller.text, date: _selectedDate!);
+                              if(await Provider.of<AppProvider>(context,listen: false).checkInternet()){
+                                if (response.status == Status.LOADING) {
+                                  EasyLoading.showToast(
+                                    'Loading...',
+                                    duration: const Duration(
+                                      milliseconds: 300,
+                                    ),
+                                  );
+                                }
+                                if (response.status == Status.ERROR) {
+                                  EasyLoading.showError(
+                                      response.message!,
+                                      dismissOnTap: true);
+                                }
+                                if (response.status ==
+                                    Status.COMPLETED) {
+                                  if (response.data != null &&
+                                      response.data!.status!) {
+                                    showDialog(
+                                        context: context,
+                                        builder:
+                                            (BuildContext context) {
+                                          return AlertDialog(
+                                            actions: <Widget>[
+                                              TextButton(
+                                                onPressed: () =>
+                                                    Navigator.push(
+                                                      context,
+                                                      PageTransition(
+                                                        child:
+                                                        const TeacherMainScreen(),
+                                                        type: PageTransitionType
+                                                            .bottomToTopJoined,
+                                                        childCurrent:
+                                                        widget,
+                                                        duration:
+                                                        const Duration(
+                                                            milliseconds:
+                                                            300),
+                                                      ),
+                                                    ),
+                                                child: Text(
+                                                  'OK',
+                                                  style: TextStyle(
+                                                    color: Colors
+                                                        .orange[400],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                            title: Text(
+                                              response.data!.message!,
+                                            ),
+                                            content: const Text(
+                                              'Your meeting is added successfully',
+                                            ),
+                                          );
+                                        });
+                                  }
+                                }
+                              }
+
                             },
                             child: const Text(
-                              'Add quiz to students',
+                              'Add meeting',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500,
