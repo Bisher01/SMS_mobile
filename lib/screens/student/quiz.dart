@@ -59,7 +59,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    days[DateTime.now().weekday],
+                    days[DateTime.now().weekday-1],
                     style: TextStyle(
                         color: Colors.grey[500],
                         fontSize: 18,
@@ -68,7 +68,7 @@ class _QuizScreenState extends State<QuizScreen> {
                         letterSpacing: 0.5),
                   ),
                   Text(
-                    '${months[DateTime.now().month]} ${DateTime.now().year.toString().substring(2)}',
+                    '${months[DateTime.now().month-1]} ${DateTime.now().year.toString().substring(2)}',
                     style: TextStyle(
                         color: Colors.grey[500],
                         fontSize: 18,
