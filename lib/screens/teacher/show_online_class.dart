@@ -55,9 +55,9 @@ class _TeacherShowOnlineClassState extends State<TeacherShowOnlineClass> {
           IconButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => NewMeeting()));
+                    MaterialPageRoute(builder: (context) => const NewMeeting()));
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.add,
               )),
         ],

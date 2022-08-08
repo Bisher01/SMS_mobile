@@ -35,9 +35,7 @@ class _TeacherOnlineClassCardState extends State<TeacherOnlineClassCard> {
       elevation: 2,
       shape: RoundedRectangleBorder(
         side: BorderSide(
-          color: const Color(
-            0Xff2BC3BB,
-          ),
+          color:  Color.fromARGB(255, 255, 167, 38,),
         ),
         borderRadius: BorderRadius.circular(
           15,
@@ -56,11 +54,9 @@ class _TeacherOnlineClassCardState extends State<TeacherOnlineClassCard> {
                 top: 10,
               ),
               child: Text(
-                "Syllabi info",
+                "Meeting info:",
                 style: TextStyle(
-                  color: Color(
-                    0Xff2BC3BB,
-                  ),
+                  color: Color.fromARGB(255, 255, 167, 38,),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -200,9 +196,7 @@ class _TeacherOnlineClassCardState extends State<TeacherOnlineClassCard> {
               child: const Text(
                 'go to link',
                 style: TextStyle(
-                  color: Color(
-                    0Xff2BC3BB,
-                  ),
+                  color: Color.fromARGB(255, 255, 167, 38,),
                 ),
               ),
             ),

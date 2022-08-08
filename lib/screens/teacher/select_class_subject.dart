@@ -40,7 +40,7 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: const Text(
-          "Teacher's classes and subjects",
+          "Teacher's classes",
           style: TextStyle(
             fontSize: 16,
           ),
@@ -69,6 +69,7 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            //exam type
             Padding(
               padding: const EdgeInsets.only(
                 top: 15,
@@ -123,87 +124,87 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Flexible(
-                              fit: FlexFit.tight,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Padding(
-                                    padding: EdgeInsets.only(
-                                      bottom: 20,
-                                    ),
-                                    child: Text(
-                                      'Select subject: ',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                  Flexible(
-                                    fit: FlexFit.loose,
-                                    child: ListWheelScrollView(
-                                      onSelectedItemChanged: (index) {
-                                        setState(() {
-                                          selectedSubject = index;
-                                        });
-                                        subjectId = provider
-                                            .getTeacherSubjectsResponse!
-                                            .data!
-                                            .data![index]
-                                            .id!;
-                                      },
-                                      clipBehavior: Clip.antiAlias,
-                                      controller: fixedExtentScrollController,
-                                      physics: const FixedExtentScrollPhysics(),
-                                      perspective: 0.005,
-                                      offAxisFraction: -0.0,
-                                      diameterRatio: 2,
-                                      itemExtent: 60,
-                                      children: provider
-                                          .getTeacherSubjectsResponse!
-                                          .data!
-                                          .data!
-                                          .map((e) {
-                                        return Row(
-                                          children: <Widget>[
-                                            Expanded(
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white70,
-                                                  border: Border.all(
-                                                      color: Colors.orange),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                    12,
-                                                  ),
-                                                ),
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                    16.0,
-                                                  ),
-                                                  child: Text(
-                                                    e.name!,
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontSize: 18.0,
-                                                        color:
-                                                            Colors.orange[400]),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      }).toList(),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
+                            // Flexible(
+                            //   fit: FlexFit.tight,
+                            //   child: Column(
+                            //     mainAxisAlignment: MainAxisAlignment.center,
+                            //     children: [
+                            //       const Padding(
+                            //         padding: EdgeInsets.only(
+                            //           bottom: 20,
+                            //         ),
+                            //         child: Text(
+                            //           'Select subject: ',
+                            //           style: TextStyle(
+                            //             fontSize: 18,
+                            //             fontWeight: FontWeight.w600,
+                            //           ),
+                            //         ),
+                            //       ),
+                            //       Flexible(
+                            //         fit: FlexFit.loose,
+                            //         child: ListWheelScrollView(
+                            //           onSelectedItemChanged: (index) {
+                            //             setState(() {
+                            //               selectedSubject = index;
+                            //             });
+                            //             subjectId = provider
+                            //                 .getTeacherSubjectsResponse!
+                            //                 .data!
+                            //                 .data![index]
+                            //                 .id!;
+                            //           },
+                            //           clipBehavior: Clip.antiAlias,
+                            //           controller: fixedExtentScrollController,
+                            //           physics: const FixedExtentScrollPhysics(),
+                            //           perspective: 0.005,
+                            //           offAxisFraction: -0.0,
+                            //           diameterRatio: 2,
+                            //           itemExtent: 60,
+                            //           children: provider
+                            //               .getTeacherSubjectsResponse!
+                            //               .data!
+                            //               .data!
+                            //               .map((e) {
+                            //             return Row(
+                            //               children: <Widget>[
+                            //                 Expanded(
+                            //                   child: Container(
+                            //                     decoration: BoxDecoration(
+                            //                       color: Colors.white70,
+                            //                       border: Border.all(
+                            //                           color: Colors.orange),
+                            //                       borderRadius:
+                            //                           BorderRadius.circular(
+                            //                         12,
+                            //                       ),
+                            //                     ),
+                            //                     child: Padding(
+                            //                       padding: const EdgeInsets.all(
+                            //                         16.0,
+                            //                       ),
+                            //                       child: Text(
+                            //                         e.name!,
+                            //                         textAlign: TextAlign.center,
+                            //                         style: TextStyle(
+                            //                             fontSize: 18.0,
+                            //                             color:
+                            //                                 Colors.orange[400]),
+                            //                       ),
+                            //                     ),
+                            //                   ),
+                            //                 ),
+                            //               ],
+                            //             );
+                            //           }).toList(),
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+                            // const SizedBox(
+                            //   width: 20,
+                            // ),
                             Flexible(
                               fit: FlexFit.tight,
                               child: Column(
@@ -231,7 +232,7 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                                         classId = provider
                                             .getTeacherSubjectsResponse!
                                             .data!
-                                            .data![selectedSubject]
+                                            .data![0]
                                             .class_classroom![index]
                                             .classes!
                                             .id!;
@@ -246,7 +247,7 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                                       children: provider
                                           .getTeacherSubjectsResponse!
                                           .data!
-                                          .data![selectedSubject]
+                                          .data![0]
                                           .class_classroom!
                                           .map((e) {
                                         return Row(
@@ -313,6 +314,12 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                   ),
                 ),
                 onPressed: () {
+                  subjectId = Provider.of<AppProvider>(context,
+                      listen: false)
+                      .getTeacherSubjectsResponse!
+                      .data!
+                      .data![0]
+                      .id!;
                   Navigator.push(
                     context,
                     PageTransition(
@@ -346,6 +353,12 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                   ),
                 ),
                 onPressed: () {
+                  subjectId = Provider.of<AppProvider>(context,
+                      listen: false)
+                      .getTeacherSubjectsResponse!
+                      .data!
+                      .data![0]
+                      .id!;
                   Navigator.push(
                     context,
                     PageTransition(

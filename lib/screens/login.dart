@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: widgetSize.getWidth(200, context),
                 height: widgetSize.getHeight(200, context),
                 child: SvgPicture.asset(
-                  'assets/login.svg',
+                  'assets/login2.svg',
                 ),
               ),
               Padding(
@@ -92,9 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 borderSide: BorderSide(
                                   style: BorderStyle.solid,
-                                  color: Color(
-                                    0Xff2BC3BB,
-                                  ),
+                                  color: Color.fromARGB(255, 255, 167, 38,),
                                 ),
                               ),
                               disabledBorder: OutlineInputBorder(
@@ -105,9 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 borderSide: BorderSide(
                                   style: BorderStyle.solid,
-                                  color: Color(
-                                    0Xff2BC3BB,
-                                  ),
+                                  color: Color.fromARGB(255, 255, 167, 38,),
                                 ),
                               ),
                               enabledBorder: OutlineInputBorder(
@@ -118,9 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 borderSide: BorderSide(
                                   style: BorderStyle.solid,
-                                  color: Color(
-                                    0Xff2BC3BB,
-                                  ),
+                                  color: Color.fromARGB(255, 255, 167, 38,),
                                 ),
                               ),
                               errorBorder: OutlineInputBorder(
@@ -142,13 +136,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 borderSide: BorderSide(
                                   style: BorderStyle.solid,
-                                  color: Color(
-                                    0Xff007D77,
-                                  ),
+                                  color: Color.fromARGB(255, 255, 167, 38,),
                                 ),
                               ),
                             ),
-                            cursorColor: const Color(0Xff007D77),
+                            cursorColor: Color.fromARGB(255, 255, 167, 38,),
                           ),
                           const SizedBox(
                             height: 10,
@@ -180,9 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 borderSide: BorderSide(
                                   style: BorderStyle.solid,
-                                  color: Color(
-                                    0Xff2BC3BB,
-                                  ),
+                                  color: Color.fromARGB(255, 255, 167, 38,),
                                 ),
                               ),
                               disabledBorder: OutlineInputBorder(
@@ -193,9 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 borderSide: BorderSide(
                                   style: BorderStyle.solid,
-                                  color: Color(
-                                    0Xff2BC3BB,
-                                  ),
+                                  color: Color.fromARGB(255, 255, 167, 38,),
                                 ),
                               ),
                               enabledBorder: OutlineInputBorder(
@@ -206,9 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 borderSide: BorderSide(
                                   style: BorderStyle.solid,
-                                  color: Color(
-                                    0Xff2BC3BB,
-                                  ),
+                                  color: Color.fromARGB(255, 255, 167, 38,),
                                 ),
                               ),
                               errorBorder: OutlineInputBorder(
@@ -230,13 +216,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 borderSide: BorderSide(
                                   style: BorderStyle.solid,
-                                  color: Color(
-                                    0Xff007D77,
-                                  ),
+                                  color:Color.fromARGB(255, 255, 167, 38,),
                                 ),
                               ),
                             ),
-                            cursorColor: const Color(0Xff007D77),
+                            cursorColor: const Color.fromARGB(255, 255, 167, 38,),
                           ),
                           const SizedBox(
                             height: 10,
@@ -268,7 +252,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   isHidden
                                       ? Icons.remove_red_eye_rounded
                                       : Icons.remove_red_eye_outlined,
-                                  color: const Color(0Xff2BC3BB),
+                                  color: const Color.fromARGB(255, 255, 167, 38,),
                                 ),
                                 onPressed: () {
                                   setState(() {
@@ -285,9 +269,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 borderSide: BorderSide(
                                   style: BorderStyle.solid,
-                                  color: Color(
-                                    0Xff2BC3BB,
-                                  ),
+                                  color: Color.fromARGB(255, 255, 167, 38,),
                                 ),
                               ),
                               disabledBorder: const OutlineInputBorder(
@@ -298,9 +280,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 borderSide: BorderSide(
                                   style: BorderStyle.solid,
-                                  color: Color(
-                                    0Xff2BC3BB,
-                                  ),
+                                  color: Color.fromARGB(255, 255, 167, 38,),
                                 ),
                               ),
                               enabledBorder: const OutlineInputBorder(
@@ -311,9 +291,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 borderSide: BorderSide(
                                   style: BorderStyle.solid,
-                                  color: Color(
-                                    0Xff2BC3BB,
-                                  ),
+                                  color:Color.fromARGB(255, 255, 167, 38,),
                                 ),
                               ),
                               errorBorder: const OutlineInputBorder(
@@ -335,13 +313,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 borderSide: BorderSide(
                                   style: BorderStyle.solid,
-                                  color: Color(
-                                    0Xff007D77,
-                                  ),
+                                  color: Color.fromARGB(255, 255, 167, 38,),
                                 ),
                               ),
                             ),
-                            cursorColor: const Color(0Xff007D77),
+                            cursorColor: Color.fromARGB(255, 255, 167, 38,),
                           ),
                         ],
                       ),
@@ -362,9 +338,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           elevation: 3,
-                          primary: const Color(
-                            0Xff2BC3BB,
-                          ),
+                          primary: Color.fromARGB(255, 255, 167, 38,),
                         ),
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {

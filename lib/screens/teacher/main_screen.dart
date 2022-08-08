@@ -281,12 +281,13 @@ class _TeacherMainScreenState extends State<TeacherMainScreen>
           //       )),
           // ),
           //oral marks
+          //marks
           InkWell(
             onTap: () {
               Navigator.push(
                 context,
                 PageTransition(
-                  child: SelectClassSubjectClassroom(
+                  child: const SelectClassSubjectClassroom(
                     addOralMark: true,
                   ),
                   type: PageTransitionType.leftToRightPop,
@@ -416,37 +417,38 @@ class _TeacherMainScreenState extends State<TeacherMainScreen>
               ),
             ),
           ),
-          //announcements
-          Card(
-              elevation: 3,
-              shadowColor: Colors.black,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(16),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 20, left: 20, right: 20, bottom: 10),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/icons/megaphone.png',
-                      height: 100,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      'Announcement',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                      ),
-                    )
-                  ],
-                ),
-              )),
+          // //announcements
+          // Card(
+          //     elevation: 3,
+          //     shadowColor: Colors.black,
+          //     shape: const RoundedRectangleBorder(
+          //       borderRadius: BorderRadius.all(
+          //         Radius.circular(16),
+          //       ),
+          //     ),
+          //     child: Padding(
+          //       padding: const EdgeInsets.only(
+          //           top: 20, left: 20, right: 20, bottom: 10),
+          //       child: Column(
+          //         children: [
+          //           Image.asset(
+          //             'assets/icons/megaphone.png',
+          //             height: 100,
+          //           ),
+          //           const SizedBox(
+          //             height: 20,
+          //           ),
+          //           const Text(
+          //             'Announcement',
+          //             style: TextStyle(
+          //               fontWeight: FontWeight.w600,
+          //               fontSize: 18,
+          //             ),
+          //           )
+          //         ],
+          //       ),
+          //     )),
+          //exams
           //exams
           InkWell(
             onTap: () {

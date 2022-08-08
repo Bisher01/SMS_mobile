@@ -48,7 +48,7 @@ class _SelectClassSubjectClassroomState
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: const Text(
-          "Teacher's classes and subjects",
+          "Teacher's classes and classrooms",
           style: TextStyle(
             fontSize: 16,
           ),
@@ -96,46 +96,46 @@ class _SelectClassSubjectClassroomState
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 15,
-                          ),
-                          child: Column(
-                            children: [
-                              const Text(
-                                'Select subject:',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              DropdownButton<int>(
-                                  hint: const Text(
-                                    'Subject',
-                                  ),
-                                  value: subjectDDV,
-                                  elevation: 16,
-                                  underline: Container(
-                                    height: 2,
-                                    color: Colors.orange[400],
-                                  ),
-                                  onChanged: (int? newValue) {
-                                    setState(() {
-                                      subjectDDV = newValue ?? 0;
-                                      selectedSubject = subjects[subjectDDV];
-                                    });
-                                  },
-                                  items: provider
-                                      .getTeacherSubjectsResponse!.data!.data!
-                                      .map((e) {
-                                    return DropdownMenuItem<int>(
-                                      value: e.id,
-                                      child: Text(e.name!),
-                                    );
-                                  }).toList()),
-                            ],
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(
+                        //     top: 15,
+                        //   ),
+                        //   child: Column(
+                        //     children: [
+                        //       const Text(
+                        //         'Select subject:',
+                        //         style: TextStyle(
+                        //           fontSize: 18,
+                        //           fontWeight: FontWeight.w600,
+                        //         ),
+                        //       ),
+                        //       DropdownButton<int>(
+                        //           hint: const Text(
+                        //             'Subject',
+                        //           ),
+                        //           value: subjectDDV,
+                        //           elevation: 16,
+                        //           underline: Container(
+                        //             height: 2,
+                        //             color: Colors.orange[400],
+                        //           ),
+                        //           onChanged: (int? newValue) {
+                        //             setState(() {
+                        //               subjectDDV = newValue ?? 0;
+                        //               selectedSubject = subjects[subjectDDV];
+                        //             });
+                        //           },
+                        //           items: provider
+                        //               .getTeacherSubjectsResponse!.data!.data!
+                        //               .map((e) {
+                        //             return DropdownMenuItem<int>(
+                        //               value: e.id,
+                        //               child: Text(e.name!),
+                        //             );
+                        //           }).toList()),
+                        //     ],
+                        //   ),
+                        // ),
                         SizedBox(
                           height: widgetSize.getHeight(
                             350,
@@ -154,7 +154,7 @@ class _SelectClassSubjectClassroomState
                                         bottom: 20,
                                       ),
                                       child: Text(
-                                        'Select class: ',
+                                        'Select class and classroom: ',
                                         style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600,
@@ -165,105 +165,21 @@ class _SelectClassSubjectClassroomState
                                       fit: FlexFit.loose,
                                       child: ListWheelScrollView(
                                         onSelectedItemChanged: (index) {
+
                                           setState(() {
                                             selectedClass = index;
                                           });
                                           classId = provider
                                               .getTeacherSubjectsResponse!
                                               .data!
-                                              .data![selectedSubject!]
+                                              .data![0]
                                               .class_classroom![index]
                                               .classes!
                                               .id!;
-                                          print(provider
-                                              .getTeacherSubjectsResponse!
-                                              .data!
-                                              .data![selectedSubject!]
-                                              .class_classroom![1].class_id);
-                                        },
-                                        clipBehavior: Clip.antiAlias,
-                                        controller: fixedExtentScrollController,
-                                        physics:
-                                            const FixedExtentScrollPhysics(),
-                                        perspective: 0.005,
-                                        offAxisFraction: -0.0,
-                                        diameterRatio: 2,
-                                        itemExtent: 60,
-                                        children: provider
-                                            .getTeacherSubjectsResponse!
-                                            .data!
-                                            .data![selectedSubject!]
-                                            .class_classroom!
-                                            .map((e) {
-                                          return Row(
-                                            children: <Widget>[
-                                              Expanded(
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white70,
-                                                    border: Border.all(
-                                                        color: Colors.orange),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                      12,
-                                                    ),
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                      16.0,
-                                                    ),
-                                                    child: Text(
-                                                      e.classes!.name!,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                          fontSize: 18.0,
-                                                          color: Colors
-                                                              .orange[400]),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              Flexible(
-                                fit: FlexFit.tight,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Padding(
-                                      padding: EdgeInsets.only(
-                                        bottom: 20,
-                                      ),
-                                      child: Text(
-                                        'Select classroom: ',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
-                                    Flexible(
-                                      fit: FlexFit.loose,
-                                      child: ListWheelScrollView(
-                                        onSelectedItemChanged: (index) {
-                                          setState(() {
-                                            selectedClassroom = index;
-                                          });
                                           classroomId = provider
                                               .getTeacherSubjectsResponse!
                                               .data!
-                                              .data![selectedSubject!]
+                                              .data![0]
                                               .class_classroom![index]
                                               .classrooms!
                                               .id!;
@@ -279,7 +195,7 @@ class _SelectClassSubjectClassroomState
                                         children: provider
                                             .getTeacherSubjectsResponse!
                                             .data!
-                                            .data![selectedSubject!]
+                                            .data![0]
                                             .class_classroom!
                                             .map((e) {
                                           return Row(
@@ -301,8 +217,7 @@ class _SelectClassSubjectClassroomState
                                                       16.0,
                                                     ),
                                                     child: Text(
-                                                      e.classrooms!.name!
-                                                          .toString(),
+                                                      '${e.classes!.name!}  ${e.classrooms!.name.toString()}',
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
@@ -321,6 +236,94 @@ class _SelectClassSubjectClassroomState
                                   ],
                                 ),
                               ),
+                              // const SizedBox(
+                              //   width: 20,
+                              // ),
+                              // Flexible(
+                              //   fit: FlexFit.tight,
+                              //   child: Column(
+                              //     mainAxisAlignment: MainAxisAlignment.center,
+                              //     children: [
+                              //       const Padding(
+                              //         padding: EdgeInsets.only(
+                              //           bottom: 20,
+                              //         ),
+                              //         child: Text(
+                              //           'Select classroom: ',
+                              //           style: TextStyle(
+                              //             fontSize: 18,
+                              //             fontWeight: FontWeight.w600,
+                              //           ),
+                              //         ),
+                              //       ),
+                              //       Flexible(
+                              //         fit: FlexFit.loose,
+                              //         child: ListWheelScrollView(
+                              //           onSelectedItemChanged: (index) {
+                              //             setState(() {
+                              //               selectedClassroom = index;
+                              //             });
+                              //             classroomId = provider
+                              //                 .getTeacherSubjectsResponse!
+                              //                 .data!
+                              //                 .data![selectedSubject!]
+                              //                 .class_classroom![index]
+                              //                 .classrooms!
+                              //                 .id!;
+                              //           },
+                              //           clipBehavior: Clip.antiAlias,
+                              //           controller: fixedExtentScrollController,
+                              //           physics:
+                              //               const FixedExtentScrollPhysics(),
+                              //           perspective: 0.005,
+                              //           offAxisFraction: -0.0,
+                              //           diameterRatio: 2,
+                              //           itemExtent: 60,
+                              //           children: provider
+                              //               .getTeacherSubjectsResponse!
+                              //               .data!
+                              //               .data![selectedSubject!]
+                              //               .class_classroom!
+                              //               .map((e) {
+                              //             return Row(
+                              //               children: <Widget>[
+                              //                 Expanded(
+                              //                   child: Container(
+                              //                     decoration: BoxDecoration(
+                              //                       color: Colors.white70,
+                              //                       border: Border.all(
+                              //                           color: Colors.orange),
+                              //                       borderRadius:
+                              //                           BorderRadius.circular(
+                              //                         12,
+                              //                       ),
+                              //                     ),
+                              //                     child: Padding(
+                              //                       padding:
+                              //                           const EdgeInsets.all(
+                              //                         16.0,
+                              //                       ),
+                              //                       child: Text(
+                              //                         e.classrooms!.name!
+                              //                             .toString(),
+                              //                         textAlign:
+                              //                             TextAlign.center,
+                              //                         style: TextStyle(
+                              //                             fontSize: 18.0,
+                              //                             color: Colors
+                              //                                 .orange[400]),
+                              //                       ),
+                              //                     ),
+                              //                   ),
+                              //                 ),
+                              //               ],
+                              //             );
+                              //           }).toList(),
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
@@ -338,6 +341,12 @@ class _SelectClassSubjectClassroomState
                               ),
                             ),
                             onPressed: () {
+                              subjectDDV = Provider.of<AppProvider>(context,
+                                      listen: false)
+                                  .getTeacherSubjectsResponse!
+                                  .data!
+                                  .data![0]
+                                  .id!;
                               Navigator.push(
                                 context,
                                 PageTransition(

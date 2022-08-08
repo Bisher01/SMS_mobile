@@ -55,7 +55,9 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                 return Shimmer.fromColors(
                   baseColor: Colors.grey,
                   highlightColor: Colors.white,
-                  child:  CircularProgressIndicator(color: Colors.orange[400],),
+                  child: CircularProgressIndicator(
+                    color: Colors.orange[400],
+                  ),
                 );
               case Status.ERROR:
                 return er.Error(
@@ -159,7 +161,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                               ),
                               //City
                               Text(
-                                "City: ${teacher.address_id}",
+                                "City: ${teacher.address!.city}",
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16,
@@ -167,7 +169,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                               ),
                               //Town
                               Text(
-                                "Town: ${teacher.address_id}",
+                                "Town: ${teacher.address!.town}",
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16,
@@ -175,7 +177,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                               ),
                               //Street
                               Text(
-                                "Street: ${teacher.address_id}",
+                                "Street: ${teacher.address!.street}",
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16,
@@ -214,7 +216,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                               ),
                               //Grade
                               Text(
-                                "Grade: ${teacher.grade_id}",
+                                "subject: ${teacher.subjects![0].name}",
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16,
@@ -237,7 +239,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                               ),
                               //Gender
                               Text(
-                                "Gender: ${teacher.gender_id}",
+                                "Gender: ${teacher.gender!.type}",
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16,
@@ -245,7 +247,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                               ),
                               //Religion
                               Text(
-                                "Religion: ${teacher.religion_id}",
+                                "Religion: ${teacher.religion!.name}",
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16,

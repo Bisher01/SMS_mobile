@@ -46,8 +46,20 @@ class _NewMeetingState extends State<NewMeeting> {
       builder: (context, child) {
         return Theme(
           data: ThemeData.light().copyWith(
-            primaryColor: const Color(0Xff2BC3BB),
-            colorScheme: const ColorScheme.light(primary: Color(0Xff2BC3BB)),
+            primaryColor: const Color.fromARGB(
+              255,
+              255,
+              167,
+              38,
+            ),
+            colorScheme: const ColorScheme.light(
+              primary: Color.fromARGB(
+                255,
+                255,
+                167,
+                38,
+              ),
+            ),
             buttonTheme:
                 const ButtonThemeData(textTheme: ButtonTextTheme.primary),
           ),
@@ -68,14 +80,13 @@ class _NewMeetingState extends State<NewMeeting> {
     });
   }
 
-  ///TODO: selectedSubject
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: const Text(
-          "Teacher's classes and subjects",
+          "Add new meeting",
           style: TextStyle(
             fontSize: 16,
           ),
@@ -115,46 +126,46 @@ class _NewMeetingState extends State<NewMeeting> {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 15,
-                          ),
-                          child: Column(
-                            children: [
-                              const Text(
-                                'Select subject:',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              DropdownButton<int>(
-                                  hint: const Text(
-                                    'Subject',
-                                  ),
-                                  value: subjectDDV,
-                                  elevation: 16,
-                                  underline: Container(
-                                    height: 2,
-                                    color: Colors.orange[400],
-                                  ),
-                                  onChanged: (int? newValue) {
-                                    setState(() {
-                                      subjectDDV = newValue ?? 0;
-                                      selectedSubject = subjects[subjectDDV];
-                                    });
-                                  },
-                                  items: provider
-                                      .getTeacherSubjectsResponse!.data!.data!
-                                      .map((e) {
-                                    return DropdownMenuItem<int>(
-                                      value: e.id,
-                                      child: Text(e.name!),
-                                    );
-                                  }).toList()),
-                            ],
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(
+                        //     top: 15,
+                        //   ),
+                        //   child: Column(
+                        //     children: [
+                        //       const Text(
+                        //         'Select subject:',
+                        //         style: TextStyle(
+                        //           fontSize: 18,
+                        //           fontWeight: FontWeight.w600,
+                        //         ),
+                        //       ),
+                        //       DropdownButton<int>(
+                        //           hint: const Text(
+                        //             'Subject',
+                        //           ),
+                        //           value: subjectDDV,
+                        //           elevation: 16,
+                        //           underline: Container(
+                        //             height: 2,
+                        //             color: Colors.orange[400],
+                        //           ),
+                        //           onChanged: (int? newValue) {
+                        //             setState(() {
+                        //               subjectDDV = newValue ?? 0;
+                        //               selectedSubject = subjects[subjectDDV];
+                        //             });
+                        //           },
+                        //           items: provider
+                        //               .getTeacherSubjectsResponse!.data!.data!
+                        //               .map((e) {
+                        //             return DropdownMenuItem<int>(
+                        //               value: e.id,
+                        //               child: Text(e.name!),
+                        //             );
+                        //           }).toList()),
+                        //     ],
+                        //   ),
+                        // ),
                         SizedBox(
                           height: widgetSize.getHeight(
                             350,
@@ -173,7 +184,7 @@ class _NewMeetingState extends State<NewMeeting> {
                                         bottom: 20,
                                       ),
                                       child: Text(
-                                        'Select class: ',
+                                        'Select class and classroom: ',
                                         style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600,
@@ -190,94 +201,14 @@ class _NewMeetingState extends State<NewMeeting> {
                                           classId = provider
                                               .getTeacherSubjectsResponse!
                                               .data!
-                                              .data![selectedSubject!]
+                                              .data![0]
                                               .class_classroom![index]
                                               .classes!
                                               .id!;
-                                        },
-                                        clipBehavior: Clip.antiAlias,
-                                        controller: fixedExtentScrollController,
-                                        physics:
-                                            const FixedExtentScrollPhysics(),
-                                        perspective: 0.005,
-                                        offAxisFraction: -0.0,
-                                        diameterRatio: 2,
-                                        itemExtent: 60,
-                                        children: provider
-                                            .getTeacherSubjectsResponse!
-                                            .data!
-                                            .data![selectedSubject!]
-                                            .class_classroom!
-                                            .map((e) {
-                                          return Row(
-                                            children: <Widget>[
-                                              Expanded(
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white70,
-                                                    border: Border.all(
-                                                        color: Colors.orange),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                      12,
-                                                    ),
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                      16.0,
-                                                    ),
-                                                    child: Text(
-                                                      e.classes!.name!,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                          fontSize: 18.0,
-                                                          color: Colors
-                                                              .orange[400]),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              Flexible(
-                                fit: FlexFit.tight,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Padding(
-                                      padding: EdgeInsets.only(
-                                        bottom: 20,
-                                      ),
-                                      child: Text(
-                                        'Select classroom: ',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
-                                    Flexible(
-                                      fit: FlexFit.loose,
-                                      child: ListWheelScrollView(
-                                        onSelectedItemChanged: (index) {
-                                          setState(() {
-                                            selectedClassroom = index;
-                                          });
                                           classroomId = provider
                                               .getTeacherSubjectsResponse!
                                               .data!
-                                              .data![selectedSubject!]
+                                              .data![0]
                                               .class_classroom![index]
                                               .classrooms!
                                               .id!;
@@ -293,7 +224,7 @@ class _NewMeetingState extends State<NewMeeting> {
                                         children: provider
                                             .getTeacherSubjectsResponse!
                                             .data!
-                                            .data![selectedSubject!]
+                                            .data![0]
                                             .class_classroom!
                                             .map((e) {
                                           return Row(
@@ -315,8 +246,7 @@ class _NewMeetingState extends State<NewMeeting> {
                                                       16.0,
                                                     ),
                                                     child: Text(
-                                                      e.classrooms!.name!
-                                                          .toString(),
+                                                      '${e.classes!.name!}  ${e.classrooms!.name.toString()}',
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
@@ -335,18 +265,201 @@ class _NewMeetingState extends State<NewMeeting> {
                                   ],
                                 ),
                               ),
+                              // const SizedBox(
+                              //   width: 20,
+                              // ),
+                              // Flexible(
+                              //   fit: FlexFit.tight,
+                              //   child: Column(
+                              //     mainAxisAlignment: MainAxisAlignment.center,
+                              //     children: [
+                              //       const Padding(
+                              //         padding: EdgeInsets.only(
+                              //           bottom: 20,
+                              //         ),
+                              //         child: Text(
+                              //           'Select classroom: ',
+                              //           style: TextStyle(
+                              //             fontSize: 18,
+                              //             fontWeight: FontWeight.w600,
+                              //           ),
+                              //         ),
+                              //       ),
+                              //       Flexible(
+                              //         fit: FlexFit.loose,
+                              //         child: ListWheelScrollView(
+                              //           onSelectedItemChanged: (index) {
+                              //             setState(() {
+                              //               selectedClassroom = index;
+                              //             });
+                              //             classroomId = provider
+                              //                 .getTeacherSubjectsResponse!
+                              //                 .data!
+                              //                 .data![selectedSubject!]
+                              //                 .class_classroom![index]
+                              //                 .classrooms!
+                              //                 .id!;
+                              //           },
+                              //           clipBehavior: Clip.antiAlias,
+                              //           controller: fixedExtentScrollController,
+                              //           physics:
+                              //               const FixedExtentScrollPhysics(),
+                              //           perspective: 0.005,
+                              //           offAxisFraction: -0.0,
+                              //           diameterRatio: 2,
+                              //           itemExtent: 60,
+                              //           children: provider
+                              //               .getTeacherSubjectsResponse!
+                              //               .data!
+                              //               .data![selectedSubject!]
+                              //               .class_classroom!
+                              //               .map((e) {
+                              //             return Row(
+                              //               children: <Widget>[
+                              //                 Expanded(
+                              //                   child: Container(
+                              //                     decoration: BoxDecoration(
+                              //                       color: Colors.white70,
+                              //                       border: Border.all(
+                              //                           color: Colors.orange),
+                              //                       borderRadius:
+                              //                           BorderRadius.circular(
+                              //                         12,
+                              //                       ),
+                              //                     ),
+                              //                     child: Padding(
+                              //                       padding:
+                              //                           const EdgeInsets.all(
+                              //                         16.0,
+                              //                       ),
+                              //                       child: Text(
+                              //                         e.classrooms!.name!
+                              //                             .toString(),
+                              //                         textAlign:
+                              //                             TextAlign.center,
+                              //                         style: TextStyle(
+                              //                             fontSize: 18.0,
+                              //                             color: Colors
+                              //                                 .orange[400]),
+                              //                       ),
+                              //                     ),
+                              //                   ),
+                              //                 ),
+                              //               ],
+                              //             );
+                              //           }).toList(),
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
                         TextField(
                           controller: controller,
+                          keyboardType: TextInputType.emailAddress,
+                          textDirection: TextDirection.ltr,
+                          showCursor: true,
+                          decoration: const InputDecoration(
+                            hintText: 'google meet link',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(
+                                  20,
+                                ),
+                              ),
+                              borderSide: BorderSide(
+                                style: BorderStyle.solid,
+                                color: Color.fromARGB(
+                                  255,
+                                  255,
+                                  167,
+                                  38,
+                                ),
+                              ),
+                            ),
+                            disabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(
+                                  20,
+                                ),
+                              ),
+                              borderSide: BorderSide(
+                                style: BorderStyle.solid,
+                                color: Color.fromARGB(
+                                  255,
+                                  255,
+                                  167,
+                                  38,
+                                ),
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(
+                                  20,
+                                ),
+                              ),
+                              borderSide: BorderSide(
+                                style: BorderStyle.solid,
+                                color: Color.fromARGB(
+                                  255,
+                                  255,
+                                  167,
+                                  38,
+                                ),
+                              ),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(
+                                  20,
+                                ),
+                              ),
+                              borderSide: BorderSide(
+                                style: BorderStyle.solid,
+                                color: Colors.red,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(
+                                  20,
+                                ),
+                              ),
+                              borderSide: BorderSide(
+                                style: BorderStyle.solid,
+                                color: Color.fromARGB(
+                                  255,
+                                  255,
+                                  167,
+                                  38,
+                                ),
+                              ),
+                            ),
+                          ),
+                          cursorColor: const Color.fromARGB(
+                            255,
+                            255,
+                            167,
+                            38,
+                          ),
                         ),
                         TextButton(
                           onPressed: () {
                             _presentDatePicker();
                           },
-                          child: Text(
+                          child: const Text(
                             'Select date',
+                            style: TextStyle(
+                              color: Color.fromARGB(
+                                255,
+                                255,
+                                167,
+                                38,
+                              ),
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -363,11 +476,28 @@ class _NewMeetingState extends State<NewMeeting> {
                               ),
                             ),
                             onPressed: () async {
-                              int id = Provider.of<AppProvider>(context,listen: false).getId();
-                              var response = await Provider.of<AppProvider>(context,listen: false).addOnlineClass(
-                                  classId: classId, subjectId: subjectDDV!, teacherId: id, classroomId: classroomId,
-                                  link: controller.text, date: _selectedDate!);
-                              if(await Provider.of<AppProvider>(context,listen: false).checkInternet()){
+                              subjectDDV = Provider.of<AppProvider>(context,
+                                  listen: false)
+                                  .getTeacherSubjectsResponse!
+                                  .data!
+                                  .data![0]
+                                  .id!;
+                              int id = Provider.of<AppProvider>(context,
+                                      listen: false)
+                                  .getId();
+                              var response = await Provider.of<AppProvider>(
+                                      context,
+                                      listen: false)
+                                  .addOnlineClass(
+                                      classId: classId,
+                                      subjectId: subjectDDV!,
+                                      teacherId: id,
+                                      classroomId: classroomId,
+                                      link: controller.text,
+                                      date: _selectedDate!);
+                              if (await Provider.of<AppProvider>(context,
+                                      listen: false)
+                                  .checkInternet()) {
                                 if (response.status == Status.LOADING) {
                                   EasyLoading.showToast(
                                     'Loading...',
@@ -377,42 +507,34 @@ class _NewMeetingState extends State<NewMeeting> {
                                   );
                                 }
                                 if (response.status == Status.ERROR) {
-                                  EasyLoading.showError(
-                                      response.message!,
+                                  EasyLoading.showError(response.message!,
                                       dismissOnTap: true);
                                 }
-                                if (response.status ==
-                                    Status.COMPLETED) {
+                                if (response.status == Status.COMPLETED) {
                                   if (response.data != null &&
                                       response.data!.status!) {
                                     showDialog(
                                         context: context,
-                                        builder:
-                                            (BuildContext context) {
+                                        builder: (BuildContext context) {
                                           return AlertDialog(
                                             actions: <Widget>[
                                               TextButton(
-                                                onPressed: () =>
-                                                    Navigator.push(
-                                                      context,
-                                                      PageTransition(
-                                                        child:
+                                                onPressed: () => Navigator.push(
+                                                  context,
+                                                  PageTransition(
+                                                    child:
                                                         const TeacherMainScreen(),
-                                                        type: PageTransitionType
-                                                            .bottomToTopJoined,
-                                                        childCurrent:
-                                                        widget,
-                                                        duration:
-                                                        const Duration(
-                                                            milliseconds:
-                                                            300),
-                                                      ),
-                                                    ),
+                                                    type: PageTransitionType
+                                                        .bottomToTopJoined,
+                                                    childCurrent: widget,
+                                                    duration: const Duration(
+                                                        milliseconds: 300),
+                                                  ),
+                                                ),
                                                 child: Text(
                                                   'OK',
                                                   style: TextStyle(
-                                                    color: Colors
-                                                        .orange[400],
+                                                    color: Colors.orange[400],
                                                   ),
                                                 ),
                                               ),
@@ -428,7 +550,6 @@ class _NewMeetingState extends State<NewMeeting> {
                                   }
                                 }
                               }
-
                             },
                             child: const Text(
                               'Add meeting',
