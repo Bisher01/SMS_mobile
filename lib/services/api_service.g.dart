@@ -750,6 +750,23 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<FStudentTimeTable> getStudentTimetable(id1, id2) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FStudentTimeTable>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(
+                    _dio.options, 'timetable/studentTimetable/${id1}/${id2}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FStudentTimeTable.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<FTeacherOnlineClass> getTeacherOnlineClass(id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

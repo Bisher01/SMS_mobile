@@ -175,6 +175,11 @@ class _SelectClassSubjectClassroomState
                                               .class_classroom![index]
                                               .classes!
                                               .id!;
+                                          print(provider
+                                              .getTeacherSubjectsResponse!
+                                              .data!
+                                              .data![selectedSubject!]
+                                              .class_classroom![1].class_id);
                                         },
                                         clipBehavior: Clip.antiAlias,
                                         controller: fixedExtentScrollController,

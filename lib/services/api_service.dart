@@ -239,6 +239,10 @@ abstract class ApiService {
   //get teacher timetable
   @GET('timetable/teacherTimetable/{id}')
   Future<FTeacherTimeTable> getTeacherTimetable(@Path('id') int id);
+
+  //get student timetable
+  @GET('timetable/studentTimetable/{id1}/{id2}')
+  Future<FStudentTimeTable> getStudentTimetable(@Path('id1') int id1,@Path('id2') int id2);
   //=============================================//
 
   //======================ONLINE CLASS=======================//

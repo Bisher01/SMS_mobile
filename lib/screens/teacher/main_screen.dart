@@ -193,7 +193,7 @@ class _TeacherMainScreenState extends State<TeacherMainScreen>
               Navigator.push(
                 context,
                 PageTransition(
-                  child: SelectClassSubjectClassroom(
+                  child: const SelectClassSubjectClassroom(
                     addOralMark: false,
                   ),
                   type: PageTransitionType.leftToRightPop,
@@ -234,52 +234,52 @@ class _TeacherMainScreenState extends State<TeacherMainScreen>
               ),
             ),
           ),
-          //exam schedule
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                PageTransition(
-                  child: const StudentExamSchedule(
-                    studentId: 3,
-                  ),
-                  type: PageTransitionType.leftToRightPop,
-                  childCurrent: widget,
-                  duration: const Duration(milliseconds: 400),
-                ),
-              );
-            },
-            child: Card(
-                elevation: 3,
-                shadowColor: Colors.black,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(16),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 20, left: 20, right: 20, bottom: 10),
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        'assets/icons/exam.png',
-                        height: 100,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Text(
-                        'Exam',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                        ),
-                      )
-                    ],
-                  ),
-                )),
-          ),
+          // //exam schedule
+          // InkWell(
+          //   onTap: () {
+          //     Navigator.push(
+          //       context,
+          //       PageTransition(
+          //         child: const StudentExamSchedule(
+          //           studentId: 3,
+          //         ),
+          //         type: PageTransitionType.leftToRightPop,
+          //         childCurrent: widget,
+          //         duration: const Duration(milliseconds: 400),
+          //       ),
+          //     );
+          //   },
+          //   child: Card(
+          //       elevation: 3,
+          //       shadowColor: Colors.black,
+          //       shape: const RoundedRectangleBorder(
+          //         borderRadius: BorderRadius.all(
+          //           Radius.circular(16),
+          //         ),
+          //       ),
+          //       child: Padding(
+          //         padding: const EdgeInsets.only(
+          //             top: 20, left: 20, right: 20, bottom: 10),
+          //         child: Column(
+          //           children: [
+          //             Image.asset(
+          //               'assets/icons/exam.png',
+          //               height: 100,
+          //             ),
+          //             const SizedBox(
+          //               height: 20,
+          //             ),
+          //             const Text(
+          //               'Exam',
+          //               style: TextStyle(
+          //                 fontWeight: FontWeight.w600,
+          //                 fontSize: 18,
+          //               ),
+          //             )
+          //           ],
+          //         ),
+          //       )),
+          // ),
           //oral marks
           InkWell(
             onTap: () {
@@ -376,7 +376,7 @@ class _TeacherMainScreenState extends State<TeacherMainScreen>
               Navigator.push(
                 context,
                 PageTransition(
-                  child: TeacherShowOnlineClass(
+                  child: const TeacherShowOnlineClass(
                   ),
                   type: PageTransitionType.leftToRightPop,
                   childCurrent: widget,
@@ -453,7 +453,7 @@ class _TeacherMainScreenState extends State<TeacherMainScreen>
               Navigator.push(
                 context,
                 PageTransition(
-                  child: const AddSyllabi(),
+                  child: const SelectClassSubject(),
                   type: PageTransitionType.leftToRightPop,
                   childCurrent: widget,
                   duration: const Duration(milliseconds: 400),

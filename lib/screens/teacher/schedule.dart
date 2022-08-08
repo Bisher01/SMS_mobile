@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sms_mobile/screens/screens.dart';
 import 'package:sms_mobile/utill/utill.dart';
 
 import '../../providers/app_provider.dart';
@@ -39,12 +40,43 @@ class _TeacherScheduleState extends State<TeacherSchedule> {
 
   int? classId;
   int? classroomId;
+
+  var timetable = List.generate(
+      7,
+      (i) => List.filled(
+          7,
+          TeacherModified(
+            className: 'break',
+            classroom: 0,
+          ),
+          growable: false),
+      growable: false);
   @override
   initState() {
     ///TODO: add schedule request and link it to the ui
     int teacherId = Provider.of<AppProvider>(context, listen: false).getId();
     Provider.of<AppProvider>(context, listen: false)
-        .getTeacherTimetable(teacherId);
+        .getTeacherTimetable(teacherId)
+        .then((value) {
+      var provider = Provider.of<AppProvider>(context, listen: false)
+          .getTeacherTimetableResponse;
+
+      for (int i = 0; i < provider!.data!.teacherTimetable!.length; i++) {
+        timetable[provider.data!.teacherTimetable![i].lesson!.days!.id!]
+                [provider.data!.teacherTimetable![i].lesson!.lessons!.id!] =
+            TeacherModified(
+                className: provider
+                    .data!.teacherTimetable![i].classroom!.classes!.name,
+                classroom: provider
+                    .data!.teacherTimetable![i].classroom!.classrooms!.name);
+      }
+      for (int i = 0; i < 7; i++) {
+        for (int j = 0; j < 7; j++) {
+          print('$i, $j, ${timetable[i][j].className}');
+        }
+      }
+    });
+
     super.initState();
   }
 
@@ -542,113 +574,119 @@ class _TeacherScheduleState extends State<TeacherSchedule> {
                     thickness: 2,
                     height: 2,
                   ),
-                  Expanded(
-                    child: ListView.builder(
-                      padding: const EdgeInsets.only(top: 20),
-                      shrinkWrap: true,
-                      itemCount: 6,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          padding: const EdgeInsets.symmetric(vertical: 15),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                  Consumer<AppProvider>(
+                    builder: (context, provider, child) {
+                      return Expanded(
+                        child: ListView.builder(
+                          padding: const EdgeInsets.only(top: 20),
+                          shrinkWrap: true,
+                          itemCount: 6,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  const Text(
-                                    '09:30',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 18,
-                                        fontFamily: 'ChakraPetch'),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    '10:30',
-                                    style: TextStyle(
-                                        color: Colors.grey[500],
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 18,
-                                        fontFamily: 'ChakraPetch'),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              AnimatedContainer(
-                                padding: const EdgeInsets.all(12),
-                                decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(12),
-                                    ),
-                                    color: color[index % 4]),
-                                constraints: BoxConstraints.expand(
-                                  height: 150,
-                                  width: isOpened
-                                      ? widgetSize.getWidth(290, context) - 80
-                                      : widgetSize.getWidth(290, context),
-                                ),
-                                duration: const Duration(milliseconds: 200),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text(
-                                      'Math',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 26,
-                                        fontFamily: 'ChakraPetch',
-                                        fontWeight: FontWeight.w500,
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(
+                                        height: 5,
                                       ),
-                                    ),
-                                    const Text(
-                                      'In Class',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                        fontFamily: 'ChakraPetch',
-                                        fontWeight: FontWeight.w400,
+                                      const Text(
+                                        '09:30',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 18,
+                                            fontFamily: 'ChakraPetch'),
                                       ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        '10:30',
+                                        style: TextStyle(
+                                            color: Colors.grey[500],
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 18,
+                                            fontFamily: 'ChakraPetch'),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  AnimatedContainer(
+                                    padding: const EdgeInsets.all(12),
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(12),
+                                        ),
+                                        color: color[index % 4]),
+                                    constraints: BoxConstraints.expand(
+                                      height: 150,
+                                      width: isOpened
+                                          ? widgetSize.getWidth(290, context) -
+                                              80
+                                          : widgetSize.getWidth(290, context),
                                     ),
-                                    const Spacer(),
-                                    Row(
-                                      children: const [
-                                        CircleAvatar(
-                                          radius: 15,
-                                          backgroundImage: NetworkImage(
-                                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQkqF4GNbddpeM38Iq_ac9DyUcRr7VXkVVAmQcgyi6Xv6F5bcf3mlZOUxm47kO7UYuBIg&usqp=CAU'),
-                                        ),
-                                        SizedBox(
-                                          width: 6,
-                                        ),
+                                    duration: const Duration(milliseconds: 200),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
                                         Text(
-                                          'Ms.Joudi',
+                                          timetable[selectedDay][index].className!,
                                           style: TextStyle(
                                             color: Colors.black,
-                                            fontSize: 18,
+                                            fontSize: 26,
+                                            fontFamily: 'ChakraPetch',
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        const Text(
+                                          'In Class',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 20,
                                             fontFamily: 'ChakraPetch',
                                             fontWeight: FontWeight.w400,
                                           ),
-                                        )
+                                        ),
+                                        const Spacer(),
+                                        Row(
+                                          children: const [
+                                            CircleAvatar(
+                                              radius: 15,
+                                              backgroundImage: NetworkImage(
+                                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQkqF4GNbddpeM38Iq_ac9DyUcRr7VXkVVAmQcgyi6Xv6F5bcf3mlZOUxm47kO7UYuBIg&usqp=CAU'),
+                                            ),
+                                            SizedBox(
+                                              width: 6,
+                                            ),
+                                            Text(
+                                              'Ms.Joudi',
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 18,
+                                                fontFamily: 'ChakraPetch',
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ],
                                     ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    },
                   )
                 ],
               ),
@@ -658,4 +696,13 @@ class _TeacherScheduleState extends State<TeacherSchedule> {
       ),
     );
   }
+}
+
+class TeacherModified {
+  String? className;
+  int? classroom;
+  TeacherModified({
+    this.classroom,
+    this.className,
+  });
 }

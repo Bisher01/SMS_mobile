@@ -13,6 +13,8 @@ class TeacherTimeTable {
   int? classClassroom_id;
   int? teacher_id;
   Lesson? lesson;
+  @JsonKey(defaultValue: '')
+  String? subject;
   ClassClassroom? classroom;
 
   TeacherTimeTable({
@@ -33,8 +35,8 @@ class TeacherTimeTable {
 class FTeacherTimeTable {
   bool? status;
   String? message;
-  List<TeacherTimeTable>? teacherTimeTable;
-  FTeacherTimeTable({this.message, this.status, this.teacherTimeTable});
+  List<TeacherTimeTable>? teacherTimetable;
+  FTeacherTimeTable({this.message, this.status, this.teacherTimetable});
 
   factory FTeacherTimeTable.fromJson(Map<String, dynamic> json) =>
       _$FTeacherTimeTableFromJson(json);

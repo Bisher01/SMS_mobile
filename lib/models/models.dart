@@ -39,3 +39,4 @@ export 'teacher_timetable.dart';
 export 'teacher_online_class.dart';
 export 'student_online_class.dart';
 export 'add_online_class.dart';
+export 'student_timetable.dart';
