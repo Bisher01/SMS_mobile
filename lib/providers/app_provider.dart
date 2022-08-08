@@ -1596,6 +1596,42 @@ class AppProvider extends ChangeNotifier {
     return getTeacherTimetableResponse!;
   }
 
+  //get student timetable
+  ApiResponse<FStudentTimeTable>? _getStudentTimetableResponse;
+  ApiResponse<FStudentTimeTable>? get getStudentTimetableResponse =>
+      _getStudentTimetableResponse;
+  set getStudentTimetableResponse(ApiResponse<FStudentTimeTable>? value) {
+    _getStudentTimetableResponse = value;
+    notifyListeners();
+  }
+
+  Future<ApiResponse<FStudentTimeTable>> getStudentTimetable(
+      int classId, int classroomId) async {
+    ApiService apiService = ApiService(Dio());
+    if (await checkInternet()) {
+      getStudentTimetableResponse = ApiResponse.loading('');
+      try {
+        FStudentTimeTable fstudenttimetable =
+            await apiService.getStudentTimetable(classId, classroomId);
+        getStudentTimetableResponse = ApiResponse.completed(fstudenttimetable);
+      } catch (e) {
+        if (e is DioError) {
+          try {
+            throwCustomException(e);
+          } catch (forcedException) {
+            return getStudentTimetableResponse =
+                ApiResponse.error(forcedException.toString());
+          }
+        }
+        return getStudentTimetableResponse = ApiResponse.error(e.toString());
+      }
+    } else {
+      return getStudentTimetableResponse =
+          ApiResponse.error('No Internet Connection');
+    }
+    return getStudentTimetableResponse!;
+  }
+
   ///==============================================///
 
   ///=====================ONLINE CLASS=========================///

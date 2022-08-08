@@ -37,21 +37,72 @@ class _StudentScheduleState extends State<StudentSchedule> {
     'Dec'
   ];
 
+  List<String> startPeriods = [
+    '8:00',
+    '8:45',
+    '9:30',
+    '10:30',
+    '11:15',
+    '12:15',
+    '1:00',
+    '1:45'
+  ];
+  List<String> endPeriods = [
+    '8:45',
+    '9:30',
+    '10:15',
+    '11:15',
+    '12:00',
+    '1:00',
+    '1:45',
+    ''
+  ];
   int? classId;
   int? classroomId;
+
+  var timetable = List.generate(
+      8,
+      (i) => List.filled(
+          8,
+          StudentModified(
+            teacher: '',
+            subject: '',
+          ),
+          growable: false),
+      growable: false);
   @override
-  initState(){
+  initState() {
     ///TODO: add schedule request and link it to the ui
-    int studentId= Provider.of<AppProvider>(context, listen: false).getId();
+    int studentId = Provider.of<AppProvider>(context, listen: false).getId();
     Provider.of<AppProvider>(context, listen: false)
         .getStudent(studentId)
         .then((value) {
       classId = value.data!.student![0].class_classroom!.class_id;
       classroomId = value.data!.student![0].class_classroom!.classroom_id;
-      //Provider.of<AppProvider>(context, listen: false).getClassExam(classId!);
+      Provider.of<AppProvider>(context, listen: false)
+          .getStudentTimetable(classId!, classroomId!)
+          .then((value) {
+        var provider = Provider.of<AppProvider>(context, listen: false)
+            .getStudentTimetableResponse;
+
+        for (int i = 0; i < provider!.data!.studentTimetable!.length; i++) {
+          timetable[provider.data!.studentTimetable![i].lesson!.days!.id!][
+              provider.data!.studentTimetable![i].lesson!.lessons!
+                  .id!] = StudentModified(
+              teacher:
+                  '${provider.data!.studentTimetable![i].teacher!.f_name} ${provider.data!.studentTimetable![i].teacher!.l_name}',
+              subject: provider.data!.studentTimetable![i].subject);
+        }
+        // for (int i = 0; i < 7; i++) {
+        //   for (int j = 0; j < 7; j++) {
+        //     print('$i, $j, ${timetable[i][j].teacher}');
+        //   }
+        // }
+      });
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,103 +119,6 @@ class _StudentScheduleState extends State<StudentSchedule> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          selectedDay = 7;
-                        });
-                      },
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(6)),
-                          color: selectedDay == 7
-                              ? Colors.orange[400]
-                              : Colors.grey[800],
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.black,
-                              blurRadius: 2.0,
-                              spreadRadius: 0.0,
-                              offset: Offset(
-                                  2.0, 2.0), // shadow direction: bottom right
-                            )
-                          ],
-                        ),
-                        constraints: BoxConstraints.expand(
-                          width: isOpened ? 40 : 0,
-                          height: 40,
-                        ),
-                        child: Center(
-                          child: FittedBox(
-                            fit: BoxFit.contain,
-                            child: Text(
-                              'S',
-                              style: TextStyle(
-                                  color: selectedDay == 7
-                                      ? Colors.black
-                                      : Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700,
-                                  fontFamily: 'ChakraPetch'),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          selectedDay = 1;
-                        });
-                      },
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(6)),
-                          color: selectedDay == 1
-                              ? Colors.orange[400]
-                              : Colors.grey[800],
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.black,
-                              blurRadius: 2.0,
-                              spreadRadius: 0.0,
-                              offset: Offset(
-                                  2.0, 2.0), // shadow direction: bottom right
-                            )
-                          ],
-                        ),
-                        constraints: BoxConstraints.expand(
-                          width: isOpened ? 40 : 0,
-                          height: 40,
-                        ),
-                        child: Center(
-                          child: FittedBox(
-                            fit: BoxFit.contain,
-                            child: Text(
-                              'M',
-                              style: TextStyle(
-                                color: selectedDay == 1
-                                    ? Colors.black
-                                    : Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'ChakraPetch',
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
                     InkWell(
                       onTap: () {
                         setState(() {
@@ -197,15 +151,14 @@ class _StudentScheduleState extends State<StudentSchedule> {
                           child: FittedBox(
                             fit: BoxFit.contain,
                             child: Text(
-                              'T',
+                              'S',
                               style: TextStyle(
-                                color: selectedDay == 2
-                                    ? Colors.black
-                                    : Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'ChakraPetch',
-                              ),
+                                  color: selectedDay == 2
+                                      ? Colors.black
+                                      : Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'ChakraPetch'),
                             ),
                           ),
                         ),
@@ -246,7 +199,7 @@ class _StudentScheduleState extends State<StudentSchedule> {
                           child: FittedBox(
                             fit: BoxFit.contain,
                             child: Text(
-                              'W',
+                              'M',
                               style: TextStyle(
                                 color: selectedDay == 3
                                     ? Colors.black
@@ -344,7 +297,7 @@ class _StudentScheduleState extends State<StudentSchedule> {
                           child: FittedBox(
                             fit: BoxFit.contain,
                             child: Text(
-                              'F',
+                              'W',
                               style: TextStyle(
                                 color: selectedDay == 5
                                     ? Colors.black
@@ -393,9 +346,107 @@ class _StudentScheduleState extends State<StudentSchedule> {
                           child: FittedBox(
                             fit: BoxFit.contain,
                             child: Text(
-                              'S',
+                              'T',
                               style: TextStyle(
                                 color: selectedDay == 6
+                                    ? Colors.black
+                                    : Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: 'ChakraPetch',
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          selectedDay = 7;
+                        });
+                      },
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(6)),
+                          color: selectedDay == 7
+                              ? Colors.orange[400]
+                              : Colors.grey[800],
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black,
+                              blurRadius: 2.0,
+                              spreadRadius: 0.0,
+                              offset: Offset(
+                                  2.0, 2.0), // shadow direction: bottom right
+                            )
+                          ],
+                        ),
+                        constraints: BoxConstraints.expand(
+                          width: isOpened ? 40 : 0,
+                          height: 40,
+                        ),
+                        child: Center(
+                          child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: Text(
+                              'F',
+                              style: TextStyle(
+                                color: selectedDay == 7
+                                    ? Colors.black
+                                    : Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: 'ChakraPetch',
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          selectedDay = 1;
+                        });
+                      },
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(6)),
+                          color: selectedDay == 1
+                              ? Colors.orange[400]
+                              : Colors.grey[800],
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black,
+                              blurRadius: 2.0,
+                              spreadRadius: 0.0,
+                              offset: Offset(
+                                  2.0, 2.0), // shadow direction: bottom right
+                            )
+                          ],
+                        ),
+                        constraints: BoxConstraints.expand(
+                          width: isOpened ? 40 : 0,
+                          height: 40,
+                        ),
+                        child: Center(
+                          child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: Text(
+                              'S',
+                              style: TextStyle(
+                                color: selectedDay == 1
                                     ? Colors.black
                                     : Colors.white,
                                 fontSize: 20,
@@ -496,7 +547,7 @@ class _StudentScheduleState extends State<StudentSchedule> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              days[DateTime.now().weekday-1],
+                              days[DateTime.now().weekday - 1],
                               style: TextStyle(
                                   color: Colors.grey[500],
                                   fontSize: 18,
@@ -505,7 +556,7 @@ class _StudentScheduleState extends State<StudentSchedule> {
                                   letterSpacing: 0.5),
                             ),
                             Text(
-                              '${months[DateTime.now().month-1]} ${DateTime.now().year.toString().substring(2)}',
+                              '${months[DateTime.now().month - 1]} ${DateTime.now().year.toString().substring(2)}',
                               style: TextStyle(
                                   color: Colors.grey[500],
                                   fontSize: 18,
@@ -550,7 +601,7 @@ class _StudentScheduleState extends State<StudentSchedule> {
                     child: ListView.builder(
                       padding: const EdgeInsets.only(top: 20),
                       shrinkWrap: true,
-                      itemCount: 6,
+                      itemCount: 7,
                       itemBuilder: (context, index) {
                         return Container(
                           padding: const EdgeInsets.symmetric(vertical: 15),
@@ -564,8 +615,8 @@ class _StudentScheduleState extends State<StudentSchedule> {
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  const Text(
-                                    '09:30',
+                                  Text(
+                                    startPeriods[index],
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w600,
@@ -576,7 +627,7 @@ class _StudentScheduleState extends State<StudentSchedule> {
                                     height: 10,
                                   ),
                                   Text(
-                                    '10:30',
+                                    endPeriods[index],
                                     style: TextStyle(
                                         color: Colors.grey[500],
                                         fontWeight: FontWeight.w600,
@@ -605,8 +656,9 @@ class _StudentScheduleState extends State<StudentSchedule> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
-                                      'Math',
+                                    Text(
+                                      timetable[selectedDay][index + 1]
+                                          .subject!,
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 26,
@@ -625,7 +677,7 @@ class _StudentScheduleState extends State<StudentSchedule> {
                                     ),
                                     const Spacer(),
                                     Row(
-                                      children: const [
+                                      children: [
                                         CircleAvatar(
                                           radius: 15,
                                           backgroundImage: NetworkImage(
@@ -635,7 +687,8 @@ class _StudentScheduleState extends State<StudentSchedule> {
                                           width: 6,
                                         ),
                                         Text(
-                                          'Ms.Joudi',
+                                          timetable[selectedDay][index + 1]
+                                              .teacher!,
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 18,
@@ -662,4 +715,13 @@ class _StudentScheduleState extends State<StudentSchedule> {
       ),
     );
   }
+}
+
+class StudentModified {
+  String? teacher;
+  String? subject;
+  StudentModified({
+    this.teacher,
+    this.subject,
+  });
 }
