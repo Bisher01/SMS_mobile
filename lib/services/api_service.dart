@@ -158,7 +158,7 @@ abstract class ApiService {
       @Path('id1') int id1, @Path('id2') int id2);
 
   //add quiz
-  @POST('api/quiz/add')
+  @POST('quiz/add')
   Future<Delete> addQuiz(@Body() Map<String, dynamic> quiz);
 
   ///////////===========Questions===========///////////
@@ -171,7 +171,8 @@ abstract class ApiService {
   Future<QuestionsBank> getAllQuestions(
       {@Field('teacher_id') int? teacherId,
       @Field('class_id') int? classId,
-      @Field('subject_id') int? subjectId});
+      @Field('subject_id') int? subjectId,
+      @Field('type') int? type});
 
   //delete question
   @DELETE('question/delete/{id}')

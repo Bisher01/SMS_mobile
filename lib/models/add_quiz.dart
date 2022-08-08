@@ -25,7 +25,6 @@ class AddQuiz {
   int? classroomId;
   @JsonKey(name: 'subject_id')
   int? subjectId;
-  @JsonKey(name: 'exam_name_id')
   DateTime? start;
   DateTime? end;
   @JsonKey(name: 'season_id')

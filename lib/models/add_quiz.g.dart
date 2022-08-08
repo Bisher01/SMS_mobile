@@ -24,9 +24,9 @@ AddQuiz _$AddQuizFromJson(Map<String, dynamic> json) => AddQuiz(
           .toList(),
       subjectId: json['subject_id'] as int?,
       classId: json['class_id'] as int?,
-      start: json['exam_name_id'] == null
+      start: json['start'] == null
           ? null
-          : DateTime.parse(json['exam_name_id'] as String),
+          : DateTime.parse(json['start'] as String),
       end: json['end'] == null ? null : DateTime.parse(json['end'] as String),
       seasonId: json['season_id'] as int?,
       classroomId: json['classroom_id'] as int?,
@@ -38,7 +38,7 @@ Map<String, dynamic> _$AddQuizToJson(AddQuiz instance) => <String, dynamic>{
       'class_id': instance.classId,
       'classroom_id': instance.classroomId,
       'subject_id': instance.subjectId,
-      'exam_name_id': instance.start?.toIso8601String(),
+      'start': instance.start?.toIso8601String(),
       'end': instance.end?.toIso8601String(),
       'season_id': instance.seasonId,
       'questions': instance.questions,

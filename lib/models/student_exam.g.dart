@@ -82,7 +82,7 @@ QuestionsBank _$QuestionsBankFromJson(Map<String, dynamic> json) =>
       status: json['status'] as bool?,
       message: json['message'] as String?,
       questions: (json['questions'] as List<dynamic>?)
-          ?.map((e) => Questions.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => MiniQuestions.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -90,5 +90,19 @@ Map<String, dynamic> _$QuestionsBankToJson(QuestionsBank instance) =>
     <String, dynamic>{
       'status': instance.status,
       'message': instance.message,
+      'questions': instance.questions,
+    };
+
+MiniQuestions _$MiniQuestionsFromJson(Map<String, dynamic> json) =>
+    MiniQuestions(
+      max_mark: json['max mark'] as int?,
+      questions: (json['questions'] as List<dynamic>?)
+          ?.map((e) => Questions.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$MiniQuestionsToJson(MiniQuestions instance) =>
+    <String, dynamic>{
+      'max mark': instance.max_mark,
       'questions': instance.questions,
     };

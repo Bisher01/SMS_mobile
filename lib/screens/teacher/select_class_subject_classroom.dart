@@ -165,7 +165,6 @@ class _SelectClassSubjectClassroomState
                                       fit: FlexFit.loose,
                                       child: ListWheelScrollView(
                                         onSelectedItemChanged: (index) {
-
                                           setState(() {
                                             selectedClass = index;
                                           });
@@ -347,6 +346,24 @@ class _SelectClassSubjectClassroomState
                                   .data!
                                   .data![0]
                                   .id!;
+                              classId = classId == 0
+                                  ? Provider.of<AppProvider>(context,
+                                          listen: false)
+                                      .getTeacherSubjectsResponse!
+                                      .data!
+                                      .data![0]
+                                      .class_classroom![0]
+                                      .class_id!
+                                  : classId;
+                              classroomId = classroomId == 0
+                                  ? Provider.of<AppProvider>(context,
+                                          listen: false)
+                                      .getTeacherSubjectsResponse!
+                                      .data!
+                                      .data![0]
+                                      .class_classroom![0]
+                                      .classroom_id!
+                                  : classroomId;
                               Navigator.push(
                                 context,
                                 PageTransition(

@@ -1046,13 +1046,16 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<ApiResponse<QuestionsBank>> getAllQuestions(
-      int teacherId, int classId, int subjectId) async {
+      int teacherId, int classId, int subjectId, int type) async {
     ApiService apiService = ApiService(Dio());
     if (await checkInternet()) {
       questionBankResponse = ApiResponse.loading('');
       try {
         QuestionsBank questionsBank = await apiService.getAllQuestions(
-            teacherId: teacherId, classId: classId, subjectId: subjectId);
+            teacherId: teacherId,
+            classId: classId,
+            subjectId: subjectId,
+            type: type);
         questionBankResponse = ApiResponse.completed(questionsBank);
       } catch (e) {
         if (e is DioError) {

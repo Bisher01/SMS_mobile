@@ -57,8 +57,8 @@ class _AddOralMarkCardState extends State<AddOralMarkCard> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset(
-              'assets/jj.jpg',
+            Image.network(
+              'http://127.0.0.1:8000/storage/${widget.student.picture!}',
               fit: BoxFit.cover,
               height: widgetSize.getHeight(190, context),
               width: double.infinity,

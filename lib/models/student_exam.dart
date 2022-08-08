@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:sms_mobile/models/models.dart';
 part 'student_exam.g.dart';
 
 @JsonSerializable()
@@ -97,9 +98,20 @@ class Choices {
 class QuestionsBank{
   bool? status;
   String? message;
-  List<Questions>? questions;
+  List<MiniQuestions>? questions;
   QuestionsBank({this.status,this.message,this.questions});
   factory QuestionsBank.fromJson(Map<String, dynamic> json) => _$QuestionsBankFromJson(json);
   Map<String, dynamic> toJson() => _$QuestionsBankToJson(this);
+
+}
+
+@JsonSerializable()
+class MiniQuestions{
+  @JsonKey(name: 'max mark')
+  int? max_mark;
+  List<Questions>? questions;
+  MiniQuestions({this.max_mark,this.questions});
+  factory MiniQuestions.fromJson(Map<String, dynamic> json) => _$MiniQuestionsFromJson(json);
+  Map<String, dynamic> toJson() => _$MiniQuestionsToJson(this);
 
 }

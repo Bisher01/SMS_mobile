@@ -14,9 +14,12 @@ class AddQuizScreen extends StatefulWidget {
   final int classId;
   final int subjectId;
   final int classroomId;
-  const AddQuizScreen(
-      {Key? key, required this.classId, required this.subjectId,required this.classroomId,})
-      : super(key: key);
+  const AddQuizScreen({
+    Key? key,
+    required this.classId,
+    required this.subjectId,
+    required this.classroomId,
+  }) : super(key: key);
 
   @override
   State<AddQuizScreen> createState() => _AddQuizScreenState();
@@ -47,7 +50,7 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
     _markController = TextEditingController();
     int id = Provider.of<AppProvider>(context, listen: false).getId();
     Provider.of<AppProvider>(context, listen: false)
-        .getAllQuestions(id, widget.classId, widget.subjectId);
+        .getAllQuestions(id, widget.classId, widget.subjectId, 5);
     super.initState();
   }
 
@@ -89,7 +92,7 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  days[DateTime.now().weekday],
+                  days[DateTime.now().weekday - 1],
                   style: TextStyle(
                       color: Colors.grey[500],
                       fontSize: 18,
@@ -98,7 +101,7 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                       letterSpacing: 0.5),
                 ),
                 Text(
-                  '${months[DateTime.now().month]} ${DateTime.now().year.toString().substring(2)}',
+                  '${months[DateTime.now().month - 1]} ${DateTime.now().year.toString().substring(2)}',
                   style: TextStyle(
                       color: Colors.grey[500],
                       fontSize: 18,
@@ -132,15 +135,14 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
             case Status.COMPLETED:
               return PageView.builder(
                   scrollDirection: Axis.vertical,
-                  itemCount:
-                  provider.questionBankResponse!.data!.questions!.length,
+                  itemCount: provider.questionBankResponse!.data!.questions![0]
+                      .questions!.length,
                   itemBuilder: (context, index) {
                     if (answers.length < index + 1) {
                       answers.add(
                         Answer(
-                          questionId: provider
-                              .questionBankResponse!.data!.questions![index].id!
-                              ,
+                          questionId: provider.questionBankResponse!.data!
+                              .questions![0].questions![index].id!,
                           choiceId: 0,
                         ),
                       );
@@ -166,9 +168,9 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                               ),
                               Row(
                                 children: [
-                                  const Text(
-                                    'Mark',
-                                    style: TextStyle(
+                                  Text(
+                                    'Mark: ${provider.questionBankResponse!.data!.questions![0].max_mark}',
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 22,
                                       color: Colors.grey,
@@ -187,8 +189,8 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                                       },
                                       decoration: InputDecoration(
                                         contentPadding:
-                                        const EdgeInsets.symmetric(
-                                            horizontal: 10),
+                                            const EdgeInsets.symmetric(
+                                                horizontal: 10),
                                         hintStyle: TextStyle(
                                             fontFamily: 'Montserrat',
                                             color: Colors.grey[400]),
@@ -204,10 +206,10 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                                                 color: Colors.transparent,
                                                 width: 0)),
                                         disabledBorder:
-                                        const OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 0)),
+                                            const OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 0)),
                                         focusedBorder: const OutlineInputBorder(
                                             borderSide: BorderSide(
                                                 color: Colors.transparent,
@@ -230,7 +232,7 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 15.0, vertical: 20),
                           child: Text(
-                            '${index + 1}. ${provider.questionBankResponse!.data!.questions![index].text} ',
+                            '${index + 1}. ${provider.questionBankResponse!.data!.questions![0].questions![index].text} ',
                             style: const TextStyle(
                               color: Colors.black,
                               fontSize: 20,
@@ -249,12 +251,13 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                                   Radius.circular(30),
                                 ),
                                 color: provider
-                                    .questionBankResponse!
-                                    .data!
-                                    .questions![index]
-                                    .choices![0]
-                                    .status ==
-                                    1
+                                            .questionBankResponse!
+                                            .data!
+                                            .questions![0]
+                                            .questions![index]
+                                            .choices![0]
+                                            .status ==
+                                        1
                                     ? Colors.orange[400]
                                     : const Color.fromRGBO(70, 73, 81, 1),
                               ),
@@ -264,16 +267,22 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                               ),
                               child: Center(
                                 child: Text(
-                                  provider.questionBankResponse!.data!
-                                      .questions![index].choices![0].text!,
+                                  provider
+                                      .questionBankResponse!
+                                      .data!
+                                      .questions![0]
+                                      .questions![index]
+                                      .choices![0]
+                                      .text!,
                                   style: TextStyle(
                                     color: provider
-                                        .questionBankResponse!
-                                        .data!
-                                        .questions![index]
-                                        .choices![0]
-                                        .status ==
-                                        1
+                                                .questionBankResponse!
+                                                .data!
+                                                .questions![0]
+                                                .questions![index]
+                                                .choices![0]
+                                                .status ==
+                                            1
                                         ? Colors.black
                                         : Colors.white,
                                     fontSize: 18,
@@ -283,12 +292,13 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                             ),
                             Positioned(
                               left: provider
-                                  .questionBankResponse!
-                                  .data!
-                                  .questions![index]
-                                  .choices![0]
-                                  .status ==
-                                  1
+                                          .questionBankResponse!
+                                          .data!
+                                          .questions![0]
+                                          .questions![index]
+                                          .choices![0]
+                                          .status ==
+                                      1
                                   ? width - 85
                                   : 5,
                               top: 5,
@@ -298,12 +308,13 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: provider
-                                        .questionBankResponse!
-                                        .data!
-                                        .questions![index]
-                                        .choices![0]
-                                        .status ==
-                                        1
+                                                .questionBankResponse!
+                                                .data!
+                                                .questions![0]
+                                                .questions![index]
+                                                .choices![0]
+                                                .status ==
+                                            1
                                         ? const Color.fromRGBO(70, 73, 81, 1)
                                         : Colors.orange[400]),
                                 child: Center(
@@ -313,12 +324,13 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold,
                                       color: provider
-                                          .questionBankResponse!
-                                          .data!
-                                          .questions![index]
-                                          .choices![0]
-                                          .status ==
-                                          1
+                                                  .questionBankResponse!
+                                                  .data!
+                                                  .questions![0]
+                                                  .questions![index]
+                                                  .choices![0]
+                                                  .status ==
+                                              1
                                           ? Colors.white
                                           : Colors.black,
                                     ),
@@ -339,12 +351,13 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                                   Radius.circular(30),
                                 ),
                                 color: provider
-                                    .questionBankResponse!
-                                    .data!
-                                    .questions![index]
-                                    .choices![1]
-                                    .status ==
-                                    1
+                                            .questionBankResponse!
+                                            .data!
+                                            .questions![0]
+                                            .questions![index]
+                                            .choices![1]
+                                            .status ==
+                                        1
                                     ? Colors.orange[400]
                                     : const Color.fromRGBO(70, 73, 81, 1),
                               ),
@@ -354,16 +367,22 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                               ),
                               child: Center(
                                 child: Text(
-                                  provider.questionBankResponse!.data!
-                                      .questions![index].choices![1].text!,
+                                  provider
+                                      .questionBankResponse!
+                                      .data!
+                                      .questions![0]
+                                      .questions![index]
+                                      .choices![1]
+                                      .text!,
                                   style: TextStyle(
                                     color: provider
-                                        .questionBankResponse!
-                                        .data!
-                                        .questions![index]
-                                        .choices![1]
-                                        .status ==
-                                        1
+                                                .questionBankResponse!
+                                                .data!
+                                                .questions![0]
+                                                .questions![index]
+                                                .choices![1]
+                                                .status ==
+                                            1
                                         ? Colors.black
                                         : Colors.white,
                                     fontSize: 18,
@@ -373,12 +392,13 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                             ),
                             Positioned(
                               left: provider
-                                  .questionBankResponse!
-                                  .data!
-                                  .questions![index]
-                                  .choices![1]
-                                  .status ==
-                                  1
+                                          .questionBankResponse!
+                                          .data!
+                                          .questions![0]
+                                          .questions![index]
+                                          .choices![1]
+                                          .status ==
+                                      1
                                   ? width - 85
                                   : 5,
                               top: 5,
@@ -388,12 +408,13 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: provider
-                                        .questionBankResponse!
-                                        .data!
-                                        .questions![index]
-                                        .choices![1]
-                                        .status ==
-                                        1
+                                                .questionBankResponse!
+                                                .data!
+                                                .questions![0]
+                                                .questions![index]
+                                                .choices![1]
+                                                .status ==
+                                            1
                                         ? const Color.fromRGBO(70, 73, 81, 1)
                                         : Colors.orange[400]),
                                 child: Center(
@@ -403,12 +424,13 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold,
                                       color: provider
-                                          .questionBankResponse!
-                                          .data!
-                                          .questions![index]
-                                          .choices![1]
-                                          .status ==
-                                          1
+                                                  .questionBankResponse!
+                                                  .data!
+                                                  .questions![0]
+                                                  .questions![index]
+                                                  .choices![1]
+                                                  .status ==
+                                              1
                                           ? Colors.white
                                           : Colors.black,
                                     ),
@@ -419,316 +441,349 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                           ],
                         ),
                         SizedBox(
-                          height: provider.questionBankResponse!.data!
-                              .questions![index].choices!.length >
-                              2
+                          height: provider
+                                      .questionBankResponse!
+                                      .data!
+                                      .questions![0]
+                                      .questions![index]
+                                      .choices!
+                                      .length >
+                                  2
                               ? 10
                               : 0,
                         ),
-                        provider.questionBankResponse!.data!.questions![index]
-                            .choices!.length >
-                            2
+                        provider.questionBankResponse!.data!.questions![0]
+                                    .questions![index].choices!.length >
+                                2
                             ? Stack(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(30),
-                                ),
-                                color: provider
-                                    .questionBankResponse!
-                                    .data!
-                                    .questions![index]
-                                    .choices![2]
-                                    .status ==
-                                    1
-                                    ? Colors.orange[400]
-                                    : const Color.fromRGBO(70, 73, 81, 1),
-                              ),
-                              constraints: BoxConstraints.expand(
-                                width: MediaQuery.of(context).size.width -
-                                    30,
-                                height: 60,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  provider
-                                      .questionBankResponse!
-                                      .data!
-                                      .questions![index]
-                                      .choices![2]
-                                      .text!,
-                                  style: TextStyle(
-                                    color: provider
-                                        .questionBankResponse!
-                                        .data!
-                                        .questions![index]
-                                        .choices![2]
-                                        .status ==
-                                        1
-                                        ? Colors.black
-                                        : Colors.white,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              left: provider
-                                  .questionBankResponse!
-                                  .data!
-                                  .questions![index]
-                                  .choices![2]
-                                  .status ==
-                                  1
-                                  ? width - 85
-                                  : 5,
-                              top: 5,
-                              child: Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: provider
-                                        .questionBankResponse!
-                                        .data!
-                                        .questions![index]
-                                        .choices![2]
-                                        .status ==
-                                        1
-                                        ? const Color.fromRGBO(
-                                        70, 73, 81, 1)
-                                        : Colors.orange[400]),
-                                child: Center(
-                                  child: Text(
-                                    'C',
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(30),
+                                      ),
                                       color: provider
-                                          .questionBankResponse!
-                                          .data!
-                                          .questions![index]
-                                          .choices![2]
-                                          .status ==
-                                          1
-                                          ? Colors.white
-                                          : Colors.black,
+                                                  .questionBankResponse!
+                                                  .data!
+                                                  .questions![0]
+                                                  .questions![index]
+                                                  .choices![2]
+                                                  .status ==
+                                              1
+                                          ? Colors.orange[400]
+                                          : const Color.fromRGBO(70, 73, 81, 1),
+                                    ),
+                                    constraints: BoxConstraints.expand(
+                                      width: MediaQuery.of(context).size.width -
+                                          30,
+                                      height: 60,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        provider
+                                            .questionBankResponse!
+                                            .data!
+                                            .questions![0]
+                                            .questions![index]
+                                            .choices![2]
+                                            .text!,
+                                        style: TextStyle(
+                                          color: provider
+                                                      .questionBankResponse!
+                                                      .data!
+                                                      .questions![0]
+                                                      .questions![index]
+                                                      .choices![2]
+                                                      .status ==
+                                                  1
+                                              ? Colors.black
+                                              : Colors.white,
+                                          fontSize: 18,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
-                            )
-                          ],
-                        )
+                                  Positioned(
+                                    left: provider
+                                                .questionBankResponse!
+                                                .data!
+                                                .questions![0]
+                                                .questions![index]
+                                                .choices![2]
+                                                .status ==
+                                            1
+                                        ? width - 85
+                                        : 5,
+                                    top: 5,
+                                    child: Container(
+                                      height: 50,
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: provider
+                                                      .questionBankResponse!
+                                                      .data!
+                                                      .questions![0]
+                                                      .questions![index]
+                                                      .choices![2]
+                                                      .status ==
+                                                  1
+                                              ? const Color.fromRGBO(
+                                                  70, 73, 81, 1)
+                                              : Colors.orange[400]),
+                                      child: Center(
+                                        child: Text(
+                                          'C',
+                                          style: TextStyle(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.bold,
+                                            color: provider
+                                                        .questionBankResponse!
+                                                        .data!
+                                                        .questions![0]
+                                                        .questions![index]
+                                                        .choices![2]
+                                                        .status ==
+                                                    1
+                                                ? Colors.white
+                                                : Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              )
                             : const SizedBox(),
                         SizedBox(
-                          height: provider.questionBankResponse!.data!
-                              .questions![index].choices!.length >
-                              3
+                          height: provider
+                                      .questionBankResponse!
+                                      .data!
+                                      .questions![0]
+                                      .questions![index]
+                                      .choices!
+                                      .length >
+                                  3
                               ? 10
                               : 0,
                         ),
-                        provider.questionBankResponse!.data!.questions![index]
-                            .choices!.length >
-                            3
+                        provider.questionBankResponse!.data!.questions![0]
+                                    .questions![index].choices!.length >
+                                3
                             ? Stack(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(30),
-                                ),
-                                color: provider
-                                    .questionBankResponse!
-                                    .data!
-                                    .questions![index]
-                                    .choices![3]
-                                    .status ==
-                                    1
-                                    ? Colors.orange[400]
-                                    : const Color.fromRGBO(70, 73, 81, 1),
-                              ),
-                              constraints: BoxConstraints.expand(
-                                width: MediaQuery.of(context).size.width -
-                                    30,
-                                height: 60,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  provider
-                                      .questionBankResponse!
-                                      .data!
-                                      .questions![index]
-                                      .choices![3]
-                                      .text!,
-                                  style: TextStyle(
-                                    color: provider
-                                        .questionBankResponse!
-                                        .data!
-                                        .questions![index]
-                                        .choices![3]
-                                        .status ==
-                                        1
-                                        ? Colors.black
-                                        : Colors.white,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              left: provider
-                                  .questionBankResponse!
-                                  .data!
-                                  .questions![index]
-                                  .choices![3]
-                                  .status ==
-                                  1
-                                  ? width - 85
-                                  : 5,
-                              top: 5,
-                              child: Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: provider
-                                        .questionBankResponse!
-                                        .data!
-                                        .questions![index]
-                                        .choices![3]
-                                        .status ==
-                                        1
-                                        ? const Color.fromRGBO(
-                                        70, 73, 81, 1)
-                                        : Colors.orange[400]),
-                                child: Center(
-                                  child: Text(
-                                    'D',
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(30),
+                                      ),
                                       color: provider
-                                          .questionBankResponse!
-                                          .data!
-                                          .questions![index]
-                                          .choices![3]
-                                          .status ==
-                                          1
-                                          ? Colors.white
-                                          : Colors.black,
+                                                  .questionBankResponse!
+                                                  .data!
+                                                  .questions![0]
+                                                  .questions![index]
+                                                  .choices![3]
+                                                  .status ==
+                                              1
+                                          ? Colors.orange[400]
+                                          : const Color.fromRGBO(70, 73, 81, 1),
+                                    ),
+                                    constraints: BoxConstraints.expand(
+                                      width: MediaQuery.of(context).size.width -
+                                          30,
+                                      height: 60,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        provider
+                                            .questionBankResponse!
+                                            .data!
+                                            .questions![0]
+                                            .questions![index]
+                                            .choices![3]
+                                            .text!,
+                                        style: TextStyle(
+                                          color: provider
+                                                      .questionBankResponse!
+                                                      .data!
+                                                      .questions![0]
+                                                      .questions![index]
+                                                      .choices![3]
+                                                      .status ==
+                                                  1
+                                              ? Colors.black
+                                              : Colors.white,
+                                          fontSize: 18,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
-                            )
-                          ],
-                        )
+                                  Positioned(
+                                    left: provider
+                                                .questionBankResponse!
+                                                .data!
+                                                .questions![0]
+                                                .questions![index]
+                                                .choices![3]
+                                                .status ==
+                                            1
+                                        ? width - 85
+                                        : 5,
+                                    top: 5,
+                                    child: Container(
+                                      height: 50,
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: provider
+                                                      .questionBankResponse!
+                                                      .data!
+                                                      .questions![0]
+                                                      .questions![index]
+                                                      .choices![3]
+                                                      .status ==
+                                                  1
+                                              ? const Color.fromRGBO(
+                                                  70, 73, 81, 1)
+                                              : Colors.orange[400]),
+                                      child: Center(
+                                        child: Text(
+                                          'D',
+                                          style: TextStyle(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.bold,
+                                            color: provider
+                                                        .questionBankResponse!
+                                                        .data!
+                                                        .questions![0]
+                                                        .questions![index]
+                                                        .choices![3]
+                                                        .status ==
+                                                    1
+                                                ? Colors.white
+                                                : Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              )
                             : const SizedBox(),
                         SizedBox(
-                          height: provider.questionBankResponse!.data!
-                              .questions![index].choices!.length >
-                              4
+                          height: provider
+                                      .questionBankResponse!
+                                      .data!
+                                      .questions![0]
+                                      .questions![index]
+                                      .choices!
+                                      .length >
+                                  4
                               ? 10
                               : 0,
                         ),
-                        provider.questionBankResponse!.data!.questions![index]
-                            .choices!.length >
-                            4
+                        provider.questionBankResponse!.data!.questions![0]
+                                    .questions![index].choices!.length >
+                                4
                             ? Stack(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(30),
-                                ),
-                                color: provider
-                                    .questionBankResponse!
-                                    .data!
-                                    .questions![index]
-                                    .choices![4]
-                                    .status ==
-                                    1
-                                    ? Colors.orange[400]
-                                    : const Color.fromRGBO(70, 73, 81, 1),
-                              ),
-                              constraints: BoxConstraints.expand(
-                                width: MediaQuery.of(context).size.width -
-                                    30,
-                                height: 60,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  provider
-                                      .questionBankResponse!
-                                      .data!
-                                      .questions![index]
-                                      .choices![4]
-                                      .text!,
-                                  style: TextStyle(
-                                    color: provider
-                                        .questionBankResponse!
-                                        .data!
-                                        .questions![index]
-                                        .choices![4]
-                                        .status ==
-                                        1
-                                        ? Colors.black
-                                        : Colors.white,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              left: provider
-                                  .questionBankResponse!
-                                  .data!
-                                  .questions![index]
-                                  .choices![4]
-                                  .status ==
-                                  1
-                                  ? width - 85
-                                  : 5,
-                              top: 5,
-                              child: Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: provider
-                                        .questionBankResponse!
-                                        .data!
-                                        .questions![index]
-                                        .choices![4]
-                                        .status ==
-                                        1
-                                        ? const Color.fromRGBO(
-                                        70, 73, 81, 1)
-                                        : Colors.orange[400]),
-                                child: Center(
-                                  child: Text(
-                                    'E',
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(30),
+                                      ),
                                       color: provider
-                                          .questionBankResponse!
-                                          .data!
-                                          .questions![index]
-                                          .choices![4]
-                                          .status ==
-                                          1
-                                          ? Colors.white
-                                          : Colors.black,
+                                                  .questionBankResponse!
+                                                  .data!
+                                                  .questions![0]
+                                                  .questions![index]
+                                                  .choices![4]
+                                                  .status ==
+                                              1
+                                          ? Colors.orange[400]
+                                          : const Color.fromRGBO(70, 73, 81, 1),
+                                    ),
+                                    constraints: BoxConstraints.expand(
+                                      width: MediaQuery.of(context).size.width -
+                                          30,
+                                      height: 60,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        provider
+                                            .questionBankResponse!
+                                            .data!
+                                            .questions![0]
+                                            .questions![index]
+                                            .choices![4]
+                                            .text!,
+                                        style: TextStyle(
+                                          color: provider
+                                                      .questionBankResponse!
+                                                      .data!
+                                                      .questions![0]
+                                                      .questions![index]
+                                                      .choices![4]
+                                                      .status ==
+                                                  1
+                                              ? Colors.black
+                                              : Colors.white,
+                                          fontSize: 18,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
-                            )
-                          ],
-                        )
+                                  Positioned(
+                                    left: provider
+                                                .questionBankResponse!
+                                                .data!
+                                                .questions![0]
+                                                .questions![index]
+                                                .choices![4]
+                                                .status ==
+                                            1
+                                        ? width - 85
+                                        : 5,
+                                    top: 5,
+                                    child: Container(
+                                      height: 50,
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: provider
+                                                      .questionBankResponse!
+                                                      .data!
+                                                      .questions![0]
+                                                      .questions![index]
+                                                      .choices![4]
+                                                      .status ==
+                                                  1
+                                              ? const Color.fromRGBO(
+                                                  70, 73, 81, 1)
+                                              : Colors.orange[400]),
+                                      child: Center(
+                                        child: Text(
+                                          'E',
+                                          style: TextStyle(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.bold,
+                                            color: provider
+                                                        .questionBankResponse!
+                                                        .data!
+                                                        .questions![0]
+                                                        .questions![index]
+                                                        .choices![4]
+                                                        .status ==
+                                                    1
+                                                ? Colors.white
+                                                : Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              )
                             : const SizedBox(),
                         Container(
                           margin: const EdgeInsets.only(top: 100),
@@ -748,15 +803,16 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                             onPressed: _markController.text.isEmpty
                                 ? null
                                 : () {
-                              questions.add(AddQuestionToQuiz(
-                                  mark: int.parse(_markController.text),
-                                  questionId: provider
-                                      .questionBankResponse!
-                                      .data!
-                                      .questions![index]
-                                      .id));
-                              _markController.clear();
-                            },
+                                    questions.add(AddQuestionToQuiz(
+                                        mark: int.parse(_markController.text),
+                                        questionId: provider
+                                            .questionBankResponse!
+                                            .data!
+                                            .questions![0]
+                                            .questions![index]
+                                            .id));
+                                    _markController.clear();
+                                  },
                             child: const Text(
                               'ADD Question',
                               style: TextStyle(
@@ -767,126 +823,126 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                           ),
                         ),
                         index + 1 ==
-                            provider.questionBankResponse!.data!.questions!
-                                .length
+                                provider.questionBankResponse!.data!
+                                    .questions![0].questions!.length
                             ? Padding(
-                          padding: const EdgeInsets.only(
-                            top: 25,
-                          ),
-                          child: SizedBox(
-                            width: widgetSize.getWidth(150, context),
-                            height: widgetSize.getHeight(50, context),
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.orange[400],
-                                shadowColor: Colors.white70,
-                                elevation: 2,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    18,
-                                  ),
+                                padding: const EdgeInsets.only(
+                                  top: 25,
                                 ),
-                              ),
-                              onPressed: () async {
-                                ///TODO: edit BISHER
-                                AddQuiz addQuiz = AddQuiz(
-                                    questions: questions,
-                                    subjectId: widget.subjectId,
-                                    classId: widget.classId,
-                                    classroomId: widget.classroomId,
-                                    start: DateTime.now(),
-                                    end: DateTime.now(),
-                                    seasonId: 1,
-                                    teacherId: provider.getId());
-                                var response =
-                                await Provider.of<AppProvider>(
-                                    context,
-                                    listen: false)
-                                    .addQuiz(addQuiz.toJson());
-                                if (await provider.checkInternet()) {
-                                  if (response.status == Status.LOADING) {
-                                    EasyLoading.showToast(
-                                      'Loading...',
-                                      duration: const Duration(
-                                        milliseconds: 300,
+                                child: SizedBox(
+                                  width: widgetSize.getWidth(150, context),
+                                  height: widgetSize.getHeight(50, context),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.orange[400],
+                                      shadowColor: Colors.white70,
+                                      elevation: 2,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          18,
+                                        ),
                                       ),
-                                    );
-                                  }
-                                  if (response.status == Status.ERROR) {
-                                    EasyLoading.showError(
-                                        response.message!,
-                                        dismissOnTap: true);
-                                  }
-                                  if (response.status ==
-                                      Status.COMPLETED) {
-                                    if (response.data != null &&
-                                        response.data!.status!) {
-                                      showDialog(
-                                          context: context,
-                                          builder:
-                                              (BuildContext context) {
-                                            return AlertDialog(
-                                              actions: <Widget>[
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.push(
-                                                        context,
-                                                        PageTransition(
-                                                          child:
-                                                          const TeacherMainScreen(),
-                                                          type: PageTransitionType
-                                                              .bottomToTopJoined,
-                                                          childCurrent:
-                                                          widget,
-                                                          duration:
-                                                          const Duration(
-                                                              milliseconds:
-                                                              300),
+                                    ),
+                                    onPressed: () async {
+                                      ///TODO: edit BISHER
+                                      AddQuiz addQuiz = AddQuiz(
+                                          questions: questions,
+                                          subjectId: widget.subjectId,
+                                          classId: widget.classId,
+                                          classroomId: widget.classroomId,
+                                          start: DateTime.now(),
+                                          end: DateTime.now().add(Duration(hours: 1)),
+                                          seasonId: 1,
+                                          teacherId: provider.getId());
+                                      var response =
+                                          await Provider.of<AppProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .addQuiz(addQuiz.toJson());
+                                      if (await provider.checkInternet()) {
+                                        if (response.status == Status.LOADING) {
+                                          EasyLoading.showToast(
+                                            'Loading...',
+                                            duration: const Duration(
+                                              milliseconds: 300,
+                                            ),
+                                          );
+                                        }
+                                        if (response.status == Status.ERROR) {
+                                          EasyLoading.showError(
+                                              response.message!,
+                                              dismissOnTap: true);
+                                        }
+                                        if (response.status ==
+                                            Status.COMPLETED) {
+                                          if (response.data != null &&
+                                              response.data!.status!) {
+                                            showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    actions: <Widget>[
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.push(
+                                                          context,
+                                                          PageTransition(
+                                                            child:
+                                                                const TeacherMainScreen(),
+                                                            type: PageTransitionType
+                                                                .bottomToTopJoined,
+                                                            childCurrent:
+                                                                widget,
+                                                            duration:
+                                                                const Duration(
+                                                                    milliseconds:
+                                                                        300),
+                                                          ),
+                                                        ),
+                                                        child: Text(
+                                                          'OK',
+                                                          style: TextStyle(
+                                                            color: Colors
+                                                                .orange[400],
+                                                          ),
                                                         ),
                                                       ),
-                                                  child: Text(
-                                                    'OK',
-                                                    style: TextStyle(
-                                                      color: Colors
-                                                          .orange[400],
+                                                    ],
+                                                    title: Text(
+                                                      response.data!.message!,
                                                     ),
-                                                  ),
-                                                ),
-                                              ],
-                                              title: Text(
-                                                response.data!.message!,
-                                              ),
-                                              content: const Text(
-                                                'Your exam is added successfully',
-                                              ),
-                                            );
-                                          });
-                                      // Navigator.push(
-                                      //   context,
-                                      //   PageTransition(
-                                      //     child:
-                                      //         const StudentMainScreen(),
-                                      //     type: PageTransitionType
-                                      //         .bottomToTopJoined,
-                                      //     childCurrent: widget,
-                                      //     duration: const Duration(
-                                      //         milliseconds: 300),
-                                      //   ),
-                                      // );
-                                    }
-                                  }
-                                }
-                              },
-                              child: const Text(
-                                'Submit',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
+                                                    content: const Text(
+                                                      'Your quiz is added successfully',
+                                                    ),
+                                                  );
+                                                });
+                                            // Navigator.push(
+                                            //   context,
+                                            //   PageTransition(
+                                            //     child:
+                                            //         const StudentMainScreen(),
+                                            //     type: PageTransitionType
+                                            //         .bottomToTopJoined,
+                                            //     childCurrent: widget,
+                                            //     duration: const Duration(
+                                            //         milliseconds: 300),
+                                            //   ),
+                                            // );
+                                          }
+                                        }
+                                      }
+                                    },
+                                    child: const Text(
+                                      'Submit',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
-                        )
+                              )
                             : const SizedBox(),
                       ],
                     );
