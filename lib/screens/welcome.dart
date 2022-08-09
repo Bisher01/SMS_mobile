@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:sms_mobile/utill/utill.dart';
 import '../providers/app_provider.dart';
 import '../screens/screens.dart';
 
@@ -74,34 +75,37 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         Visibility(
                           visible: isLast,
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 12.0),
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(
-                                      20,
+                            padding: const EdgeInsets.only(top: 20.0),
+                            child: SizedBox(
+                              height: widgetSize.getHeight(50, context),
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(
+                                        20,
+                                      ),
                                     ),
                                   ),
+                                  elevation: 3,
+                                  primary: const Color.fromARGB(255, 255, 167, 38,),
                                 ),
-                                elevation: 3,
-                                primary: const Color.fromARGB(255, 255, 167, 38,),
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    child: const LoginScreen(),
-                                    type: PageTransitionType.bottomToTopJoined,
-                                    childCurrent: widget,
-                                    duration: const Duration(milliseconds: 300),
-                                  ),
-                                );
-                                Provider.of<AppProvider>(context, listen: false)
-                                    .setWelcome();
-                              },
-                              child: const Text(
-                                'Continue to login',
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      child: const LoginScreen(),
+                                      type: PageTransitionType.bottomToTopJoined,
+                                      childCurrent: widget,
+                                      duration: const Duration(milliseconds: 300),
+                                    ),
+                                  );
+                                  Provider.of<AppProvider>(context, listen: false)
+                                      .setWelcome();
+                                },
+                                child: const Text(
+                                  'Continue to login',
+                                ),
                               ),
                             ),
                           ),

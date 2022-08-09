@@ -11,7 +11,10 @@ import '../../services/api_response.dart';
 
 class QuizSchedule extends StatefulWidget {
   final int studentId;
-  const QuizSchedule({required this.studentId, Key? key}) : super(key: key);
+  final bool isStudent;
+  const QuizSchedule(
+      {required this.isStudent, required this.studentId, Key? key})
+      : super(key: key);
 
   @override
   State<QuizSchedule> createState() => _QuizScheduleState();
@@ -438,7 +441,8 @@ class _QuizScheduleState extends State<QuizSchedule> {
                                     Container(
                                       decoration: BoxDecoration(
                                         color: containerColor == index
-                                            ? Colors.grey[100]?.withOpacity(0.55)
+                                            ? Colors.grey[100]
+                                                ?.withOpacity(0.55)
                                             : Colors.transparent,
                                         borderRadius: BorderRadius.circular(
                                           15,
@@ -450,30 +454,37 @@ class _QuizScheduleState extends State<QuizSchedule> {
                                       child: Padding(
                                         padding: const EdgeInsets.only(
                                             top: 16, right: 8),
-                                        child: IconButton(
-                                          onPressed: () {
-                                            selectedTab = index;
-                                            Navigator.push(
-                                              context,
-                                              PageTransition(
-                                                child: QuizScreen(
-                                                  quizId: quiz[selectedTab].id!,
+                                        child: widget.isStudent
+                                            ? IconButton(
+                                                onPressed: () {
+                                                  selectedTab = index;
+                                                  Navigator.push(
+                                                    context,
+                                                    PageTransition(
+                                                      child: QuizScreen(
+                                                        quizId:
+                                                            quiz[selectedTab]
+                                                                .id!,
+                                                      ),
+                                                      type: PageTransitionType
+                                                          .leftToRightPop,
+                                                      childCurrent: widget,
+                                                      duration: const Duration(
+                                                          milliseconds: 400),
+                                                    ),
+                                                  );
+                                                },
+                                                icon: const Icon(
+                                                  Icons.arrow_forward_ios,
+                                                  color: Colors.white,
+                                                  size: 18,
                                                 ),
-                                                type: PageTransitionType
-                                                    .leftToRightPop,
-                                                childCurrent: widget,
-                                                duration: const Duration(
-                                                    milliseconds: 400),
+                                                alignment: Alignment.topRight,
+                                              )
+                                            : const SizedBox(
+                                                width: 0,
+                                                height: 0,
                                               ),
-                                            );
-                                          },
-                                          icon: const Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: Colors.white,
-                                            size: 18,
-                                          ),
-                                          alignment: Alignment.topRight,
-                                        ),
                                       ),
                                     ),
                                   ],

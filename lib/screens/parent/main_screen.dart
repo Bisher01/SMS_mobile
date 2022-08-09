@@ -27,7 +27,6 @@ class _ParentMainScreenState extends State<ParentMainScreen>
     super.dispose();
   }
 ///TODO: schedule
-  ///TODO: remove or keep announcements
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -196,6 +195,7 @@ class _ParentMainScreenState extends State<ParentMainScreen>
                     child: QuizSchedule(
                       studentId: Provider.of<AppProvider>(context, listen: false)
                           .getId(),
+                      isStudent: false,
                     ),
                     type: PageTransitionType.leftToRightPop,
                     childCurrent: widget,
@@ -374,36 +374,36 @@ class _ParentMainScreenState extends State<ParentMainScreen>
                   )),
             ),
             //announcements
-            Card(
-                elevation: 3,
-                shadowColor: Colors.black,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(16),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 20, left: 20, right: 20, bottom: 10),
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        'assets/icons/megaphone.png',
-                        height: 100,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Text(
-                        'Announcement',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                        ),
-                      )
-                    ],
-                  ),
-                )),
+            // Card(
+            //     elevation: 3,
+            //     shadowColor: Colors.black,
+            //     shape: const RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.all(
+            //         Radius.circular(16),
+            //       ),
+            //     ),
+            //     child: Padding(
+            //       padding: const EdgeInsets.only(
+            //           top: 20, left: 20, right: 20, bottom: 10),
+            //       child: Column(
+            //         children: [
+            //           Image.asset(
+            //             'assets/icons/megaphone.png',
+            //             height: 100,
+            //           ),
+            //           const SizedBox(
+            //             height: 20,
+            //           ),
+            //           const Text(
+            //             'Announcement',
+            //             style: TextStyle(
+            //               fontWeight: FontWeight.w600,
+            //               fontSize: 18,
+            //             ),
+            //           )
+            //         ],
+            //       ),
+            //     )),
             //attendance
             InkWell(
               onTap: () {
@@ -454,7 +454,7 @@ class _ParentMainScreenState extends State<ParentMainScreen>
                 Navigator.push(
                   context,
                   PageTransition(
-                    child:  ShowSyllabi(isStudent: false,),
+                    child:  const ShowSyllabi(isStudent: false,),
                     type: PageTransitionType.leftToRightPop,
                     childCurrent: widget,
                     duration: const Duration(milliseconds: 400),

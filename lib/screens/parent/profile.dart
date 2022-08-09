@@ -55,14 +55,18 @@ class _ParentProfilePageState extends State<ParentProfilePage> {
                 return Shimmer.fromColors(
                   baseColor: Colors.grey,
                   highlightColor: Colors.white,
-                  child:  CircularProgressIndicator(color: Colors.orange[400],),
+                  child: CircularProgressIndicator(
+                    color: Colors.orange[400],
+                  ),
                 );
               case Status.ERROR:
                 return er.Error(
                   errorMsg: provider.getStudentResponse!.message!,
                 );
               case Status.COMPLETED:
-                final parent = provider.getStudentResponse!.data!.student![0].parent!;
+                final parent =
+                    provider.getStudentResponse!.data!.student![0].parent!;
+                final student = provider.getStudentResponse!.data!.student![0];
                 return Stack(
                   children: [
                     Container(
@@ -209,19 +213,37 @@ class _ParentProfilePageState extends State<ParentProfilePage> {
                         ),
                       ),
                     ),
-                    const Positioned(
+                    Positioned(
                       top: 240,
                       right: 100,
-                      child: Padding(
-                        padding: EdgeInsets.only(),
-                        child: Text(
-                          'Parents',
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16),
-                        ),
+                      child: Column(
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(),
+                            child: Text(
+                              'Parents of',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16),
+                            ),
+                          ),
+                          //name
+                          Padding(
+                            padding: const EdgeInsets.only(),
+                            child: Text(
+                              "${student.f_name} ${student.l_name}",
+                              textAlign: TextAlign.right,
+                              style: const TextStyle(
+                                color: Colors.black87,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+
+                        ],
                       ),
                     ),
                     Padding(

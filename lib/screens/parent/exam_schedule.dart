@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:sms_mobile/providers/providers.dart';
-import 'package:sms_mobile/screens/screens.dart';
 import 'package:sms_mobile/utill/utill.dart';
 import '../../components/error.dart' as err;
 
@@ -102,7 +99,7 @@ class _ParentExamScheduleState extends State<ParentExamSchedule> {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
-                                    days[DateTime.now().weekday-1],
+                                    days[DateTime.now().weekday - 1],
                                     style: TextStyle(
                                         color: Colors.grey[500],
                                         fontSize: 18,
@@ -111,7 +108,7 @@ class _ParentExamScheduleState extends State<ParentExamSchedule> {
                                         letterSpacing: 0.5),
                                   ),
                                   Text(
-                                    '${months[DateTime.now().month-1]} ${DateTime.now().year.toString().substring(2)}',
+                                    '${months[DateTime.now().month - 1]} ${DateTime.now().year.toString().substring(2)}',
                                     style: TextStyle(
                                         color: Colors.grey[500],
                                         fontSize: 18,
@@ -435,32 +432,36 @@ class _ParentExamScheduleState extends State<ParentExamSchedule> {
                                       width: widgetSize.getWidth(240, context),
                                       height:
                                           widgetSize.getHeight(180, context),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
+                                      child: const Padding(
+                                        padding: EdgeInsets.only(
                                             top: 16, right: 8),
-                                        child: IconButton(
-                                          onPressed: () {
-                                            // Navigator.push(
-                                            //   context,
-                                            //   PageTransition(
-                                            //     child: ExamScreen(
-                                            //       examId: exams[index].id!,
-                                            //     ),
-                                            //     type: PageTransitionType
-                                            //         .leftToRightPop,
-                                            //     childCurrent: widget,
-                                            //     duration: const Duration(
-                                            //         milliseconds: 400),
-                                            //   ),
-                                            // );
-                                          },
-                                          icon: const Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: Colors.white,
-                                            size: 18,
-                                          ),
-                                          alignment: Alignment.topRight,
+                                        child: SizedBox(
+                                          width: 0,
+                                          height: 0,
                                         ),
+                                        // child: IconButton(
+                                        //   onPressed: () {
+                                        //     // Navigator.push(
+                                        //     //   context,
+                                        //     //   PageTransition(
+                                        //     //     child: ExamScreen(
+                                        //     //       examId: exams[index].id!,
+                                        //     //     ),
+                                        //     //     type: PageTransitionType
+                                        //     //         .leftToRightPop,
+                                        //     //     childCurrent: widget,
+                                        //     //     duration: const Duration(
+                                        //     //         milliseconds: 400),
+                                        //     //   ),
+                                        //     // );
+                                        //   },
+                                        //   icon: const Icon(
+                                        //     Icons.arrow_forward_ios,
+                                        //     color: Colors.white,
+                                        //     size: 18,
+                                        //   ),
+                                        //   alignment: Alignment.topRight,
+                                        // ),
                                       ),
                                     ),
                                   ],

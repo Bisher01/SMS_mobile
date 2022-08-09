@@ -26,8 +26,6 @@ class _StudentMainScreenState extends State<StudentMainScreen>
     super.dispose();
   }
 
-  ///TODO: schedule, meetings
-  ///TODO: remove or keep announcements
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -200,6 +198,7 @@ class _StudentMainScreenState extends State<StudentMainScreen>
                       studentId:
                           Provider.of<AppProvider>(context, listen: false)
                               .getId(),
+                      isStudent: true,
                     ),
                     type: PageTransitionType.leftToRightPop,
                     childCurrent: widget,
