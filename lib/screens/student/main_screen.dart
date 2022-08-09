@@ -81,7 +81,7 @@ class _StudentMainScreenState extends State<StudentMainScreen>
                                     Navigator.push(
                                       context,
                                       PageTransition(
-                                        child: LoginScreen(),
+                                        child: const LoginScreen(),
                                         type: PageTransitionType
                                             .bottomToTopJoined,
                                         childCurrent: widget,
@@ -424,36 +424,36 @@ class _StudentMainScreenState extends State<StudentMainScreen>
                   )),
             ),
             //announcements
-            Card(
-                elevation: 3,
-                shadowColor: Colors.black,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(16),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 20, left: 20, right: 20, bottom: 10),
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        'assets/icons/megaphone.png',
-                        height: 100,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Text(
-                        'Announcement',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                        ),
-                      )
-                    ],
-                  ),
-                )),
+            // Card(
+            //     elevation: 3,
+            //     shadowColor: Colors.black,
+            //     shape: const RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.all(
+            //         Radius.circular(16),
+            //       ),
+            //     ),
+            //     child: Padding(
+            //       padding: const EdgeInsets.only(
+            //           top: 20, left: 20, right: 20, bottom: 10),
+            //       child: Column(
+            //         children: [
+            //           Image.asset(
+            //             'assets/icons/megaphone.png',
+            //             height: 100,
+            //           ),
+            //           const SizedBox(
+            //             height: 20,
+            //           ),
+            //           const Text(
+            //             'Announcement',
+            //             style: TextStyle(
+            //               fontWeight: FontWeight.w600,
+            //               fontSize: 18,
+            //             ),
+            //           )
+            //         ],
+            //       ),
+            //     )),
             //attendance
             InkWell(
               onTap: () {
@@ -505,7 +505,7 @@ class _StudentMainScreenState extends State<StudentMainScreen>
                 Navigator.push(
                   context,
                   PageTransition(
-                    child: ShowSyllabi(
+                    child: const ShowSyllabi(
                       isStudent: true,
                     ),
                     type: PageTransitionType.leftToRightPop,

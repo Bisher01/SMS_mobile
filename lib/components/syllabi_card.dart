@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:provider/provider.dart';
 import 'package:sms_mobile/screens/student/pdf_screen.dart';
-import '../providers/app_provider.dart';
 import '../models/models.dart';
-import '../services/api_response.dart';
-import '../utill/widget_size.dart';
 
 class SyllabiCard extends StatefulWidget {
   final Syllabi syllabi;
@@ -22,9 +17,12 @@ class _SyllabiCardState extends State<SyllabiCard> {
       color: Colors.white,
       elevation: 2,
       shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: const Color(
-            0Xff2BC3BB,
+        side: const BorderSide(
+          color: Color.fromARGB(
+            255,
+            255,
+            167,
+            38,
           ),
         ),
         borderRadius: BorderRadius.circular(
@@ -46,8 +44,11 @@ class _SyllabiCardState extends State<SyllabiCard> {
               child: Text(
                 "Syllabi info",
                 style: TextStyle(
-                  color: Color(
-                    0Xff2BC3BB,
+                  color: Color.fromARGB(
+                    255,
+                    255,
+                    167,
+                    38,
                   ),
                   fontWeight: FontWeight.bold,
                 ),
@@ -132,8 +133,11 @@ class _SyllabiCardState extends State<SyllabiCard> {
               child: const Text(
                 'Preview book',
                 style: TextStyle(
-                  color: Color(
-                    0Xff2BC3BB,
+                  color: Color.fromARGB(
+                    255,
+                    255,
+                    167,
+                    38,
                   ),
                 ),
               ),

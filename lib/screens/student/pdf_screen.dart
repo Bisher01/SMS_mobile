@@ -15,7 +15,7 @@ class _PdfScreenState extends State<PdfScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0Xff2BC3BB),
+        backgroundColor: Color.fromARGB(255, 255, 167, 38,),
         title: const Text(
           'PDF preview',
           style: TextStyle(color: Colors.white),

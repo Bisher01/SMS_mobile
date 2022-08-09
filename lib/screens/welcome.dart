@@ -52,7 +52,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             style: const TextStyle(
                               fontSize: 30.0,
                               fontWeight: FontWeight.w300,
-                              color: Color(0XFF3F3D56),
+                              color:Color.fromARGB(255, 255, 167, 38,),
                               //height: 2.0,
                             ),
                           ),
@@ -85,9 +85,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   ),
                                 ),
                                 elevation: 3,
-                                primary: const Color(
-                                  0Xff2BC3BB,
-                                ),
+                                primary: const Color.fromARGB(255, 255, 167, 38,),
                               ),
                               onPressed: () {
                                 Navigator.push(
@@ -149,12 +147,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   controller: _pageViewController,
                   count: 4,
                   effect: WormEffect(
-                    activeDotColor: const Color(
-                      0XFF256075,
-                    ),
-                    dotColor: const Color(
-                      0XFF256075,
-                    ).withOpacity(0.2),
+                    activeDotColor: const Color.fromARGB(255, 255, 167, 38,),
+                    dotColor: const Color.fromARGB(255, 255, 167, 38,).withOpacity(0.2),
                     paintStyle: PaintingStyle.fill,
                     dotHeight: 12,
                     dotWidth: 12,

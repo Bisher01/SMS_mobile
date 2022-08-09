@@ -76,7 +76,6 @@ StudentTeacher _$StudentTeacherFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int?,
       picture: json['picture'] as String? ?? '',
       salary: json['salary'] as String?,
-      grade_id: json['grade_id'] as int?,
       religion_id: json['religion_id'] as int?,
       gender_id: json['gender_id'] as int?,
       f_name: json['f_name'] as String?,
@@ -100,5 +99,4 @@ Map<String, dynamic> _$StudentTeacherToJson(StudentTeacher instance) =>
       'address_id': instance.address_id,
       'religion_id': instance.religion_id,
       'gender_id': instance.gender_id,
-      'grade_id': instance.grade_id,
     };

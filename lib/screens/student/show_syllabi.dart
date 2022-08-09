@@ -9,7 +9,7 @@ import '../screens.dart';
 
 class ShowSyllabi extends StatefulWidget {
   final bool isStudent;
-  ShowSyllabi({required this.isStudent, Key? key}) : super(key: key);
+  const ShowSyllabi({required this.isStudent, Key? key}) : super(key: key);
 
   @override
   State<ShowSyllabi> createState() => _ShowSyllabiState();
@@ -24,7 +24,6 @@ class _ShowSyllabiState extends State<ShowSyllabi> {
         .getStudent(id)
         .then((value) {
       classId = value.data!.student![0].class_classroom!.class_id;
-      print(classId);
       Provider.of<AppProvider>(context, listen: false).getAllSyllabi(classId!);
     });
 
@@ -37,7 +36,7 @@ class _ShowSyllabiState extends State<ShowSyllabi> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: const Text(
-          "Teacher's classes and subjects",
+          "Syllabi",
           style: TextStyle(
             fontSize: 16,
           ),

@@ -35,8 +35,11 @@ class _StudentOnlineClassCardState extends State<StudentOnlineClassCard> {
       elevation: 2,
       shape: RoundedRectangleBorder(
         side: BorderSide(
-          color: const Color(
-            0Xff2BC3BB,
+          color: Color.fromARGB(
+            255,
+            255,
+            167,
+            38,
           ),
         ),
         borderRadius: BorderRadius.circular(
@@ -56,10 +59,13 @@ class _StudentOnlineClassCardState extends State<StudentOnlineClassCard> {
                 top: 10,
               ),
               child: Text(
-                "Syllabi info",
+                "Meeting info",
                 style: TextStyle(
-                  color: Color(
-                    0Xff2BC3BB,
+                  color: Color.fromARGB(
+                    255,
+                    255,
+                    167,
+                    38,
                   ),
                   fontWeight: FontWeight.bold,
                 ),
@@ -67,7 +73,7 @@ class _StudentOnlineClassCardState extends State<StudentOnlineClassCard> {
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 //subject name
                 Padding(
@@ -162,8 +168,11 @@ class _StudentOnlineClassCardState extends State<StudentOnlineClassCard> {
               child: const Text(
                 'Preview link',
                 style: TextStyle(
-                  color: Color(
-                    0Xff2BC3BB,
+                  color: Color.fromARGB(
+                    255,
+                    255,
+                    167,
+                    38,
                   ),
                 ),
               ),

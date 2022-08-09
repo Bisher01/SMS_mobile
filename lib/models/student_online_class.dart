@@ -74,12 +74,10 @@ class StudentTeacher {
   int? address_id;
   int? religion_id;
   int? gender_id;
-  int? grade_id;
   StudentTeacher({
     this.id,
     this.picture,
     this.salary,
-    this.grade_id,
     this.religion_id,
     this.gender_id,
     this.f_name,

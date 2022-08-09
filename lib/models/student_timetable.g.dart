@@ -15,10 +15,13 @@ StudentTimeTable _$StudentTimeTableFromJson(Map<String, dynamic> json) =>
           ? null
           : Lesson.fromJson(json['lesson'] as Map<String, dynamic>),
       lessonDay_id: json['lessonDay_id'] as int?,
-      subject: json['subject'] as String? ?? '',
+      subject: json['subject'] == null
+          ? null
+          : Subject.fromJson(json['subject'] as Map<String, dynamic>),
       teacher: json['teacher'] == null
           ? null
           : StudentTeacher.fromJson(json['teacher'] as Map<String, dynamic>),
+      subject_id: json['subject_id'] as int?,
     );
 
 Map<String, dynamic> _$StudentTimeTableToJson(StudentTimeTable instance) =>
@@ -27,6 +30,7 @@ Map<String, dynamic> _$StudentTimeTableToJson(StudentTimeTable instance) =>
       'lessonDay_id': instance.lessonDay_id,
       'classClassroom_id': instance.classClassroom_id,
       'teacher_id': instance.teacher_id,
+      'subject_id': instance.subject_id,
       'lesson': instance.lesson,
       'subject': instance.subject,
       'teacher': instance.teacher,

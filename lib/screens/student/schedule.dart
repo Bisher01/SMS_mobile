@@ -65,14 +65,13 @@ class _StudentScheduleState extends State<StudentSchedule> {
       (i) => List.filled(
           8,
           StudentModified(
-            teacher: '',
-            subject: '',
+            teacher: 'None',
+            subject: 'None',
           ),
           growable: false),
       growable: false);
   @override
   initState() {
-    ///TODO: add schedule request and link it to the ui
     int studentId = Provider.of<AppProvider>(context, listen: false).getId();
     Provider.of<AppProvider>(context, listen: false)
         .getStudent(studentId)
@@ -91,13 +90,13 @@ class _StudentScheduleState extends State<StudentSchedule> {
                   .id!] = StudentModified(
               teacher:
                   '${provider.data!.studentTimetable![i].teacher!.f_name} ${provider.data!.studentTimetable![i].teacher!.l_name}',
-              subject: provider.data!.studentTimetable![i].subject);
+              subject: provider.data!.studentTimetable![i].subject!.name);
         }
-        // for (int i = 0; i < 7; i++) {
-        //   for (int j = 0; j < 7; j++) {
-        //     print('$i, $j, ${timetable[i][j].teacher}');
-        //   }
-        // }
+        for (int i = 0; i < 8; i++) {
+          for (int j = 0; j < 8; j++) {
+            print('$i, $j, ${timetable[i][j].teacher}');
+          }
+        }
       });
     });
     super.initState();
@@ -617,7 +616,7 @@ class _StudentScheduleState extends State<StudentSchedule> {
                                   ),
                                   Text(
                                     startPeriods[index],
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w600,
                                         fontSize: 18,
@@ -659,7 +658,7 @@ class _StudentScheduleState extends State<StudentSchedule> {
                                     Text(
                                       timetable[selectedDay][index + 1]
                                           .subject!,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 26,
                                         fontFamily: 'ChakraPetch',
@@ -678,18 +677,18 @@ class _StudentScheduleState extends State<StudentSchedule> {
                                     const Spacer(),
                                     Row(
                                       children: [
-                                        CircleAvatar(
+                                        const CircleAvatar(
                                           radius: 15,
-                                          backgroundImage: NetworkImage(
+                                          backgroundImage: const NetworkImage(
                                               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQkqF4GNbddpeM38Iq_ac9DyUcRr7VXkVVAmQcgyi6Xv6F5bcf3mlZOUxm47kO7UYuBIg&usqp=CAU'),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 6,
                                         ),
                                         Text(
                                           timetable[selectedDay][index + 1]
                                               .teacher!,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 18,
                                             fontFamily: 'ChakraPetch',

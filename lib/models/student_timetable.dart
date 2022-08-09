@@ -10,10 +10,11 @@ class StudentTimeTable {
   int? lessonDay_id;
   int? classClassroom_id;
   int? teacher_id;
+  int? subject_id;
   Lesson? lesson;
-  @JsonKey(defaultValue: '')
-  String? subject;
+  Subject? subject;
   StudentTeacher? teacher;
+
   StudentTimeTable({
     this.id,
     this.teacher_id,
@@ -22,6 +23,7 @@ class StudentTimeTable {
     this.lessonDay_id,
     this.subject,
     this.teacher,
+    this.subject_id,
   });
 
   factory StudentTimeTable.fromJson(Map<String, dynamic> json) =>

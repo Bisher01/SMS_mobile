@@ -173,12 +173,12 @@ class _QuizScheduleState extends State<QuizSchedule> {
                                     selectedTab = index;
                                     itemScrollController.scrollTo(
                                         index: index,
-                                        duration: const Duration(seconds: 3),
+                                        duration: const Duration(seconds: 1),
                                         curve: Curves.easeInOutCubic);
                                     containerColor = index;
                                     Future.delayed(
                                         const Duration(
-                                          seconds: 3,
+                                          seconds: 1,
                                         ), () {
                                       setState(() {
                                         containerColor = -1;
@@ -438,7 +438,7 @@ class _QuizScheduleState extends State<QuizSchedule> {
                                     Container(
                                       decoration: BoxDecoration(
                                         color: containerColor == index
-                                            ? Colors.grey[100]?.withOpacity(0.8)
+                                            ? Colors.grey[100]?.withOpacity(0.55)
                                             : Colors.transparent,
                                         borderRadius: BorderRadius.circular(
                                           15,
