@@ -28,445 +28,135 @@ class _StudentMainScreenState extends State<StudentMainScreen>
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        elevation: 0,
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          actions: [
-            GestureDetector(
-              onDoubleTap: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: const Text('Log Out'),
-                        content: const Text(
-                          'Are you sure you want to log out?',
-                        ),
-                        elevation: 2,
-                        actions: [
-                          TextButton(
-                            onPressed: () async {
-                              final provider = Provider.of<AppProvider>(context,
-                                  listen: false);
-                              String token = provider.getToken();
-                              if (await provider.checkInternet()) {
-                                var response = await Provider.of<AppProvider>(
-                                        context,
-                                        listen: false)
-                                    .logout('Bearer $token');
-                                if (response.status == Status.LOADING) {
-                                  EasyLoading.showToast(
-                                    'Loading...',
-                                    duration: const Duration(
-                                      milliseconds: 300,
+        actions: [
+          GestureDetector(
+            onDoubleTap: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text('Log Out'),
+                      content: const Text(
+                        'Are you sure you want to log out?',
+                      ),
+                      elevation: 2,
+                      actions: [
+                        TextButton(
+                          onPressed: () async {
+                            final provider = Provider.of<AppProvider>(context,
+                                listen: false);
+                            String token = provider.getToken();
+                            if (await provider.checkInternet()) {
+                              var response = await Provider.of<AppProvider>(
+                                      context,
+                                      listen: false)
+                                  .logout('Bearer $token');
+                              if (response.status == Status.LOADING) {
+                                EasyLoading.showToast(
+                                  'Loading...',
+                                  duration: const Duration(
+                                    milliseconds: 300,
+                                  ),
+                                );
+                              }
+                              if (response.status == Status.ERROR) {
+                                EasyLoading.showError(response.data!.message!,
+                                    dismissOnTap: true);
+                              }
+                              if (response.status == Status.COMPLETED) {
+                                if (response.data != null) {
+                                  var box = Boxes.getAuthBox();
+                                  await box.clear();
+                                  EasyLoading.showSuccess(
+                                      response.data!.message!,
+                                      dismissOnTap: true);
+                                  Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      child: const LoginScreen(),
+                                      type: PageTransitionType
+                                          .bottomToTopJoined,
+                                      childCurrent: widget,
+                                      duration:
+                                          const Duration(milliseconds: 300),
                                     ),
                                   );
                                 }
-                                if (response.status == Status.ERROR) {
-                                  EasyLoading.showError(response.data!.message!,
-                                      dismissOnTap: true);
-                                }
-                                if (response.status == Status.COMPLETED) {
-                                  if (response.data != null) {
-                                    var box = Boxes.getAuthBox();
-                                    await box.clear();
-                                    EasyLoading.showSuccess(
-                                        response.data!.message!,
-                                        dismissOnTap: true);
-                                    Navigator.push(
-                                      context,
-                                      PageTransition(
-                                        child: const LoginScreen(),
-                                        type: PageTransitionType
-                                            .bottomToTopJoined,
-                                        childCurrent: widget,
-                                        duration:
-                                            const Duration(milliseconds: 300),
-                                      ),
-                                    );
-                                  }
-                                  // var box = Boxes.getAuthBox();
-                                  // box.clear();
-                                }
-                              } else {
-                                EasyLoading.showError('No Internet Connection',
-                                    dismissOnTap: true);
+                                // var box = Boxes.getAuthBox();
+                                // box.clear();
                               }
-                            },
-                            child: Text(
-                              'Log out',
-                              style: TextStyle(
-                                color: Colors.orange[300],
-                              ),
+                            } else {
+                              EasyLoading.showError('No Internet Connection',
+                                  dismissOnTap: true);
+                            }
+                          },
+                          child: Text(
+                            'Log out',
+                            style: TextStyle(
+                              color: Colors.orange[300],
                             ),
                           ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Text(
-                              'Cancel',
-                              style: TextStyle(
-                                color: Colors.orange[300],
-                              ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(
+                              color: Colors.orange[300],
                             ),
                           ),
-                        ],
-                      );
-                    });
-              },
-              child: Image.asset(
-                'assets/icons/gear.png',
-                height: 40,
-                width: 40,
-              ),
-            ),
-            const SizedBox(
-              width: 10,
-            )
-          ],
-          title: const Text(
-            'Main Screen',
-            maxLines: 1,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-              fontSize: 18,
+                        ),
+                      ],
+                    );
+                  });
+            },
+            child: Image.asset(
+              'assets/icons/gear.png',
+              height: 40,
+              width: 40,
             ),
           ),
-          centerTitle: false,
+          const SizedBox(
+            width: 10,
+          )
+        ],
+        title: const Text(
+          'Main Screen',
+          maxLines: 1,
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
+            fontSize: 18,
+          ),
         ),
-        body: GridView.count(
-          padding:
-              const EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 30),
-          crossAxisCount: 2,
-          children: [
-            //profile
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  PageTransition(
-                    child: const StudentProfilePage(),
-                    type: PageTransitionType.leftToRightPop,
-                    childCurrent: widget,
-                    duration: const Duration(milliseconds: 400),
-                  ),
-                );
-              },
-              child: Card(
-                  elevation: 3,
-                  shadowColor: Colors.black,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(16),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 20, left: 20, right: 20, bottom: 10),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/icons/user-2.png',
-                          height: 100,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Text(
-                          'Profile',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
-            ),
-            //quiz
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  PageTransition(
-                    child: QuizSchedule(
-                      studentId:
-                          Provider.of<AppProvider>(context, listen: false)
-                              .getId(),
-                      isStudent: true,
-                    ),
-                    type: PageTransitionType.leftToRightPop,
-                    childCurrent: widget,
-                    duration: const Duration(milliseconds: 400),
-                  ),
-                );
-              },
-              child: Card(
-                  elevation: 3,
-                  shadowColor: Colors.black,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(16),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 20, left: 20, right: 20, bottom: 10),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/icons/homework 2.png',
-                          height: 100,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Text(
-                          'Quiz',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
-            ),
-            //exam schedule
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  PageTransition(
-                    child: StudentExamSchedule(
-                      studentId:
-                          Provider.of<AppProvider>(context, listen: false)
-                              .getId(),
-                    ),
-                    type: PageTransitionType.leftToRightPop,
-                    childCurrent: widget,
-                    duration: const Duration(milliseconds: 400),
-                  ),
-                );
-              },
-              child: Card(
-                  elevation: 3,
-                  shadowColor: Colors.black,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(16),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 20, left: 20, right: 20, bottom: 10),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/icons/exam.png',
-                          height: 100,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Text(
-                          'Exam',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
-            ),
-            //marks
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  PageTransition(
-                    child: Resultants(
-                      studentId:
-                          Provider.of<AppProvider>(context, listen: false)
-                              .getId(),
-                      isParent: false,
-                    ),
-                    type: PageTransitionType.leftToRightPop,
-                    childCurrent: widget,
-                    duration: const Duration(milliseconds: 400),
-                  ),
-                );
-              },
-              child: Card(
-                  elevation: 3,
-                  shadowColor: Colors.black,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(16),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 20, left: 20, right: 20, bottom: 10),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/icons/score.png',
-                          height: 100,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Text(
-                          'Marks',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
-            ),
-            //schedule
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  PageTransition(
-                    child: const StudentSchedule(),
-                    type: PageTransitionType.leftToRightPop,
-                    childCurrent: widget,
-                    duration: const Duration(milliseconds: 400),
-                  ),
-                );
-              },
-              child: Card(
-                  elevation: 3,
-                  shadowColor: Colors.black,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(16),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 20, left: 20, right: 20, bottom: 10),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/icons/schedule.png',
-                          height: 100,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Text(
-                          'Schedule',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
-            ),
-            //meetings
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  PageTransition(
-                    child: const StudentShowOnlineClass(),
-                    type: PageTransitionType.leftToRightPop,
-                    childCurrent: widget,
-                    duration: const Duration(milliseconds: 400),
-                  ),
-                );
-              },
-              child: Card(
-                  elevation: 3,
-                  shadowColor: Colors.black,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(16),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 20, left: 20, right: 20, bottom: 10),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/icons/meeting.png',
-                          height: 100,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Text(
-                          'Meetings',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
-            ),
-            //announcements
-            // Card(
-            //     elevation: 3,
-            //     shadowColor: Colors.black,
-            //     shape: const RoundedRectangleBorder(
-            //       borderRadius: BorderRadius.all(
-            //         Radius.circular(16),
-            //       ),
-            //     ),
-            //     child: Padding(
-            //       padding: const EdgeInsets.only(
-            //           top: 20, left: 20, right: 20, bottom: 10),
-            //       child: Column(
-            //         children: [
-            //           Image.asset(
-            //             'assets/icons/megaphone.png',
-            //             height: 100,
-            //           ),
-            //           const SizedBox(
-            //             height: 20,
-            //           ),
-            //           const Text(
-            //             'Announcement',
-            //             style: TextStyle(
-            //               fontWeight: FontWeight.w600,
-            //               fontSize: 18,
-            //             ),
-            //           )
-            //         ],
-            //       ),
-            //     )),
-            //attendance
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  PageTransition(
-                    child: const StudentAttendanceScreen(),
-                    type: PageTransitionType.leftToRightPop,
-                    childCurrent: widget,
-                    duration: const Duration(milliseconds: 400),
-                  ),
-                );
-              },
-              child: Card(
+        centerTitle: false,
+      ),
+      body: GridView.count(
+        padding:
+            const EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 30),
+        crossAxisCount: 2,
+        children: [
+          //profile
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: const StudentProfilePage(),
+                  type: PageTransitionType.leftToRightPop,
+                  childCurrent: widget,
+                  duration: const Duration(milliseconds: 400),
+                ),
+              );
+            },
+            child: Card(
                 elevation: 3,
                 shadowColor: Colors.black,
                 shape: const RoundedRectangleBorder(
@@ -480,14 +170,14 @@ class _StudentMainScreenState extends State<StudentMainScreen>
                   child: Column(
                     children: [
                       Image.asset(
-                        'assets/icons/attendance.png',
+                        'assets/icons/user-2.png',
                         height: 100,
                       ),
                       const SizedBox(
                         height: 20,
                       ),
                       const Text(
-                        'Attendance',
+                        'Profile',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 18,
@@ -495,57 +185,365 @@ class _StudentMainScreenState extends State<StudentMainScreen>
                       )
                     ],
                   ),
+                )),
+          ),
+          //quiz
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: QuizSchedule(
+                    studentId:
+                        Provider.of<AppProvider>(context, listen: false)
+                            .getId(),
+                    isStudent: true,
+                  ),
+                  type: PageTransitionType.leftToRightPop,
+                  childCurrent: widget,
+                  duration: const Duration(milliseconds: 400),
+                ),
+              );
+            },
+            child: Card(
+                elevation: 3,
+                shadowColor: Colors.black,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(16),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 20, right: 20, bottom: 10),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/icons/homework 2.png',
+                        height: 100,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Quiz',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                      )
+                    ],
+                  ),
+                )),
+          ),
+          //exam schedule
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: StudentExamSchedule(
+                    studentId:
+                        Provider.of<AppProvider>(context, listen: false)
+                            .getId(),
+                  ),
+                  type: PageTransitionType.leftToRightPop,
+                  childCurrent: widget,
+                  duration: const Duration(milliseconds: 400),
+                ),
+              );
+            },
+            child: Card(
+                elevation: 3,
+                shadowColor: Colors.black,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(16),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 20, right: 20, bottom: 10),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/icons/exam.png',
+                        height: 100,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Exam',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                      )
+                    ],
+                  ),
+                )),
+          ),
+          //marks
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: Resultants(
+                    studentId:
+                        Provider.of<AppProvider>(context, listen: false)
+                            .getId(),
+                    isParent: false,
+                  ),
+                  type: PageTransitionType.leftToRightPop,
+                  childCurrent: widget,
+                  duration: const Duration(milliseconds: 400),
+                ),
+              );
+            },
+            child: Card(
+                elevation: 3,
+                shadowColor: Colors.black,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(16),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 20, right: 20, bottom: 10),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/icons/score.png',
+                        height: 100,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Marks',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                      )
+                    ],
+                  ),
+                )),
+          ),
+          //schedule
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: const StudentSchedule(),
+                  type: PageTransitionType.leftToRightPop,
+                  childCurrent: widget,
+                  duration: const Duration(milliseconds: 400),
+                ),
+              );
+            },
+            child: Card(
+                elevation: 3,
+                shadowColor: Colors.black,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(16),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 20, right: 20, bottom: 10),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/icons/schedule.png',
+                        height: 100,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Schedule',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                      )
+                    ],
+                  ),
+                )),
+          ),
+          //meetings
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: const StudentShowOnlineClass(),
+                  type: PageTransitionType.leftToRightPop,
+                  childCurrent: widget,
+                  duration: const Duration(milliseconds: 400),
+                ),
+              );
+            },
+            child: Card(
+                elevation: 3,
+                shadowColor: Colors.black,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(16),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 20, right: 20, bottom: 10),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/icons/meeting.png',
+                        height: 100,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Meetings',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                      )
+                    ],
+                  ),
+                )),
+          ),
+          //announcements
+          // Card(
+          //     elevation: 3,
+          //     shadowColor: Colors.black,
+          //     shape: const RoundedRectangleBorder(
+          //       borderRadius: BorderRadius.all(
+          //         Radius.circular(16),
+          //       ),
+          //     ),
+          //     child: Padding(
+          //       padding: const EdgeInsets.only(
+          //           top: 20, left: 20, right: 20, bottom: 10),
+          //       child: Column(
+          //         children: [
+          //           Image.asset(
+          //             'assets/icons/megaphone.png',
+          //             height: 100,
+          //           ),
+          //           const SizedBox(
+          //             height: 20,
+          //           ),
+          //           const Text(
+          //             'Announcement',
+          //             style: TextStyle(
+          //               fontWeight: FontWeight.w600,
+          //               fontSize: 18,
+          //             ),
+          //           )
+          //         ],
+          //       ),
+          //     )),
+          //attendance
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: const StudentAttendanceScreen(),
+                  type: PageTransitionType.leftToRightPop,
+                  childCurrent: widget,
+                  duration: const Duration(milliseconds: 400),
+                ),
+              );
+            },
+            child: Card(
+              elevation: 3,
+              shadowColor: Colors.black,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(16),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    top: 20, left: 20, right: 20, bottom: 10),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/icons/attendance.png',
+                      height: 100,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text(
+                      'Attendance',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
-            //syllabi
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  PageTransition(
-                    child: const ShowSyllabi(
-                      isStudent: true,
-                    ),
-                    type: PageTransitionType.leftToRightPop,
-                    childCurrent: widget,
-                    duration: const Duration(milliseconds: 400),
+          ),
+          //syllabi
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: const ShowSyllabi(
+                    isStudent: true,
                   ),
-                );
-              },
-              child: Card(
-                  elevation: 3,
-                  shadowColor: Colors.black,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(16),
-                    ),
+                  type: PageTransitionType.leftToRightPop,
+                  childCurrent: widget,
+                  duration: const Duration(milliseconds: 400),
+                ),
+              );
+            },
+            child: Card(
+                elevation: 3,
+                shadowColor: Colors.black,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(16),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 20, left: 20, right: 20, bottom: 10),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/icons/books.png',
-                          height: 100,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 20, right: 20, bottom: 10),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/icons/books.png',
+                        height: 100,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Syllabi',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Text(
-                          'Syllabi',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
-            ),
-          ],
-        ),
+                      )
+                    ],
+                  ),
+                )),
+          ),
+        ],
       ),
     );
   }
