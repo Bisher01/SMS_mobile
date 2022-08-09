@@ -13,8 +13,10 @@ class QuestionsBankScreen extends StatefulWidget {
   final int classId;
   final int subjectId;
   final int type;
+  final int season;
   const QuestionsBankScreen({
     Key? key,
+    required this.season,
     required this.classId,
     required this.subjectId,
     required this.type,
@@ -832,14 +834,13 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                       ),
                                     ),
                                     onPressed: () async {
-                                      ///TODO: edit BISHER
                                       AddExam addExam = AddExam(
                                           questions: questions,
                                           subjectId: widget.subjectId,
                                           classId: widget.classId,
                                           start: DateTime.now(),
-                                          end: DateTime.now().add(Duration(hours: 1)),
-                                          seasonId: 1,
+                                          end: DateTime.now().add(const Duration(hours: 1)),
+                                          seasonId: widget.season,
                                           examNameId: widget.type);
                                       var response =
                                           await Provider.of<AppProvider>(

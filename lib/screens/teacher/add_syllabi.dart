@@ -78,27 +78,21 @@ class _AddSyllabiState extends State<AddSyllabi> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         title: const Text(
           "Teacher's classes",
           style: TextStyle(
             fontSize: 16,
+            color: Colors.black
           ),
         ),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
+            color: Colors.black,
           ),
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              PageTransition(
-                type: PageTransitionType.bottomToTopJoined,
-                childCurrent: widget,
-                duration: const Duration(milliseconds: 300),
-                child: const TeacherMainScreen(),
-              ),
-            );
+            Navigator.pop(context);
           },
         ),
       ),

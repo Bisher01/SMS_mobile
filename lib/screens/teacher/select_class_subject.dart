@@ -30,7 +30,7 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
   int selectedClass = 0;
   int subjectId = 0;
   int classId = 0;
-  //int examId = 0;
+  int? selectedSeason;
   int? examDDV = 1;
   List<ExamTypes> examTypes = [
     ExamTypes(
@@ -55,27 +55,21 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         title: const Text(
           "Teacher's classes",
           style: TextStyle(
             fontSize: 16,
+            color: Colors.black
           ),
         ),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
+            color: Colors.black,
           ),
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              PageTransition(
-                type: PageTransitionType.bottomToTopJoined,
-                childCurrent: widget,
-                duration: const Duration(milliseconds: 300),
-                child: const TeacherMainScreen(),
-              ),
-            );
+            Navigator.pop(context);
           },
         ),
       ),
@@ -91,36 +85,73 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
               padding: const EdgeInsets.only(
                 top: 15,
               ),
-              child: Column(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Select exam type:',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  Column(
+                    children: [
+                      const Text(
+                        'Select exam type:',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      DropdownButton<int>(
+                          hint: const Text(
+                            'Exam type',
+                          ),
+                          value: examDDV,
+                          elevation: 16,
+                          underline: Container(
+                            height: 2,
+                            color: Colors.orange[400],
+                          ),
+                          onChanged: (int? newValue) {
+                            setState(() {
+                              examDDV = newValue ?? 0;
+                            });
+                          },
+                          items: examTypes.map((e) {
+                            return DropdownMenuItem<int>(
+                              value: e.id!,
+                              child: Text(e.type!),
+                            );
+                          }).toList()),
+                    ],
                   ),
-                  DropdownButton<int>(
-                      hint: const Text(
-                        'Exam type',
+                  Column(
+                    children: [
+                      const Text(
+                        'Select season:',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                      value: examDDV,
-                      elevation: 16,
-                      underline: Container(
-                        height: 2,
-                        color: Colors.orange[400],
-                      ),
-                      onChanged: (int? newValue) {
-                        setState(() {
-                          examDDV = newValue ?? 0;
-                        });
-                      },
-                      items: examTypes.map((e) {
-                        return DropdownMenuItem<int>(
-                          value: e.id!,
-                          child: Text(e.type!),
-                        );
-                      }).toList()),
+                      DropdownButton<int>(
+                          hint: const Text(
+                            'Season',
+                          ),
+                          value: selectedSeason,
+                          elevation: 16,
+                          underline: Container(
+                            height: 2,
+                            color: Colors.orange[400],
+                          ),
+                          onChanged: (int? newValue) {
+                            setState(() {
+                              selectedSeason = newValue ?? 1;
+                            });
+                          },
+                          items: [1,2].map((e) {
+                            return DropdownMenuItem<int>(
+                              value: e,
+                              child: Text(e.toString()),
+                            );
+                          }).toList()),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -354,6 +385,7 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                     context,
                     PageTransition(
                       child: QuestionsBankScreen(
+                        season: selectedSeason!,
                         classId: classId,
                         subjectId: subjectId,
                         type: examDDV!,

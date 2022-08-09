@@ -40,24 +40,20 @@ class _AddOralMarkState extends State<AddOralMark> {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.white,
           title: const Text(
             'Choose student',
+            style: TextStyle(
+              color: Colors.white,
+            ),
           ),
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back,
+              color: Colors.black,
             ),
             onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                PageTransition(
-                  type: PageTransitionType.bottomToTopJoined,
-                  childCurrent: widget,
-                  duration: const Duration(milliseconds: 300),
-                  child: const TeacherMainScreen(),
-                ),
-              );
+              Navigator.pop(context);
             },
           ),
         ),

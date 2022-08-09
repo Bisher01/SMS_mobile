@@ -37,6 +37,7 @@ class _SelectClassSubjectClassroomState
   int? selectedSubject = 0;
   int selectedClass = 0;
   int selectedClassroom = 0;
+  int selectedSeason = 1;
   int classId = 0;
   int classroomId = 0;
   int? subjectDDV;
@@ -46,27 +47,21 @@ class _SelectClassSubjectClassroomState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         title: const Text(
           "Teacher's classes and classrooms",
           style: TextStyle(
             fontSize: 16,
+            color: Colors.black
           ),
         ),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
+            color: Colors.black,
           ),
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              PageTransition(
-                type: PageTransitionType.bottomToTopJoined,
-                childCurrent: widget,
-                duration: const Duration(milliseconds: 300),
-                child: const TeacherMainScreen(),
-              ),
-            );
+            Navigator.pop(context);
           },
         ),
       ),
@@ -154,7 +149,7 @@ class _SelectClassSubjectClassroomState
                                         bottom: 20,
                                       ),
                                       child: Text(
-                                        'Select class and classroom: ',
+                                        'Select class: ',
                                         style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600,
@@ -235,94 +230,81 @@ class _SelectClassSubjectClassroomState
                                   ],
                                 ),
                               ),
-                              // const SizedBox(
-                              //   width: 20,
-                              // ),
-                              // Flexible(
-                              //   fit: FlexFit.tight,
-                              //   child: Column(
-                              //     mainAxisAlignment: MainAxisAlignment.center,
-                              //     children: [
-                              //       const Padding(
-                              //         padding: EdgeInsets.only(
-                              //           bottom: 20,
-                              //         ),
-                              //         child: Text(
-                              //           'Select classroom: ',
-                              //           style: TextStyle(
-                              //             fontSize: 18,
-                              //             fontWeight: FontWeight.w600,
-                              //           ),
-                              //         ),
-                              //       ),
-                              //       Flexible(
-                              //         fit: FlexFit.loose,
-                              //         child: ListWheelScrollView(
-                              //           onSelectedItemChanged: (index) {
-                              //             setState(() {
-                              //               selectedClassroom = index;
-                              //             });
-                              //             classroomId = provider
-                              //                 .getTeacherSubjectsResponse!
-                              //                 .data!
-                              //                 .data![selectedSubject!]
-                              //                 .class_classroom![index]
-                              //                 .classrooms!
-                              //                 .id!;
-                              //           },
-                              //           clipBehavior: Clip.antiAlias,
-                              //           controller: fixedExtentScrollController,
-                              //           physics:
-                              //               const FixedExtentScrollPhysics(),
-                              //           perspective: 0.005,
-                              //           offAxisFraction: -0.0,
-                              //           diameterRatio: 2,
-                              //           itemExtent: 60,
-                              //           children: provider
-                              //               .getTeacherSubjectsResponse!
-                              //               .data!
-                              //               .data![selectedSubject!]
-                              //               .class_classroom!
-                              //               .map((e) {
-                              //             return Row(
-                              //               children: <Widget>[
-                              //                 Expanded(
-                              //                   child: Container(
-                              //                     decoration: BoxDecoration(
-                              //                       color: Colors.white70,
-                              //                       border: Border.all(
-                              //                           color: Colors.orange),
-                              //                       borderRadius:
-                              //                           BorderRadius.circular(
-                              //                         12,
-                              //                       ),
-                              //                     ),
-                              //                     child: Padding(
-                              //                       padding:
-                              //                           const EdgeInsets.all(
-                              //                         16.0,
-                              //                       ),
-                              //                       child: Text(
-                              //                         e.classrooms!.name!
-                              //                             .toString(),
-                              //                         textAlign:
-                              //                             TextAlign.center,
-                              //                         style: TextStyle(
-                              //                             fontSize: 18.0,
-                              //                             color: Colors
-                              //                                 .orange[400]),
-                              //                       ),
-                              //                     ),
-                              //                   ),
-                              //                 ),
-                              //               ],
-                              //             );
-                              //           }).toList(),
-                              //         ),
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              Flexible(
+                                fit: FlexFit.tight,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Padding(
+                                      padding: EdgeInsets.only(
+                                        bottom: 20,
+                                      ),
+                                      child: Text(
+                                        'Select season: ',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                    Flexible(
+                                      fit: FlexFit.loose,
+                                      child: ListWheelScrollView(
+                                        onSelectedItemChanged: (index) {
+                                          setState(() {
+                                            selectedSeason = index;
+                                          });
+                                        },
+                                        clipBehavior: Clip.antiAlias,
+                                        controller: fixedExtentScrollController,
+                                        physics:
+                                            const FixedExtentScrollPhysics(),
+                                        perspective: 0.005,
+                                        offAxisFraction: -0.0,
+                                        diameterRatio: 2,
+                                        itemExtent: 60,
+                                        children: [1,2].map((e) {
+                                          return Row(
+                                            children: <Widget>[
+                                              Expanded(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white70,
+                                                    border: Border.all(
+                                                        color: Colors.orange),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                      12,
+                                                    ),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                      16.0,
+                                                    ),
+                                                    child: Text(
+                                                      e.toString(),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          fontSize: 18.0,
+                                                          color: Colors
+                                                              .orange[400]),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        }).toList(),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -374,6 +356,7 @@ class _SelectClassSubjectClassroomState
                                           classroomId: classroomId,
                                         )
                                       : AddQuizScreen(
+                                    season: selectedSeason,
                                           classId: classId,
                                           subjectId: subjectDDV!,
                                           classroomId: classroomId),

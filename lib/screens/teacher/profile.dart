@@ -35,15 +35,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
             Icons.arrow_back,
           ),
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              PageTransition(
-                type: PageTransitionType.bottomToTopJoined,
-                childCurrent: widget,
-                duration: const Duration(milliseconds: 300),
-                child: const TeacherMainScreen(),
-              ),
-            );
+            Navigator.pop(context);
           },
         ),
       ),

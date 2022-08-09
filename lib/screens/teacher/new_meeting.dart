@@ -84,16 +84,18 @@ class _NewMeetingState extends State<NewMeeting> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         title: const Text(
           "Add new meeting",
           style: TextStyle(
             fontSize: 16,
+            color: Colors.white
           ),
         ),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
+            color: Colors.black,
           ),
           onPressed: () {
             Navigator.pop(context);

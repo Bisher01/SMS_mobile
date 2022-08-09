@@ -14,9 +14,11 @@ class AddQuizScreen extends StatefulWidget {
   final int classId;
   final int subjectId;
   final int classroomId;
+  final int season;
   const AddQuizScreen({
     Key? key,
     required this.classId,
+    required this.season,
     required this.subjectId,
     required this.classroomId,
   }) : super(key: key);
@@ -844,15 +846,14 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                                       ),
                                     ),
                                     onPressed: () async {
-                                      ///TODO: edit BISHER
                                       AddQuiz addQuiz = AddQuiz(
                                           questions: questions,
                                           subjectId: widget.subjectId,
                                           classId: widget.classId,
                                           classroomId: widget.classroomId,
                                           start: DateTime.now(),
-                                          end: DateTime.now().add(Duration(hours: 1)),
-                                          seasonId: 1,
+                                          end: DateTime.now().add(const Duration(hours: 1)),
+                                          seasonId: widget.season,
                                           teacherId: provider.getId());
                                       var response =
                                           await Provider.of<AppProvider>(
