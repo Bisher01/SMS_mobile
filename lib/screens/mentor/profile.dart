@@ -37,15 +37,7 @@ class _MentorProfilePageState extends State<MentorProfilePage> {
             Icons.arrow_back,
           ),
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              PageTransition(
-                type: PageTransitionType.bottomToTopJoined,
-                childCurrent: widget,
-                duration: const Duration(milliseconds: 300),
-                child: const MentorMainScreen(),
-              ),
-            );
+            Navigator.pop(context);
           },
         ),
       ),
@@ -76,10 +68,10 @@ class _MentorProfilePageState extends State<MentorProfilePage> {
                         image: DecorationImage(
                           fit: BoxFit.cover,
                           image: const AssetImage(
-                            'assets/jj.jpg',
+                            'assets/mentor.png',
                           ),
                           colorFilter: ColorFilter.mode(
-                            Colors.black54.withOpacity(0.8),
+                            Colors.black54.withOpacity(0.7),
                             BlendMode.darken,
                           ),
                         ),
@@ -163,7 +155,7 @@ class _MentorProfilePageState extends State<MentorProfilePage> {
                               ),
                               //City
                               Text(
-                                "City: ${mentor.address_id}",
+                                "City: ${mentor.address!.city}",
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16,
@@ -171,7 +163,7 @@ class _MentorProfilePageState extends State<MentorProfilePage> {
                               ),
                               //Town
                               Text(
-                                "Town: ${mentor.address_id}",
+                                "Town: ${mentor.address!.town}",
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16,
@@ -179,7 +171,7 @@ class _MentorProfilePageState extends State<MentorProfilePage> {
                               ),
                               //Street
                               Text(
-                                "Street: ${mentor.address_id}",
+                                "Street: ${mentor.address!.street}",
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16,
@@ -202,7 +194,7 @@ class _MentorProfilePageState extends State<MentorProfilePage> {
                               ),
                               //Class
                               Text(
-                                "Class: ${mentor.class_id}",
+                                "Class: ${mentor.classes!.name}",
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 16,
@@ -286,7 +278,7 @@ class _MentorProfilePageState extends State<MentorProfilePage> {
                           left: 45),
                       child: const CircleAvatar(
                         backgroundImage: AssetImage(
-                          'assets/jj.jpg',
+                          'assets/mentor.png',
                         ),
                         radius: 60,
                       ),

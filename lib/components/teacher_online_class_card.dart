@@ -24,6 +24,7 @@ class _TeacherOnlineClassCardState extends State<TeacherOnlineClassCard> {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
+      EasyLoading.showError('Could not launch $url');
       throw 'Could not launch $url';
     }
   }

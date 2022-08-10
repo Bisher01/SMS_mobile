@@ -851,8 +851,8 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                                           subjectId: widget.subjectId,
                                           classId: widget.classId,
                                           classroomId: widget.classroomId,
-                                          start: DateTime.now(),
-                                          end: DateTime.now().add(const Duration(hours: 1)),
+                                          start: DateTime.now().add(Duration(minutes: 10)),
+                                          end: DateTime.now().add(const Duration(hours: 2)),
                                           seasonId: widget.season,
                                           teacherId: provider.getId());
                                       var response =
@@ -873,6 +873,7 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                                           EasyLoading.showError(
                                               response.message!,
                                               dismissOnTap: true);
+                                          Navigator.pop(context);
                                         }
                                         if (response.status ==
                                             Status.COMPLETED) {

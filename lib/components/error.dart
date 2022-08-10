@@ -7,23 +7,44 @@ class Error extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: InkWell(
-        onTap: () async {},
-        child: RichText(
-          text: TextSpan(
-            text: 'Error Was Occurred ,',
-            style: const TextStyle(color: Colors.black),
-            children: <TextSpan>[
-              TextSpan(
-                  text: errorMsg,
-                  style: const TextStyle(
-                    color: Colors.black,
-                  )),
-            ],
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          IconButton(
+            alignment: Alignment.topLeft,
+            icon: const Icon(
+              Icons.arrow_back,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
-        ),
-      ),
-    );
+          Expanded(
+            child: SizedBox(),
+          ),
+          Center(
+            child: InkWell(
+              onTap: () async {},
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  text: 'Error Was Occurred ,',
+                  style: const TextStyle(color: Colors.black),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: errorMsg,
+                        style: const TextStyle(
+                          color: Colors.black,
+                        )),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Expanded(child: SizedBox())
+        ],
+      );
+
   }
 }

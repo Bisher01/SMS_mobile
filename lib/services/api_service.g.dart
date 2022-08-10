@@ -387,10 +387,11 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<StudentExam> getStudentExam(id) async {
+  Future<StudentExam> getStudentExam(id, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<StudentExam>(
@@ -419,10 +420,11 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<StudentQuiz> getStudentQuiz(id) async {
+  Future<StudentQuiz> getStudentQuiz(id, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<StudentQuiz>(

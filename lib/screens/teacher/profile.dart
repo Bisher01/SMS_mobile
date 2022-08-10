@@ -62,21 +62,20 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                     Container(
                       height: widgetSize.getHeight(500, context),
                       width: double.infinity,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
+                      child: ColorFiltered(
+                        colorFilter: ColorFilter.mode(
+                            Colors.black54.withOpacity(0.7), BlendMode.darken),
+                        child: FadeInImage(
                           fit: BoxFit.cover,
+                          placeholder: const AssetImage('assets/teacher.png'),
                           image: NetworkImage(
-                            'http://127.0.0.1:8000/storage${teacher.picture!}',
-                          ),
-                          colorFilter: ColorFilter.mode(
-                            Colors.black54.withOpacity(0.8),
-                            BlendMode.darken,
-                          ),
+                              'http://127.0.0.1:8000/storage/${teacher.picture}'),
+                          imageErrorBuilder: (context, error, stackTrace) {
+                            return Container(
+                                child: Image.asset("assets/teacher.png"));
+                          },
                         ),
                       ),
-                      // child: Image.asset(
-                      //   widget.teacher.picture!,
-                      // ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(
@@ -291,10 +290,17 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                           ),
                           left: 45),
                       child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          'http://127.0.0.1:8000/storage${teacher.picture!}',
-                        ),
                         radius: 60,
+                        child: FadeInImage(
+                          fit: BoxFit.cover,
+                          placeholder: const AssetImage('assets/teacher.png'),
+                          image: NetworkImage(
+                              'http://127.0.0.1:8000/storage/${teacher.picture}'),
+                          imageErrorBuilder: (context, error, stackTrace) {
+                            return Container(
+                                child: Image.asset("assets/teacher.png"));
+                          },
+                        ),
                       ),
                     ),
                   ],

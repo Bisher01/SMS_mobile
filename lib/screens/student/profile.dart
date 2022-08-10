@@ -55,7 +55,9 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                 return Shimmer.fromColors(
                   baseColor: Colors.grey,
                   highlightColor: Colors.white,
-                  child:  CircularProgressIndicator(color: Colors.orange[400],),
+                  child: CircularProgressIndicator(
+                    color: Colors.orange[400],
+                  ),
                 );
               case Status.ERROR:
                 return er.Error(
@@ -65,24 +67,42 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                 final student = provider.getStudentResponse!.data!.student![0];
                 return Stack(
                   children: [
+                    // Container(
+                    //   height: widgetSize.getHeight(500, context),
+                    //   width: double.infinity,
+                    //   decoration: BoxDecoration(
+                    //     image: DecorationImage(
+                    //       fit: BoxFit.cover,
+                    //       image: NetworkImage(
+                    //         'http://127.0.0.1:8000/storage${student.picture!}',
+                    //       ),
+                    //       colorFilter: ColorFilter.mode(
+                    //         Colors.black54.withOpacity(0.8),
+                    //         BlendMode.darken,
+                    //       ),
+                    //     ),
+                    //   ),
+                    //   // child: Image.asset(
+                    //   //   widget.teacher.picture!,
+                    //   // ),
+                    // ),
                     Container(
                       height: widgetSize.getHeight(500, context),
                       width: double.infinity,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
+                      child: ColorFiltered(
+                        colorFilter: ColorFilter.mode(
+                            Colors.black54.withOpacity(0.7), BlendMode.darken),
+                        child: FadeInImage(
                           fit: BoxFit.cover,
+                          placeholder: const AssetImage('assets/student.png'),
                           image: NetworkImage(
-                            'http://127.0.0.1:8000/storage${student.picture!}',
-                          ),
-                          colorFilter: ColorFilter.mode(
-                            Colors.black54.withOpacity(0.8),
-                            BlendMode.darken,
-                          ),
+                              'http://127.0.0.1:8000/storage/${student.picture}'),
+                          imageErrorBuilder: (context, error, stackTrace) {
+                            return Container(
+                                child: Image.asset("assets/student.png"));
+                          },
                         ),
                       ),
-                      // child: Image.asset(
-                      //   widget.teacher.picture!,
-                      // ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(
@@ -393,10 +413,17 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                           left: 45),
                       child: CircleAvatar(
                         backgroundColor: Colors.white,
-                        backgroundImage: NetworkImage(
-                          'http://127.0.0.1:8000/storage${student.picture!}',
-                        ),
                         radius: 60,
+                        child: FadeInImage(
+                          fit: BoxFit.cover,
+                          placeholder: const AssetImage('assets/student.png'),
+                          image: NetworkImage(
+                              'http://127.0.0.1:8000/storage/${student.picture}'),
+                          imageErrorBuilder: (context, error, stackTrace) {
+                            return Container(
+                                child: Image.asset("assets/student.png"));
+                          },
+                        ),
                       ),
                     ),
                   ],

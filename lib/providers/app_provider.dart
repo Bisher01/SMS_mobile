@@ -915,12 +915,12 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<ApiResponse<StudentExam>> getStudentExam(int id) async {
+  Future<ApiResponse<StudentExam>> getStudentExam(int id,String token) async {
     ApiService apiService = ApiService(Dio());
     if (await checkInternet()) {
       getStudentExamResponse = ApiResponse.loading('');
       try {
-        StudentExam exam = await apiService.getStudentExam(id);
+        StudentExam exam = await apiService.getStudentExam(id,token);
         getStudentExamResponse = ApiResponse.completed(exam);
       } catch (e) {
         if (e is DioError) {
@@ -1085,12 +1085,12 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<ApiResponse<StudentQuiz>> getStudentQuiz(int id) async {
+  Future<ApiResponse<StudentQuiz>> getStudentQuiz(int id,String token) async {
     ApiService apiService = ApiService(Dio());
     if (await checkInternet()) {
       getStudentQuizResponse = ApiResponse.loading('');
       try {
-        StudentQuiz studentquiz = await apiService.getStudentQuiz(id);
+        StudentQuiz studentquiz = await apiService.getStudentQuiz(id,token);
         getStudentQuizResponse = ApiResponse.completed(studentquiz);
       } catch (e) {
         if (e is DioError) {

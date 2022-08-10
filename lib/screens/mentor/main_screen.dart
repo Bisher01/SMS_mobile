@@ -40,8 +40,8 @@ class _MentorMainScreenState extends State<MentorMainScreen>
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      title: Text('Log Out'),
-                      content: Text(
+                      title: const Text('Log Out'),
+                      content: const Text(
                         'Are you sure you want to log out?',
                       ),
                       elevation: 2,
@@ -76,7 +76,7 @@ class _MentorMainScreenState extends State<MentorMainScreen>
                                   Navigator.push(
                                     context,
                                     PageTransition(
-                                      child: LoginScreen(),
+                                      child: const LoginScreen(),
                                       type:
                                           PageTransitionType.bottomToTopJoined,
                                       childCurrent: widget,
@@ -308,36 +308,36 @@ class _MentorMainScreenState extends State<MentorMainScreen>
                 )),
           ),
           //announcements
-          Card(
-              elevation: 3,
-              shadowColor: Colors.black,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(16),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 20, left: 20, right: 20, bottom: 10),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/icons/megaphone.png',
-                      height: 100,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      'Announcement',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                      ),
-                    )
-                  ],
-                ),
-              )),
+          // Card(
+          //     elevation: 3,
+          //     shadowColor: Colors.black,
+          //     shape: const RoundedRectangleBorder(
+          //       borderRadius: BorderRadius.all(
+          //         Radius.circular(16),
+          //       ),
+          //     ),
+          //     child: Padding(
+          //       padding: const EdgeInsets.only(
+          //           top: 20, left: 20, right: 20, bottom: 10),
+          //       child: Column(
+          //         children: [
+          //           Image.asset(
+          //             'assets/icons/megaphone.png',
+          //             height: 100,
+          //           ),
+          //           const SizedBox(
+          //             height: 20,
+          //           ),
+          //           const Text(
+          //             'Announcement',
+          //             style: TextStyle(
+          //               fontWeight: FontWeight.w600,
+          //               fontSize: 18,
+          //             ),
+          //           )
+          //         ],
+          //       ),
+          //     )),
           //attendance
           InkWell(
             onTap: () {

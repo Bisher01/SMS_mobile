@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:sms_mobile/providers/providers.dart';
-import 'package:sms_mobile/screens/screens.dart';
 import 'package:sms_mobile/utill/utill.dart';
 import '../../components/error.dart' as err;
 
@@ -27,7 +24,6 @@ class _MentorExamScheduleState extends State<MentorExamSchedule> {
 
   @override
   initState() {
-    ///TODO: change into class id
     Provider.of<AppProvider>(context, listen: false).getMentor(widget.mentorId).then((value) {
       classId = value.data!.mentor![0].class_id!;
     });
@@ -37,10 +33,10 @@ class _MentorExamScheduleState extends State<MentorExamSchedule> {
   }
 
   List<Color> cardColor = [
-    Color.fromRGBO(242, 216, 199, 1),
-    Color.fromRGBO(244, 230, 202, 1),
-    Color.fromRGBO(225, 174, 86, 1),
-    Color.fromRGBO(148, 111, 169, 1)
+    const Color.fromRGBO(242, 216, 199, 1),
+    const Color.fromRGBO(244, 230, 202, 1),
+    const Color.fromRGBO(225, 174, 86, 1),
+    const Color.fromRGBO(148, 111, 169, 1)
   ];
   int containerColor = -1;
   int selectedTab = 0;

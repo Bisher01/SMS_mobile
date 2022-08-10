@@ -37,8 +37,9 @@ class _ExamScreenState extends State<ExamScreen> {
 
   @override
   initState() {
+    String token = Provider.of<AppProvider>(context,listen:  false).getToken();
     Provider.of<AppProvider>(context, listen: false)
-        .getStudentExam(widget.examId);
+        .getStudentExam(widget.examId,'Bearer $token');
     super.initState();
   }
 

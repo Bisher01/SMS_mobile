@@ -135,7 +135,7 @@ abstract class ApiService {
 
   //get student exam
   @GET('exam/getExam/{id}')
-  Future<StudentExam> getStudentExam(@Path('id') int id);
+  Future<StudentExam> getStudentExam(@Path('id') int id,@Header('Authorization') String token);
 
   //get class exam ((schedule))
   @GET('exam/classExam/{id}')
@@ -145,7 +145,7 @@ abstract class ApiService {
 
   //get student quiz
   @GET('quiz/getQuiz/{id}')
-  Future<StudentQuiz> getStudentQuiz(@Path('id') int id);
+  Future<StudentQuiz> getStudentQuiz(@Path('id') int id,@Header('Authorization') String token);
 
   //get student quiz mark
   @POST('quiz/mark/{id1}/{id2}')
