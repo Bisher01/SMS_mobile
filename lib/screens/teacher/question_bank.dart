@@ -14,8 +14,12 @@ class QuestionsBankScreen extends StatefulWidget {
   final int subjectId;
   final int type;
   final int season;
+  final DateTime start;
+  final DateTime end;
   const QuestionsBankScreen({
     Key? key,
+    required this.start,
+    required this.end,
     required this.season,
     required this.classId,
     required this.subjectId,
@@ -28,6 +32,7 @@ class QuestionsBankScreen extends StatefulWidget {
 
 class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
   List<Answer> answers = [];
+  double totalMark = 0;
   List<AddQuestionToExam> questions = [];
   late final TextEditingController _markController;
   List<String> days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -68,6 +73,10 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(251, 250, 250, 1),
         elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new,color: Colors.black,),
+          onPressed: (){Navigator.pop(context);},
+        ),
         actions: [
           Row(
             mainAxisSize: MainAxisSize.max,
@@ -213,7 +222,7 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                               Row(
                                 children: [
                                    Text(
-                                    'Mark:  ${provider.questionBankResponse!.data!.questions![0].max_mark}',
+                                    'Mark:  $totalMark/${provider.questionBankResponse!.data!.questions![0].max_mark}',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 22,
@@ -238,7 +247,7 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                         hintStyle: TextStyle(
                                             fontFamily: 'Montserrat',
                                             color: Colors.grey[400]),
-                                        hintText: '0',
+                                        hintText: '__',
                                         filled: true,
                                         fillColor: Colors.grey[200],
                                         border: const OutlineInputBorder(
@@ -794,14 +803,18 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                             onPressed: _markController.text.isEmpty
                                 ? null
                                 : () {
+                              double mark = double.parse(_markController.text);
+                              _markController.clear();
                                     questions.add(AddQuestionToExam(
-                                        mark: int.parse(_markController.text),
+                                        mark: mark.toInt(),
                                         questionId: provider
                                             .questionBankResponse!
                                             .data!
                                             .questions![0].questions![index]
                                             .id));
-                                    _markController.clear();
+                                    setState((){
+                                      totalMark=totalMark+mark;
+                                    });
                                   },
                             child: const Text(
                               'ADD Question',
@@ -838,8 +851,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                           questions: questions,
                                           subjectId: widget.subjectId,
                                           classId: widget.classId,
-                                          start: DateTime.now().add(Duration(minutes: 1)),
-                                          end: DateTime.now().add(const Duration(hours: 1)),
+                                          start: widget.start,
+                                          end: widget.end,
                                           seasonId: widget.season,
                                           examNameId: widget.type);
                                       var response =

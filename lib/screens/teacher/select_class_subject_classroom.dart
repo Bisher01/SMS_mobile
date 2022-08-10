@@ -42,6 +42,87 @@ class _SelectClassSubjectClassroomState
   int classroomId = 0;
   int? subjectDDV;
 
+  DateTime _startDate = DateTime.now();
+  TimeOfDay _startTime = TimeOfDay.now();
+  TimeOfDay _endTime = TimeOfDay.now();
+  void _presentDatePicker(DateTime date) {
+    showDatePicker(
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            primaryColor: Colors.orange[400],
+            colorScheme: ColorScheme.light(primary: Colors.orange[400]!),
+            buttonTheme:
+            const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+          ),
+          child: child!,
+        );
+      },
+      context: context,
+      initialDate: date,
+      firstDate: DateTime(DateTime.now().year - 1),
+      lastDate: DateTime(DateTime.now().year + 1),
+    ).then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      }
+      setState(() {
+        _startDate = pickedDate;
+      });
+    });
+  }
+
+  void _presentStartTimePicker(TimeOfDay start) {
+    showTimePicker(
+        builder: (context, child) {
+          return Theme(
+            data: ThemeData.light().copyWith(
+              primaryColor: Colors.orange[400],
+              colorScheme: ColorScheme.light(primary: Colors.orange[400]!),
+              buttonTheme:
+              const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+            ),
+            child: child!,
+          );
+        },
+        context: context,
+        initialTime: start)
+        .then((pickedTime) {
+      if (pickedTime == null) {
+        return;
+      } else {
+        setState(() {
+          _startTime = pickedTime;
+        });
+      }
+    });
+  }
+
+  void _presentEndTimePicker(TimeOfDay end) {
+    showTimePicker(
+        builder: (context, child) {
+          return Theme(
+            data: ThemeData.light().copyWith(
+              primaryColor: Colors.orange[400],
+              colorScheme: ColorScheme.light(primary: Colors.orange[400]!),
+              buttonTheme:
+              const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+            ),
+            child: child!,
+          );
+        },
+        context: context,
+        initialTime: end)
+        .then((pickedTime) {
+      if (pickedTime == null) {
+        return;
+      } else {
+        setState(() {
+          _endTime = pickedTime;
+        });
+      }
+    });
+  }
   ///TODO: selectedSubject
   @override
   Widget build(BuildContext context) {
@@ -91,46 +172,80 @@ class _SelectClassSubjectClassroomState
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        // Padding(
-                        //   padding: const EdgeInsets.only(
-                        //     top: 15,
-                        //   ),
-                        //   child: Column(
-                        //     children: [
-                        //       const Text(
-                        //         'Select subject:',
-                        //         style: TextStyle(
-                        //           fontSize: 18,
-                        //           fontWeight: FontWeight.w600,
-                        //         ),
-                        //       ),
-                        //       DropdownButton<int>(
-                        //           hint: const Text(
-                        //             'Subject',
-                        //           ),
-                        //           value: subjectDDV,
-                        //           elevation: 16,
-                        //           underline: Container(
-                        //             height: 2,
-                        //             color: Colors.orange[400],
-                        //           ),
-                        //           onChanged: (int? newValue) {
-                        //             setState(() {
-                        //               subjectDDV = newValue ?? 0;
-                        //               selectedSubject = subjects[subjectDDV];
-                        //             });
-                        //           },
-                        //           items: provider
-                        //               .getTeacherSubjectsResponse!.data!.data!
-                        //               .map((e) {
-                        //             return DropdownMenuItem<int>(
-                        //               value: e.id,
-                        //               child: Text(e.name!),
-                        //             );
-                        //           }).toList()),
-                        //     ],
-                        //   ),
-                        // ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                const Text(
+                                  'Exam Date:',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                TextButton(
+                                    onPressed: () {
+                                      _presentDatePicker(_startDate);
+                                    },
+                                    child: Text(
+                                      '${_startDate.day}-${_startDate.month}-${_startDate.year}',
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.grey
+                                      ),
+                                    ))
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                const Text(
+                                  'Start at:',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                TextButton(
+                                    onPressed: () {
+                                      _presentStartTimePicker(_startTime);
+                                    },
+                                    child: Text(
+                                      '${_startTime.hour}:${_startTime.minute}',
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.grey
+                                      ),
+                                    ))
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                const Text(
+                                  'Ends at:',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                TextButton(
+                                    onPressed: () {
+                                      _presentEndTimePicker(_endTime);
+                                    },
+                                    child: Text(
+                                      '${_endTime.hour}:${_endTime.minute}',
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.grey
+                                      ),
+                                    ))
+                              ],
+                            ),
+                          ],
+                        ),
                         SizedBox(
                           height: widgetSize.getHeight(
                             350,
@@ -346,7 +461,7 @@ class _SelectClassSubjectClassroomState
                                       .class_classroom![0]
                                       .classroom_id!
                                   : classroomId;
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                 context,
                                 PageTransition(
                                   child: widget.addOralMark
@@ -356,7 +471,9 @@ class _SelectClassSubjectClassroomState
                                           classroomId: classroomId,
                                         )
                                       : AddQuizScreen(
-                                    season: selectedSeason,
+                                      start: DateTime(_startDate.year,_startDate.month,_startDate.day,_startTime.hour,_startTime.minute),
+                                      end: DateTime(_startDate.year,_startDate.month,_startDate.day,_endTime.hour,_endTime.minute),
+                                      season: selectedSeason,
                                           classId: classId,
                                           subjectId: subjectDDV!,
                                           classroomId: classroomId),

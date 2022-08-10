@@ -15,8 +15,12 @@ class AddQuizScreen extends StatefulWidget {
   final int subjectId;
   final int classroomId;
   final int season;
+  final DateTime start;
+  final DateTime end;
   const AddQuizScreen({
     Key? key,
+    required this.start,
+    required this.end,
     required this.classId,
     required this.season,
     required this.subjectId,
@@ -29,6 +33,7 @@ class AddQuizScreen extends StatefulWidget {
 
 class _AddQuizScreenState extends State<AddQuizScreen> {
   List<Answer> answers = [];
+  double totalMark = 0;
   List<AddQuestionToQuiz> questions = [];
   late final TextEditingController _markController;
   List<String> days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -69,6 +74,10 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(251, 250, 250, 1),
         elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new,color: Colors.black,),
+          onPressed: (){Navigator.pop(context);},
+        ),
         actions: [
           IconButton(
             onPressed: () {},
@@ -171,7 +180,7 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                               Row(
                                 children: [
                                   Text(
-                                    'Mark: ${provider.questionBankResponse!.data!.questions![0].max_mark}',
+                                    'Mark: $totalMark/${provider.questionBankResponse!.data!.questions![0].max_mark}',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 22,
@@ -196,7 +205,7 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                                         hintStyle: TextStyle(
                                             fontFamily: 'Montserrat',
                                             color: Colors.grey[400]),
-                                        hintText: '0',
+                                        hintText: '__',
                                         filled: true,
                                         fillColor: Colors.grey[200],
                                         border: const OutlineInputBorder(
@@ -805,15 +814,19 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                             onPressed: _markController.text.isEmpty
                                 ? null
                                 : () {
+                              double mark = double.parse(_markController.text);
+                              _markController.clear();
                                     questions.add(AddQuestionToQuiz(
-                                        mark: int.parse(_markController.text),
+                                        mark: mark.toInt(),
                                         questionId: provider
                                             .questionBankResponse!
                                             .data!
                                             .questions![0]
                                             .questions![index]
                                             .id));
-                                    _markController.clear();
+                                    setState(() {
+                                      totalMark = totalMark + mark;
+                                    });
                                   },
                             child: const Text(
                               'ADD Question',

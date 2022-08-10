@@ -26,12 +26,11 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
     super.initState();
   }
 
-  //int selectedSubject = 0;
   int selectedClass = 0;
   int subjectId = 0;
   int classId = 0;
   int? selectedSeason;
-  int? examDDV = 1;
+  int? examDDV;
   List<ExamTypes> examTypes = [
     ExamTypes(
       type: 'First',
@@ -51,6 +50,88 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
     )
   ];
 
+  DateTime _startDate = DateTime.now();
+  TimeOfDay _startTime = TimeOfDay.now();
+  TimeOfDay _endTime = TimeOfDay.now();
+  void _presentDatePicker(DateTime date) {
+    showDatePicker(
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            primaryColor: Colors.orange[400],
+            colorScheme: ColorScheme.light(primary: Colors.orange[400]!),
+            buttonTheme:
+                const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+          ),
+          child: child!,
+        );
+      },
+      context: context,
+      initialDate: date,
+      firstDate: DateTime(DateTime.now().year - 1),
+      lastDate: DateTime(DateTime.now().year + 1),
+    ).then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      }
+      setState(() {
+        _startDate = pickedDate;
+      });
+    });
+  }
+
+  void _presentStartTimePicker(TimeOfDay start) {
+    showTimePicker(
+            builder: (context, child) {
+              return Theme(
+                data: ThemeData.light().copyWith(
+                  primaryColor: Colors.orange[400],
+                  colorScheme: ColorScheme.light(primary: Colors.orange[400]!),
+                  buttonTheme:
+                      const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                ),
+                child: child!,
+              );
+            },
+            context: context,
+            initialTime: start)
+        .then((pickedTime) {
+      if (pickedTime == null) {
+        return;
+      } else {
+        setState(() {
+          _startTime = pickedTime;
+        });
+      }
+    });
+  }
+
+  void _presentEndTimePicker(TimeOfDay end) {
+    showTimePicker(
+            builder: (context, child) {
+              return Theme(
+                data: ThemeData.light().copyWith(
+                  primaryColor: Colors.orange[400],
+                  colorScheme: ColorScheme.light(primary: Colors.orange[400]!),
+                  buttonTheme:
+                      const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                ),
+                child: child!,
+              );
+            },
+            context: context,
+            initialTime: end)
+        .then((pickedTime) {
+      if (pickedTime == null) {
+        return;
+      } else {
+        setState(() {
+          _endTime = pickedTime;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,10 +139,7 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
         backgroundColor: Colors.white,
         title: const Text(
           "Teacher's classes",
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.black
-          ),
+          style: TextStyle(fontSize: 16, color: Colors.black),
         ),
         leading: IconButton(
           icon: const Icon(
@@ -84,72 +162,155 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
             Padding(
               padding: const EdgeInsets.only(
                 top: 15,
+                left: 5,
+                right: 5,
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
                 children: [
-                  Column(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        'Select exam type:',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
+                      Column(
+                        children: [
+                          const Text(
+                            'Select exam type:',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          DropdownButton<int>(
+                              hint: const Text(
+                                'Exam type',
+                              ),
+                              value: examDDV,
+                              elevation: 16,
+                              underline: Container(
+                                height: 2,
+                                color: Colors.orange[400],
+                              ),
+                              onChanged: (int? newValue) {
+                                setState(() {
+                                  examDDV = newValue ?? 0;
+                                });
+                              },
+                              items: examTypes.map((e) {
+                                return DropdownMenuItem<int>(
+                                  value: e.id!,
+                                  child: Text(e.type!),
+                                );
+                              }).toList()),
+                        ],
                       ),
-                      DropdownButton<int>(
-                          hint: const Text(
-                            'Exam type',
+                      Column(
+                        children: [
+                          const Text(
+                            'Select season:',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
-                          value: examDDV,
-                          elevation: 16,
-                          underline: Container(
-                            height: 2,
-                            color: Colors.orange[400],
-                          ),
-                          onChanged: (int? newValue) {
-                            setState(() {
-                              examDDV = newValue ?? 0;
-                            });
-                          },
-                          items: examTypes.map((e) {
-                            return DropdownMenuItem<int>(
-                              value: e.id!,
-                              child: Text(e.type!),
-                            );
-                          }).toList()),
+                          DropdownButton<int>(
+                              hint: const Text(
+                                'Season',
+                              ),
+                              value: selectedSeason,
+                              elevation: 16,
+                              underline: Container(
+                                height: 2,
+                                color: Colors.orange[400],
+                              ),
+                              onChanged: (int? newValue) {
+                                setState(() {
+                                  selectedSeason = newValue ?? 1;
+                                });
+                              },
+                              items: [1, 2].map((e) {
+                                return DropdownMenuItem<int>(
+                                  value: e,
+                                  child: Text(e.toString()),
+                                );
+                              }).toList()),
+                        ],
+                      ),
                     ],
                   ),
-                  Column(
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        'Select season:',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
+                      Column(
+                        children: [
+                          const Text(
+                            'Exam Date:',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                _presentDatePicker(_startDate);
+                              },
+                              child: Text(
+                                '${_startDate.day}-${_startDate.month}-${_startDate.year}',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                    color: Colors.grey
+                                ),
+                              ))
+                        ],
                       ),
-                      DropdownButton<int>(
-                          hint: const Text(
-                            'Season',
+                      Column(
+                        children: [
+                          const Text(
+                            'Start at:',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
-                          value: selectedSeason,
-                          elevation: 16,
-                          underline: Container(
-                            height: 2,
-                            color: Colors.orange[400],
+                          TextButton(
+                              onPressed: () {
+                                _presentStartTimePicker(_startTime);
+                              },
+                              child: Text(
+                                '${_startTime.hour}:${_startTime.minute}',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.grey
+                                ),
+                              ))
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          const Text(
+                            'Ends at:',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
-                          onChanged: (int? newValue) {
-                            setState(() {
-                              selectedSeason = newValue ?? 1;
-                            });
-                          },
-                          items: [1,2].map((e) {
-                            return DropdownMenuItem<int>(
-                              value: e,
-                              child: Text(e.toString()),
-                            );
-                          }).toList()),
+                          TextButton(
+                              onPressed: () {
+                                _presentEndTimePicker(_endTime);
+                              },
+                              child: Text(
+                                '${_endTime.hour}:${_endTime.minute}',
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.grey
+                                ),
+                              ))
+                        ],
+                      ),
                     ],
                   ),
                 ],
@@ -385,6 +546,8 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                     context,
                     PageTransition(
                       child: QuestionsBankScreen(
+                        start: DateTime(_startDate.year,_startDate.month,_startDate.day,_startTime.hour,_startTime.minute),
+                        end: DateTime(_startDate.year,_startDate.month,_startDate.day,_endTime.hour,_endTime.minute),
                         season: selectedSeason!,
                         classId: classId,
                         subjectId: subjectId,
@@ -432,7 +595,7 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                           .class_classroom![0]
                           .class_id!
                       : classId;
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     PageTransition(
                       child: AddQuestion(
