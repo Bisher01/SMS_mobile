@@ -4,8 +4,11 @@ part 'classroom.g.dart';
 
 @JsonSerializable()
 class Classroom {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: 0)
   int? name;
+  @JsonKey(defaultValue: 0)
   int? max_number;
 
   Classroom({this.id, this.name, this.max_number});

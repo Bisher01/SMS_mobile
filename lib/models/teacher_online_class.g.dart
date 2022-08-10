@@ -8,11 +8,11 @@ part of 'teacher_online_class.dart';
 
 TeacherOnlineClass _$TeacherOnlineClassFromJson(Map<String, dynamic> json) =>
     TeacherOnlineClass(
-      id: json['id'] as int?,
+      id: json['id'] as int? ?? 0,
       date:
           json['date'] == null ? null : DateTime.parse(json['date'] as String),
-      teacher_subject_id: json['teacher_subject_id'] as int?,
-      link: json['link'] as String?,
+      teacher_subject_id: json['teacher_subject_id'] as int? ?? 0,
+      link: json['link'] as String? ?? '',
       teacher_subject: json['teacher_subject'] == null
           ? null
           : TeacherSubjects.fromJson(
@@ -47,13 +47,13 @@ Map<String, dynamic> _$FTeacherOnlineClassToJson(
 
 TeacherSubjects _$TeacherSubjectsFromJson(Map<String, dynamic> json) =>
     TeacherSubjects(
-      id: json['id'] as int?,
-      subject_id: json['subject_id'] as int?,
+      id: json['id'] as int? ?? 0,
+      subject_id: json['subject_id'] as int? ?? 0,
       subjects: json['subjects'] == null
           ? null
           : Subject.fromJson(json['subjects'] as Map<String, dynamic>),
-      class_classroom_id: json['class_classroom_id'] as int?,
-      teacher_id: json['teacher_id'] as int?,
+      class_classroom_id: json['class_classroom_id'] as int? ?? 0,
+      teacher_id: json['teacher_id'] as int? ?? 0,
       class_classrooms: json['class_classrooms'] == null
           ? null
           : ClassClassroom.fromJson(

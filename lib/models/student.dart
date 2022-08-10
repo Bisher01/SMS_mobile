@@ -4,22 +4,37 @@ part 'student.g.dart';
 
 @JsonSerializable()
 class Student {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? f_name;
+  @JsonKey(defaultValue: '')
   String? l_name;
+  @JsonKey(defaultValue: '')
   String? email;
+  @JsonKey(defaultValue: '')
   String? code;
   @JsonKey(defaultValue: '')
   String? picture;
+  @JsonKey(defaultValue: '')
   String? birthdate;
+  @JsonKey(defaultValue: 0)
   int? parent_id;
+  @JsonKey(defaultValue: 0)
   int? blood_id;
+  @JsonKey(defaultValue: 0)
   int? gender_id;
+  @JsonKey(defaultValue: 0)
   int? nationality_id;
+  @JsonKey(defaultValue: 0)
   int? religion_id;
+  @JsonKey(defaultValue: 0)
   int? grade_id;
+  @JsonKey(defaultValue: 0)
   int? class_classroom_id;
+  @JsonKey(defaultValue: 0)
   int? academic_year_id;
+  @JsonKey(defaultValue: 0)
   int? address_id;
   Grade? grade;
   ClassClassroom? class_classroom;

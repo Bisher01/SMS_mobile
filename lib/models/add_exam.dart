@@ -4,8 +4,9 @@ part 'add_exam.g.dart';
 
 @JsonSerializable()
 class AddQuestionToExam {
-  @JsonKey(name: 'question_id')
+  @JsonKey(name: 'question_id',defaultValue: 0)
   int? questionId;
+  @JsonKey(defaultValue: 0)
   int? mark;
 
   AddQuestionToExam({this.questionId, this.mark});
@@ -17,15 +18,15 @@ class AddQuestionToExam {
 
 @JsonSerializable()
 class AddExam {
-  @JsonKey(name: 'class_id')
+  @JsonKey(name: 'class_id',defaultValue: 0)
   int? classId;
-  @JsonKey(name: 'subject_id')
+  @JsonKey(name: 'subject_id',defaultValue: 0)
   int? subjectId;
-  @JsonKey(name: 'exam_name_id')
+  @JsonKey(name: 'exam_name_id',defaultValue: 0)
   int? examNameId;
   DateTime? start;
   DateTime? end;
-  @JsonKey(name: 'season_id')
+  @JsonKey(name: 'season_id',defaultValue: 0)
   int? seasonId;
   List<AddQuestionToExam>? questions;
 

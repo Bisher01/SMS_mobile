@@ -15,22 +15,37 @@ class FStudentAttendance {
 
 @JsonSerializable()
 class StudentAttendances {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? f_name;
+  @JsonKey(defaultValue: '')
   String? l_name;
+  @JsonKey(defaultValue: '')
   String? email;
+  @JsonKey(defaultValue: '')
   String? code;
   @JsonKey(defaultValue: '')
   String? picture;
+  @JsonKey(defaultValue: '')
   String? birthdate;
+  @JsonKey(defaultValue: 0)
   int? parent_id;
+  @JsonKey(defaultValue: 0)
   int? blood_id;
+  @JsonKey(defaultValue: 0)
   int? gender_id;
+  @JsonKey(defaultValue: 0)
   int? nationality_id;
+  @JsonKey(defaultValue: 0)
   int? religion_id;
+  @JsonKey(defaultValue: 0)
   int? grade_id;
+  @JsonKey(defaultValue: 0)
   int? class_classroom_id;
+  @JsonKey(defaultValue: 0)
   int? academic_year_id;
+  @JsonKey(defaultValue: 0)
   int? address_id;
   Grade? grade;
   ClassClassroom? class_classroom;
@@ -78,12 +93,13 @@ class StudentAttendances {
 
 @JsonSerializable()
 class Attendance {
+  @JsonKey(defaultValue: 0)
   int? id;
-  @JsonKey(name: 'student_id')
+  @JsonKey(name: 'student_id',defaultValue: 0)
   int? studentId;
-  @JsonKey(name: 'status_id')
+  @JsonKey(name: 'status_id',defaultValue: 0)
   int? statusId;
-  @JsonKey(name: 'attendance_id')
+  @JsonKey(name: 'attendance_id',defaultValue: 0)
   int? attendanceId;
   StatusAttendance? status;
   AttendanceInfo? attendance;
@@ -102,7 +118,9 @@ class Attendance {
 
 @JsonSerializable()
 class StatusAttendance {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? status;
   StatusAttendance({
     this.id,
@@ -114,7 +132,9 @@ class StatusAttendance {
 
 @JsonSerializable()
 class AttendanceInfo {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? date;
   AttendanceInfo({
     this.id,

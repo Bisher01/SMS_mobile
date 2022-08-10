@@ -7,14 +7,14 @@ part of 'parent.dart';
 // **************************************************************************
 
 Parent _$ParentFromJson(Map<String, dynamic> json) => Parent(
-      id: json['id'] as int?,
-      phone: json['phone'] as String?,
-      code: json['code'] as String?,
-      email: json['email'] as String?,
-      father_name: json['father_name'] as String?,
-      jop: json['jop'] as String?,
-      mother_name: json['mother_name'] as String?,
-      national_number: json['national_number'] as String?,
+      id: json['id'] as int? ?? 0,
+      phone: json['phone'] as String? ?? '',
+      code: json['code'] as String? ?? '',
+      email: json['email'] as String? ?? '',
+      father_name: json['father_name'] as String? ?? '',
+      jop: json['jop'] as String? ?? '',
+      mother_name: json['mother_name'] as String? ?? '',
+      national_number: json['national_number'] as String? ?? '',
     );
 
 Map<String, dynamic> _$ParentToJson(Parent instance) => <String, dynamic>{

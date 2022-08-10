@@ -10,9 +10,9 @@ AddOnlineClass _$AddOnlineClassFromJson(Map<String, dynamic> json) =>
     AddOnlineClass(
       date:
           json['date'] == null ? null : DateTime.parse(json['date'] as String),
-      link: json['link'] as String?,
-      id: json['id'] as int?,
-      teacher_subject_id: json['teacher_subject_id'] as int?,
+      link: json['link'] as String? ?? '',
+      id: json['id'] as int? ?? 0,
+      teacher_subject_id: json['teacher_subject_id'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$AddOnlineClassToJson(AddOnlineClass instance) =>

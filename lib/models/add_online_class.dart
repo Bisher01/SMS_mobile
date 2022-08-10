@@ -3,9 +3,12 @@ part 'add_online_class.g.dart';
 
 @JsonSerializable()
 class AddOnlineClass {
+  @JsonKey(defaultValue: '')
   String? link;
   DateTime? date;
+  @JsonKey(defaultValue: 0)
   int? teacher_subject_id;
+  @JsonKey(defaultValue: 0)
   int? id;
   AddOnlineClass({
     this.date,

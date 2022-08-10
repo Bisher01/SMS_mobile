@@ -8,17 +8,17 @@ part of 'teacher.dart';
 
 Teacher _$TeacherFromJson(Map<String, dynamic> json) => Teacher(
       picture: json['picture'] as String? ?? '',
-      address_id: json['address_id'] as int?,
-      religion_id: json['religion_id'] as int?,
-      code: json['code'] as String?,
-      email: json['email'] as String?,
-      f_name: json['f_name'] as String?,
-      gender_id: json['gender_id'] as int?,
-      grade_id: json['grade_id'] as int?,
-      id: json['id'] as int?,
-      l_name: json['l_name'] as String?,
-      joining_date: json['joining_date'] as String?,
-      salary: json['salary'] as String?,
+      address_id: json['address_id'] as int? ?? 0,
+      religion_id: json['religion_id'] as int? ?? 0,
+      code: json['code'] as String? ?? '',
+      email: json['email'] as String? ?? '',
+      f_name: json['f_name'] as String? ?? '',
+      gender_id: json['gender_id'] as int? ?? 0,
+      grade_id: json['grade_id'] as int? ?? 0,
+      id: json['id'] as int? ?? 0,
+      l_name: json['l_name'] as String? ?? '',
+      joining_date: json['joining_date'] as String? ?? '',
+      salary: json['salary'] as String? ?? '',
       address: json['address'] == null
           ? null
           : Address.fromJson(json['address'] as Map<String, dynamic>),

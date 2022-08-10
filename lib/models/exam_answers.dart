@@ -4,9 +4,9 @@ part 'exam_answers.g.dart';
 
 @JsonSerializable()
 class Answer {
-  @JsonKey(name: 'question_id')
+  @JsonKey(name: 'question_id',defaultValue: 0)
   int? questionId;
-  @JsonKey(name: 'choice_id')
+  @JsonKey(name: 'choice_id',defaultValue: 0)
   int? choiceId;
   Answer({this.questionId, this.choiceId});
   factory Answer.fromJson(Map<String, dynamic> json) => _$AnswerFromJson(json);

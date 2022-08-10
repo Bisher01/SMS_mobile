@@ -21,12 +21,17 @@ class ExamSchedule {
 
 @JsonSerializable()
 class MiniExamSchedule {
+  @JsonKey(defaultValue: 0)
   int? id;
   DateTime? start;
   DateTime? end;
+  @JsonKey(defaultValue: 0)
   int? mark;
+  @JsonKey(defaultValue: 0)
   int? exam_name_id;
+  @JsonKey(defaultValue: 0)
   int? subject_mark_id;
+  @JsonKey(defaultValue: 0)
   int? season_id;
   SubjectMark? subject_mark;
 
@@ -49,7 +54,9 @@ class MiniExamSchedule {
 
 @JsonSerializable()
 class SubjectMark {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: 0)
   int? mark;
   Subject? subject;
 

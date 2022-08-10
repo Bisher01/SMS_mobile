@@ -6,9 +6,12 @@ part 'teacher_online_class.g.dart';
 
 @JsonSerializable()
 class TeacherOnlineClass {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? link;
   DateTime? date;
+  @JsonKey(defaultValue: 0)
   int? teacher_subject_id;
   TeacherSubjects? teacher_subject;
 
@@ -39,9 +42,13 @@ class FTeacherOnlineClass {
 
 @JsonSerializable()
 class TeacherSubjects {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: 0)
   int? subject_id;
+  @JsonKey(defaultValue: 0)
   int? teacher_id;
+  @JsonKey(defaultValue: 0)
   int? class_classroom_id;
   Subject? subjects;
   ClassClassroom? class_classrooms;

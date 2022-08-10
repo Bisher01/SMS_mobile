@@ -7,15 +7,15 @@ part of 'exam.dart';
 // **************************************************************************
 
 Exam _$ExamFromJson(Map<String, dynamic> json) => Exam(
-      id: json['id'] as int?,
-      updated_at: json['updated_at'] as String?,
-      created_at: json['created_at'] as String?,
-      end: json['end'] as String?,
-      exam_name_id: json['exam_name_id'] as int?,
-      mark: json['mark'] as int?,
-      season_id: json['season_id'] as int?,
-      start: json['start'] as String?,
-      subject_mark_id: json['subject_mark_id'] as int?,
+      id: json['id'] as int? ?? 0,
+      updated_at: json['updated_at'] as String? ?? '',
+      created_at: json['created_at'] as String? ?? '',
+      end: json['end'] as String? ?? '',
+      exam_name_id: json['exam_name_id'] as int? ?? 0,
+      mark: json['mark'] as int? ?? 0,
+      season_id: json['season_id'] as int? ?? 0,
+      start: json['start'] as String? ?? '',
+      subject_mark_id: json['subject_mark_id'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$ExamToJson(Exam instance) => <String, dynamic>{

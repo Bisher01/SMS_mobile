@@ -69,7 +69,7 @@ class _StudentExamScheduleState extends State<StudentExamSchedule> {
         ),
         child: Consumer<AppProvider>(
           builder: (context, provider, child) {
-            if (provider.getClassExamResponse != null) {
+            if (provider.getClassExamResponse?.data?.exams != null) {
               switch (provider.getClassExamResponse!.status) {
                 case Status.LOADING:
                   return Center(
@@ -102,7 +102,7 @@ class _StudentExamScheduleState extends State<StudentExamSchedule> {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
-                                    days[DateTime.now().weekday-1],
+                                    days[DateTime.now().weekday - 1],
                                     style: TextStyle(
                                         color: Colors.grey[500],
                                         fontSize: 18,
@@ -111,7 +111,7 @@ class _StudentExamScheduleState extends State<StudentExamSchedule> {
                                         letterSpacing: 0.5),
                                   ),
                                   Text(
-                                    '${months[DateTime.now().month-1]} ${DateTime.now().year.toString().substring(2)}',
+                                    '${months[DateTime.now().month - 1]} ${DateTime.now().year.toString().substring(2)}',
                                     style: TextStyle(
                                         color: Colors.grey[500],
                                         fontSize: 18,
@@ -160,7 +160,7 @@ class _StudentExamScheduleState extends State<StudentExamSchedule> {
                           height: widgetSize.getHeight(100, context),
                           child: ListView.builder(
                             itemCount: provider
-                                .getClassExamResponse!.data!.exams!.length,
+                                .getClassExamResponse?.data?.exams?.length,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (BuildContext context, int index) {
                               return InkWell(
@@ -426,7 +426,8 @@ class _StudentExamScheduleState extends State<StudentExamSchedule> {
                                     Container(
                                       decoration: BoxDecoration(
                                         color: containerColor == index
-                                            ? Colors.grey[100]?.withOpacity(0.55)
+                                            ? Colors.grey[100]
+                                                ?.withOpacity(0.55)
                                             : Colors.transparent,
                                         borderRadius: BorderRadius.circular(
                                           15,
@@ -445,7 +446,8 @@ class _StudentExamScheduleState extends State<StudentExamSchedule> {
                                               context,
                                               PageTransition(
                                                 child: ExamScreen(
-                                                  examId: exams[selectedTab].id!,
+                                                  examId:
+                                                      exams[selectedTab].id!,
                                                 ),
                                                 type: PageTransitionType
                                                     .leftToRightPop,
@@ -481,7 +483,9 @@ class _StudentExamScheduleState extends State<StudentExamSchedule> {
                   return Container();
               }
             }
-            return Container();
+            return err.Error(
+              errorMsg: 'not found',
+            );
           },
         ),
       ),

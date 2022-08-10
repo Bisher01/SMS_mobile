@@ -4,12 +4,19 @@ part 'resultant.g.dart';
 
 @JsonSerializable()
 class Resultant {
+  @JsonKey(defaultValue: '')
   String? subjectName;
+  @JsonKey(defaultValue: 0)
   double? subjectMark;
+  @JsonKey(defaultValue: 0)
   double? quize;
+  @JsonKey(defaultValue: 0)
   double? exam;
+  @JsonKey(defaultValue: 0)
   double? test;
+  @JsonKey(defaultValue: 0)
   double? oralTest;
+  @JsonKey(defaultValue: 0)
   double? totalMark;
 
 

@@ -55,8 +55,8 @@ Map<String, dynamic> _$FSeedToJson(FSeed instance) => <String, dynamic>{
     };
 
 Bloods _$BloodsFromJson(Map<String, dynamic> json) => Bloods(
-      id: json['id'] as int?,
-      type: json['type'] as String?,
+      id: json['id'] as int? ?? 0,
+      type: json['type'] as String? ?? '',
     );
 
 Map<String, dynamic> _$BloodsToJson(Bloods instance) => <String, dynamic>{
@@ -65,9 +65,9 @@ Map<String, dynamic> _$BloodsToJson(Bloods instance) => <String, dynamic>{
     };
 
 Classes _$ClassesFromJson(Map<String, dynamic> json) => Classes(
-      id: json['id'] as int?,
-      grade_id: json['grade_id'] as int?,
-      name: json['name'] as String?,
+      id: json['id'] as int? ?? 0,
+      grade_id: json['grade_id'] as int? ?? 0,
+      name: json['name'] as String? ?? '',
       classroom: (json['classroom'] as List<dynamic>?)
           ?.map((e) => Classroom.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -81,8 +81,8 @@ Map<String, dynamic> _$ClassesToJson(Classes instance) => <String, dynamic>{
     };
 
 Genders _$GendersFromJson(Map<String, dynamic> json) => Genders(
-      id: json['id'] as int?,
-      type: json['type'] as String?,
+      id: json['id'] as int? ?? 0,
+      type: json['type'] as String? ?? '',
     );
 
 Map<String, dynamic> _$GendersToJson(Genders instance) => <String, dynamic>{
@@ -91,8 +91,8 @@ Map<String, dynamic> _$GendersToJson(Genders instance) => <String, dynamic>{
     };
 
 Grades _$GradesFromJson(Map<String, dynamic> json) => Grades(
-      id: json['id'] as int?,
-      name: json['name'] as String?,
+      id: json['id'] as int? ?? 0,
+      name: json['name'] as String? ?? '',
     );
 
 Map<String, dynamic> _$GradesToJson(Grades instance) => <String, dynamic>{
@@ -101,8 +101,8 @@ Map<String, dynamic> _$GradesToJson(Grades instance) => <String, dynamic>{
     };
 
 Religions _$ReligionsFromJson(Map<String, dynamic> json) => Religions(
-      id: json['id'] as int?,
-      name: json['name'] as String?,
+      id: json['id'] as int? ?? 0,
+      name: json['name'] as String? ?? '',
     );
 
 Map<String, dynamic> _$ReligionsToJson(Religions instance) => <String, dynamic>{
@@ -112,8 +112,8 @@ Map<String, dynamic> _$ReligionsToJson(Religions instance) => <String, dynamic>{
 
 Nationalities _$NationalitiesFromJson(Map<String, dynamic> json) =>
     Nationalities(
-      id: json['id'] as int?,
-      name: json['name'] as String?,
+      id: json['id'] as int? ?? 0,
+      name: json['name'] as String? ?? '',
     );
 
 Map<String, dynamic> _$NationalitiesToJson(Nationalities instance) =>

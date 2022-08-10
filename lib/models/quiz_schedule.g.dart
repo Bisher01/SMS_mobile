@@ -24,18 +24,18 @@ Map<String, dynamic> _$QuizScheduleToJson(QuizSchedule instance) =>
 MiniQuizSchedule _$MiniQuizScheduleFromJson(Map<String, dynamic> json) =>
     MiniQuizSchedule(
       end: json['end'] == null ? null : DateTime.parse(json['end'] as String),
-      id: json['id'] as int?,
-      mark: json['mark'] as int?,
+      id: json['id'] as int? ?? 0,
+      mark: json['mark'] as int? ?? 0,
       start: json['start'] == null
           ? null
           : DateTime.parse(json['start'] as String),
-      season_id: json['season_id'] as int?,
-      quiz_name_id: json['quiz_name_id'] as int?,
+      season_id: json['season_id'] as int? ?? 0,
+      quiz_name_id: json['quiz_name_id'] as int? ?? 0,
       teacher_and_subject: json['teacher_and_subject'] == null
           ? null
           : TeacherSubject.fromJson(
               json['teacher_and_subject'] as Map<String, dynamic>),
-      teacher_subject_id: json['teacher_subject_id'] as int?,
+      teacher_subject_id: json['teacher_subject_id'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$MiniQuizScheduleToJson(MiniQuizSchedule instance) =>
@@ -52,13 +52,13 @@ Map<String, dynamic> _$MiniQuizScheduleToJson(MiniQuizSchedule instance) =>
 
 TeacherSubject _$TeacherSubjectFromJson(Map<String, dynamic> json) =>
     TeacherSubject(
-      id: json['id'] as int?,
-      subject_id: json['subject_id'] as int?,
+      id: json['id'] as int? ?? 0,
+      subject_id: json['subject_id'] as int? ?? 0,
       subjects: json['subjects'] == null
           ? null
           : Subject.fromJson(json['subjects'] as Map<String, dynamic>),
-      class_classroom_id: json['class_classroom_id'] as int?,
-      teacher_id: json['teacher_id'] as int?,
+      class_classroom_id: json['class_classroom_id'] as int? ?? 0,
+      teacher_id: json['teacher_id'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$TeacherSubjectToJson(TeacherSubject instance) =>

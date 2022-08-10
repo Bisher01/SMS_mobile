@@ -22,15 +22,15 @@ Map<String, dynamic> _$StudentQuizToJson(StudentQuiz instance) =>
     };
 
 QuizData _$QuizDataFromJson(Map<String, dynamic> json) => QuizData(
-      id: json['id'] as int?,
+      id: json['id'] as int? ?? 0,
       start: json['start'] == null
           ? null
           : DateTime.parse(json['start'] as String),
       end: json['end'] == null ? null : DateTime.parse(json['end'] as String),
-      mark: json['mark'] as int?,
-      quizNameId: json['quiz_name_id'] as int?,
-      teacherSubjectId: json['teacher_subject_id'] as int?,
-      seasonId: json['season_id'] as int?,
+      mark: json['mark'] as int? ?? 0,
+      quizNameId: json['quiz_name_id'] as int? ?? 0,
+      teacherSubjectId: json['teacher_subject_id'] as int? ?? 0,
+      seasonId: json['season_id'] as int? ?? 0,
       questions: (json['questions'] as List<dynamic>?)
           ?.map((e) => Questions.fromJson(e as Map<String, dynamic>))
           .toList(),

@@ -8,20 +8,20 @@ part of 'student_timetable.dart';
 
 StudentTimeTable _$StudentTimeTableFromJson(Map<String, dynamic> json) =>
     StudentTimeTable(
-      id: json['id'] as int?,
-      teacher_id: json['teacher_id'] as int?,
-      classClassroom_id: json['classClassroom_id'] as int?,
+      id: json['id'] as int? ?? 0,
+      teacher_id: json['teacher_id'] as int? ?? 0,
+      classClassroom_id: json['classClassroom_id'] as int? ?? 0,
       lesson: json['lesson'] == null
           ? null
           : Lesson.fromJson(json['lesson'] as Map<String, dynamic>),
-      lessonDay_id: json['lessonDay_id'] as int?,
+      lessonDay_id: json['lessonDay_id'] as int? ?? 0,
       subject: json['subject'] == null
           ? null
           : Subject.fromJson(json['subject'] as Map<String, dynamic>),
       teacher: json['teacher'] == null
           ? null
           : StudentTeacher.fromJson(json['teacher'] as Map<String, dynamic>),
-      subject_id: json['subject_id'] as int?,
+      subject_id: json['subject_id'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$StudentTimeTableToJson(StudentTimeTable instance) =>

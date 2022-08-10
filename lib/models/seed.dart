@@ -48,7 +48,9 @@ class FSeed{
 
 @JsonSerializable()
 class Bloods{
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? type;
 
   Bloods({
@@ -64,8 +66,11 @@ class Bloods{
 
 @JsonSerializable()
 class Classes{
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: 0)
   int? grade_id;
+  @JsonKey(defaultValue: '')
   String? name;
   List <Classroom>? classroom;
 
@@ -84,7 +89,9 @@ class Classes{
 
 @JsonSerializable()
 class Genders{
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? type;
 
   Genders({
@@ -100,7 +107,9 @@ class Genders{
 
 @JsonSerializable()
 class Grades{
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? name;
 
   Grades({
@@ -116,7 +125,9 @@ class Grades{
 
 @JsonSerializable()
 class Religions{
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? name;
 
   Religions({
@@ -132,7 +143,9 @@ class Religions{
 
 @JsonSerializable()
 class Nationalities{
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? name;
 
   Nationalities({

@@ -7,15 +7,15 @@ part of 'mentor.dart';
 // **************************************************************************
 
 Mentor _$MentorFromJson(Map<String, dynamic> json) => Mentor(
-      address_id: json['address_id'] as int?,
-      code: json['code'] as String?,
-      email: json['email'] as String?,
-      f_name: json['f_name'] as String?,
-      id: json['id'] as int?,
-      l_name: json['l_name'] as String?,
-      joining_date: json['joining_date'] as String?,
-      class_id: json['class_id'] as int?,
-      phone: json['phone'] as String?,
+      address_id: json['address_id'] as int? ?? 0,
+      code: json['code'] as String? ?? '',
+      email: json['email'] as String? ?? '',
+      f_name: json['f_name'] as String? ?? '',
+      id: json['id'] as int? ?? 0,
+      l_name: json['l_name'] as String? ?? '',
+      joining_date: json['joining_date'] as String? ?? '',
+      class_id: json['class_id'] as int? ?? 0,
+      phone: json['phone'] as String? ?? '',
       address: json['address'] == null
           ? null
           : Address.fromJson(json['address'] as Map<String, dynamic>),

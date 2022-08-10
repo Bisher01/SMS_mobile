@@ -22,14 +22,14 @@ Map<String, dynamic> _$FNewParentToJson(FNewParent instance) =>
     };
 
 NewParent _$NewParentFromJson(Map<String, dynamic> json) => NewParent(
-      id: json['id'] as int?,
-      phone: json['phone'] as String?,
-      code: json['code'] as String?,
-      email: json['email'] as String?,
-      father_name: json['father_name'] as String?,
-      jop: json['jop'] as String?,
-      mother_name: json['mother_name'] as String?,
-      national_number: json['national_number'] as String?,
+      id: json['id'] as int? ?? 0,
+      phone: json['phone'] as String? ?? '',
+      code: json['code'] as String? ?? '',
+      email: json['email'] as String? ?? '',
+      father_name: json['father_name'] as String? ?? '',
+      jop: json['jop'] as String? ?? '',
+      mother_name: json['mother_name'] as String? ?? '',
+      national_number: json['national_number'] as String? ?? '',
     )..child = (json['child'] as List<dynamic>?)
         ?.map((e) => Student.fromJson(e as Map<String, dynamic>))
         .toList();

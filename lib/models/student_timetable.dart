@@ -6,10 +6,15 @@ part 'student_timetable.g.dart';
 
 @JsonSerializable()
 class StudentTimeTable {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: 0)
   int? lessonDay_id;
+  @JsonKey(defaultValue: 0)
   int? classClassroom_id;
+  @JsonKey(defaultValue: 0)
   int? teacher_id;
+  @JsonKey(defaultValue: 0)
   int? subject_id;
   Lesson? lesson;
   Subject? subject;

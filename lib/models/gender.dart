@@ -4,7 +4,9 @@ part 'gender.g.dart';
 
 @JsonSerializable()
 class Gender {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? type;
 
   Gender({

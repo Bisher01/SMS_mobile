@@ -838,8 +838,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                           questions: questions,
                                           subjectId: widget.subjectId,
                                           classId: widget.classId,
-                                          start: DateTime.now().add(Duration(minutes: 10)),
-                                          end: DateTime.now().add(const Duration(hours: 2)),
+                                          start: DateTime.now().add(Duration(minutes: 1)),
+                                          end: DateTime.now().add(const Duration(hours: 1)),
                                           seasonId: widget.season,
                                           examNameId: widget.type);
                                       var response =

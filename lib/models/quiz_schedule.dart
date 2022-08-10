@@ -21,12 +21,17 @@ class QuizSchedule {
 
 @JsonSerializable()
 class MiniQuizSchedule {
+  @JsonKey(defaultValue: 0)
   int? id;
   DateTime? start;
   DateTime? end;
+  @JsonKey(defaultValue: 0)
   int? mark;
+  @JsonKey(defaultValue: 0)
   int? quiz_name_id;
+  @JsonKey(defaultValue: 0)
   int? teacher_subject_id;
+  @JsonKey(defaultValue: 0)
   int? season_id;
   TeacherSubject? teacher_and_subject;
 
@@ -49,9 +54,13 @@ class MiniQuizSchedule {
 
 @JsonSerializable()
 class TeacherSubject {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: 0)
   int? subject_id;
+  @JsonKey(defaultValue: 0)
   int? teacher_id;
+  @JsonKey(defaultValue: 0)
   int? class_classroom_id;
   Subject? subjects;
 

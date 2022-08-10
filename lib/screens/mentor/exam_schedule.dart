@@ -9,7 +9,8 @@ import '../../services/api_response.dart';
 
 class MentorExamSchedule extends StatefulWidget {
   final int mentorId;
-  const MentorExamSchedule({required this.mentorId, Key? key}) : super(key: key);
+  const MentorExamSchedule({required this.mentorId, Key? key})
+      : super(key: key);
 
   @override
   State<MentorExamSchedule> createState() => _MentorExamScheduleState();
@@ -18,17 +19,19 @@ class MentorExamSchedule extends StatefulWidget {
 class _MentorExamScheduleState extends State<MentorExamSchedule> {
   final ItemScrollController itemScrollController = ItemScrollController();
   final ItemPositionsListener itemPositionsListener =
-  ItemPositionsListener.create();
+      ItemPositionsListener.create();
 
   int? classId;
 
   @override
   initState() {
-    Provider.of<AppProvider>(context, listen: false).getMentor(widget.mentorId).then((value) {
-      classId = value.data!.mentor![0].class_id!;
-    });
     Provider.of<AppProvider>(context, listen: false)
-        .getClassExam(classId!);
+        .getMentor(widget.mentorId)
+        .then((value) {
+      classId = value.data!.mentor![0].class_id!;
+      Provider.of<AppProvider>(context, listen: false).getClassExam(classId!);
+    });
+
     super.initState();
   }
 
@@ -65,7 +68,7 @@ class _MentorExamScheduleState extends State<MentorExamSchedule> {
           ),
           child: Consumer<AppProvider>(
             builder: (context, provider, child) {
-              if (provider.getClassExamResponse != null) {
+              if (provider.getClassExamResponse?.data?.exams != null) {
                 switch (provider.getClassExamResponse!.status) {
                   case Status.LOADING:
                     return Center(
@@ -96,7 +99,7 @@ class _MentorExamScheduleState extends State<MentorExamSchedule> {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
-                                    days[DateTime.now().weekday-1],
+                                    days[DateTime.now().weekday - 1],
                                     style: TextStyle(
                                         color: Colors.grey[500],
                                         fontSize: 18,
@@ -105,7 +108,7 @@ class _MentorExamScheduleState extends State<MentorExamSchedule> {
                                         letterSpacing: 0.5),
                                   ),
                                   Text(
-                                    '${months[DateTime.now().month-1]} ${DateTime.now().year.toString().substring(2)}',
+                                    '${months[DateTime.now().month - 1]} ${DateTime.now().year.toString().substring(2)}',
                                     style: TextStyle(
                                         color: Colors.grey[500],
                                         fontSize: 18,
@@ -197,14 +200,14 @@ class _MentorExamScheduleState extends State<MentorExamSchedule> {
                                     color: selectedTab == index
                                         ? Colors.orange
                                         : const Color.fromARGB(
-                                      1,
-                                      250,
-                                      250,
-                                      250,
-                                    ).withOpacity(0.9),
+                                            1,
+                                            250,
+                                            250,
+                                            250,
+                                          ).withOpacity(0.9),
                                     child: Column(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                          MainAxisAlignment.spaceAround,
                                       children: [
                                         Text(
                                           provider.getClassExamResponse!.data!
@@ -271,7 +274,7 @@ class _MentorExamScheduleState extends State<MentorExamSchedule> {
                                     SizedBox(
                                       width: widgetSize.getWidth(200, context),
                                       height:
-                                      widgetSize.getHeight(140, context),
+                                          widgetSize.getHeight(140, context),
                                       child: Card(
                                         elevation: 5,
                                         shape: RoundedRectangleBorder(
@@ -282,24 +285,24 @@ class _MentorExamScheduleState extends State<MentorExamSchedule> {
                                         color: index % 4 == 0
                                             ? cardColor[0]
                                             : index % 4 == 1
-                                            ? cardColor[1]
-                                            : index % 4 == 2
-                                            ? cardColor[2]
-                                            : cardColor[3],
+                                                ? cardColor[1]
+                                                : index % 4 == 2
+                                                    ? cardColor[2]
+                                                    : cardColor[3],
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
                                             horizontal: 12,
                                           ),
                                           child: Column(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
+                                                MainAxisAlignment.spaceEvenly,
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   Row(
                                                     children: [
@@ -311,7 +314,7 @@ class _MentorExamScheduleState extends State<MentorExamSchedule> {
                                                         style: const TextStyle(
                                                           color: Colors.white,
                                                           fontWeight:
-                                                          FontWeight.bold,
+                                                              FontWeight.bold,
                                                           fontSize: 18,
                                                         ),
                                                       ),
@@ -358,7 +361,7 @@ class _MentorExamScheduleState extends State<MentorExamSchedule> {
                                                     style: TextStyle(
                                                       color: Colors.white,
                                                       fontWeight:
-                                                      FontWeight.w900,
+                                                          FontWeight.w900,
                                                     ),
                                                   ),
                                                   Text(
@@ -371,8 +374,8 @@ class _MentorExamScheduleState extends State<MentorExamSchedule> {
                                               ),
                                               Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   Row(
                                                     children: [
@@ -381,7 +384,7 @@ class _MentorExamScheduleState extends State<MentorExamSchedule> {
                                                         style: TextStyle(
                                                           color: Colors.white,
                                                           fontWeight:
-                                                          FontWeight.w900,
+                                                              FontWeight.w900,
                                                         ),
                                                       ),
                                                       Text(
@@ -399,7 +402,7 @@ class _MentorExamScheduleState extends State<MentorExamSchedule> {
                                                         style: TextStyle(
                                                           color: Colors.white,
                                                           fontWeight:
-                                                          FontWeight.w900,
+                                                              FontWeight.w900,
                                                         ),
                                                       ),
                                                       Text(
@@ -428,10 +431,10 @@ class _MentorExamScheduleState extends State<MentorExamSchedule> {
                                       ),
                                       width: widgetSize.getWidth(240, context),
                                       height:
-                                      widgetSize.getHeight(180, context),
+                                          widgetSize.getHeight(180, context),
                                       child: Padding(
-                                        padding:
-                                        const EdgeInsets.only(top: 16, right: 8),
+                                        padding: const EdgeInsets.only(
+                                            top: 16, right: 8),
                                         child: IconButton(
                                           onPressed: () {
                                             // Navigator.push(
@@ -473,7 +476,9 @@ class _MentorExamScheduleState extends State<MentorExamSchedule> {
                     return Container();
                 }
               }
-              return Container();
+              return err.Error(
+                errorMsg: 'not found',
+              );
             },
           ),
         ),

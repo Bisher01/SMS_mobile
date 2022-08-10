@@ -6,7 +6,7 @@ part 'subject.g.dart';
 class Subject {
   @JsonKey(defaultValue: 0)
   int? id;
-  @JsonKey(defaultValue: 'subject name')
+  @JsonKey(defaultValue: '')
   String? name;
 
   Subject({

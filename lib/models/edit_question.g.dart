@@ -8,9 +8,9 @@ part of 'edit_question.dart';
 
 EditQuestionChoices _$EditQuestionChoicesFromJson(Map<String, dynamic> json) =>
     EditQuestionChoices(
-      id: json['id'] as int?,
-      status: json['status'] as int?,
-      text: json['text'] as String?,
+      id: json['id'] as int? ?? 0,
+      status: json['status'] as int? ?? 0,
+      text: json['text'] as String? ?? '',
     );
 
 Map<String, dynamic> _$EditQuestionChoicesToJson(
@@ -23,7 +23,7 @@ Map<String, dynamic> _$EditQuestionChoicesToJson(
 
 EditQuestionModel _$EditQuestionModelFromJson(Map<String, dynamic> json) =>
     EditQuestionModel(
-      text: json['text'] as String?,
+      text: json['text'] as String? ?? '',
       choices: (json['choices'] as List<dynamic>)
           .map((e) => EditQuestionChoices.fromJson(e as Map<String, dynamic>))
           .toList(),

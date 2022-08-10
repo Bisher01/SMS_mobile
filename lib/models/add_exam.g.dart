@@ -8,8 +8,8 @@ part of 'add_exam.dart';
 
 AddQuestionToExam _$AddQuestionToExamFromJson(Map<String, dynamic> json) =>
     AddQuestionToExam(
-      questionId: json['question_id'] as int?,
-      mark: json['mark'] as int?,
+      questionId: json['question_id'] as int? ?? 0,
+      mark: json['mark'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$AddQuestionToExamToJson(AddQuestionToExam instance) =>
@@ -22,14 +22,14 @@ AddExam _$AddExamFromJson(Map<String, dynamic> json) => AddExam(
       questions: (json['questions'] as List<dynamic>?)
           ?.map((e) => AddQuestionToExam.fromJson(e as Map<String, dynamic>))
           .toList(),
-      subjectId: json['subject_id'] as int?,
-      classId: json['class_id'] as int?,
+      subjectId: json['subject_id'] as int? ?? 0,
+      classId: json['class_id'] as int? ?? 0,
       start: json['start'] == null
           ? null
           : DateTime.parse(json['start'] as String),
       end: json['end'] == null ? null : DateTime.parse(json['end'] as String),
-      examNameId: json['exam_name_id'] as int?,
-      seasonId: json['season_id'] as int?,
+      examNameId: json['exam_name_id'] as int? ?? 0,
+      seasonId: json['season_id'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$AddExamToJson(AddExam instance) => <String, dynamic>{

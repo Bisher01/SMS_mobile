@@ -7,8 +7,8 @@ part of 'religion.dart';
 // **************************************************************************
 
 Religion _$ReligionFromJson(Map<String, dynamic> json) => Religion(
-      id: json['id'] as int?,
-      name: json['name'] as String?,
+      id: json['id'] as int? ?? 0,
+      name: json['name'] as String? ?? '',
     );
 
 Map<String, dynamic> _$ReligionToJson(Religion instance) => <String, dynamic>{

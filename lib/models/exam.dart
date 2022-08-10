@@ -4,14 +4,23 @@ part 'exam.g.dart';
 
 @JsonSerializable()
 class Exam {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? start;
+  @JsonKey(defaultValue: '')
   String? end;
+  @JsonKey(defaultValue: 0)
   int? mark;
+  @JsonKey(defaultValue: 0)
   int? exam_name_id;
+  @JsonKey(defaultValue: 0)
   int? subject_mark_id;
+  @JsonKey(defaultValue: 0)
   int? season_id;
+  @JsonKey(defaultValue: '')
   String? created_at;
+  @JsonKey(defaultValue: '')
   String? updated_at;
 
   Exam({

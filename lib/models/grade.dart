@@ -4,7 +4,9 @@ part 'grade.g.dart';
 
 @JsonSerializable()
 class Grade {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? name;
 
   Grade({this.id,  this.name});

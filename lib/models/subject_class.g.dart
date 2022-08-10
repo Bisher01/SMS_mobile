@@ -25,8 +25,8 @@ TeacherData _$TeacherDataFromJson(Map<String, dynamic> json) => TeacherData(
       class_classroom: (json['class_classroom'] as List<dynamic>?)
           ?.map((e) => ClassClassroom.fromJson(e as Map<String, dynamic>))
           .toList(),
-      id: json['id'] as int?,
-      name: json['name'] as String?,
+      id: json['id'] as int? ?? 0,
+      name: json['name'] as String? ?? '',
     );
 
 Map<String, dynamic> _$TeacherDataToJson(TeacherData instance) =>
@@ -38,12 +38,12 @@ Map<String, dynamic> _$TeacherDataToJson(TeacherData instance) =>
 
 ClassClassroom _$ClassClassroomFromJson(Map<String, dynamic> json) =>
     ClassClassroom(
-      id: json['id'] as int?,
+      id: json['id'] as int? ?? 0,
       classes: json['classes'] == null
           ? null
           : Classes.fromJson(json['classes'] as Map<String, dynamic>),
-      class_id: json['class_id'] as int?,
-      classroom_id: json['classroom_id'] as int?,
+      class_id: json['class_id'] as int? ?? 0,
+      classroom_id: json['classroom_id'] as int? ?? 0,
       classrooms: json['classrooms'] == null
           ? null
           : Classroom.fromJson(json['classrooms'] as Map<String, dynamic>),

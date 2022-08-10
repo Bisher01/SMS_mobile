@@ -7,8 +7,8 @@ part of 'nationality.dart';
 // **************************************************************************
 
 Nationality _$NationalityFromJson(Map<String, dynamic> json) => Nationality(
-      id: json['id'] as int?,
-      name: json['name'] as String?,
+      id: json['id'] as int? ?? 0,
+      name: json['name'] as String? ?? '',
     );
 
 Map<String, dynamic> _$NationalityToJson(Nationality instance) =>

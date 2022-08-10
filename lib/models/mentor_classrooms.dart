@@ -4,9 +4,11 @@ part 'mentor_classrooms.g.dart';
 
 @JsonSerializable()
 class MentorClassrooms {
+  @JsonKey(defaultValue: 0)
   int? id;
-  @JsonKey(name: 'grade_id')
+  @JsonKey(name: 'grade_id',defaultValue: 0)
   int? gradeId;
+  @JsonKey(defaultValue: '')
   String? name;
   List<Classroom>? classroom;
 

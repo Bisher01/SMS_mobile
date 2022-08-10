@@ -4,7 +4,9 @@ part 'academic_years.g.dart';
 
 @JsonSerializable()
 class AcademicYears {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? date;
 
   AcademicYears({this.id, this.date});

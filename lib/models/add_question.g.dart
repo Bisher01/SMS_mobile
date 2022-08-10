@@ -7,8 +7,8 @@ part of 'add_question.dart';
 // **************************************************************************
 
 Choice _$ChoiceFromJson(Map<String, dynamic> json) => Choice(
-      status: json['status'] as int?,
-      text: json['text'] as String?,
+      status: json['status'] as int? ?? 0,
+      text: json['text'] as String? ?? '',
     );
 
 Map<String, dynamic> _$ChoiceToJson(Choice instance) => <String, dynamic>{
@@ -17,7 +17,7 @@ Map<String, dynamic> _$ChoiceToJson(Choice instance) => <String, dynamic>{
     };
 
 Question _$QuestionFromJson(Map<String, dynamic> json) => Question(
-      text: json['text'] as String?,
+      text: json['text'] as String? ?? '',
       chioces: (json['chioces'] as List<dynamic>)
           .map((e) => Choice.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -32,12 +32,12 @@ Map<String, dynamic> _$QuestionToJson(Question instance) => <String, dynamic>{
 
 AddQuestionModel _$AddQuestionModelFromJson(Map<String, dynamic> json) =>
     AddQuestionModel(
-      classId: json['class_id'] as String?,
+      classId: json['class_id'] as String? ?? '',
       question: (json['question'] as List<dynamic>)
           .map((e) => Question.fromJson(e as Map<String, dynamic>))
           .toList(),
-      subjectId: json['subject_id'] as String?,
-      teacherId: json['teacher_id'] as String?,
+      subjectId: json['subject_id'] as String? ?? '',
+      teacherId: json['teacher_id'] as String? ?? '',
     );
 
 Map<String, dynamic> _$AddQuestionModelToJson(AddQuestionModel instance) =>

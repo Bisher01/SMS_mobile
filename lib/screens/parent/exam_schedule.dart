@@ -67,7 +67,7 @@ class _ParentExamScheduleState extends State<ParentExamSchedule> {
         ),
         child: Consumer<AppProvider>(
           builder: (context, provider, child) {
-            if (provider.getClassExamResponse != null) {
+            if (provider.getClassExamResponse?.data?.exams != null) {
               switch (provider.getClassExamResponse!.status) {
                 case Status.LOADING:
                   return Center(
@@ -479,7 +479,7 @@ class _ParentExamScheduleState extends State<ParentExamSchedule> {
                   return Container();
               }
             }
-            return Container();
+            return err.Error(errorMsg: 'not found',);
           },
         ),
       ),

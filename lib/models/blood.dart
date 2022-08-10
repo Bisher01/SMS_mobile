@@ -4,7 +4,9 @@ part 'blood.g.dart';
 
 @JsonSerializable()
 class Blood {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? type;
 
   Blood({

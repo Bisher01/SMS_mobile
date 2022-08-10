@@ -7,8 +7,8 @@ part of 'answer.dart';
 // **************************************************************************
 
 Answers _$AnswersFromJson(Map<String, dynamic> json) => Answers(
-      questionId: json['question_id'] as int?,
-      choiceId: json['choice_id'] as int?,
+      questionId: json['question_id'] as int? ?? 0,
+      choiceId: json['choice_id'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$AnswersToJson(Answers instance) => <String, dynamic>{

@@ -7,9 +7,9 @@ part of 'classroom.dart';
 // **************************************************************************
 
 Classroom _$ClassroomFromJson(Map<String, dynamic> json) => Classroom(
-      id: json['id'] as int?,
-      name: json['name'] as int?,
-      max_number: json['max_number'] as int?,
+      id: json['id'] as int? ?? 0,
+      name: json['name'] as int? ?? 0,
+      max_number: json['max_number'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$ClassroomToJson(Classroom instance) => <String, dynamic>{

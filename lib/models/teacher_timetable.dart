@@ -8,9 +8,13 @@ part 'teacher_timetable.g.dart';
 
 @JsonSerializable()
 class TeacherTimeTable {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: 0)
   int? lessonDay_id;
+  @JsonKey(defaultValue: 0)
   int? classClassroom_id;
+  @JsonKey(defaultValue: 0)
   int? teacher_id;
   Lesson? lesson;
   @JsonKey(defaultValue: '')
@@ -45,7 +49,9 @@ class FTeacherTimeTable {
 
 @JsonSerializable()
 class Day {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? name;
 
   Day({this.id, this.name});
@@ -55,7 +61,9 @@ class Day {
 
 @JsonSerializable()
 class MiniLesson {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? name;
 
   MiniLesson({this.id, this.name});
@@ -66,8 +74,11 @@ class MiniLesson {
 
 @JsonSerializable()
 class Lesson {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: 0)
   int? day_id;
+  @JsonKey(defaultValue: 0)
   int? lesson_id;
   MiniLesson? lessons;
   Day? days;

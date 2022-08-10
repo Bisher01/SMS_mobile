@@ -851,7 +851,7 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                                           subjectId: widget.subjectId,
                                           classId: widget.classId,
                                           classroomId: widget.classroomId,
-                                          start: DateTime.now().add(Duration(minutes: 10)),
+                                          start: DateTime.now().add(Duration(minutes: 3)),
                                           end: DateTime.now().add(const Duration(hours: 2)),
                                           seasonId: widget.season,
                                           teacherId: provider.getId());

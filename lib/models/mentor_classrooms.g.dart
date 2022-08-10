@@ -8,12 +8,12 @@ part of 'mentor_classrooms.dart';
 
 MentorClassrooms _$MentorClassroomsFromJson(Map<String, dynamic> json) =>
     MentorClassrooms(
-      id: json['id'] as int?,
-      name: json['name'] as String?,
+      id: json['id'] as int? ?? 0,
+      name: json['name'] as String? ?? '',
       classroom: (json['classroom'] as List<dynamic>?)
           ?.map((e) => Classroom.fromJson(e as Map<String, dynamic>))
           .toList(),
-      gradeId: json['grade_id'] as int?,
+      gradeId: json['grade_id'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$MentorClassroomsToJson(MentorClassrooms instance) =>

@@ -7,8 +7,8 @@ part of 'grade.dart';
 // **************************************************************************
 
 Grade _$GradeFromJson(Map<String, dynamic> json) => Grade(
-      id: json['id'] as int?,
-      name: json['name'] as String?,
+      id: json['id'] as int? ?? 0,
+      name: json['name'] as String? ?? '',
     );
 
 Map<String, dynamic> _$GradeToJson(Grade instance) => <String, dynamic>{

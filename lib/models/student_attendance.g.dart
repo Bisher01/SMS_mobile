@@ -24,19 +24,19 @@ Map<String, dynamic> _$FStudentAttendanceToJson(FStudentAttendance instance) =>
 
 StudentAttendances _$StudentAttendancesFromJson(Map<String, dynamic> json) =>
     StudentAttendances(
-      academic_year_id: json['academic_year_id'] as int?,
-      address_id: json['address_id'] as int?,
-      birthdate: json['birthdate'] as String?,
-      blood_id: json['blood_id'] as int?,
-      code: json['code'] as String?,
-      email: json['email'] as String?,
-      f_name: json['f_name'] as String?,
-      gender_id: json['gender_id'] as int?,
-      grade_id: json['grade_id'] as int?,
-      id: json['id'] as int?,
-      l_name: json['l_name'] as String?,
-      nationality_id: json['nationality_id'] as int?,
-      parent_id: json['parent_id'] as int?,
+      academic_year_id: json['academic_year_id'] as int? ?? 0,
+      address_id: json['address_id'] as int? ?? 0,
+      birthdate: json['birthdate'] as String? ?? '',
+      blood_id: json['blood_id'] as int? ?? 0,
+      code: json['code'] as String? ?? '',
+      email: json['email'] as String? ?? '',
+      f_name: json['f_name'] as String? ?? '',
+      gender_id: json['gender_id'] as int? ?? 0,
+      grade_id: json['grade_id'] as int? ?? 0,
+      id: json['id'] as int? ?? 0,
+      l_name: json['l_name'] as String? ?? '',
+      nationality_id: json['nationality_id'] as int? ?? 0,
+      parent_id: json['parent_id'] as int? ?? 0,
       picture: json['picture'] as String? ?? '',
       parent: json['parent'] == null
           ? null
@@ -44,7 +44,7 @@ StudentAttendances _$StudentAttendancesFromJson(Map<String, dynamic> json) =>
       address: json['address'] == null
           ? null
           : Address.fromJson(json['address'] as Map<String, dynamic>),
-      religion_id: json['religion_id'] as int?,
+      religion_id: json['religion_id'] as int? ?? 0,
       religion: json['religion'] == null
           ? null
           : Religion.fromJson(json['religion'] as Map<String, dynamic>),
@@ -68,7 +68,7 @@ StudentAttendances _$StudentAttendancesFromJson(Map<String, dynamic> json) =>
           ? null
           : ClassClassroom.fromJson(
               json['class_classroom'] as Map<String, dynamic>),
-      class_classroom_id: json['class_classroom_id'] as int?,
+      class_classroom_id: json['class_classroom_id'] as int? ?? 0,
       attendances: (json['attendances'] as List<dynamic>?)
           ?.map((e) => Attendance.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -105,13 +105,13 @@ Map<String, dynamic> _$StudentAttendancesToJson(StudentAttendances instance) =>
     };
 
 Attendance _$AttendanceFromJson(Map<String, dynamic> json) => Attendance(
-      id: json['id'] as int?,
-      studentId: json['student_id'] as int?,
-      statusId: json['status_id'] as int?,
+      id: json['id'] as int? ?? 0,
+      studentId: json['student_id'] as int? ?? 0,
+      statusId: json['status_id'] as int? ?? 0,
       status: json['status'] == null
           ? null
           : StatusAttendance.fromJson(json['status'] as Map<String, dynamic>),
-      attendanceId: json['attendance_id'] as int?,
+      attendanceId: json['attendance_id'] as int? ?? 0,
       attendance: json['attendance'] == null
           ? null
           : AttendanceInfo.fromJson(json['attendance'] as Map<String, dynamic>),
@@ -129,8 +129,8 @@ Map<String, dynamic> _$AttendanceToJson(Attendance instance) =>
 
 StatusAttendance _$StatusAttendanceFromJson(Map<String, dynamic> json) =>
     StatusAttendance(
-      id: json['id'] as int?,
-      status: json['status'] as String?,
+      id: json['id'] as int? ?? 0,
+      status: json['status'] as String? ?? '',
     );
 
 Map<String, dynamic> _$StatusAttendanceToJson(StatusAttendance instance) =>
@@ -141,8 +141,8 @@ Map<String, dynamic> _$StatusAttendanceToJson(StatusAttendance instance) =>
 
 AttendanceInfo _$AttendanceInfoFromJson(Map<String, dynamic> json) =>
     AttendanceInfo(
-      id: json['id'] as int?,
-      date: json['date'] as String?,
+      id: json['id'] as int? ?? 0,
+      date: json['date'] as String? ?? '',
     );
 
 Map<String, dynamic> _$AttendanceInfoToJson(AttendanceInfo instance) =>

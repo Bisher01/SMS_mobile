@@ -7,19 +7,19 @@ part of 'student.dart';
 // **************************************************************************
 
 Student _$StudentFromJson(Map<String, dynamic> json) => Student(
-      academic_year_id: json['academic_year_id'] as int?,
-      address_id: json['address_id'] as int?,
-      birthdate: json['birthdate'] as String?,
-      blood_id: json['blood_id'] as int?,
-      code: json['code'] as String?,
-      email: json['email'] as String?,
-      f_name: json['f_name'] as String?,
-      gender_id: json['gender_id'] as int?,
-      grade_id: json['grade_id'] as int?,
-      id: json['id'] as int?,
-      l_name: json['l_name'] as String?,
-      nationality_id: json['nationality_id'] as int?,
-      parent_id: json['parent_id'] as int?,
+      academic_year_id: json['academic_year_id'] as int? ?? 0,
+      address_id: json['address_id'] as int? ?? 0,
+      birthdate: json['birthdate'] as String? ?? '',
+      blood_id: json['blood_id'] as int? ?? 0,
+      code: json['code'] as String? ?? '',
+      email: json['email'] as String? ?? '',
+      f_name: json['f_name'] as String? ?? '',
+      gender_id: json['gender_id'] as int? ?? 0,
+      grade_id: json['grade_id'] as int? ?? 0,
+      id: json['id'] as int? ?? 0,
+      l_name: json['l_name'] as String? ?? '',
+      nationality_id: json['nationality_id'] as int? ?? 0,
+      parent_id: json['parent_id'] as int? ?? 0,
       picture: json['picture'] as String? ?? '',
       parent: json['parent'] == null
           ? null
@@ -27,7 +27,7 @@ Student _$StudentFromJson(Map<String, dynamic> json) => Student(
       address: json['address'] == null
           ? null
           : Address.fromJson(json['address'] as Map<String, dynamic>),
-      religion_id: json['religion_id'] as int?,
+      religion_id: json['religion_id'] as int? ?? 0,
       religion: json['religion'] == null
           ? null
           : Religion.fromJson(json['religion'] as Map<String, dynamic>),
@@ -47,7 +47,7 @@ Student _$StudentFromJson(Map<String, dynamic> json) => Student(
       grade: json['grade'] == null
           ? null
           : Grade.fromJson(json['grade'] as Map<String, dynamic>),
-      class_classroom_id: json['class_classroom_id'] as int?,
+      class_classroom_id: json['class_classroom_id'] as int? ?? 0,
       class_classroom: json['class_classroom'] == null
           ? null
           : ClassClassroom.fromJson(

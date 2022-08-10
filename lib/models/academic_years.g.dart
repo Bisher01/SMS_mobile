@@ -8,8 +8,8 @@ part of 'academic_years.dart';
 
 AcademicYears _$AcademicYearsFromJson(Map<String, dynamic> json) =>
     AcademicYears(
-      id: json['id'] as int?,
-      date: json['date'] as String?,
+      id: json['id'] as int? ?? 0,
+      date: json['date'] as String? ?? '',
     );
 
 Map<String, dynamic> _$AcademicYearsToJson(AcademicYears instance) =>

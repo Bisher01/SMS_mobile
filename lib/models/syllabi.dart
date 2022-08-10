@@ -3,36 +3,19 @@ import 'package:json_annotation/json_annotation.dart';
 import 'models.dart';
 
 part 'syllabi.g.dart';
-/*
-{
-    "status": true,
-    "message": "syllabi",
-    "syllabi": [
-        {
-            "id": 1,
-            "content": "/2022/syllabi/alissar0__الصف_الاول/Swvl9rVlOGiFirmAXMlV1cDCfOiRrCT6Nf4y9aaG.pdf",
-            "class_id": 1,
-            "subject_id": 1,
-            "subject": {
-                "id": 1,
-                "name": "alissar0"
-            },
-            "class": {
-                "id": 1,
-                "name": " الصف الاول",
-                "grade_id": 1
-            }
-        }
-    ]
-}
-*/
+
 
 @JsonSerializable()
 class Syllabi {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? content;
+  @JsonKey(defaultValue: 0)
   int? class_id;
+  @JsonKey(defaultValue: 0)
   int? subject_id;
+  @JsonKey(defaultValue: 0)
   int? active;
   @JsonKey(name: 'class')
   Class? classes;

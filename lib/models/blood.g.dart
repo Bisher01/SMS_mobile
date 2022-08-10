@@ -7,8 +7,8 @@ part of 'blood.dart';
 // **************************************************************************
 
 Blood _$BloodFromJson(Map<String, dynamic> json) => Blood(
-      id: json['id'] as int?,
-      type: json['type'] as String?,
+      id: json['id'] as int? ?? 0,
+      type: json['type'] as String? ?? '',
     );
 
 Map<String, dynamic> _$BloodToJson(Blood instance) => <String, dynamic>{

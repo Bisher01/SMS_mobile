@@ -4,8 +4,11 @@ part 'edit_question.g.dart';
 
 @JsonSerializable()
 class EditQuestionChoices {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? text;
+  @JsonKey(defaultValue: 0)
   int? status;
   EditQuestionChoices({this.id, this.status, this.text});
   factory EditQuestionChoices.fromJson(Map<String, dynamic> json) =>
@@ -15,6 +18,7 @@ class EditQuestionChoices {
 
 @JsonSerializable()
 class EditQuestionModel {
+  @JsonKey(defaultValue: '')
   String? text;
   List<EditQuestionChoices> choices;
   @JsonKey(name: '_method')

@@ -5,6 +5,7 @@ part 'attendance_model.g.dart';
 
 @JsonSerializable()
 class AttendanceModel{
+  @JsonKey(defaultValue: '')
   String? date;
   List<StudentAttendance>? students;
   AttendanceModel({
@@ -18,9 +19,9 @@ class AttendanceModel{
 
 @JsonSerializable()
 class StudentAttendance{
-  @JsonKey(name: 'student_id')
+  @JsonKey(name: 'student_id',defaultValue: 0)
   int? id;
-  @JsonKey(name: 'status_id')
+  @JsonKey(name: 'status_id',defaultValue: 0)
   int? status;
 
   StudentAttendance({
@@ -50,9 +51,9 @@ Map<String,dynamic> toJson() => _$MentorClassesToJson(this);
 @JsonSerializable()
 class MentorClassesData{
   int? id;
-  @JsonKey(name: 'class_id')
+  @JsonKey(name: 'class_id',defaultValue: 0)
   int? classId;
-  @JsonKey(name: 'classroom_id')
+  @JsonKey(name: 'classroom_id',defaultValue: 0)
   int? classRoomId;
   Classroom? classrooms;
   List<Student>? students;

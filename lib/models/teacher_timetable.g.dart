@@ -8,13 +8,13 @@ part of 'teacher_timetable.dart';
 
 TeacherTimeTable _$TeacherTimeTableFromJson(Map<String, dynamic> json) =>
     TeacherTimeTable(
-      id: json['id'] as int?,
-      teacher_id: json['teacher_id'] as int?,
-      classClassroom_id: json['classClassroom_id'] as int?,
+      id: json['id'] as int? ?? 0,
+      teacher_id: json['teacher_id'] as int? ?? 0,
+      classClassroom_id: json['classClassroom_id'] as int? ?? 0,
       lesson: json['lesson'] == null
           ? null
           : Lesson.fromJson(json['lesson'] as Map<String, dynamic>),
-      lessonDay_id: json['lessonDay_id'] as int?,
+      lessonDay_id: json['lessonDay_id'] as int? ?? 0,
       classroom: json['classroom'] == null
           ? null
           : ClassClassroom.fromJson(json['classroom'] as Map<String, dynamic>),
@@ -48,8 +48,8 @@ Map<String, dynamic> _$FTeacherTimeTableToJson(FTeacherTimeTable instance) =>
     };
 
 Day _$DayFromJson(Map<String, dynamic> json) => Day(
-      id: json['id'] as int?,
-      name: json['name'] as String?,
+      id: json['id'] as int? ?? 0,
+      name: json['name'] as String? ?? '',
     );
 
 Map<String, dynamic> _$DayToJson(Day instance) => <String, dynamic>{
@@ -58,8 +58,8 @@ Map<String, dynamic> _$DayToJson(Day instance) => <String, dynamic>{
     };
 
 MiniLesson _$MiniLessonFromJson(Map<String, dynamic> json) => MiniLesson(
-      id: json['id'] as int?,
-      name: json['name'] as String?,
+      id: json['id'] as int? ?? 0,
+      name: json['name'] as String? ?? '',
     );
 
 Map<String, dynamic> _$MiniLessonToJson(MiniLesson instance) =>
@@ -69,12 +69,12 @@ Map<String, dynamic> _$MiniLessonToJson(MiniLesson instance) =>
     };
 
 Lesson _$LessonFromJson(Map<String, dynamic> json) => Lesson(
-      id: json['id'] as int?,
-      day_id: json['day_id'] as int?,
+      id: json['id'] as int? ?? 0,
+      day_id: json['day_id'] as int? ?? 0,
       days: json['days'] == null
           ? null
           : Day.fromJson(json['days'] as Map<String, dynamic>),
-      lesson_id: json['lesson_id'] as int?,
+      lesson_id: json['lesson_id'] as int? ?? 0,
       lessons: json['lessons'] == null
           ? null
           : MiniLesson.fromJson(json['lessons'] as Map<String, dynamic>),

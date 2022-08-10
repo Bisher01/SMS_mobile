@@ -6,6 +6,7 @@ part 'mark.g.dart';
 class FMark {
   bool? status;
   String? message;
+  @JsonKey(defaultValue: 0)
   int? mark;
   FMark({
     this.message,

@@ -4,13 +4,21 @@ part 'parent.g.dart';
 
 @JsonSerializable()
 class Parent {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? national_number;
+  @JsonKey(defaultValue: '')
   String? mother_name;
+  @JsonKey(defaultValue: '')
   String? father_name;
+  @JsonKey(defaultValue: '')
   String? code;
+  @JsonKey(defaultValue: '')
   String? phone;
+  @JsonKey(defaultValue: '')
   String? email;
+  @JsonKey(defaultValue: '')
   String? jop;
 
   Parent(

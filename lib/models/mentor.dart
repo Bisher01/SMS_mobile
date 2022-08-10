@@ -4,14 +4,23 @@ part 'mentor.g.dart';
 
 @JsonSerializable()
 class Mentor {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? f_name;
+  @JsonKey(defaultValue: '')
   String? l_name;
+  @JsonKey(defaultValue: '')
   String? email;
+  @JsonKey(defaultValue: '')
   String? code;
+  @JsonKey(defaultValue: '')
   String? joining_date;
+  @JsonKey(defaultValue: '')
   String? phone;
+  @JsonKey(defaultValue: 0)
   int? class_id;
+  @JsonKey(defaultValue: 0)
   int? address_id;
   @JsonKey(name: 'class')
   Class? classes;

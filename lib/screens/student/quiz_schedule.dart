@@ -73,7 +73,8 @@ class _QuizScheduleState extends State<QuizSchedule> {
         ),
         child: Consumer<AppProvider>(
           builder: (context, provider, child) {
-            if (provider.getClassroomQuizScheduleResponse != null) {
+            if (provider.getClassroomQuizScheduleResponse?.data?.quizzes !=
+                null) {
               switch (provider.getClassroomQuizScheduleResponse!.status) {
                 case Status.LOADING:
                   return Center(
@@ -506,7 +507,9 @@ class _QuizScheduleState extends State<QuizSchedule> {
                   return Container();
               }
             }
-            return Container();
+            return const err.Error(
+              errorMsg: 'not found',
+            );
           },
         ),
       ),

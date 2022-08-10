@@ -21,7 +21,9 @@ class SubjectClass {
 
 @JsonSerializable()
 class TeacherData {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? name;
   List<ClassClassroom>? class_classroom;
 
@@ -39,8 +41,11 @@ class TeacherData {
 
 @JsonSerializable()
 class ClassClassroom {
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: 0)
   int? class_id;
+  @JsonKey(defaultValue: 0)
   int? classroom_id;
   Classes? classes;
   Classroom? classrooms;

@@ -4,7 +4,9 @@ part 'admin.g.dart';
 
 @JsonSerializable()
 class Admin{
+  @JsonKey(defaultValue: 0)
   int? id;
+  @JsonKey(defaultValue: '')
   String? email;
   Admin({
     this.email,

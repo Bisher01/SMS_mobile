@@ -4,7 +4,9 @@ part 'add_question.g.dart';
 
 @JsonSerializable()
 class Choice{
+  @JsonKey(defaultValue: '')
   String? text;
+  @JsonKey(defaultValue: 0)
   int? status;
   Choice({this.status,this.text});
   factory Choice.fromJson(Map<String,dynamic>json) => _$ChoiceFromJson(json);
@@ -13,6 +15,7 @@ class Choice{
 
 @JsonSerializable()
 class Question{
+  @JsonKey(defaultValue: '')
   String? text;
   List<Choice> chioces;
   @JsonKey(name: '_method')
@@ -24,11 +27,11 @@ class Question{
 
 @JsonSerializable()
 class AddQuestionModel{
-  @JsonKey(name: 'class_id')
+  @JsonKey(name: 'class_id',defaultValue: '')
   String? classId;
-  @JsonKey(name: 'teacher_id')
+  @JsonKey(name: 'teacher_id',defaultValue: '')
   String? teacherId;
-  @JsonKey(name: 'subject_id')
+  @JsonKey(name: 'subject_id',defaultValue: '')
   String? subjectId;
   List<Question> question;
   AddQuestionModel({this.classId,required this.question,this.subjectId,this.teacherId});

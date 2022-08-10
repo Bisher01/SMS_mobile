@@ -7,11 +7,11 @@ part of 'syllabi.dart';
 // **************************************************************************
 
 Syllabi _$SyllabiFromJson(Map<String, dynamic> json) => Syllabi(
-      id: json['id'] as int?,
-      class_id: json['class_id'] as int?,
-      subject_id: json['subject_id'] as int?,
-      content: json['content'] as String?,
-      active: json['active'] as int?,
+      id: json['id'] as int? ?? 0,
+      class_id: json['class_id'] as int? ?? 0,
+      subject_id: json['subject_id'] as int? ?? 0,
+      content: json['content'] as String? ?? '',
+      active: json['active'] as int? ?? 0,
       subject: json['subject'] == null
           ? null
           : Subject.fromJson(json['subject'] as Map<String, dynamic>),

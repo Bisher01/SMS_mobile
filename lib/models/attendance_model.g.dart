@@ -8,7 +8,7 @@ part of 'attendance_model.dart';
 
 AttendanceModel _$AttendanceModelFromJson(Map<String, dynamic> json) =>
     AttendanceModel(
-      date: json['date'] as String?,
+      date: json['date'] as String? ?? '',
       students: (json['students'] as List<dynamic>?)
           ?.map((e) => StudentAttendance.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -22,8 +22,8 @@ Map<String, dynamic> _$AttendanceModelToJson(AttendanceModel instance) =>
 
 StudentAttendance _$StudentAttendanceFromJson(Map<String, dynamic> json) =>
     StudentAttendance(
-      id: json['student_id'] as int?,
-      status: json['status_id'] as int?,
+      id: json['student_id'] as int? ?? 0,
+      status: json['status_id'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$StudentAttendanceToJson(StudentAttendance instance) =>
@@ -51,8 +51,8 @@ Map<String, dynamic> _$MentorClassesToJson(MentorClasses instance) =>
 MentorClassesData _$MentorClassesDataFromJson(Map<String, dynamic> json) =>
     MentorClassesData(
       id: json['id'] as int?,
-      classId: json['class_id'] as int?,
-      classRoomId: json['classroom_id'] as int?,
+      classId: json['class_id'] as int? ?? 0,
+      classRoomId: json['classroom_id'] as int? ?? 0,
       classrooms: json['classrooms'] == null
           ? null
           : Classroom.fromJson(json['classrooms'] as Map<String, dynamic>),

@@ -4,9 +4,9 @@ part 'answer.g.dart';
 
 @JsonSerializable()
 class Answers{
-  @JsonKey(name: 'question_id')
+  @JsonKey(name: 'question_id',defaultValue: 0)
   int? questionId;
-  @JsonKey(name: 'choice_id')
+  @JsonKey(name: 'choice_id',defaultValue: 0)
   int? choiceId;
   Answers({this.questionId,this.choiceId});
 

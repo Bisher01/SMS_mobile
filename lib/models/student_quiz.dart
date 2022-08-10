@@ -24,16 +24,17 @@ class StudentQuiz {
 
 @JsonSerializable()
 class QuizData {
-
+  @JsonKey(defaultValue: 0)
   int? id;
   DateTime? start;
   DateTime? end;
+  @JsonKey(defaultValue: 0)
   int? mark;
-  @JsonKey(name: 'quiz_name_id')
+  @JsonKey(name: 'quiz_name_id',defaultValue: 0)
   int? quizNameId;
-  @JsonKey(name: 'teacher_subject_id')
+  @JsonKey(name: 'teacher_subject_id',defaultValue: 0)
   int? teacherSubjectId;
-  @JsonKey(name: 'season_id')
+  @JsonKey(name: 'season_id',defaultValue: 0)
   int? seasonId;
   List<Questions>? questions;
 
