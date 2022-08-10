@@ -53,7 +53,7 @@ class _SelectClassSubjectClassroomState
             primaryColor: Colors.orange[400],
             colorScheme: ColorScheme.light(primary: Colors.orange[400]!),
             buttonTheme:
-            const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                const ButtonThemeData(textTheme: ButtonTextTheme.primary),
           ),
           child: child!,
         );
@@ -74,19 +74,19 @@ class _SelectClassSubjectClassroomState
 
   void _presentStartTimePicker(TimeOfDay start) {
     showTimePicker(
-        builder: (context, child) {
-          return Theme(
-            data: ThemeData.light().copyWith(
-              primaryColor: Colors.orange[400],
-              colorScheme: ColorScheme.light(primary: Colors.orange[400]!),
-              buttonTheme:
-              const ButtonThemeData(textTheme: ButtonTextTheme.primary),
-            ),
-            child: child!,
-          );
-        },
-        context: context,
-        initialTime: start)
+            builder: (context, child) {
+              return Theme(
+                data: ThemeData.light().copyWith(
+                  primaryColor: Colors.orange[400],
+                  colorScheme: ColorScheme.light(primary: Colors.orange[400]!),
+                  buttonTheme:
+                      const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                ),
+                child: child!,
+              );
+            },
+            context: context,
+            initialTime: start)
         .then((pickedTime) {
       if (pickedTime == null) {
         return;
@@ -100,19 +100,19 @@ class _SelectClassSubjectClassroomState
 
   void _presentEndTimePicker(TimeOfDay end) {
     showTimePicker(
-        builder: (context, child) {
-          return Theme(
-            data: ThemeData.light().copyWith(
-              primaryColor: Colors.orange[400],
-              colorScheme: ColorScheme.light(primary: Colors.orange[400]!),
-              buttonTheme:
-              const ButtonThemeData(textTheme: ButtonTextTheme.primary),
-            ),
-            child: child!,
-          );
-        },
-        context: context,
-        initialTime: end)
+            builder: (context, child) {
+              return Theme(
+                data: ThemeData.light().copyWith(
+                  primaryColor: Colors.orange[400],
+                  colorScheme: ColorScheme.light(primary: Colors.orange[400]!),
+                  buttonTheme:
+                      const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                ),
+                child: child!,
+              );
+            },
+            context: context,
+            initialTime: end)
         .then((pickedTime) {
       if (pickedTime == null) {
         return;
@@ -123,7 +123,7 @@ class _SelectClassSubjectClassroomState
       }
     });
   }
-  ///TODO: selectedSubject
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,10 +131,7 @@ class _SelectClassSubjectClassroomState
         backgroundColor: Colors.white,
         title: const Text(
           "Teacher's classes and classrooms",
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.black
-          ),
+          style: TextStyle(fontSize: 16, color: Colors.black),
         ),
         leading: IconButton(
           icon: const Icon(
@@ -172,80 +169,83 @@ class _SelectClassSubjectClassroomState
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                const Text(
-                                  'Exam Date:',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                TextButton(
-                                    onPressed: () {
-                                      _presentDatePicker(_startDate);
-                                    },
-                                    child: Text(
-                                      '${_startDate.day}-${_startDate.month}-${_startDate.year}',
-                                      style: const TextStyle(
-                                          fontSize: 16,
+                        widget.addOralMark
+                            ? SizedBox(
+                                width: 0,
+                                height: 0,
+                              )
+                            : Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      const Text(
+                                        'Exam Date:',
+                                        style: TextStyle(
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w600,
-                                          color: Colors.grey
+                                        ),
                                       ),
-                                    ))
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                const Text(
-                                  'Start at:',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
+                                      TextButton(
+                                          onPressed: () {
+                                            _presentDatePicker(_startDate);
+                                          },
+                                          child: Text(
+                                            '${_startDate.day}-${_startDate.month}-${_startDate.year}',
+                                            style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.grey),
+                                          ))
+                                    ],
                                   ),
-                                ),
-                                TextButton(
-                                    onPressed: () {
-                                      _presentStartTimePicker(_startTime);
-                                    },
-                                    child: Text(
-                                      '${_startTime.hour}:${_startTime.minute}',
-                                      style: const TextStyle(
-                                          fontSize: 16,
+                                  Column(
+                                    children: [
+                                      const Text(
+                                        'Start at:',
+                                        style: TextStyle(
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w600,
-                                          color: Colors.grey
+                                        ),
                                       ),
-                                    ))
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                const Text(
-                                  'Ends at:',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
+                                      TextButton(
+                                          onPressed: () {
+                                            _presentStartTimePicker(_startTime);
+                                          },
+                                          child: Text(
+                                            '${_startTime.hour}:${_startTime.minute}',
+                                            style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.grey),
+                                          ))
+                                    ],
                                   ),
-                                ),
-                                TextButton(
-                                    onPressed: () {
-                                      _presentEndTimePicker(_endTime);
-                                    },
-                                    child: Text(
-                                      '${_endTime.hour}:${_endTime.minute}',
-                                      style: const TextStyle(
-                                          fontSize: 16,
+                                  Column(
+                                    children: [
+                                      const Text(
+                                        'Ends at:',
+                                        style: TextStyle(
+                                          fontSize: 18,
                                           fontWeight: FontWeight.w600,
-                                          color: Colors.grey
+                                        ),
                                       ),
-                                    ))
-                              ],
-                            ),
-                          ],
-                        ),
+                                      TextButton(
+                                          onPressed: () {
+                                            _presentEndTimePicker(_endTime);
+                                          },
+                                          child: Text(
+                                            '${_endTime.hour}:${_endTime.minute}',
+                                            style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.grey),
+                                          ))
+                                    ],
+                                  ),
+                                ],
+                              ),
                         SizedBox(
                           height: widgetSize.getHeight(
                             350,
@@ -381,7 +381,7 @@ class _SelectClassSubjectClassroomState
                                         offAxisFraction: -0.0,
                                         diameterRatio: 2,
                                         itemExtent: 60,
-                                        children: [1,2].map((e) {
+                                        children: [1, 2].map((e) {
                                           return Row(
                                             children: <Widget>[
                                               Expanded(
@@ -471,9 +471,19 @@ class _SelectClassSubjectClassroomState
                                           classroomId: classroomId,
                                         )
                                       : AddQuizScreen(
-                                      start: DateTime(_startDate.year,_startDate.month,_startDate.day,_startTime.hour,_startTime.minute),
-                                      end: DateTime(_startDate.year,_startDate.month,_startDate.day,_endTime.hour,_endTime.minute),
-                                      season: selectedSeason,
+                                          start: DateTime(
+                                              _startDate.year,
+                                              _startDate.month,
+                                              _startDate.day,
+                                              _startTime.hour,
+                                              _startTime.minute),
+                                          end: DateTime(
+                                              _startDate.year,
+                                              _startDate.month,
+                                              _startDate.day,
+                                              _endTime.hour,
+                                              _endTime.minute),
+                                          season: selectedSeason,
                                           classId: classId,
                                           subjectId: subjectDDV!,
                                           classroomId: classroomId),
