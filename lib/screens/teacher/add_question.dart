@@ -822,7 +822,7 @@ class _AddQuestionState extends State<AddQuestion> {
                                 response.data!.status!) {
                               EasyLoading.showSuccess(response.data!.message!,
                                   dismissOnTap: true);
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                 context,
                                 PageTransition(
                                   child: AddQuestion(

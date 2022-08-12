@@ -903,22 +903,12 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                                                   return AlertDialog(
                                                     actions: <Widget>[
                                                       TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.push(
-                                                          context,
-                                                          PageTransition(
-                                                            child:
-                                                                const TeacherMainScreen(),
-                                                            type: PageTransitionType
-                                                                .bottomToTopJoined,
-                                                            childCurrent:
-                                                                widget,
-                                                            duration:
-                                                                const Duration(
-                                                                    milliseconds:
-                                                                        300),
-                                                          ),
-                                                        ),
+                                                        onPressed: ()
+                                                        {
+                                                          Navigator.pop(context);
+
+                                                          Navigator.pop(context);
+                                                        },
                                                         child: Text(
                                                           'OK',
                                                           style: TextStyle(

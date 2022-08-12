@@ -173,19 +173,23 @@ class _ExamScreenState extends State<ExamScreen> {
                         GestureDetector(
                           onTap: () {
                             setState(() {
-                              if (answers[index].choiceId == 1) {
+                              if (answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                  .exams![0].questions![index].choices![0].id) {
                                 answers[index].choiceId = 0;
                               } else {
-                                answers[index].choiceId = 1;
+                                answers[index].choiceId = provider.getStudentExamResponse!.data!
+                                    .exams![0].questions![index].choices![0].id;
                               }
                             });
                           },
                           onPanStart: (details) {
                             setState(() {
-                              if (answers[index].choiceId == 1) {
+                              if (answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                  .exams![0].questions![index].choices![0].id) {
                                 answers[index].choiceId = 0;
                               } else {
-                                answers[index].choiceId = 1;
+                                answers[index].choiceId = provider.getStudentExamResponse!.data!
+                                    .exams![0].questions![index].choices![0].id;
                               }
                             });
                           },
@@ -197,7 +201,8 @@ class _ExamScreenState extends State<ExamScreen> {
                                   borderRadius: const BorderRadius.all(
                                     Radius.circular(30),
                                   ),
-                                  color: answers[index].choiceId == 1
+                                  color: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                      .exams![0].questions![index].choices![0].id
                                       ? Colors.orange[400]
                                       : const Color.fromRGBO(70, 73, 81, 1),
                                 ),
@@ -215,7 +220,8 @@ class _ExamScreenState extends State<ExamScreen> {
                                         .choices![0]
                                         .text!,
                                     style: TextStyle(
-                                      color: answers[index].choiceId == 1
+                                      color: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                          .exams![0].questions![index].choices![0].id
                                           ? Colors.black
                                           : Colors.white,
                                       fontSize: 18,
@@ -224,20 +230,23 @@ class _ExamScreenState extends State<ExamScreen> {
                                 ),
                               ),
                               AnimatedPositioned(
-                                left: answers[index].choiceId == 1
+                                left: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                    .exams![0].questions![index].choices![0].id
                                     ? width - 85
                                     : 5,
                                 top: 5,
                                 duration: const Duration(milliseconds: 500),
                                 child: AnimatedRotation(
-                                  turns: answers[index].choiceId == 1 ? 1 : 0,
+                                  turns: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                      .exams![0].questions![index].choices![0].id ? 1 : 0,
                                   duration: const Duration(milliseconds: 500),
                                   child: Container(
                                     height: 50,
                                     width: 50,
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: answers[index].choiceId == 1
+                                        color: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                            .exams![0].questions![index].choices![0].id
                                             ? const Color.fromRGBO(
                                                 70, 73, 81, 1)
                                             : Colors.orange[400]),
@@ -247,7 +256,8 @@ class _ExamScreenState extends State<ExamScreen> {
                                         style: TextStyle(
                                           fontSize: 24,
                                           fontWeight: FontWeight.bold,
-                                          color: answers[index].choiceId == 1
+                                          color: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                              .exams![0].questions![index].choices![0].id
                                               ? Colors.white
                                               : Colors.black,
                                         ),
@@ -265,19 +275,23 @@ class _ExamScreenState extends State<ExamScreen> {
                         GestureDetector(
                           onTap: () {
                             setState(() {
-                              if (answers[index].choiceId == 2) {
+                              if (answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                  .exams![0].questions![index].choices![1].id) {
                                 answers[index].choiceId = 0;
                               } else {
-                                answers[index].choiceId = 2;
+                                answers[index].choiceId = provider.getStudentExamResponse!.data!
+                                    .exams![0].questions![index].choices![1].id;
                               }
                             });
                           },
                           onPanStart: (details) {
                             setState(() {
-                              if (answers[index].choiceId == 2) {
+                              if (answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                  .exams![0].questions![index].choices![1].id) {
                                 answers[index].choiceId = 0;
                               } else {
-                                answers[index].choiceId = 2;
+                                answers[index].choiceId = provider.getStudentExamResponse!.data!
+                                    .exams![0].questions![index].choices![1].id;
                               }
                             });
                           },
@@ -289,7 +303,8 @@ class _ExamScreenState extends State<ExamScreen> {
                                   borderRadius: const BorderRadius.all(
                                     Radius.circular(30),
                                   ),
-                                  color: answers[index].choiceId == 2
+                                  color: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                      .exams![0].questions![index].choices![1].id
                                       ? Colors.orange[400]
                                       : const Color.fromRGBO(70, 73, 81, 1),
                                 ),
@@ -307,7 +322,8 @@ class _ExamScreenState extends State<ExamScreen> {
                                         .choices![1]
                                         .text!,
                                     style: TextStyle(
-                                      color: answers[index].choiceId == 2
+                                      color: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                          .exams![0].questions![index].choices![1].id
                                           ? Colors.black
                                           : Colors.white,
                                       fontSize: 18,
@@ -316,20 +332,23 @@ class _ExamScreenState extends State<ExamScreen> {
                                 ),
                               ),
                               AnimatedPositioned(
-                                left: answers[index].choiceId == 2
+                                left: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                    .exams![0].questions![index].choices![1].id
                                     ? width - 85
                                     : 5,
                                 top: 5,
                                 duration: const Duration(milliseconds: 500),
                                 child: AnimatedRotation(
-                                  turns: answers[index].choiceId == 2 ? 1 : 0,
+                                  turns: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                      .exams![0].questions![index].choices![1].id ? 1 : 0,
                                   duration: const Duration(milliseconds: 500),
                                   child: Container(
                                     height: 50,
                                     width: 50,
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: answers[index].choiceId == 2
+                                        color: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                            .exams![0].questions![index].choices![1].id
                                             ? const Color.fromRGBO(
                                                 70, 73, 81, 1)
                                             : Colors.orange[400]),
@@ -339,7 +358,8 @@ class _ExamScreenState extends State<ExamScreen> {
                                         style: TextStyle(
                                           fontSize: 24,
                                           fontWeight: FontWeight.bold,
-                                          color: answers[index].choiceId == 2
+                                          color: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                              .exams![0].questions![index].choices![1].id
                                               ? Colors.white
                                               : Colors.black,
                                         ),
@@ -369,19 +389,23 @@ class _ExamScreenState extends State<ExamScreen> {
                             ? GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    if (answers[index].choiceId == 3) {
+                                    if (answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                        .exams![0].questions![index].choices![2].id) {
                                       answers[index].choiceId = 0;
                                     } else {
-                                      answers[index].choiceId = 3;
+                                      answers[index].choiceId = provider.getStudentExamResponse!.data!
+                                          .exams![0].questions![index].choices![2].id;
                                     }
                                   });
                                 },
                                 onPanStart: (details) {
                                   setState(() {
-                                    if (answers[index].choiceId == 3) {
+                                    if (answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                        .exams![0].questions![index].choices![2].id) {
                                       answers[index].choiceId = 0;
                                     } else {
-                                      answers[index].choiceId = 3;
+                                      answers[index].choiceId = provider.getStudentExamResponse!.data!
+                                          .exams![0].questions![index].choices![2].id;
                                     }
                                   });
                                 },
@@ -394,7 +418,8 @@ class _ExamScreenState extends State<ExamScreen> {
                                         borderRadius: const BorderRadius.all(
                                           Radius.circular(30),
                                         ),
-                                        color: answers[index].choiceId == 3
+                                        color: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                            .exams![0].questions![index].choices![2].id
                                             ? Colors.orange[400]
                                             : const Color.fromRGBO(
                                                 70, 73, 81, 1),
@@ -415,7 +440,8 @@ class _ExamScreenState extends State<ExamScreen> {
                                               .choices![2]
                                               .text!,
                                           style: TextStyle(
-                                            color: answers[index].choiceId == 3
+                                            color: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                                .exams![0].questions![index].choices![2].id
                                                 ? Colors.black
                                                 : Colors.white,
                                             fontSize: 18,
@@ -424,14 +450,16 @@ class _ExamScreenState extends State<ExamScreen> {
                                       ),
                                     ),
                                     AnimatedPositioned(
-                                      left: answers[index].choiceId == 3
+                                      left: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                          .exams![0].questions![index].choices![2].id
                                           ? width - 85
                                           : 5,
                                       top: 5,
                                       duration:
                                           const Duration(milliseconds: 500),
                                       child: AnimatedRotation(
-                                        turns: answers[index].choiceId == 3
+                                        turns: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                            .exams![0].questions![index].choices![2].id
                                             ? 1
                                             : 0,
                                         duration:
@@ -442,7 +470,8 @@ class _ExamScreenState extends State<ExamScreen> {
                                           decoration: BoxDecoration(
                                               shape: BoxShape.circle,
                                               color:
-                                                  answers[index].choiceId == 3
+                                                  answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                                      .exams![0].questions![index].choices![2].id
                                                       ? const Color.fromRGBO(
                                                           70, 73, 81, 1)
                                                       : Colors.orange[400]),
@@ -453,7 +482,8 @@ class _ExamScreenState extends State<ExamScreen> {
                                                 fontSize: 24,
                                                 fontWeight: FontWeight.bold,
                                                 color:
-                                                    answers[index].choiceId == 3
+                                                    answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                                        .exams![0].questions![index].choices![2].id
                                                         ? Colors.white
                                                         : Colors.black,
                                               ),
@@ -484,19 +514,23 @@ class _ExamScreenState extends State<ExamScreen> {
                             ? GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    if (answers[index].choiceId == 4) {
+                                    if (answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                        .exams![0].questions![index].choices![3].id) {
                                       answers[index].choiceId = 0;
                                     } else {
-                                      answers[index].choiceId = 4;
+                                      answers[index].choiceId = provider.getStudentExamResponse!.data!
+                                          .exams![0].questions![index].choices![3].id;
                                     }
                                   });
                                 },
                                 onPanStart: (details) {
                                   setState(() {
-                                    if (answers[index].choiceId == 4) {
+                                    if (answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                        .exams![0].questions![index].choices![3].id) {
                                       answers[index].choiceId = 0;
                                     } else {
-                                      answers[index].choiceId = 4;
+                                      answers[index].choiceId = provider.getStudentExamResponse!.data!
+                                          .exams![0].questions![index].choices![3].id;
                                     }
                                   });
                                 },
@@ -509,7 +543,8 @@ class _ExamScreenState extends State<ExamScreen> {
                                         borderRadius: const BorderRadius.all(
                                           Radius.circular(30),
                                         ),
-                                        color: answers[index].choiceId == 4
+                                        color: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                            .exams![0].questions![index].choices![3].id
                                             ? Colors.orange[400]
                                             : const Color.fromRGBO(
                                                 70, 73, 81, 1),
@@ -530,7 +565,8 @@ class _ExamScreenState extends State<ExamScreen> {
                                               .choices![3]
                                               .text!,
                                           style: TextStyle(
-                                            color: answers[index].choiceId == 4
+                                            color: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                                .exams![0].questions![index].choices![3].id
                                                 ? Colors.black
                                                 : Colors.white,
                                             fontSize: 18,
@@ -539,14 +575,16 @@ class _ExamScreenState extends State<ExamScreen> {
                                       ),
                                     ),
                                     AnimatedPositioned(
-                                      left: answers[index].choiceId == 4
+                                      left: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                          .exams![0].questions![index].choices![3].id
                                           ? width - 85
                                           : 5,
                                       top: 5,
                                       duration:
                                           const Duration(milliseconds: 500),
                                       child: AnimatedRotation(
-                                        turns: answers[index].choiceId == 4
+                                        turns: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                            .exams![0].questions![index].choices![3].id
                                             ? 1
                                             : 0,
                                         duration:
@@ -557,7 +595,8 @@ class _ExamScreenState extends State<ExamScreen> {
                                           decoration: BoxDecoration(
                                               shape: BoxShape.circle,
                                               color:
-                                                  answers[index].choiceId == 4
+                                                  answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                                      .exams![0].questions![index].choices![3].id
                                                       ? const Color.fromRGBO(
                                                           70, 73, 81, 1)
                                                       : Colors.orange[400]),
@@ -568,7 +607,8 @@ class _ExamScreenState extends State<ExamScreen> {
                                                 fontSize: 24,
                                                 fontWeight: FontWeight.bold,
                                                 color:
-                                                    answers[index].choiceId == 4
+                                                    answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                                        .exams![0].questions![index].choices![3].id
                                                         ? Colors.white
                                                         : Colors.black,
                                               ),
@@ -599,19 +639,23 @@ class _ExamScreenState extends State<ExamScreen> {
                             ? GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    if (answers[index].choiceId == 5) {
+                                    if (answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                        .exams![0].questions![index].choices![4].id) {
                                       answers[index].choiceId = 0;
                                     } else {
-                                      answers[index].choiceId = 5;
+                                      answers[index].choiceId = provider.getStudentExamResponse!.data!
+                                          .exams![0].questions![index].choices![4].id;
                                     }
                                   });
                                 },
                                 onPanStart: (details) {
                                   setState(() {
-                                    if (answers[index].choiceId == 5) {
+                                    if (answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                        .exams![0].questions![index].choices![4].id) {
                                       answers[index].choiceId = 0;
                                     } else {
-                                      answers[index].choiceId = 5;
+                                      answers[index].choiceId = provider.getStudentExamResponse!.data!
+                                          .exams![0].questions![index].choices![4].id;
                                     }
                                   });
                                 },
@@ -624,7 +668,8 @@ class _ExamScreenState extends State<ExamScreen> {
                                         borderRadius: const BorderRadius.all(
                                           Radius.circular(30),
                                         ),
-                                        color: answers[index].choiceId == 5
+                                        color: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                            .exams![0].questions![index].choices![4].id
                                             ? Colors.orange[400]
                                             : const Color.fromRGBO(
                                                 70, 73, 81, 1),
@@ -645,7 +690,8 @@ class _ExamScreenState extends State<ExamScreen> {
                                               .choices![4]
                                               .text!,
                                           style: TextStyle(
-                                            color: answers[index].choiceId == 5
+                                            color: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                                .exams![0].questions![index].choices![4].id
                                                 ? Colors.black
                                                 : Colors.white,
                                             fontSize: 18,
@@ -654,14 +700,16 @@ class _ExamScreenState extends State<ExamScreen> {
                                       ),
                                     ),
                                     AnimatedPositioned(
-                                      left: answers[index].choiceId == 5
+                                      left: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                          .exams![0].questions![index].choices![4].id
                                           ? width - 85
                                           : 5,
                                       top: 5,
                                       duration:
                                           const Duration(milliseconds: 500),
                                       child: AnimatedRotation(
-                                        turns: answers[index].choiceId == 5
+                                        turns: answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                            .exams![0].questions![index].choices![4].id
                                             ? 1
                                             : 0,
                                         duration:
@@ -672,7 +720,8 @@ class _ExamScreenState extends State<ExamScreen> {
                                           decoration: BoxDecoration(
                                               shape: BoxShape.circle,
                                               color:
-                                                  answers[index].choiceId == 5
+                                                  answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                                      .exams![0].questions![index].choices![4].id
                                                       ? const Color.fromRGBO(
                                                           70, 73, 81, 1)
                                                       : Colors.orange[400]),
@@ -683,7 +732,8 @@ class _ExamScreenState extends State<ExamScreen> {
                                                 fontSize: 24,
                                                 fontWeight: FontWeight.bold,
                                                 color:
-                                                    answers[index].choiceId == 5
+                                                    answers[index].choiceId == provider.getStudentExamResponse!.data!
+                                                        .exams![0].questions![index].choices![4].id
                                                         ? Colors.white
                                                         : Colors.black,
                                               ),
@@ -753,22 +803,11 @@ class _ExamScreenState extends State<ExamScreen> {
                                                   return AlertDialog(
                                                     actions: <Widget>[
                                                       TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pushReplacement(
-                                                          context,
-                                                          PageTransition(
-                                                            child:
-                                                                const StudentMainScreen(),
-                                                            type: PageTransitionType
-                                                                .bottomToTopJoined,
-                                                            childCurrent:
-                                                                widget,
-                                                            duration:
-                                                                const Duration(
-                                                                    milliseconds:
-                                                                        300),
-                                                          ),
-                                                        ),
+                                                        onPressed: ()
+                                                  {
+                                                    Navigator.pop(context);
+                                                    Navigator.pop(context);
+                                                    },
                                                         child: Text(
                                                           'OK',
                                                           style: TextStyle(
