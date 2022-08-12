@@ -233,80 +233,80 @@ class _MentorMainScreenState extends State<MentorMainScreen>
                 )),
           ),
           //marks
-          Card(
-              elevation: 3,
-              shadowColor: Colors.black,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(16),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 20, left: 20, right: 20, bottom: 10),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/icons/score.png',
-                      height: 100,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      'Marks',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                      ),
-                    )
-                  ],
-                ),
-              )),
-          //schedule
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                PageTransition(
-                  child: const StudentSchedule(),
-                  type: PageTransitionType.leftToRightPop,
-                  childCurrent: widget,
-                  duration: const Duration(milliseconds: 400),
-                ),
-              );
-            },
-            child: Card(
-                elevation: 3,
-                shadowColor: Colors.black,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(16),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 20, left: 20, right: 20, bottom: 10),
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        'assets/icons/schedule.png',
-                        height: 100,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Text(
-                        'Schedule',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                        ),
-                      )
-                    ],
-                  ),
-                )),
-          ),
+          // Card(
+          //     elevation: 3,
+          //     shadowColor: Colors.black,
+          //     shape: const RoundedRectangleBorder(
+          //       borderRadius: BorderRadius.all(
+          //         Radius.circular(16),
+          //       ),
+          //     ),
+          //     child: Padding(
+          //       padding: const EdgeInsets.only(
+          //           top: 20, left: 20, right: 20, bottom: 10),
+          //       child: Column(
+          //         children: [
+          //           Image.asset(
+          //             'assets/icons/score.png',
+          //             height: 100,
+          //           ),
+          //           const SizedBox(
+          //             height: 20,
+          //           ),
+          //           const Text(
+          //             'Marks',
+          //             style: TextStyle(
+          //               fontWeight: FontWeight.w600,
+          //               fontSize: 18,
+          //             ),
+          //           )
+          //         ],
+          //       ),
+          //     )),
+          // //schedule
+          // InkWell(
+          //   onTap: () {
+          //     Navigator.push(
+          //       context,
+          //       PageTransition(
+          //         child: const StudentSchedule(),
+          //         type: PageTransitionType.leftToRightPop,
+          //         childCurrent: widget,
+          //         duration: const Duration(milliseconds: 400),
+          //       ),
+          //     );
+          //   },
+          //   child: Card(
+          //       elevation: 3,
+          //       shadowColor: Colors.black,
+          //       shape: const RoundedRectangleBorder(
+          //         borderRadius: BorderRadius.all(
+          //           Radius.circular(16),
+          //         ),
+          //       ),
+          //       child: Padding(
+          //         padding: const EdgeInsets.only(
+          //             top: 20, left: 20, right: 20, bottom: 10),
+          //         child: Column(
+          //           children: [
+          //             Image.asset(
+          //               'assets/icons/schedule.png',
+          //               height: 100,
+          //             ),
+          //             const SizedBox(
+          //               height: 20,
+          //             ),
+          //             const Text(
+          //               'Schedule',
+          //               style: TextStyle(
+          //                 fontWeight: FontWeight.w600,
+          //                 fontSize: 18,
+          //               ),
+          //             )
+          //           ],
+          //         ),
+          //       )),
+          // ),
           //announcements
           // Card(
           //     elevation: 3,

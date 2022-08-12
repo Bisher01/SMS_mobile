@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_mobile/utill/utill.dart';
@@ -18,9 +19,13 @@ class SelectClassSubject extends StatefulWidget {
 class _SelectClassSubjectState extends State<SelectClassSubject> {
   FixedExtentScrollController fixedExtentScrollController =
       FixedExtentScrollController();
-
+  late final FocusNode _focusNode;
   @override
   initState() {
+    _focusNode = FocusNode();
+    _focusNode.addListener(() {
+      setState(() {});
+    });
     int id = Provider.of<AppProvider>(context, listen: false).getId();
     Provider.of<AppProvider>(context, listen: false).getTeacherSubjects(id);
     super.initState();
@@ -31,6 +36,8 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
   int classId = 0;
   int? selectedSeason;
   int? examDDV;
+
+  final TextEditingController _controller = TextEditingController();
   List<ExamTypes> examTypes = [
     ExamTypes(
       type: 'First',
@@ -258,10 +265,9 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                               child: Text(
                                 '${_startDate.day}-${_startDate.month}-${_startDate.year}',
                                 style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                    color: Colors.grey
-                                ),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.grey),
                               ))
                         ],
                       ),
@@ -281,34 +287,93 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                               child: Text(
                                 '${_startTime.hour}:${_startTime.minute}',
                                 style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.grey
-                                ),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.grey),
                               ))
                         ],
                       ),
                       Column(
                         children: [
                           const Text(
-                            'Ends at:',
+                            'Ends after: ',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          TextButton(
-                              onPressed: () {
-                                _presentEndTimePicker(_endTime);
-                              },
-                              child: Text(
-                                '${_endTime.hour}:${_endTime.minute}',
-                                style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.grey
+                          SizedBox(
+                            width: widgetSize.getWidth(140, context),
+                            //height: 50,
+                            child: TextFormField(
+                              focusNode: _focusNode,
+                              cursorColor: const Color.fromARGB(
+                                255,
+                                255,
+                                167,
+                                38,
+                              ),
+                              controller: _controller,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              decoration: InputDecoration(
+                                focusedBorder: const UnderlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      20,
+                                    ),
+                                  ),
+                                  borderSide: BorderSide(
+                                    style: BorderStyle.solid,
+                                    color: Color.fromARGB(
+                                      255,
+                                      255,
+                                      167,
+                                      38,
+                                    ),
+                                  ),
                                 ),
-                              ))
+                                labelText: "minutes",
+                                labelStyle: TextStyle(
+                                  color: _focusNode.hasFocus
+                                      ? const Color.fromARGB(
+                                          255,
+                                          255,
+                                          167,
+                                          38,
+                                        )
+                                      : Colors.grey,
+                                ),
+                                hintText: "20",
+                                icon: Icon(
+                                  Icons.timer,
+                                  color: _focusNode.hasFocus
+                                      ? const Color.fromARGB(
+                                          255,
+                                          255,
+                                          167,
+                                          38,
+                                        )
+                                      : Colors.grey,
+                                ),
+                              ),
+                            ),
+                          )
+
+                          // TextButton(
+                          //     onPressed: () {
+                          //       _presentEndTimePicker(_endTime);
+                          //     },
+                          //     child: Text(
+                          //       '${_endTime.hour}:${_endTime.minute}',
+                          //       style: const TextStyle(
+                          //           fontSize: 16,
+                          //           fontWeight: FontWeight.w600,
+                          //           color: Colors.grey
+                          //       ),
+                          //     ))
                         ],
                       ),
                     ],
@@ -442,10 +507,8 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                                           classId = provider
                                               .getTeacherSubjectsResponse!
                                               .data!
-                                              .data![0]
-                                              .class_classroom![index]
-                                              .classes!
-                                              .id!;
+                                              .data![0].classes![index].class_id!;
+
                                         },
                                         clipBehavior: Clip.antiAlias,
                                         controller: fixedExtentScrollController,
@@ -458,8 +521,7 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                                         children: provider
                                             .getTeacherSubjectsResponse!
                                             .data!
-                                            .data![0]
-                                            .class_classroom!
+                                            .data![0].classes!
                                             .map((e) {
                                           return Row(
                                             children: <Widget>[
@@ -532,22 +594,23 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                   subjectId = Provider.of<AppProvider>(context, listen: false)
                       .getTeacherSubjectsResponse!
                       .data!
-                      .data![0]
-                      .id!;
+                      .data![0].subject!.id!;
+
                   classId = classId == 0
                       ? Provider.of<AppProvider>(context, listen: false)
                           .getTeacherSubjectsResponse!
                           .data!
-                          .data![0]
-                          .class_classroom![0]
-                          .class_id!
+                          .data![0].classes![0].class_id!
                       : classId;
                   Navigator.push(
                     context,
                     PageTransition(
                       child: QuestionsBankScreen(
-                        start: DateTime(_startDate.year,_startDate.month,_startDate.day,_startTime.hour,_startTime.minute),
-                        end: DateTime(_startDate.year,_startDate.month,_startDate.day,_endTime.hour,_endTime.minute),
+                        start: DateTime(_startDate.year, _startDate.month,
+                            _startDate.day, _startTime.hour, _startTime.minute),
+                        end: _startDate.add(
+                            Duration(minutes: int.parse(_controller.text))),
+                        // DateTime(_startDate.year,_startDate.month,_startDate.day,_endTime.hour,_endTime.minute),
                         season: selectedSeason!,
                         classId: classId,
                         subjectId: subjectId,
@@ -585,15 +648,12 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                   subjectId = Provider.of<AppProvider>(context, listen: false)
                       .getTeacherSubjectsResponse!
                       .data!
-                      .data![0]
-                      .id!;
+                      .data![0].subject!.id!;
                   classId = classId == 0
                       ? Provider.of<AppProvider>(context, listen: false)
                           .getTeacherSubjectsResponse!
                           .data!
-                          .data![0]
-                          .class_classroom![0]
-                          .class_id!
+                          .data![0].classes![0].class_id!
                       : classId;
                   Navigator.pushReplacement(
                     context,
@@ -625,7 +685,13 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
       ),
     );
   }
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
 }
+
 
 class ExamTypes {
   int? id;

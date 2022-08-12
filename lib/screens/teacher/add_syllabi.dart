@@ -34,10 +34,9 @@ class _AddSyllabiState extends State<AddSyllabi> {
 
   int selectedSubject = 0;
   int selectedClass = 0;
-  int subjectId = 1;
-  int classId = 1;
+  int subjectId = 0;
+  int classId = 0;
 
-  ///TODO: class id and subject id are not changing
   FilePickerResult? result;
   void selectFile(int classId, int subjectId) async {
     try {
@@ -81,10 +80,7 @@ class _AddSyllabiState extends State<AddSyllabi> {
         backgroundColor: Colors.white,
         title: const Text(
           "Teacher's classes",
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.black
-          ),
+          style: TextStyle(fontSize: 16, color: Colors.black),
         ),
         leading: IconButton(
           icon: const Icon(
@@ -228,10 +224,8 @@ class _AddSyllabiState extends State<AddSyllabi> {
                                         classId = provider
                                             .getTeacherSubjectsResponse!
                                             .data!
-                                            .data![0]
-                                            .class_classroom![index]
-                                            .classes!
-                                            .id!;
+                                            .data![0].classes![index].class_id!;
+
                                       },
                                       clipBehavior: Clip.antiAlias,
                                       controller: fixedExtentScrollController,
@@ -244,7 +238,7 @@ class _AddSyllabiState extends State<AddSyllabi> {
                                           .getTeacherSubjectsResponse!
                                           .data!
                                           .data![0]
-                                          .class_classroom!
+                                          .classes!
                                           .map((e) {
                                         return Row(
                                           children: <Widget>[
@@ -313,12 +307,19 @@ class _AddSyllabiState extends State<AddSyllabi> {
                   subjectId = Provider.of<AppProvider>(context, listen: false)
                       .getTeacherSubjectsResponse!
                       .data!
-                      .data![0]
-                      .id!;
+                      .data![0].subject!.id!;
+                  classId = classId == 0
+                      ? Provider.of<AppProvider>(context, listen: false)
+                          .getTeacherSubjectsResponse!
+                          .data!
+                          .data![0]
+                          .classes![0]
+                          .class_id!
+                      : classId;
                   selectFile(classId, subjectId);
                 },
                 child: Text(
-                  'add a new book for ${Provider.of<AppProvider>(context, listen: false).getTeacherSubjectsResponse!.data!.data![0].name}',
+                  'add a new book for ${Provider.of<AppProvider>(context, listen: false).getTeacherSubjectsResponse!.data!.data![0].subject!.name}',
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w500,

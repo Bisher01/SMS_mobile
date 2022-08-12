@@ -290,6 +290,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                           ),
                           left: 45),
                       child: CircleAvatar(
+                        backgroundColor: Colors.white,
                         radius: 60,
                         child: FadeInImage(
                           fit: BoxFit.cover,

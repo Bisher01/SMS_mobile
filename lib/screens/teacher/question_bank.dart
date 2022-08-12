@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -223,7 +224,7 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                 children: [
                                    Text(
                                     'Mark:  $totalMark/${provider.questionBankResponse!.data!.questions![0].max_mark}',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 22,
                                       color: Colors.grey,
@@ -233,6 +234,9 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                     width: 40,
                                     height: 30,
                                     child: TextField(
+                                      inputFormatters: <TextInputFormatter>[
+                                        FilteringTextInputFormatter.digitsOnly
+                                      ],
                                       controller: _markController,
                                       cursorColor: Colors.black,
                                       keyboardType: TextInputType.number,

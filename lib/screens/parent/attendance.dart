@@ -12,8 +12,7 @@ class ParentAttendanceScreen extends StatefulWidget {
   const ParentAttendanceScreen({Key? key}) : super(key: key);
 
   @override
-  State<ParentAttendanceScreen> createState() =>
-      _ParentAttendanceScreenState();
+  State<ParentAttendanceScreen> createState() => _ParentAttendanceScreenState();
 }
 
 class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
@@ -103,7 +102,7 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 20),
                     gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       childAspectRatio: 3 / 3.5,
                       mainAxisSpacing: 10,
@@ -118,8 +117,12 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                       return Card(
                         elevation: 2,
                         shape: const RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(16,),),),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(
+                              16,
+                            ),
+                          ),
+                        ),
                         child: Center(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -128,10 +131,19 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                               children: [
                                 CircleAvatar(
                                   radius: 40,
-                                  backgroundImage: NetworkImage(
-                                    'http://127.0.0.1:8000/storage/${provider.getStudentAttendancesResponse!.data!.data![0].picture
-                                    //.mentorData![selectedClassroom].students![index].picture
-                                    }',
+                                  backgroundColor: Colors.white,
+                                  child: FadeInImage(
+                                    fit: BoxFit.cover,
+                                    placeholder:
+                                        const AssetImage('assets/student.png'),
+                                    image: NetworkImage(
+                                        'http://127.0.0.1:8000/storage/${provider.getStudentAttendancesResponse!.data!.data![0].picture}'),
+                                    imageErrorBuilder:
+                                        (context, error, stackTrace) {
+                                      return Container(
+                                          child: Image.asset(
+                                              "assets/student.png"));
+                                    },
                                   ),
                                 ),
                                 Text(
@@ -159,27 +171,27 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                                   children: [
                                     AnimatedContainer(
                                       duration:
-                                      const Duration(milliseconds: 300),
+                                          const Duration(milliseconds: 300),
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         border: Border.all(
                                             color: provider
-                                                .getStudentAttendancesResponse!
-                                                .data!
-                                                .data![0]
-                                                .attendances![index]
-                                                .statusId ==
-                                                1
+                                                        .getStudentAttendancesResponse!
+                                                        .data!
+                                                        .data![0]
+                                                        .attendances![index]
+                                                        .statusId ==
+                                                    1
                                                 ? ColorResources.green
                                                 : Colors.grey[300]!,
                                             width: 2),
                                         color: provider
-                                            .getStudentAttendancesResponse!
-                                            .data!
-                                            .data![0]
-                                            .attendances![index]
-                                            .statusId ==
-                                            1
+                                                    .getStudentAttendancesResponse!
+                                                    .data!
+                                                    .data![0]
+                                                    .attendances![index]
+                                                    .statusId ==
+                                                1
                                             ? ColorResources.green
                                             : Colors.grey[100],
                                       ),
@@ -194,21 +206,21 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                                             'P',
                                             style: TextStyle(
                                               color: provider
-                                                  .getStudentAttendancesResponse!
-                                                  .data!
-                                                  .data![0]
-                                                  .attendances![index]
-                                                  .statusId ==
-                                                  1
+                                                          .getStudentAttendancesResponse!
+                                                          .data!
+                                                          .data![0]
+                                                          .attendances![index]
+                                                          .statusId ==
+                                                      1
                                                   ? Colors.white
                                                   : Colors.black,
                                               fontSize: provider
-                                                  .getStudentAttendancesResponse!
-                                                  .data!
-                                                  .data![0]
-                                                  .attendances![index]
-                                                  .statusId ==
-                                                  1
+                                                          .getStudentAttendancesResponse!
+                                                          .data!
+                                                          .data![0]
+                                                          .attendances![index]
+                                                          .statusId ==
+                                                      1
                                                   ? 23
                                                   : 20,
                                               fontWeight: FontWeight.w700,
@@ -275,34 +287,34 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                                           horizontal: 8.0),
                                       child: AnimatedContainer(
                                         duration:
-                                        const Duration(milliseconds: 300),
+                                            const Duration(milliseconds: 300),
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                           border: Border.all(
                                               color: provider
-                                                  .getStudentAttendancesResponse!
-                                                  .data!
-                                                  .data![0]
-                                                  .attendances![index]
-                                                  .statusId ==
-                                                  2
+                                                          .getStudentAttendancesResponse!
+                                                          .data!
+                                                          .data![0]
+                                                          .attendances![index]
+                                                          .statusId ==
+                                                      2
                                                   ? const Color.fromRGBO(
-                                                  227, 85, 112, 1)
+                                                      227, 85, 112, 1)
                                                   : Colors.grey[300]!,
                                               width: 2),
                                           color: provider
-                                              .getStudentAttendancesResponse!
-                                              .data!
-                                              .data![0]
-                                              .attendances![index]
-                                              .statusId ==
-                                              2
+                                                      .getStudentAttendancesResponse!
+                                                      .data!
+                                                      .data![0]
+                                                      .attendances![index]
+                                                      .statusId ==
+                                                  2
                                               ? const Color.fromRGBO(
-                                              227, 85, 112, 1)
+                                                  227, 85, 112, 1)
                                               : Colors.grey[100],
                                         ),
                                         constraints:
-                                        const BoxConstraints.expand(
+                                            const BoxConstraints.expand(
                                           width: 45,
                                           height: 45,
                                         ),
@@ -313,21 +325,21 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                                               'A',
                                               style: TextStyle(
                                                 color: provider
-                                                    .getStudentAttendancesResponse!
-                                                    .data!
-                                                    .data![0]
-                                                    .attendances![index]
-                                                    .statusId ==
-                                                    2
+                                                            .getStudentAttendancesResponse!
+                                                            .data!
+                                                            .data![0]
+                                                            .attendances![index]
+                                                            .statusId ==
+                                                        2
                                                     ? Colors.white
                                                     : Colors.black,
                                                 fontSize: provider
-                                                    .getStudentAttendancesResponse!
-                                                    .data!
-                                                    .data![0]
-                                                    .attendances![index]
-                                                    .statusId ==
-                                                    2
+                                                            .getStudentAttendancesResponse!
+                                                            .data!
+                                                            .data![0]
+                                                            .attendances![index]
+                                                            .statusId ==
+                                                        2
                                                     ? 23
                                                     : 20,
                                                 fontWeight: FontWeight.w700,
@@ -399,27 +411,27 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                                     // ),
                                     AnimatedContainer(
                                       duration:
-                                      const Duration(milliseconds: 300),
+                                          const Duration(milliseconds: 300),
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         border: Border.all(
                                             color: provider
-                                                .getStudentAttendancesResponse!
-                                                .data!
-                                                .data![0]
-                                                .attendances![index]
-                                                .statusId ==
-                                                3
+                                                        .getStudentAttendancesResponse!
+                                                        .data!
+                                                        .data![0]
+                                                        .attendances![index]
+                                                        .statusId ==
+                                                    3
                                                 ? Colors.orange[400]!
                                                 : Colors.grey[300]!,
                                             width: 2),
                                         color: provider
-                                            .getStudentAttendancesResponse!
-                                            .data!
-                                            .data![0]
-                                            .attendances![index]
-                                            .statusId ==
-                                            3
+                                                    .getStudentAttendancesResponse!
+                                                    .data!
+                                                    .data![0]
+                                                    .attendances![index]
+                                                    .statusId ==
+                                                3
                                             ? Colors.orange[400]
                                             : Colors.grey[100],
                                       ),
@@ -434,21 +446,21 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                                             'L',
                                             style: TextStyle(
                                               color: provider
-                                                  .getStudentAttendancesResponse!
-                                                  .data!
-                                                  .data![0]
-                                                  .attendances![index]
-                                                  .statusId ==
-                                                  3
+                                                          .getStudentAttendancesResponse!
+                                                          .data!
+                                                          .data![0]
+                                                          .attendances![index]
+                                                          .statusId ==
+                                                      3
                                                   ? Colors.white
                                                   : Colors.black,
                                               fontSize: provider
-                                                  .getStudentAttendancesResponse!
-                                                  .data!
-                                                  .data![0]
-                                                  .attendances![index]
-                                                  .statusId ==
-                                                  3
+                                                          .getStudentAttendancesResponse!
+                                                          .data!
+                                                          .data![0]
+                                                          .attendances![index]
+                                                          .statusId ==
+                                                      3
                                                   ? 23
                                                   : 20,
                                               fontWeight: FontWeight.w700,

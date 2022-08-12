@@ -36,79 +36,77 @@ class _AddOralMarkState extends State<AddOralMark> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: const Text(
-            'Choose student',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: const Text(
+          'Choose student',
+          style: TextStyle(
+            color: Colors.white,
           ),
         ),
-        body: Consumer<AppProvider>(builder: (context, provider, child) {
-          if (provider.getTeacherStudentsResponse != null) {
-            var response = provider.getTeacherStudentsResponse;
-            switch (response?.status) {
-              case Status.LOADING:
-                return Shimmer.fromColors(
-                    baseColor: Colors.grey,
-                    highlightColor: Colors.white,
-                    child: CircularProgressIndicator(
-                      color: Colors.orange[400],
-                    ));
-              case Status.ERROR:
-                return Error(
-                  errorMsg: response!.message!,
-                );
-              case Status.COMPLETED:
-                return Container(
-                  child: GridView.builder(
-                    scrollDirection: Axis.vertical,
-                    controller: ScrollController(),
-                    itemCount: response!.data!.student!.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: widgetSize.getWidth(200, context) /
-                          widgetSize.getHeight(300, context),
-                    ),
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: AddOralMarkCard(
-                          classroomId: widget.classroomId,
-                          classId: widget.classId,
-                          subjectId: widget.subjectId,
-                          student: response.data!.student![index],
-                        ),
-                      );
-                    },
-                  ),
-                );
-              default:
-                return Shimmer.fromColors(
-                    baseColor: Colors.grey,
-                    highlightColor: Colors.white,
-                    child: Container());
-            }
-          }
-          return Shimmer.fromColors(
-              baseColor: Colors.grey,
-              highlightColor: Colors.white,
-              child: Container());
-        }),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
+      body: Consumer<AppProvider>(builder: (context, provider, child) {
+        if (provider.getTeacherStudentsResponse != null) {
+          var response = provider.getTeacherStudentsResponse;
+          switch (response?.status) {
+            case Status.LOADING:
+              return Shimmer.fromColors(
+                  baseColor: Colors.grey,
+                  highlightColor: Colors.white,
+                  child: CircularProgressIndicator(
+                    color: Colors.orange[400],
+                  ));
+            case Status.ERROR:
+              return Error(
+                errorMsg: response!.message!,
+              );
+            case Status.COMPLETED:
+              return Container(
+                child: GridView.builder(
+                  scrollDirection: Axis.vertical,
+                  controller: ScrollController(),
+                  itemCount: response!.data!.student!.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: widgetSize.getWidth(200, context) /
+                        widgetSize.getHeight(300, context),
+                  ),
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: AddOralMarkCard(
+                        classroomId: widget.classroomId,
+                        classId: widget.classId,
+                        subjectId: widget.subjectId,
+                        student: response.data!.student![index],
+                      ),
+                    );
+                  },
+                ),
+              );
+            default:
+              return Shimmer.fromColors(
+                  baseColor: Colors.grey,
+                  highlightColor: Colors.white,
+                  child: Container());
+          }
+        }
+        return Shimmer.fromColors(
+            baseColor: Colors.grey,
+            highlightColor: Colors.white,
+            child: Container());
+      }),
     );
   }
 }

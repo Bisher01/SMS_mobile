@@ -698,7 +698,7 @@ class _TeacherScheduleState extends State<TeacherSchedule> {
                                               width: 6,
                                             ),
                                             Text(
-                                              '${timetable[selectedDay][index + 1].subject!}arabic',
+                                              '${timetable[selectedDay][index + 1].subject!}',
                                               style: const TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 18,

@@ -277,6 +277,7 @@ class _MentorProfilePageState extends State<MentorProfilePage> {
                           ),
                           left: 45),
                       child: const CircleAvatar(
+                        backgroundColor: Colors.white,
                         backgroundImage: AssetImage(
                           'assets/mentor.png',
                         ),

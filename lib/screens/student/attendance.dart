@@ -94,10 +94,16 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen> {
                               children: [
                                 CircleAvatar(
                                   radius: 40,
-                                  backgroundImage: NetworkImage(
-                                    'http://127.0.0.1:8000/storage/${provider.getStudentAttendancesResponse!.data!.data![0].picture
-                                    //.mentorData![selectedClassroom].students![index].picture
-                                    }',
+                                  backgroundColor: Colors.white,
+                                  child: FadeInImage(
+                                    fit: BoxFit.cover,
+                                    placeholder: const AssetImage('assets/student.png'),
+                                    image: NetworkImage(
+                                        'http://127.0.0.1:8000/storage/${provider.getStudentAttendancesResponse!.data!.data![0].picture}'),
+                                    imageErrorBuilder: (context, error, stackTrace) {
+                                      return Container(
+                                          child: Image.asset("assets/student.png"));
+                                    },
                                   ),
                                 ),
                                 Text(

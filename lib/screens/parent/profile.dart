@@ -255,6 +255,7 @@ class _ParentProfilePageState extends State<ParentProfilePage> {
                         left: 45,
                       ),
                       child: const CircleAvatar(
+                        backgroundColor: Colors.white,
                         backgroundImage: AssetImage(
                           'assets/icons/user-2.png',
                         ),

@@ -9,7 +9,6 @@ import '../../services/api_response.dart';
 import '../../components/components.dart';
 import '../screens.dart';
 
-
 class MentorAttendanceScreen extends StatefulWidget {
   const MentorAttendanceScreen({Key? key}) : super(key: key);
 
@@ -109,7 +108,7 @@ class _MentorAttendanceScreenState extends State<MentorAttendanceScreen> {
                   physics: AlwaysScrollableScrollPhysics(),
                   children: [
                     GridView.builder(
-                      primary: false,
+                        primary: false,
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         padding: const EdgeInsets.symmetric(
@@ -121,10 +120,16 @@ class _MentorAttendanceScreenState extends State<MentorAttendanceScreen> {
                           mainAxisSpacing: 10,
                           crossAxisSpacing: 10,
                         ),
-                        itemCount: classRoomDDV==null?0:provider.mentorClassesResponse!.data!
-                            .mentorData![selectedClassroom].students!.length,
+                        itemCount: classRoomDDV == null
+                            ? 0
+                            : provider
+                                .mentorClassesResponse!
+                                .data!
+                                .mentorData![selectedClassroom]
+                                .students!
+                                .length,
                         itemBuilder: (context, index) {
-                          if(attendance.length < index +1){
+                          if (attendance.length < index + 1) {
                             attendance.add(StudentAttendance(id: 1, status: 0));
                           }
                           return Card(
@@ -142,8 +147,22 @@ class _MentorAttendanceScreenState extends State<MentorAttendanceScreen> {
                                   children: [
                                     CircleAvatar(
                                       radius: 40,
+                                      backgroundColor: Colors.white,
                                       backgroundImage: NetworkImage(
                                         'http://127.0.0.1:8000/storage/${provider.mentorClassesResponse!.data!.mentorData![selectedClassroom].students![index].picture}',
+                                      ),
+                                      child: FadeInImage(
+                                        fit: BoxFit.cover,
+                                        placeholder: const AssetImage(
+                                            'assets/mentor.png'),
+                                        image: NetworkImage(
+                                            'http://127.0.0.1:8000/storage/${provider.mentorClassesResponse!.data!.mentorData![selectedClassroom].students![index].picture}'),
+                                        imageErrorBuilder:
+                                            (context, error, stackTrace) {
+                                          return Container(
+                                              child: Image.asset(
+                                                  "assets/mentor.png"));
+                                        },
                                       ),
                                     ),
                                     Text(
@@ -166,7 +185,13 @@ class _MentorAttendanceScreenState extends State<MentorAttendanceScreen> {
                                           onTap: () {
                                             setState(() {
                                               attendance[index].status = 1;
-                                              attendance[index].id=provider.mentorClassesResponse!.data!.mentorData![selectedClassroom].students![index].id!;
+                                              attendance[index].id = provider
+                                                  .mentorClassesResponse!
+                                                  .data!
+                                                  .mentorData![
+                                                      selectedClassroom]
+                                                  .students![index]
+                                                  .id!;
                                             });
                                           },
                                           child: AnimatedContainer(
@@ -182,8 +207,7 @@ class _MentorAttendanceScreenState extends State<MentorAttendanceScreen> {
                                                       : Colors.grey[300]!,
                                                   width: 2),
                                               color:
-                                                  attendance[index].status ==
-                                                          1
+                                                  attendance[index].status == 1
                                                       ? ColorResources.green
                                                       : Colors.grey[100],
                                             ),
@@ -203,14 +227,12 @@ class _MentorAttendanceScreenState extends State<MentorAttendanceScreen> {
                                                             1
                                                         ? Colors.white
                                                         : Colors.black,
-                                                    fontSize:
-                                                        attendance[index]
-                                                                    .status ==
-                                                                1
-                                                            ? 23
-                                                            : 20,
-                                                    fontWeight:
-                                                        FontWeight.w700,
+                                                    fontSize: attendance[index]
+                                                                .status ==
+                                                            1
+                                                        ? 23
+                                                        : 20,
+                                                    fontWeight: FontWeight.w700,
                                                     fontFamily: 'ChakraPetch',
                                                   ),
                                                 ),
@@ -228,7 +250,13 @@ class _MentorAttendanceScreenState extends State<MentorAttendanceScreen> {
                                             onTap: () {
                                               setState(() {
                                                 attendance[index].status = 2;
-                                                attendance[index].id=provider.mentorClassesResponse!.data!.mentorData![selectedClassroom].students![index].id!;
+                                                attendance[index].id = provider
+                                                    .mentorClassesResponse!
+                                                    .data!
+                                                    .mentorData![
+                                                        selectedClassroom]
+                                                    .students![index]
+                                                    .id!;
                                               });
                                             },
                                             child: AnimatedContainer(
@@ -240,17 +268,16 @@ class _MentorAttendanceScreenState extends State<MentorAttendanceScreen> {
                                                     color: attendance[index]
                                                                 .status ==
                                                             2
-                                                        ? const Color
-                                                                .fromRGBO(
+                                                        ? const Color.fromRGBO(
                                                             227, 85, 112, 1)
                                                         : Colors.grey[300]!,
                                                     width: 2),
-                                                color: attendance[index]
-                                                            .status ==
-                                                        2
-                                                    ? const Color.fromRGBO(
-                                                        227, 85, 112, 1)
-                                                    : Colors.grey[100],
+                                                color:
+                                                    attendance[index].status ==
+                                                            2
+                                                        ? const Color.fromRGBO(
+                                                            227, 85, 112, 1)
+                                                        : Colors.grey[100],
                                               ),
                                               constraints:
                                                   const BoxConstraints.expand(
@@ -268,16 +295,15 @@ class _MentorAttendanceScreenState extends State<MentorAttendanceScreen> {
                                                               2
                                                           ? Colors.white
                                                           : Colors.black,
-                                                      fontSize: attendance[
-                                                                      index]
-                                                                  .status ==
-                                                              2
-                                                          ? 23
-                                                          : 20,
+                                                      fontSize:
+                                                          attendance[index]
+                                                                      .status ==
+                                                                  2
+                                                              ? 23
+                                                              : 20,
                                                       fontWeight:
                                                           FontWeight.w700,
-                                                      fontFamily:
-                                                          'ChakraPetch',
+                                                      fontFamily: 'ChakraPetch',
                                                     ),
                                                   ),
                                                 ),
@@ -292,7 +318,13 @@ class _MentorAttendanceScreenState extends State<MentorAttendanceScreen> {
                                           onTap: () {
                                             setState(() {
                                               attendance[index].status = 3;
-                                              attendance[index].id=provider.mentorClassesResponse!.data!.mentorData![selectedClassroom].students![index].id!;
+                                              attendance[index].id = provider
+                                                  .mentorClassesResponse!
+                                                  .data!
+                                                  .mentorData![
+                                                      selectedClassroom]
+                                                  .students![index]
+                                                  .id!;
                                             });
                                           },
                                           child: AnimatedContainer(
@@ -308,8 +340,7 @@ class _MentorAttendanceScreenState extends State<MentorAttendanceScreen> {
                                                       : Colors.grey[300]!,
                                                   width: 2),
                                               color:
-                                                  attendance[index].status ==
-                                                          3
+                                                  attendance[index].status == 3
                                                       ? Colors.orange[400]
                                                       : Colors.grey[100],
                                             ),
@@ -329,14 +360,12 @@ class _MentorAttendanceScreenState extends State<MentorAttendanceScreen> {
                                                             3
                                                         ? Colors.white
                                                         : Colors.black,
-                                                    fontSize:
-                                                        attendance[index]
-                                                                    .status ==
-                                                                3
-                                                            ? 23
-                                                            : 20,
-                                                    fontWeight:
-                                                        FontWeight.w700,
+                                                    fontSize: attendance[index]
+                                                                .status ==
+                                                            3
+                                                        ? 23
+                                                        : 20,
+                                                    fontWeight: FontWeight.w700,
                                                     fontFamily: 'ChakraPetch',
                                                   ),
                                                 ),
@@ -352,68 +381,72 @@ class _MentorAttendanceScreenState extends State<MentorAttendanceScreen> {
                             ),
                           );
                         }),
-                    classRoomDDV==null?const SizedBox():ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-
-                        padding: EdgeInsets.symmetric(horizontal: 70),
-                        primary: Colors.orange[400],
-                        shadowColor: Colors.white70,
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                            18,
-                          ),
-                        ),
-                      ),
-                      onPressed: () async {
-                        String date =
-                            '${DateTime.now().year.toString()}-${DateTime.now().month.toString()}-${DateTime.now().day.toString()}';
-                        AttendanceModel attendances = AttendanceModel(
-                          date: date,
-                          students: attendance,
-                        );
-                        var provider =
-                        Provider.of<AppProvider>(context, listen: false);
-                        if (await provider.checkInternet()) {
-                          var response = await Provider.of<AppProvider>(context,
-                              listen: false)
-                              .addStudentsAttendance(attendances.toJson());
-                          if (response.status == Status.LOADING) {
-                            EasyLoading.showToast(
-                              'Loading...',
-                              duration: const Duration(
-                                milliseconds: 300,
+                    classRoomDDV == null
+                        ? const SizedBox()
+                        : ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(horizontal: 70),
+                              primary: Colors.orange[400],
+                              shadowColor: Colors.white70,
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                  18,
+                                ),
                               ),
-                            );
-                          }
-                          if (response.status == Status.ERROR) {
-                            EasyLoading.showError(response.message!,
-                                dismissOnTap: true);
-                          }
-                          if (response.status == Status.COMPLETED) {
-                            if (response.data != null &&
-                                response.data!.status!) {
-                              EasyLoading.showSuccess(response.data!.message!,
-                                  dismissOnTap: true,
-                                  duration: const Duration(seconds: 1));
-                              Future.delayed(const Duration(seconds: 1), () {
-                                Navigator.pop(context);
-                              });
-                            }
-                          }
-                        } else {
-                          EasyLoading.showError('No Internet Connection');
-                        }
-                      },
-                      child: const Text(
-                        'Submit',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-
+                            ),
+                            onPressed: () async {
+                              String date =
+                                  '${DateTime.now().year.toString()}-${DateTime.now().month.toString()}-${DateTime.now().day.toString()}';
+                              AttendanceModel attendances = AttendanceModel(
+                                date: date,
+                                students: attendance,
+                              );
+                              var provider = Provider.of<AppProvider>(context,
+                                  listen: false);
+                              if (await provider.checkInternet()) {
+                                var response = await Provider.of<AppProvider>(
+                                        context,
+                                        listen: false)
+                                    .addStudentsAttendance(
+                                        attendances.toJson());
+                                if (response.status == Status.LOADING) {
+                                  EasyLoading.showToast(
+                                    'Loading...',
+                                    duration: const Duration(
+                                      milliseconds: 300,
+                                    ),
+                                  );
+                                }
+                                if (response.status == Status.ERROR) {
+                                  EasyLoading.showError(response.message!,
+                                      dismissOnTap: true);
+                                }
+                                if (response.status == Status.COMPLETED) {
+                                  if (response.data != null &&
+                                      response.data!.status!) {
+                                    EasyLoading.showSuccess(
+                                        response.data!.message!,
+                                        dismissOnTap: true,
+                                        duration: const Duration(seconds: 1));
+                                    Future.delayed(const Duration(seconds: 1),
+                                        () {
+                                      Navigator.pop(context);
+                                    });
+                                  }
+                                }
+                              } else {
+                                EasyLoading.showError('No Internet Connection');
+                              }
+                            },
+                            child: const Text(
+                              'Submit',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
                   ],
                 ),
               );

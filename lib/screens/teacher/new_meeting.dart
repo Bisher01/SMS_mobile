@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:sms_mobile/models/models.dart';
-import 'package:sms_mobile/screens/teacher/add_quiz.dart';
 import 'package:sms_mobile/utill/utill.dart';
 
 import '../../providers/app_provider.dart';
@@ -87,10 +85,7 @@ class _NewMeetingState extends State<NewMeeting> {
         backgroundColor: Colors.white,
         title: const Text(
           "Add new meeting",
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.white
-          ),
+          style: TextStyle(fontSize: 16, color: Colors.white),
         ),
         leading: IconButton(
           icon: const Icon(
@@ -122,7 +117,7 @@ class _NewMeetingState extends State<NewMeeting> {
                                 .getTeacherSubjectsResponse!.data!.data!.length;
                         i++) {
                       subjects[provider
-                          .getTeacherSubjectsResponse!.data!.data![i].id!] = i;
+                          .getTeacherSubjectsResponse!.data!.data![i].subject!.id!] = i;
                     }
 
                     return Column(
@@ -204,16 +199,14 @@ class _NewMeetingState extends State<NewMeeting> {
                                               .getTeacherSubjectsResponse!
                                               .data!
                                               .data![0]
-                                              .class_classroom![index]
-                                              .classes!
-                                              .id!;
+                                              .classes![index]
+                                              .class_id!;
                                           classroomId = provider
                                               .getTeacherSubjectsResponse!
                                               .data!
                                               .data![0]
-                                              .class_classroom![index]
-                                              .classrooms!
-                                              .id!;
+                                              .classes![index]
+                                              .classroom_id!;
                                         },
                                         clipBehavior: Clip.antiAlias,
                                         controller: fixedExtentScrollController,
@@ -227,7 +220,7 @@ class _NewMeetingState extends State<NewMeeting> {
                                             .getTeacherSubjectsResponse!
                                             .data!
                                             .data![0]
-                                            .class_classroom!
+                                            .classes!
                                             .map((e) {
                                           return Row(
                                             children: <Widget>[
@@ -479,14 +472,32 @@ class _NewMeetingState extends State<NewMeeting> {
                             ),
                             onPressed: () async {
                               subjectDDV = Provider.of<AppProvider>(context,
-                                  listen: false)
+                                      listen: false)
                                   .getTeacherSubjectsResponse!
                                   .data!
-                                  .data![0]
+                                  .data![0].subject!
                                   .id!;
                               int id = Provider.of<AppProvider>(context,
                                       listen: false)
                                   .getId();
+                              classId = classId == 0
+                                  ? Provider.of<AppProvider>(context,
+                                          listen: false)
+                                      .getTeacherSubjectsResponse!
+                                      .data!
+                                      .data![0]
+                                      .classes![0]
+                                      .class_id!
+                                  : classId;
+                              classroomId = classroomId == 0
+                                  ? Provider.of<AppProvider>(context,
+                                          listen: false)
+                                      .getTeacherSubjectsResponse!
+                                      .data!
+                                      .data![0]
+                                      .classes![0]
+                                      .classroom_id!
+                                  : classroomId;
                               var response = await Provider.of<AppProvider>(
                                       context,
                                       listen: false)

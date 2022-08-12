@@ -22,18 +22,18 @@ Map<String, dynamic> _$SubjectClassToJson(SubjectClass instance) =>
     };
 
 TeacherData _$TeacherDataFromJson(Map<String, dynamic> json) => TeacherData(
-      class_classroom: (json['class_classroom'] as List<dynamic>?)
+      classes: (json['classes'] as List<dynamic>?)
           ?.map((e) => ClassClassroom.fromJson(e as Map<String, dynamic>))
           .toList(),
-      id: json['id'] as int? ?? 0,
-      name: json['name'] as String? ?? '',
+      subject: json['subject'] == null
+          ? null
+          : Subject.fromJson(json['subject'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$TeacherDataToJson(TeacherData instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'class_classroom': instance.class_classroom,
+      'subject': instance.subject,
+      'classes': instance.classes,
     };
 
 ClassClassroom _$ClassClassroomFromJson(Map<String, dynamic> json) =>

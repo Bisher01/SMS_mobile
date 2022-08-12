@@ -2,6 +2,127 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:sms_mobile/models/models.dart';
 part 'subject_class.g.dart';
 
+/*
+{
+    "status": true,
+    "message": "successs",
+    "data": [
+        {
+            "subject": {
+                "id": 1,
+                "name": "math"
+            },
+            "classes": [
+                {
+                    "id": 1,
+                    "class_id": 1,
+                    "classroom_id": 1,
+                    "classes": {
+                        "id": 1,
+                        "name": " first class",
+                        "grade_id": 1
+                    },
+                    "classrooms": {
+                        "id": 1,
+                        "name": 1,
+                        "max_number": 20
+                    }
+                },
+                {
+                    "id": 2,
+                    "class_id": 2,
+                    "classroom_id": 1,
+                    "classes": {
+                        "id": 2,
+                        "name": "second class",
+                        "grade_id": 1
+                    },
+                    "classrooms": {
+                        "id": 1,
+                        "name": 1,
+                        "max_number": 20
+                    }
+                },
+                {
+                    "id": 14,
+                    "class_id": 2,
+                    "classroom_id": 2,
+                    "classes": {
+                        "id": 2,
+                        "name": "second class",
+                        "grade_id": 1
+                    },
+                    "classrooms": {
+                        "id": 2,
+                        "name": 2,
+                        "max_number": 30
+                    }
+                },
+                {
+                    "id": 3,
+                    "class_id": 3,
+                    "classroom_id": 1,
+                    "classes": {
+                        "id": 3,
+                        "name": "third class",
+                        "grade_id": 1
+                    },
+                    "classrooms": {
+                        "id": 1,
+                        "name": 1,
+                        "max_number": 20
+                    }
+                },
+                {
+                    "id": 15,
+                    "class_id": 3,
+                    "classroom_id": 2,
+                    "classes": {
+                        "id": 3,
+                        "name": "third class",
+                        "grade_id": 1
+                    },
+                    "classrooms": {
+                        "id": 2,
+                        "name": 2,
+                        "max_number": 30
+                    }
+                },
+                {
+                    "id": 4,
+                    "class_id": 4,
+                    "classroom_id": 1,
+                    "classes": {
+                        "id": 4,
+                        "name": "fourth class",
+                        "grade_id": 1
+                    },
+                    "classrooms": {
+                        "id": 1,
+                        "name": 1,
+                        "max_number": 20
+                    }
+                },
+                {
+                    "id": 16,
+                    "class_id": 4,
+                    "classroom_id": 2,
+                    "classes": {
+                        "id": 4,
+                        "name": "fourth class",
+                        "grade_id": 1
+                    },
+                    "classrooms": {
+                        "id": 2,
+                        "name": 2,
+                        "max_number": 30
+                    }
+                }
+            ]
+        }
+    ]
+}
+ */
 @JsonSerializable()
 class SubjectClass {
   bool? status;
@@ -21,16 +142,12 @@ class SubjectClass {
 
 @JsonSerializable()
 class TeacherData {
-  @JsonKey(defaultValue: 0)
-  int? id;
-  @JsonKey(defaultValue: '')
-  String? name;
-  List<ClassClassroom>? class_classroom;
+  Subject? subject;
+  List<ClassClassroom>? classes;
 
   TeacherData({
-    this.class_classroom,
-    this.id,
-    this.name,
+   this.classes,
+    this.subject,
   });
 
   factory TeacherData.fromJson(Map<String, dynamic> json) =>

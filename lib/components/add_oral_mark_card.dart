@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_mobile/providers/providers.dart';
@@ -57,12 +58,23 @@ class _AddOralMarkCardState extends State<AddOralMarkCard> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.network(
-              'http://127.0.0.1:8000/storage/${widget.student.picture!}',
-              fit: BoxFit.cover,
+            FadeInImage(
               height: widgetSize.getHeight(190, context),
               width: double.infinity,
+              fit: BoxFit.cover,
+              placeholder: const AssetImage('assets/student.png'),
+              image: NetworkImage(
+                  'http://127.0.0.1:8000/storage/${widget.student.picture}'),
+              imageErrorBuilder: (context, error, stackTrace) {
+                return Container(child: Image.asset("assets/student.png"));
+              },
             ),
+            // Image.network(
+            //   'http://127.0.0.1:8000/storage/${widget.student.picture!}',
+            //   fit: BoxFit.cover,
+            //   height: widgetSize.getHeight(190, context),
+            //   width: double.infinity,
+            // ),
             Text(
               "Name: ${widget.student.f_name} ${widget.student.l_name}",
               style: const TextStyle(color: Colors.black54),
@@ -143,10 +155,13 @@ class _AddOralMarkCardState extends State<AddOralMarkCard> {
                             Form(
                               key: _formKey,
                               child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
                                 textAlign: TextAlign.start,
                                 controller: _markController,
                                 focusNode: _markFocusNode,
-                                keyboardType: TextInputType.number,
                                 textDirection: TextDirection.ltr,
                                 showCursor: true,
                                 decoration: const InputDecoration(
@@ -258,6 +273,11 @@ class _AddOralMarkCardState extends State<AddOralMarkCard> {
                                     if (response.data != null &&
                                         response.data!.status!) {
                                       EasyLoading.showSuccess(
+                                          response.data!.message!,
+                                          dismissOnTap: true);
+                                      Navigator.of(context).pop();
+                                    } else {
+                                      EasyLoading.showError(
                                           response.data!.message!,
                                           dismissOnTap: true);
                                       Navigator.of(context).pop();

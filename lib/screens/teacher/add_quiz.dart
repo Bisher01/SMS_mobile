@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -191,6 +192,9 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
                                     width: 40,
                                     height: 30,
                                     child: TextField(
+                                      inputFormatters: <TextInputFormatter>[
+                                        FilteringTextInputFormatter.digitsOnly
+                                      ],
                                       controller: _markController,
                                       cursorColor: Colors.black,
                                       keyboardType: TextInputType.number,
