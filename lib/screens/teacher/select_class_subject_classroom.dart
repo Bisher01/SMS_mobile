@@ -167,8 +167,8 @@ class _SelectClassSubjectClassroomState
                             provider
                                 .getTeacherSubjectsResponse!.data!.data!.length;
                         i++) {
-                      subjects[provider
-                          .getTeacherSubjectsResponse!.data!.data![i].subject!.id!] = i;
+                      subjects[provider.getTeacherSubjectsResponse!.data!
+                          .data![i].subject!.id!] = i;
                     }
 
                     return Column(
@@ -348,11 +348,15 @@ class _SelectClassSubjectClassroomState
                                           classId = provider
                                               .getTeacherSubjectsResponse!
                                               .data!
-                                              .data![0].classes![index].class_id!;
+                                              .data![0]
+                                              .classes![index]
+                                              .class_id!;
                                           classroomId = provider
                                               .getTeacherSubjectsResponse!
                                               .data!
-                                              .data![0].classes![index].classroom_id!;
+                                              .data![0]
+                                              .classes![index]
+                                              .classroom_id!;
                                         },
                                         clipBehavior: Clip.antiAlias,
                                         controller: fixedExtentScrollController,
@@ -502,21 +506,30 @@ class _SelectClassSubjectClassroomState
                                       listen: false)
                                   .getTeacherSubjectsResponse!
                                   .data!
-                                  .data![0].subject!.id;
+                                  .data![0]
+                                  .subject!
+                                  .id;
                               classId = classId == 0
                                   ? Provider.of<AppProvider>(context,
                                           listen: false)
                                       .getTeacherSubjectsResponse!
                                       .data!
-                                      .data![0].classes![0].class_id!
+                                      .data![0]
+                                      .classes![0]
+                                      .class_id!
                                   : classId;
                               classroomId = classroomId == 0
                                   ? Provider.of<AppProvider>(context,
                                           listen: false)
                                       .getTeacherSubjectsResponse!
                                       .data!
-                                      .data![0].classes![0].classroom_id!
+                                      .data![0]
+                                      .classes![0]
+                                      .classroom_id!
                                   : classroomId;
+                              DateTime endDate =_startDate.add(Duration(
+                                  minutes:
+                                  int.parse(_controller.text)));
                               Navigator.pushReplacement(
                                 context,
                                 PageTransition(
@@ -533,9 +546,13 @@ class _SelectClassSubjectClassroomState
                                               _startDate.day,
                                               _startTime.hour,
                                               _startTime.minute),
-                                          end: _startDate.add(Duration(
-                                              minutes:
-                                                  int.parse(_controller.text))),
+                                          end: DateTime(
+                                            endDate.year,
+                                              endDate.month,
+                                              endDate.day,
+                                              endDate.hour,
+                                              endDate.minute
+                                          ),
                                           season: selectedSeason,
                                           classId: classId,
                                           subjectId: subjectDDV!,
@@ -545,6 +562,8 @@ class _SelectClassSubjectClassroomState
                                   duration: const Duration(milliseconds: 400),
                                 ),
                               );
+                              print(_startDate);
+                              print(endDate);
                             },
                             child: const Text(
                               'Add quiz to students',

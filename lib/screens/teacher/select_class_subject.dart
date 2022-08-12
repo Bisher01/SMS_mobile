@@ -602,14 +602,22 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                           .data!
                           .data![0].classes![0].class_id!
                       : classId;
+                  DateTime endDate =_startDate.add(Duration(
+                      minutes:
+                      int.parse(_controller.text)));
                   Navigator.push(
                     context,
                     PageTransition(
                       child: QuestionsBankScreen(
                         start: DateTime(_startDate.year, _startDate.month,
                             _startDate.day, _startTime.hour, _startTime.minute),
-                        end: _startDate.add(
-                            Duration(minutes: int.parse(_controller.text))),
+                        end: DateTime(
+                            endDate.year,
+                            endDate.month,
+                            endDate.day,
+                            endDate.hour,
+                            endDate.minute
+                        ),
                         // DateTime(_startDate.year,_startDate.month,_startDate.day,_endTime.hour,_endTime.minute),
                         season: selectedSeason!,
                         classId: classId,

@@ -115,7 +115,8 @@ class _QuizScreenState extends State<QuizScreen> {
                         Answer(
                           questionId: provider.getStudentQuizResponse!.data!
                               .data![0].questions![index].id!,
-                          choiceId: 0,
+                          choiceId: provider.getStudentQuizResponse!.data!
+                              .data![0].questions![index].choices![0].id,
                         ),
                       );
                     }
