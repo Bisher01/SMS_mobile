@@ -108,177 +108,195 @@ class _AddSyllabiState extends State<AddSyllabi> {
                         color: Colors.orange[400],
                       );
                     case Status.COMPLETED:
-                      return SizedBox(
-                        height: widgetSize.getHeight(
-                          350,
-                          context,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // Flexible(
-                            //   fit: FlexFit.tight,
-                            //   child: Column(
-                            //     mainAxisAlignment: MainAxisAlignment.center,
-                            //     children: [
-                            //       const Padding(
-                            //         padding: EdgeInsets.only(
-                            //           bottom: 20,
-                            //         ),
-                            //         child: Text(
-                            //           'Select subject: ',
-                            //           style: TextStyle(
-                            //             fontSize: 18,
-                            //             fontWeight: FontWeight.w600,
-                            //           ),
-                            //         ),
-                            //       ),
-                            //       Flexible(
-                            //         fit: FlexFit.loose,
-                            //         child: ListWheelScrollView(
-                            //           onSelectedItemChanged: (index) {
-                            //             setState(() {
-                            //               selectedSubject = index;
-                            //             });
-                            //             subjectId = provider
-                            //                 .getTeacherSubjectsResponse!
-                            //                 .data!
-                            //                 .data![index]
-                            //                 .id!;
-                            //           },
-                            //           clipBehavior: Clip.antiAlias,
-                            //           controller: fixedExtentScrollController,
-                            //           physics: const FixedExtentScrollPhysics(),
-                            //           perspective: 0.005,
-                            //           offAxisFraction: -0.0,
-                            //           diameterRatio: 2,
-                            //           itemExtent: 60,
-                            //           children: provider
-                            //               .getTeacherSubjectsResponse!
-                            //               .data!
-                            //               .data!
-                            //               .map((e) {
-                            //             return Row(
-                            //               children: <Widget>[
-                            //                 Expanded(
-                            //                   child: Container(
-                            //                     decoration: BoxDecoration(
-                            //                       color: Colors.white70,
-                            //                       border: Border.all(
-                            //                           color: Colors.orange),
-                            //                       borderRadius:
-                            //                           BorderRadius.circular(
-                            //                         12,
-                            //                       ),
-                            //                     ),
-                            //                     child: Padding(
-                            //                       padding: const EdgeInsets.all(
-                            //                         16.0,
-                            //                       ),
-                            //                       child: Text(
-                            //                         e.name!,
-                            //                         textAlign: TextAlign.center,
-                            //                         style: TextStyle(
-                            //                             fontSize: 18.0,
-                            //                             color:
-                            //                                 Colors.orange[400]),
-                            //                       ),
-                            //                     ),
-                            //                   ),
-                            //                 ),
-                            //               ],
-                            //             );
-                            //           }).toList(),
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
-                            // const SizedBox(
-                            //   width: 20,
-                            // ),
-                            Flexible(
-                              fit: FlexFit.tight,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Padding(
-                                    padding: EdgeInsets.only(
-                                      bottom: 20,
-                                    ),
-                                    child: Text(
-                                      'Select class: ',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600,
+                      {
+                        List<ExamTypes> classes = List.generate(
+                            provider.getTeacherSubjectsResponse!.data!.data![0]
+                                .classes!.length,
+                            (index) => ExamTypes(id: 0, type: ''),
+                            growable: false);
+                        for (int i = 0;
+                            i <
+                                provider.getTeacherSubjectsResponse!.data!
+                                    .data![0].classes!.length;
+                            i++) {
+                          classes[i].type = provider.getTeacherSubjectsResponse!
+                              .data!.data![0].classes![i].classes!.name!;
+                          classes[i].id = provider.getTeacherSubjectsResponse!
+                              .data!.data![0].classes![i].classes!.id!;
+                        }
+                        var seen = Set<String>();
+                        List<ExamTypes> unique = classes
+                            .where((element) => seen.add(element.type!))
+                            .toList();
+                        return SizedBox(
+                          height: widgetSize.getHeight(
+                            350,
+                            context,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // Flexible(
+                              //   fit: FlexFit.tight,
+                              //   child: Column(
+                              //     mainAxisAlignment: MainAxisAlignment.center,
+                              //     children: [
+                              //       const Padding(
+                              //         padding: EdgeInsets.only(
+                              //           bottom: 20,
+                              //         ),
+                              //         child: Text(
+                              //           'Select subject: ',
+                              //           style: TextStyle(
+                              //             fontSize: 18,
+                              //             fontWeight: FontWeight.w600,
+                              //           ),
+                              //         ),
+                              //       ),
+                              //       Flexible(
+                              //         fit: FlexFit.loose,
+                              //         child: ListWheelScrollView(
+                              //           onSelectedItemChanged: (index) {
+                              //             setState(() {
+                              //               selectedSubject = index;
+                              //             });
+                              //             subjectId = provider
+                              //                 .getTeacherSubjectsResponse!
+                              //                 .data!
+                              //                 .data![index]
+                              //                 .id!;
+                              //           },
+                              //           clipBehavior: Clip.antiAlias,
+                              //           controller: fixedExtentScrollController,
+                              //           physics: const FixedExtentScrollPhysics(),
+                              //           perspective: 0.005,
+                              //           offAxisFraction: -0.0,
+                              //           diameterRatio: 2,
+                              //           itemExtent: 60,
+                              //           children: provider
+                              //               .getTeacherSubjectsResponse!
+                              //               .data!
+                              //               .data!
+                              //               .map((e) {
+                              //             return Row(
+                              //               children: <Widget>[
+                              //                 Expanded(
+                              //                   child: Container(
+                              //                     decoration: BoxDecoration(
+                              //                       color: Colors.white70,
+                              //                       border: Border.all(
+                              //                           color: Colors.orange),
+                              //                       borderRadius:
+                              //                           BorderRadius.circular(
+                              //                         12,
+                              //                       ),
+                              //                     ),
+                              //                     child: Padding(
+                              //                       padding: const EdgeInsets.all(
+                              //                         16.0,
+                              //                       ),
+                              //                       child: Text(
+                              //                         e.name!,
+                              //                         textAlign: TextAlign.center,
+                              //                         style: TextStyle(
+                              //                             fontSize: 18.0,
+                              //                             color:
+                              //                                 Colors.orange[400]),
+                              //                       ),
+                              //                     ),
+                              //                   ),
+                              //                 ),
+                              //               ],
+                              //             );
+                              //           }).toList(),
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   width: 20,
+                              // ),
+                              Flexible(
+                                fit: FlexFit.tight,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Padding(
+                                      padding: EdgeInsets.only(
+                                        bottom: 20,
+                                      ),
+                                      child: Text(
+                                        'Select class: ',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Flexible(
-                                    fit: FlexFit.loose,
-                                    child: ListWheelScrollView(
-                                      onSelectedItemChanged: (index) {
-                                        setState(() {
-                                          selectedClass = index;
-                                        });
-                                        classId = provider
-                                            .getTeacherSubjectsResponse!
-                                            .data!
-                                            .data![0].classes![index].class_id!;
-
-                                      },
-                                      clipBehavior: Clip.antiAlias,
-                                      controller: fixedExtentScrollController,
-                                      physics: const FixedExtentScrollPhysics(),
-                                      perspective: 0.005,
-                                      offAxisFraction: -0.0,
-                                      diameterRatio: 2,
-                                      itemExtent: 60,
-                                      children: provider
-                                          .getTeacherSubjectsResponse!
-                                          .data!
-                                          .data![0]
-                                          .classes!
-                                          .map((e) {
-                                        return Row(
-                                          children: <Widget>[
-                                            Expanded(
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white70,
-                                                  border: Border.all(
-                                                      color: Colors.orange),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                    12,
+                                    Flexible(
+                                      fit: FlexFit.loose,
+                                      child: ListWheelScrollView(
+                                        onSelectedItemChanged: (index) {
+                                          setState(() {
+                                            selectedClass = index;
+                                          });
+                                          classId = unique[index].id!;
+                                        },
+                                        clipBehavior: Clip.antiAlias,
+                                        controller: fixedExtentScrollController,
+                                        physics:
+                                            const FixedExtentScrollPhysics(),
+                                        perspective: 0.005,
+                                        offAxisFraction: -0.0,
+                                        diameterRatio: 2,
+                                        itemExtent: 60,
+                                        children: unique
+                                            .map((e) {
+                                          return Row(
+                                            children: <Widget>[
+                                              Expanded(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white70,
+                                                    border: Border.all(
+                                                        color: Colors.orange),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                      12,
+                                                    ),
                                                   ),
-                                                ),
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                    16.0,
-                                                  ),
-                                                  child: Text(
-                                                    e.classes!.name!.toString(),
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontSize: 18.0,
-                                                        color:
-                                                            Colors.orange[400]),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                      16.0,
+                                                    ),
+                                                    child: Text(
+                                                      e.type
+                                                          .toString(),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          fontSize: 18.0,
+                                                          color: Colors
+                                                              .orange[400]),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
-                                        );
-                                      }).toList(),
+                                            ],
+                                          );
+                                        }).toList(),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      );
+                            ],
+                          ),
+                        );
+                      }
+
                     case Status.ERROR:
                       return err.Error(
                         errorMsg: provider.getTeacherSubjectsResponse!.message!,
@@ -307,7 +325,9 @@ class _AddSyllabiState extends State<AddSyllabi> {
                   subjectId = Provider.of<AppProvider>(context, listen: false)
                       .getTeacherSubjectsResponse!
                       .data!
-                      .data![0].subject!.id!;
+                      .data![0]
+                      .subject!
+                      .id!;
                   classId = classId == 0
                       ? Provider.of<AppProvider>(context, listen: false)
                           .getTeacherSubjectsResponse!
@@ -320,7 +340,7 @@ class _AddSyllabiState extends State<AddSyllabi> {
                 },
                 child: Text(
                   'add a new book for ${Provider.of<AppProvider>(context, listen: false).getTeacherSubjectsResponse!.data!.data![0].subject!.name}',
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
                       fontSize: 18),

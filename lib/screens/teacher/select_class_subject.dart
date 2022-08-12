@@ -37,6 +37,8 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
   int? selectedSeason;
   int? examDDV;
 
+
+
   final TextEditingController _controller = TextEditingController();
   List<ExamTypes> examTypes = [
     ExamTypes(
@@ -391,6 +393,25 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                       );
                     case Status.COMPLETED:
                       {
+                        List<ExamTypes> classes = List.generate( provider.getTeacherSubjectsResponse!.data!
+                            .data![0].classes!.length, (index) => ExamTypes(id: 0,type: ''),growable: false);
+                        for (int i = 0;
+                            i <
+                                provider.getTeacherSubjectsResponse!.data!
+                                    .data![0].classes!.length;
+                            i++) {
+                          classes[i].type = provider.getTeacherSubjectsResponse!
+                              .data!.data![0].classes![i].classes!.name!;
+                          classes[i].id = provider.getTeacherSubjectsResponse!
+                              .data!.data![0].classes![i].classes!.id!;
+                          // classes.add(ExamTypes(
+                          //     id: provider.getTeacherSubjectsResponse!.data!
+                          //         .data![0].classes![i].classes!.id!,
+                          //     type: provider.getTeacherSubjectsResponse!.data!
+                          //         .data![0].classes![i].classes!.name!));
+                        }
+                        var seen = Set<String>();
+                        List<ExamTypes> unique = classes.where((element) => seen.add(element.type!)).toList();
                         return SizedBox(
                           height: widgetSize.getHeight(
                             350,
@@ -504,12 +525,7 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                                           setState(() {
                                             selectedClass = index;
                                           });
-                                          classId = provider
-                                              .getTeacherSubjectsResponse!
-                                              .data!
-                                              .data![0]
-                                              .classes![index]
-                                              .class_id!;
+                                          classId = unique[index].id!;
                                         },
                                         clipBehavior: Clip.antiAlias,
                                         controller: fixedExtentScrollController,
@@ -519,12 +535,7 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                                         offAxisFraction: -0.0,
                                         diameterRatio: 2,
                                         itemExtent: 60,
-                                        children: provider
-                                            .getTeacherSubjectsResponse!
-                                            .data!
-                                            .data![0]
-                                            .classes!
-                                            .map((e) {
+                                        children: unique.map((e) {
                                           return Row(
                                             children: <Widget>[
                                               Expanded(
@@ -544,7 +555,7 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                                                       16.0,
                                                     ),
                                                     child: Text(
-                                                      e.classes!.name!,
+                                                      e.type!,
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
