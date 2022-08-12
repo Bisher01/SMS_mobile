@@ -1,5 +1,3 @@
-
-
 import 'package:json_annotation/json_annotation.dart';
 
 import 'models.dart';
@@ -16,18 +14,21 @@ class TeacherTimeTable {
   int? classClassroom_id;
   @JsonKey(defaultValue: 0)
   int? teacher_id;
+  @JsonKey(defaultValue: 0)
+  int? subject_id;
   Lesson? lesson;
-  @JsonKey(defaultValue: '')
-  String? subject;
+  Subject? subject;
   ClassClassroom? classroom;
 
   TeacherTimeTable({
     this.id,
-   this.teacher_id,
+    this.teacher_id,
     this.classClassroom_id,
     this.lesson,
     this.lessonDay_id,
     this.classroom,
+    this.subject,
+    this.subject_id,
   });
 
   factory TeacherTimeTable.fromJson(Map<String, dynamic> json) =>

@@ -113,8 +113,8 @@ class _NewMeetingState extends State<NewMeeting> {
                             provider
                                 .getTeacherSubjectsResponse!.data!.data!.length;
                         i++) {
-                      subjects[provider
-                          .getTeacherSubjectsResponse!.data!.data![i].subject!.id!] = i;
+                      subjects[provider.getTeacherSubjectsResponse!.data!
+                          .data![i].subject!.id!] = i;
                     }
 
                     return Column(
@@ -472,7 +472,8 @@ class _NewMeetingState extends State<NewMeeting> {
                                       listen: false)
                                   .getTeacherSubjectsResponse!
                                   .data!
-                                  .data![0].subject!
+                                  .data![0]
+                                  .subject!
                                   .id!;
                               int id = Provider.of<AppProvider>(context,
                                       listen: false)
@@ -532,7 +533,8 @@ class _NewMeetingState extends State<NewMeeting> {
                                                 onPressed: () {
                                                   Navigator.pop(context);
                                                   Navigator.pop(context);
-                                          },
+                                                  Navigator.pop(context);
+                                                },
                                                 child: Text(
                                                   'OK',
                                                   style: TextStyle(

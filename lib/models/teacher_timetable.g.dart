@@ -18,7 +18,11 @@ TeacherTimeTable _$TeacherTimeTableFromJson(Map<String, dynamic> json) =>
       classroom: json['classroom'] == null
           ? null
           : ClassClassroom.fromJson(json['classroom'] as Map<String, dynamic>),
-    )..subject = json['subject'] as String? ?? '';
+      subject: json['subject'] == null
+          ? null
+          : Subject.fromJson(json['subject'] as Map<String, dynamic>),
+      subject_id: json['subject_id'] as int? ?? 0,
+    );
 
 Map<String, dynamic> _$TeacherTimeTableToJson(TeacherTimeTable instance) =>
     <String, dynamic>{
@@ -26,6 +30,7 @@ Map<String, dynamic> _$TeacherTimeTableToJson(TeacherTimeTable instance) =>
       'lessonDay_id': instance.lessonDay_id,
       'classClassroom_id': instance.classClassroom_id,
       'teacher_id': instance.teacher_id,
+      'subject_id': instance.subject_id,
       'lesson': instance.lesson,
       'subject': instance.subject,
       'classroom': instance.classroom,

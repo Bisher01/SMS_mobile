@@ -89,7 +89,7 @@ class _TeacherScheduleState extends State<TeacherSchedule> {
                 classroom: provider
                     .data!.teacherTimetable![i].classroom!.classrooms!.name
                     .toString(),
-                subject: provider.data!.teacherTimetable![i].subject);
+                subject: provider.data!.teacherTimetable![i].subject!.name);
       }
 
     });
@@ -660,7 +660,7 @@ class _TeacherScheduleState extends State<TeacherSchedule> {
                                               .className!,
                                           style: const TextStyle(
                                             color: Colors.black,
-                                            fontSize: 26,
+                                            fontSize: 20,
                                             fontFamily: 'ChakraPetch',
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -686,26 +686,28 @@ class _TeacherScheduleState extends State<TeacherSchedule> {
                                           ),
                                         ),
                                         const Spacer(),
-                                        Row(
-                                          children: [
-                                            const CircleAvatar(
-                                              radius: 15,
-                                              backgroundImage: NetworkImage(
-                                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQkqF4GNbddpeM38Iq_ac9DyUcRr7VXkVVAmQcgyi6Xv6F5bcf3mlZOUxm47kO7UYuBIg&usqp=CAU'),
-                                            ),
-                                            const SizedBox(
-                                              width: 6,
-                                            ),
-                                            Text(
-                                              timetable[selectedDay][index + 1].subject!,
-                                              style: const TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 18,
-                                                fontFamily: 'ChakraPetch',
-                                                fontWeight: FontWeight.w400,
+                                        Expanded(
+                                          child: Row(
+                                            children: [
+                                              const CircleAvatar(
+                                                radius: 15,
+                                                backgroundImage: NetworkImage(
+                                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQkqF4GNbddpeM38Iq_ac9DyUcRr7VXkVVAmQcgyi6Xv6F5bcf3mlZOUxm47kO7UYuBIg&usqp=CAU'),
                                               ),
-                                            )
-                                          ],
+                                              const SizedBox(
+                                                width: 6,
+                                              ),
+                                              Text(
+                                                timetable[selectedDay][index + 1].subject!,
+                                                style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18,
+                                                  fontFamily: 'ChakraPetch',
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     ),
