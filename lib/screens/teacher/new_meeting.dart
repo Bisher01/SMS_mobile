@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_mobile/utill/utill.dart';
-
 import '../../providers/app_provider.dart';
 import '../../services/api_response.dart';
-import '../screens.dart';
 import '../../components/error.dart' as err;
 
 class NewMeeting extends StatefulWidget {
@@ -532,18 +529,10 @@ class _NewMeetingState extends State<NewMeeting> {
                                           return AlertDialog(
                                             actions: <Widget>[
                                               TextButton(
-                                                onPressed: () => Navigator.push(
-                                                  context,
-                                                  PageTransition(
-                                                    child:
-                                                        const TeacherMainScreen(),
-                                                    type: PageTransitionType
-                                                        .bottomToTopJoined,
-                                                    childCurrent: widget,
-                                                    duration: const Duration(
-                                                        milliseconds: 300),
-                                                  ),
-                                                ),
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                  Navigator.pop(context);
+                                          },
                                                 child: Text(
                                                   'OK',
                                                   style: TextStyle(

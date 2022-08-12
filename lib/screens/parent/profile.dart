@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sms_mobile/providers/providers.dart';
 import '../../services/api_response.dart';
 import '../../utill/widget_size.dart';
-import '../screens.dart';
 import '../../components/error.dart' as er;
 
 class ParentProfilePage extends StatefulWidget {
@@ -35,15 +33,7 @@ class _ParentProfilePageState extends State<ParentProfilePage> {
             Icons.arrow_back,
           ),
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              PageTransition(
-                type: PageTransitionType.bottomToTopJoined,
-                childCurrent: widget,
-                duration: const Duration(milliseconds: 300),
-                child: const ParentMainScreen(),
-              ),
-            );
+            Navigator.pop(context);
           },
         ),
       ),
@@ -268,8 +258,6 @@ class _ParentProfilePageState extends State<ParentProfilePage> {
                 return Shimmer.fromColors(
                   baseColor: Colors.grey,
                   highlightColor: Colors.white,
-
-                  ///TODO: change
                   child: Container(),
                 );
             }
@@ -277,8 +265,6 @@ class _ParentProfilePageState extends State<ParentProfilePage> {
           return Shimmer.fromColors(
             baseColor: Colors.grey,
             highlightColor: Colors.white,
-
-            ///TODO: change
             child: Container(),
           );
         },

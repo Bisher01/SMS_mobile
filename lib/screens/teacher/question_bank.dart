@@ -75,8 +75,13 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
         backgroundColor: const Color.fromRGBO(251, 250, 250, 1),
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new,color: Colors.black,),
-          onPressed: (){Navigator.pop(context);},
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         actions: [
           Row(
@@ -135,8 +140,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
             case Status.COMPLETED:
               return PageView.builder(
                   scrollDirection: Axis.vertical,
-                  itemCount:
-                      provider.questionBankResponse!.data!.questions![0].questions!.length,
+                  itemCount: provider.questionBankResponse!.data!.questions![0]
+                      .questions!.length,
                   itemBuilder: (context, index) {
                     if (answers.length < index + 1) {
                       answers.add(Answer(
@@ -222,7 +227,7 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                               ),
                               Row(
                                 children: [
-                                   Text(
+                                  Text(
                                     'Mark:  $totalMark/${provider.questionBankResponse!.data!.questions![0].max_mark}',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w500,
@@ -310,7 +315,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                 color: provider
                                             .questionBankResponse!
                                             .data!
-                                            .questions![0].questions![index]
+                                            .questions![0]
+                                            .questions![index]
                                             .choices![0]
                                             .status ==
                                         1
@@ -323,13 +329,19 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                               ),
                               child: Center(
                                 child: Text(
-                                  provider.questionBankResponse!.data!
-                                      .questions![0].questions![index].choices![0].text!,
+                                  provider
+                                      .questionBankResponse!
+                                      .data!
+                                      .questions![0]
+                                      .questions![index]
+                                      .choices![0]
+                                      .text!,
                                   style: TextStyle(
                                     color: provider
                                                 .questionBankResponse!
                                                 .data!
-                                                .questions![0].questions![index]
+                                                .questions![0]
+                                                .questions![index]
                                                 .choices![0]
                                                 .status ==
                                             1
@@ -344,7 +356,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                               left: provider
                                           .questionBankResponse!
                                           .data!
-                                          .questions![0].questions![index]
+                                          .questions![0]
+                                          .questions![index]
                                           .choices![0]
                                           .status ==
                                       1
@@ -359,7 +372,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                     color: provider
                                                 .questionBankResponse!
                                                 .data!
-                                                .questions![0].questions![index]
+                                                .questions![0]
+                                                .questions![index]
                                                 .choices![0]
                                                 .status ==
                                             1
@@ -374,7 +388,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                       color: provider
                                                   .questionBankResponse!
                                                   .data!
-                                                  .questions![0].questions![index]
+                                                  .questions![0]
+                                                  .questions![index]
                                                   .choices![0]
                                                   .status ==
                                               1
@@ -400,7 +415,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                 color: provider
                                             .questionBankResponse!
                                             .data!
-                                            .questions![0].questions![index]
+                                            .questions![0]
+                                            .questions![index]
                                             .choices![1]
                                             .status ==
                                         1
@@ -413,13 +429,19 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                               ),
                               child: Center(
                                 child: Text(
-                                  provider.questionBankResponse!.data!
-                                      .questions![0].questions![index].choices![1].text!,
+                                  provider
+                                      .questionBankResponse!
+                                      .data!
+                                      .questions![0]
+                                      .questions![index]
+                                      .choices![1]
+                                      .text!,
                                   style: TextStyle(
                                     color: provider
                                                 .questionBankResponse!
                                                 .data!
-                                                .questions![0].questions![index]
+                                                .questions![0]
+                                                .questions![index]
                                                 .choices![1]
                                                 .status ==
                                             1
@@ -434,7 +456,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                               left: provider
                                           .questionBankResponse!
                                           .data!
-                                          .questions![0].questions![index]
+                                          .questions![0]
+                                          .questions![index]
                                           .choices![1]
                                           .status ==
                                       1
@@ -449,7 +472,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                     color: provider
                                                 .questionBankResponse!
                                                 .data!
-                                                .questions![0].questions![index]
+                                                .questions![0]
+                                                .questions![index]
                                                 .choices![1]
                                                 .status ==
                                             1
@@ -464,7 +488,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                       color: provider
                                                   .questionBankResponse!
                                                   .data!
-                                                  .questions![0].questions![index]
+                                                  .questions![0]
+                                                  .questions![index]
                                                   .choices![1]
                                                   .status ==
                                               1
@@ -478,14 +503,19 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                           ],
                         ),
                         SizedBox(
-                          height: provider.questionBankResponse!.data!
-                                      .questions![0].questions![index].choices!.length >
+                          height: provider
+                                      .questionBankResponse!
+                                      .data!
+                                      .questions![0]
+                                      .questions![index]
+                                      .choices!
+                                      .length >
                                   2
                               ? 10
                               : 0,
                         ),
-                        provider.questionBankResponse!.data!.questions![0].questions![index]
-                                    .choices!.length >
+                        provider.questionBankResponse!.data!.questions![0]
+                                    .questions![index].choices!.length >
                                 2
                             ? Stack(
                                 children: [
@@ -497,7 +527,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                       color: provider
                                                   .questionBankResponse!
                                                   .data!
-                                                  .questions![0].questions![index]
+                                                  .questions![0]
+                                                  .questions![index]
                                                   .choices![2]
                                                   .status ==
                                               1
@@ -514,14 +545,16 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                         provider
                                             .questionBankResponse!
                                             .data!
-                                            .questions![0].questions![index]
+                                            .questions![0]
+                                            .questions![index]
                                             .choices![2]
                                             .text!,
                                         style: TextStyle(
                                           color: provider
                                                       .questionBankResponse!
                                                       .data!
-                                                      .questions![0].questions![index]
+                                                      .questions![0]
+                                                      .questions![index]
                                                       .choices![2]
                                                       .status ==
                                                   1
@@ -536,7 +569,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                     left: provider
                                                 .questionBankResponse!
                                                 .data!
-                                                .questions![0].questions![index]
+                                                .questions![0]
+                                                .questions![index]
                                                 .choices![2]
                                                 .status ==
                                             1
@@ -551,7 +585,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                           color: provider
                                                       .questionBankResponse!
                                                       .data!
-                                                      .questions![0].questions![index]
+                                                      .questions![0]
+                                                      .questions![index]
                                                       .choices![2]
                                                       .status ==
                                                   1
@@ -567,7 +602,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                             color: provider
                                                         .questionBankResponse!
                                                         .data!
-                                                        .questions![0].questions![index]
+                                                        .questions![0]
+                                                        .questions![index]
                                                         .choices![2]
                                                         .status ==
                                                     1
@@ -582,14 +618,19 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                               )
                             : const SizedBox(),
                         SizedBox(
-                          height: provider.questionBankResponse!.data!
-                                      .questions![0].questions![index].choices!.length >
+                          height: provider
+                                      .questionBankResponse!
+                                      .data!
+                                      .questions![0]
+                                      .questions![index]
+                                      .choices!
+                                      .length >
                                   3
                               ? 10
                               : 0,
                         ),
-                        provider.questionBankResponse!.data!.questions![0].questions![index]
-                                    .choices!.length >
+                        provider.questionBankResponse!.data!.questions![0]
+                                    .questions![index].choices!.length >
                                 3
                             ? Stack(
                                 children: [
@@ -601,7 +642,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                       color: provider
                                                   .questionBankResponse!
                                                   .data!
-                                                  .questions![0].questions![index]
+                                                  .questions![0]
+                                                  .questions![index]
                                                   .choices![3]
                                                   .status ==
                                               1
@@ -618,14 +660,16 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                         provider
                                             .questionBankResponse!
                                             .data!
-                                            .questions![0].questions![index]
+                                            .questions![0]
+                                            .questions![index]
                                             .choices![3]
                                             .text!,
                                         style: TextStyle(
                                           color: provider
                                                       .questionBankResponse!
                                                       .data!
-                                                      .questions![0].questions![index]
+                                                      .questions![0]
+                                                      .questions![index]
                                                       .choices![3]
                                                       .status ==
                                                   1
@@ -640,7 +684,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                     left: provider
                                                 .questionBankResponse!
                                                 .data!
-                                                .questions![0].questions![index]
+                                                .questions![0]
+                                                .questions![index]
                                                 .choices![3]
                                                 .status ==
                                             1
@@ -655,7 +700,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                           color: provider
                                                       .questionBankResponse!
                                                       .data!
-                                                      .questions![0].questions![index]
+                                                      .questions![0]
+                                                      .questions![index]
                                                       .choices![3]
                                                       .status ==
                                                   1
@@ -671,7 +717,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                             color: provider
                                                         .questionBankResponse!
                                                         .data!
-                                                        .questions![0].questions![index]
+                                                        .questions![0]
+                                                        .questions![index]
                                                         .choices![3]
                                                         .status ==
                                                     1
@@ -686,14 +733,19 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                               )
                             : const SizedBox(),
                         SizedBox(
-                          height: provider.questionBankResponse!.data!
-                                      .questions![0].questions![index].choices!.length >
+                          height: provider
+                                      .questionBankResponse!
+                                      .data!
+                                      .questions![0]
+                                      .questions![index]
+                                      .choices!
+                                      .length >
                                   4
                               ? 10
                               : 0,
                         ),
-                        provider.questionBankResponse!.data!.questions![0].questions![index]
-                                    .choices!.length >
+                        provider.questionBankResponse!.data!.questions![0]
+                                    .questions![index].choices!.length >
                                 4
                             ? Stack(
                                 children: [
@@ -705,7 +757,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                       color: provider
                                                   .questionBankResponse!
                                                   .data!
-                                                  .questions![0].questions![index]
+                                                  .questions![0]
+                                                  .questions![index]
                                                   .choices![4]
                                                   .status ==
                                               1
@@ -722,14 +775,16 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                         provider
                                             .questionBankResponse!
                                             .data!
-                                            .questions![0].questions![index]
+                                            .questions![0]
+                                            .questions![index]
                                             .choices![4]
                                             .text!,
                                         style: TextStyle(
                                           color: provider
                                                       .questionBankResponse!
                                                       .data!
-                                                      .questions![0].questions![index]
+                                                      .questions![0]
+                                                      .questions![index]
                                                       .choices![4]
                                                       .status ==
                                                   1
@@ -744,7 +799,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                     left: provider
                                                 .questionBankResponse!
                                                 .data!
-                                                .questions![0].questions![index]
+                                                .questions![0]
+                                                .questions![index]
                                                 .choices![4]
                                                 .status ==
                                             1
@@ -759,7 +815,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                           color: provider
                                                       .questionBankResponse!
                                                       .data!
-                                                      .questions![0].questions![index]
+                                                      .questions![0]
+                                                      .questions![index]
                                                       .choices![4]
                                                       .status ==
                                                   1
@@ -775,7 +832,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                             color: provider
                                                         .questionBankResponse!
                                                         .data!
-                                                        .questions![0].questions![index]
+                                                        .questions![0]
+                                                        .questions![index]
                                                         .choices![4]
                                                         .status ==
                                                     1
@@ -807,17 +865,19 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                             onPressed: _markController.text.isEmpty
                                 ? null
                                 : () {
-                              double mark = double.parse(_markController.text);
-                              _markController.clear();
+                                    double mark =
+                                        double.parse(_markController.text);
+                                    _markController.clear();
                                     questions.add(AddQuestionToExam(
                                         mark: mark.toInt(),
                                         questionId: provider
                                             .questionBankResponse!
                                             .data!
-                                            .questions![0].questions![index]
+                                            .questions![0]
+                                            .questions![index]
                                             .id));
-                                    setState((){
-                                      totalMark=totalMark+mark;
+                                    setState(() {
+                                      totalMark = totalMark + mark;
                                     });
                                   },
                             child: const Text(
@@ -830,8 +890,8 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                           ),
                         ),
                         index + 1 ==
-                                provider.questionBankResponse!.data!.questions![0].questions!
-                                    .length
+                                provider.questionBankResponse!.data!
+                                    .questions![0].questions!.length
                             ? Padding(
                                 padding: const EdgeInsets.only(
                                   top: 25,
@@ -889,22 +949,12 @@ class _QuestionsBankScreenState extends State<QuestionsBankScreen> {
                                                   return AlertDialog(
                                                     actions: <Widget>[
                                                       TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.push(
-                                                          context,
-                                                          PageTransition(
-                                                            child:
-                                                                const TeacherMainScreen(),
-                                                            type: PageTransitionType
-                                                                .bottomToTopJoined,
-                                                            childCurrent:
-                                                                widget,
-                                                            duration:
-                                                                const Duration(
-                                                                    milliseconds:
-                                                                        300),
-                                                          ),
-                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
                                                         child: Text(
                                                           'OK',
                                                           style: TextStyle(

@@ -101,8 +101,7 @@ class _StudentAttendanceScreenState extends State<StudentAttendanceScreen> {
                                     image: NetworkImage(
                                         'http://127.0.0.1:8000/storage/${provider.getStudentAttendancesResponse!.data!.data![0].picture}'),
                                     imageErrorBuilder: (context, error, stackTrace) {
-                                      return Container(
-                                          child: Image.asset("assets/student.png"));
+                                      return Image.asset("assets/student.png");
                                     },
                                   ),
                                 ),

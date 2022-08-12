@@ -91,7 +91,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   primary: const Color.fromARGB(255, 255, 167, 38,),
                                 ),
                                 onPressed: () {
-                                  Navigator.push(
+                                  Navigator.pushReplacement(
                                     context,
                                     PageTransition(
                                       child: const LoginScreen(),

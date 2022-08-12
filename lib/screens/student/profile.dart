@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:sms_mobile/screens/screens.dart';
 import 'package:sms_mobile/utill/utill.dart';
 import '../../providers/app_provider.dart';
 import '../../services/api_response.dart';
@@ -35,15 +33,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
             Icons.arrow_back,
           ),
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              PageTransition(
-                type: PageTransitionType.bottomToTopJoined,
-                childCurrent: widget,
-                duration: const Duration(milliseconds: 300),
-                child: const StudentMainScreen(),
-              ),
-            );
+            Navigator.pop(context);
           },
         ),
       ),
@@ -86,7 +76,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                     //   //   widget.teacher.picture!,
                     //   // ),
                     // ),
-                    Container(
+                    SizedBox(
                       height: widgetSize.getHeight(500, context),
                       width: double.infinity,
                       child: ColorFiltered(
@@ -98,8 +88,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                           image: NetworkImage(
                               'http://127.0.0.1:8000/storage/${student.picture}'),
                           imageErrorBuilder: (context, error, stackTrace) {
-                            return Container(
-                                child: Image.asset("assets/student.png"));
+                            return Image.asset("assets/student.png");
                           },
                         ),
                       ),
@@ -420,8 +409,7 @@ class _StudentProfilePageState extends State<StudentProfilePage> {
                           image: NetworkImage(
                               'http://127.0.0.1:8000/storage/${student.picture}'),
                           imageErrorBuilder: (context, error, stackTrace) {
-                            return Container(
-                                child: Image.asset("assets/student.png"));
+                            return Image.asset("assets/student.png");
                           },
                         ),
                       ),

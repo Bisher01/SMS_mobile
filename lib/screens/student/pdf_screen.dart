@@ -3,7 +3,7 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class PdfScreen extends StatefulWidget {
   final String? book;
-  PdfScreen({required this.book, Key? key}) : super(key: key);
+  const PdfScreen({required this.book, Key? key}) : super(key: key);
 
   @override
   State<PdfScreen> createState() => _PdfScreenState();
@@ -15,7 +15,7 @@ class _PdfScreenState extends State<PdfScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 255, 167, 38,),
+        backgroundColor: const Color.fromARGB(255, 255, 167, 38,),
         title: const Text(
           'PDF preview',
           style: TextStyle(color: Colors.white),

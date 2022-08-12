@@ -290,8 +290,6 @@ class _MentorProfilePageState extends State<MentorProfilePage> {
                 return Shimmer.fromColors(
                   baseColor: Colors.grey,
                   highlightColor: Colors.white,
-
-                  ///TODO: change
                   child: Container(),
                 );
             }
@@ -299,8 +297,6 @@ class _MentorProfilePageState extends State<MentorProfilePage> {
           return Shimmer.fromColors(
             baseColor: Colors.grey,
             highlightColor: Colors.white,
-
-            ///TODO: change
             child: Container(),
           );
         },

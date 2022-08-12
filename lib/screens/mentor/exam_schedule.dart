@@ -476,7 +476,7 @@ class _MentorExamScheduleState extends State<MentorExamSchedule> {
                     return Container();
                 }
               }
-              return err.Error(
+              return const err.Error(
                 errorMsg: 'not found',
               );
             },

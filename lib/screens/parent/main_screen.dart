@@ -3,7 +3,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_mobile/providers/providers.dart';
-import 'package:sms_mobile/screens/parent/exam_schedule.dart';
 import '../../models/boxes.dart';
 import '../../services/api_response.dart';
 import '../screens.dart';
@@ -75,7 +74,7 @@ class _ParentMainScreenState extends State<ParentMainScreen>
                                   EasyLoading.showSuccess(
                                       response.data!.message!,
                                       dismissOnTap: true);
-                                  Navigator.push(
+                                  Navigator.pushReplacement(
                                     context,
                                     PageTransition(
                                       child: const LoginScreen(),

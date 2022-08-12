@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_mobile/providers/providers.dart';
-import 'package:sms_mobile/screens/screens.dart';
 import 'package:sms_mobile/utill/utill.dart';
 import '../../models/models.dart';
 import '../../services/api_response.dart';
@@ -803,22 +801,10 @@ class _QuizScreenState extends State<QuizScreen> {
                                                   return AlertDialog(
                                                     actions: <Widget>[
                                                       TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.push(
-                                                          context,
-                                                          PageTransition(
-                                                            child:
-                                                                const StudentMainScreen(),
-                                                            type: PageTransitionType
-                                                                .bottomToTopJoined,
-                                                            childCurrent:
-                                                                widget,
-                                                            duration:
-                                                                const Duration(
-                                                                    milliseconds:
-                                                                        300),
-                                                          ),
-                                                        ),
+                                                        onPressed: () {
+                                                           Navigator.pop(context);
+                                                           Navigator.pop(context);
+                                                           },
                                                         child: Text(
                                                           'OK',
                                                           style: TextStyle(

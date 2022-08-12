@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:sms_mobile/screens/screens.dart';
 import 'package:sms_mobile/utill/utill.dart';
 import '../../providers/app_provider.dart';
 import '../../components/error.dart' as er;
@@ -59,7 +57,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                 final teacher = provider.getTeacherResponse!.data!.teacher![0];
                 return Stack(
                   children: [
-                    Container(
+                    SizedBox(
                       height: widgetSize.getHeight(500, context),
                       width: double.infinity,
                       child: ColorFiltered(
@@ -71,8 +69,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                           image: NetworkImage(
                               'http://127.0.0.1:8000/storage/${teacher.picture}'),
                           imageErrorBuilder: (context, error, stackTrace) {
-                            return Container(
-                                child: Image.asset("assets/teacher.png"));
+                            return Image.asset("assets/teacher.png");
                           },
                         ),
                       ),
@@ -298,8 +295,7 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                           image: NetworkImage(
                               'http://127.0.0.1:8000/storage/${teacher.picture}'),
                           imageErrorBuilder: (context, error, stackTrace) {
-                            return Container(
-                                child: Image.asset("assets/teacher.png"));
+                            return Image.asset("assets/teacher.png");
                           },
                         ),
                       ),
@@ -310,8 +306,6 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
                 return Shimmer.fromColors(
                   baseColor: Colors.grey,
                   highlightColor: Colors.white,
-
-                  ///TODO: change
                   child: Container(),
                 );
             }
@@ -319,8 +313,6 @@ class _TeacherProfilePageState extends State<TeacherProfilePage> {
           return Shimmer.fromColors(
             baseColor: Colors.grey,
             highlightColor: Colors.white,
-
-            ///TODO: change
             child: Container(),
           );
         },

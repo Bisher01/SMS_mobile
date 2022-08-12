@@ -483,7 +483,7 @@ class _StudentExamScheduleState extends State<StudentExamSchedule> {
                   return Container();
               }
             }
-            return err.Error(
+            return const err.Error(
               errorMsg: 'not found',
             );
           },

@@ -49,7 +49,7 @@ class _SelectClassSubjectClassroomState
 
   DateTime _startDate = DateTime.now();
   TimeOfDay _startTime = TimeOfDay.now();
-  TimeOfDay _endTime = TimeOfDay.now();
+  //TimeOfDay _endTime = TimeOfDay.now();
   void _presentDatePicker(DateTime date) {
     showDatePicker(
       builder: (context, child) {
@@ -103,31 +103,31 @@ class _SelectClassSubjectClassroomState
     });
   }
 
-  void _presentEndTimePicker(TimeOfDay end) {
-    showTimePicker(
-            builder: (context, child) {
-              return Theme(
-                data: ThemeData.light().copyWith(
-                  primaryColor: Colors.orange[400],
-                  colorScheme: ColorScheme.light(primary: Colors.orange[400]!),
-                  buttonTheme:
-                      const ButtonThemeData(textTheme: ButtonTextTheme.primary),
-                ),
-                child: child!,
-              );
-            },
-            context: context,
-            initialTime: end)
-        .then((pickedTime) {
-      if (pickedTime == null) {
-        return;
-      } else {
-        setState(() {
-          _endTime = pickedTime;
-        });
-      }
-    });
-  }
+  // void _presentEndTimePicker(TimeOfDay end) {
+  //   showTimePicker(
+  //           builder: (context, child) {
+  //             return Theme(
+  //               data: ThemeData.light().copyWith(
+  //                 primaryColor: Colors.orange[400],
+  //                 colorScheme: ColorScheme.light(primary: Colors.orange[400]!),
+  //                 buttonTheme:
+  //                     const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+  //               ),
+  //               child: child!,
+  //             );
+  //           },
+  //           context: context,
+  //           initialTime: end)
+  //       .then((pickedTime) {
+  //     if (pickedTime == null) {
+  //       return;
+  //     } else {
+  //       setState(() {
+  //         _endTime = pickedTime;
+  //       });
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -527,10 +527,17 @@ class _SelectClassSubjectClassroomState
                                       .classes![0]
                                       .classroom_id!
                                   : classroomId;
-                              DateTime endDate =_startDate.add(Duration(
-                                  minutes:
-                                  int.parse(_controller.text)));
-                              Navigator.pushReplacement(
+                              DateTime endDate = _controller.text.isNotEmpty
+                                  ? _startDate.add(Duration(
+                                      minutes: int.parse(_controller.text),
+                                      days: 0,
+                                      hours: 0,
+                                      milliseconds: 0,
+                                      seconds: 0,
+                                      microseconds: 0,
+                                    ))
+                                  : DateTime.now();
+                              Navigator.push(
                                 context,
                                 PageTransition(
                                   child: widget.addOralMark
@@ -547,12 +554,11 @@ class _SelectClassSubjectClassroomState
                                               _startTime.hour,
                                               _startTime.minute),
                                           end: DateTime(
-                                            endDate.year,
+                                              endDate.year,
                                               endDate.month,
                                               endDate.day,
                                               endDate.hour,
-                                              endDate.minute
-                                          ),
+                                              endDate.minute),
                                           season: selectedSeason,
                                           classId: classId,
                                           subjectId: subjectDDV!,
@@ -562,8 +568,6 @@ class _SelectClassSubjectClassroomState
                                   duration: const Duration(milliseconds: 400),
                                 ),
                               );
-                              print(_startDate);
-                              print(endDate);
                             },
                             child: const Text(
                               'Add quiz to students',

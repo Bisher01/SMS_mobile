@@ -59,7 +59,7 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
 
   DateTime _startDate = DateTime.now();
   TimeOfDay _startTime = TimeOfDay.now();
-  TimeOfDay _endTime = TimeOfDay.now();
+  //TimeOfDay _endTime = TimeOfDay.now();
   void _presentDatePicker(DateTime date) {
     showDatePicker(
       builder: (context, child) {
@@ -113,31 +113,31 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
     });
   }
 
-  void _presentEndTimePicker(TimeOfDay end) {
-    showTimePicker(
-            builder: (context, child) {
-              return Theme(
-                data: ThemeData.light().copyWith(
-                  primaryColor: Colors.orange[400],
-                  colorScheme: ColorScheme.light(primary: Colors.orange[400]!),
-                  buttonTheme:
-                      const ButtonThemeData(textTheme: ButtonTextTheme.primary),
-                ),
-                child: child!,
-              );
-            },
-            context: context,
-            initialTime: end)
-        .then((pickedTime) {
-      if (pickedTime == null) {
-        return;
-      } else {
-        setState(() {
-          _endTime = pickedTime;
-        });
-      }
-    });
-  }
+  // void _presentEndTimePicker(TimeOfDay end) {
+  //   showTimePicker(
+  //           builder: (context, child) {
+  //             return Theme(
+  //               data: ThemeData.light().copyWith(
+  //                 primaryColor: Colors.orange[400],
+  //                 colorScheme: ColorScheme.light(primary: Colors.orange[400]!),
+  //                 buttonTheme:
+  //                     const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+  //               ),
+  //               child: child!,
+  //             );
+  //           },
+  //           context: context,
+  //           initialTime: end)
+  //       .then((pickedTime) {
+  //     if (pickedTime == null) {
+  //       return;
+  //     } else {
+  //       setState(() {
+  //         _endTime = pickedTime;
+  //       });
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -507,8 +507,9 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                                           classId = provider
                                               .getTeacherSubjectsResponse!
                                               .data!
-                                              .data![0].classes![index].class_id!;
-
+                                              .data![0]
+                                              .classes![index]
+                                              .class_id!;
                                         },
                                         clipBehavior: Clip.antiAlias,
                                         controller: fixedExtentScrollController,
@@ -521,7 +522,8 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                                         children: provider
                                             .getTeacherSubjectsResponse!
                                             .data!
-                                            .data![0].classes!
+                                            .data![0]
+                                            .classes!
                                             .map((e) {
                                           return Row(
                                             children: <Widget>[
@@ -594,30 +596,36 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                   subjectId = Provider.of<AppProvider>(context, listen: false)
                       .getTeacherSubjectsResponse!
                       .data!
-                      .data![0].subject!.id!;
+                      .data![0]
+                      .subject!
+                      .id!;
 
                   classId = classId == 0
                       ? Provider.of<AppProvider>(context, listen: false)
                           .getTeacherSubjectsResponse!
                           .data!
-                          .data![0].classes![0].class_id!
+                          .data![0]
+                          .classes![0]
+                          .class_id!
                       : classId;
-                  DateTime endDate =_startDate.add(Duration(
-                      minutes:
-                      int.parse(_controller.text)));
+                  DateTime endDate = _controller.text.isNotEmpty
+                      ? _startDate.add(Duration(
+                          minutes: int.parse(_controller.text),
+                          seconds: 0,
+                          microseconds: 0,
+                          milliseconds: 0,
+                          hours: 0,
+                          days: 0,
+                        ))
+                      : DateTime.now();
                   Navigator.push(
                     context,
                     PageTransition(
                       child: QuestionsBankScreen(
                         start: DateTime(_startDate.year, _startDate.month,
                             _startDate.day, _startTime.hour, _startTime.minute),
-                        end: DateTime(
-                            endDate.year,
-                            endDate.month,
-                            endDate.day,
-                            endDate.hour,
-                            endDate.minute
-                        ),
+                        end: DateTime(endDate.year, endDate.month, endDate.day,
+                            endDate.hour, endDate.minute),
                         // DateTime(_startDate.year,_startDate.month,_startDate.day,_endTime.hour,_endTime.minute),
                         season: selectedSeason!,
                         classId: classId,
@@ -656,14 +664,18 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
                   subjectId = Provider.of<AppProvider>(context, listen: false)
                       .getTeacherSubjectsResponse!
                       .data!
-                      .data![0].subject!.id!;
+                      .data![0]
+                      .subject!
+                      .id!;
                   classId = classId == 0
                       ? Provider.of<AppProvider>(context, listen: false)
                           .getTeacherSubjectsResponse!
                           .data!
-                          .data![0].classes![0].class_id!
+                          .data![0]
+                          .classes![0]
+                          .class_id!
                       : classId;
-                  Navigator.pushReplacement(
+                  Navigator.push(
                     context,
                     PageTransition(
                       child: AddQuestion(
@@ -693,13 +705,13 @@ class _SelectClassSubjectState extends State<SelectClassSubject> {
       ),
     );
   }
+
   @override
   void dispose() {
     _focusNode.dispose();
     super.dispose();
   }
 }
-
 
 class ExamTypes {
   int? id;

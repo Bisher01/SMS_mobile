@@ -73,7 +73,7 @@ class _MentorMainScreenState extends State<MentorMainScreen>
                                   EasyLoading.showSuccess(
                                       response.data!.message!,
                                       dismissOnTap: true);
-                                  Navigator.push(
+                                  Navigator.pushReplacement(
                                     context,
                                     PageTransition(
                                       child: const LoginScreen(),

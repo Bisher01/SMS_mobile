@@ -76,7 +76,7 @@ class _TeacherMainScreenState extends State<TeacherMainScreen>
                                   EasyLoading.showSuccess(
                                       response.data!.message!,
                                       dismissOnTap: true);
-                                  Navigator.push(
+                                  Navigator.pushReplacement(
                                     context,
                                     PageTransition(
                                       child: const LoginScreen(),

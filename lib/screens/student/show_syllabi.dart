@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../../components/components.dart';
 import '../../providers/app_provider.dart';
 import '../../services/api_response.dart';
 import '../../utill/widget_size.dart';
-import '../screens.dart';
 
 class ShowSyllabi extends StatefulWidget {
   final bool isStudent;
@@ -46,17 +44,7 @@ class _ShowSyllabiState extends State<ShowSyllabi> {
             Icons.arrow_back,
           ),
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              PageTransition(
-                type: PageTransitionType.bottomToTopJoined,
-                childCurrent: widget,
-                duration: const Duration(milliseconds: 300),
-                child: widget.isStudent
-                    ? const StudentMainScreen()
-                    : const ParentMainScreen(),
-              ),
-            );
+            Navigator.pop(context);
           },
         ),
       ),

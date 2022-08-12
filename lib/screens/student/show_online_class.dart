@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../../components/components.dart';
 import '../../providers/app_provider.dart';
 import '../../services/api_response.dart';
 import '../../utill/widget_size.dart';
-import '../screens.dart';
 
 class StudentShowOnlineClass extends StatefulWidget {
   const StudentShowOnlineClass({ Key? key}) : super(key: key);
@@ -48,15 +46,7 @@ class _StudentShowOnlineClassState extends State<StudentShowOnlineClass> {
             Icons.arrow_back,
           ),
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              PageTransition(
-                type: PageTransitionType.bottomToTopJoined,
-                childCurrent: widget,
-                duration: const Duration(milliseconds: 300),
-                child:const StudentMainScreen()
-              ),
-            );
+            Navigator.pop(context);
           },
         ),
       ),

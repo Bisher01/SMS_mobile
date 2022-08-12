@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:sms_mobile/models/models.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 import 'package:sms_mobile/providers/app_provider.dart';
-import 'package:sms_mobile/screens/screens.dart';
 import '../../components/error.dart' as err;
 
 import '../../services/api_response.dart';
@@ -67,7 +64,7 @@ class Head extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 100,
       child: Row(
         children: [
@@ -78,20 +75,18 @@ class Head extends StatelessWidget {
             top: true,
           ),
           Expanded(
-            child: Container(
-              child: ListView(
-                controller: scrollController,
-                physics: const ClampingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                children: List.generate(6, (index) {
-                  return Cell(
-                    value: head[index],
-                    head: true,
-                    top: true,
-                    color: Colors.orange[400],
-                  );
-                }),
-              ),
+            child: ListView(
+              controller: scrollController,
+              physics: const ClampingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              children: List.generate(6, (index) {
+                return Cell(
+                  value: head[index],
+                  head: true,
+                  top: true,
+                  color: Colors.orange[400],
+                );
+              }),
             ),
           ),
         ],
@@ -153,7 +148,7 @@ class _BodyState extends State<Body> {
               return Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Container(
+                  SizedBox(
                     width: 100,
                     child: ListView(
                       controller: _firstColumnController,
@@ -174,7 +169,7 @@ class _BodyState extends State<Body> {
                       controller: widget.scrollController,
                       scrollDirection: Axis.horizontal,
                       physics: const ClampingScrollPhysics(),
-                      child: Container(
+                      child: SizedBox(
                         width: (6) * 100,
                         child: ListView(
                           controller: _restColumnsController,
@@ -275,17 +270,7 @@ class _ResultantsState extends State<Resultants> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              PageTransition(
-                type: PageTransitionType.bottomToTopJoined,
-                childCurrent: widget,
-                duration: const Duration(milliseconds: 300),
-                child: widget.isParent
-                    ? const ParentMainScreen()
-                    : const StudentMainScreen(),
-              ),
-            );
+            Navigator.pop(context);
           },
         ),
         actions: [

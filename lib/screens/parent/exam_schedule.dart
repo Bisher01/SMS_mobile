@@ -479,7 +479,7 @@ class _ParentExamScheduleState extends State<ParentExamSchedule> {
                   return Container();
               }
             }
-            return err.Error(errorMsg: 'not found',);
+            return const err.Error(errorMsg: 'not found',);
           },
         ),
       ),

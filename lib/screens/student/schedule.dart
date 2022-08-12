@@ -67,6 +67,7 @@ class _StudentScheduleState extends State<StudentSchedule> {
           StudentModified(
             teacher: 'None',
             subject: 'None',
+            picture: '',
           ),
           growable: false),
       growable: false);
@@ -90,13 +91,15 @@ class _StudentScheduleState extends State<StudentSchedule> {
                   .id!] = StudentModified(
               teacher:
                   '${provider.data!.studentTimetable![i].teacher!.f_name} ${provider.data!.studentTimetable![i].teacher!.l_name}',
-              subject: provider.data!.studentTimetable![i].subject!.name);
+              subject: provider.data!.studentTimetable![i].subject!.name,
+              picture:
+                  '${provider.data!.studentTimetable![i].teacher!.picture}');
         }
-        for (int i = 0; i < 8; i++) {
-          for (int j = 0; j < 8; j++) {
-            print('$i, $j, ${timetable[i][j].teacher}');
-          }
-        }
+        // for (int i = 0; i < 8; i++) {
+        //   for (int j = 0; j < 8; j++) {
+        //     print('$i, $j, ${timetable[i][j].teacher}');
+        //   }
+        // }
       });
     });
     super.initState();
@@ -677,10 +680,25 @@ class _StudentScheduleState extends State<StudentSchedule> {
                                     const Spacer(),
                                     Row(
                                       children: [
-                                        const CircleAvatar(
+                                        CircleAvatar(
                                           radius: 15,
-                                          backgroundImage: const NetworkImage(
-                                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQkqF4GNbddpeM38Iq_ac9DyUcRr7VXkVVAmQcgyi6Xv6F5bcf3mlZOUxm47kO7UYuBIg&usqp=CAU'),
+                                          backgroundColor: Colors.white,
+                                          child: FadeInImage(
+                                            fit: BoxFit.cover,
+                                            placeholderFit: BoxFit.cover,
+                                            placeholder: const NetworkImage(
+                                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQkqF4GNbddpeM38Iq_ac9DyUcRr7VXkVVAmQcgyi6Xv6F5bcf3mlZOUxm47kO7UYuBIg&usqp=CAU',
+                                            ),
+                                            image: NetworkImage(
+                                                'http://127.0.0.1:8000/storage/${timetable[selectedDay][index + 1].picture}'),
+                                            imageErrorBuilder:
+                                                (context, error, stackTrace) {
+                                              return Image.network(
+                                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQkqF4GNbddpeM38Iq_ac9DyUcRr7VXkVVAmQcgyi6Xv6F5bcf3mlZOUxm47kO7UYuBIg&usqp=CAU',
+                                                fit: BoxFit.cover,
+                                              );
+                                            },
+                                          ),
                                         ),
                                         const SizedBox(
                                           width: 6,
@@ -719,8 +737,10 @@ class _StudentScheduleState extends State<StudentSchedule> {
 class StudentModified {
   String? teacher;
   String? subject;
+  String? picture;
   StudentModified({
     this.teacher,
     this.subject,
+    this.picture,
   });
 }

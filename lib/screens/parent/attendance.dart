@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sms_mobile/utill/utill.dart';
-import '../../models/models.dart';
 import '../../providers/app_provider.dart';
 import '../../services/api_response.dart';
 import '../../components/components.dart';
-import '../screens.dart';
 
 class ParentAttendanceScreen extends StatefulWidget {
   const ParentAttendanceScreen({Key? key}) : super(key: key);
@@ -65,38 +62,6 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                       Navigator.pop(context);
                     },
                   ),
-                  actions: [
-                    // Padding(
-                    //   padding: const EdgeInsets.only(right: 10.0),
-                    //   child: DropdownButton<int>(
-                    //     hint: const Text(
-                    //       'ClassRoom',
-                    //     ),
-                    //     value: classRoomDDV,
-                    //     elevation: 16,
-                    //     onChanged: (int? newValue) {
-                    //       setState(() {
-                    //         classRoomDDV = newValue ?? 0;
-                    //         selectedClassroom = classrooms[classRoomDDV] ?? 0;
-                    //       });
-                    //     },
-                    //     items: provider.mentorClassesResponse!.data!.mentorData!
-                    //         .map((e) {
-                    //       return DropdownMenuItem<int>(
-                    //         value: e.classRoomId,
-                    //         child: Text(e.classrooms!.name.toString()),
-                    //       );
-                    //     }).toList(),
-                    //     icon: const RotatedBox(
-                    //       quarterTurns: 3,
-                    //       child: Icon(
-                    //         Icons.arrow_back_ios_new,
-                    //       ),
-                    //     ),
-                    //     isExpanded: false,
-                    //   ),
-                    // ),
-                  ],
                 ),
                 body: GridView.builder(
                     padding: const EdgeInsets.symmetric(
@@ -140,9 +105,8 @@ class _ParentAttendanceScreenState extends State<ParentAttendanceScreen> {
                                         'http://127.0.0.1:8000/storage/${provider.getStudentAttendancesResponse!.data!.data![0].picture}'),
                                     imageErrorBuilder:
                                         (context, error, stackTrace) {
-                                      return Container(
-                                          child: Image.asset(
-                                              "assets/student.png"));
+                                      return Image.asset(
+                                          "assets/student.png");
                                     },
                                   ),
                                 ),

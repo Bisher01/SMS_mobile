@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sms_mobile/screens/screens.dart';
 import 'package:sms_mobile/utill/utill.dart';
 
 import '../../providers/app_provider.dart';
@@ -698,7 +697,7 @@ class _TeacherScheduleState extends State<TeacherSchedule> {
                                               width: 6,
                                             ),
                                             Text(
-                                              '${timetable[selectedDay][index + 1].subject!}',
+                                              timetable[selectedDay][index + 1].subject!,
                                               style: const TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 18,

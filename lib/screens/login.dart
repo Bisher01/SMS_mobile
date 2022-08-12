@@ -381,7 +381,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   provider.setId(response.data!.id!);
                                   provider.setRole(response.data!.role!);
                                   final role = response.data!.role!;
-                                  Navigator.push(
+                                  Navigator.pushReplacement(
                                     context,
                                     PageTransition(
                                       child: role == 'teacher'
