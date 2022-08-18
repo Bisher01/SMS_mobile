@@ -49,7 +49,7 @@ class _SelectClassSubjectClassroomState
 
   DateTime _startDate = DateTime.now();
   TimeOfDay _startTime = TimeOfDay.now();
-  //TimeOfDay _endTime = TimeOfDay.now();
+  TimeOfDay _endTime = TimeOfDay.now();
   void _presentDatePicker(DateTime date) {
     showDatePicker(
       builder: (context, child) {
@@ -103,31 +103,31 @@ class _SelectClassSubjectClassroomState
     });
   }
 
-  // void _presentEndTimePicker(TimeOfDay end) {
-  //   showTimePicker(
-  //           builder: (context, child) {
-  //             return Theme(
-  //               data: ThemeData.light().copyWith(
-  //                 primaryColor: Colors.orange[400],
-  //                 colorScheme: ColorScheme.light(primary: Colors.orange[400]!),
-  //                 buttonTheme:
-  //                     const ButtonThemeData(textTheme: ButtonTextTheme.primary),
-  //               ),
-  //               child: child!,
-  //             );
-  //           },
-  //           context: context,
-  //           initialTime: end)
-  //       .then((pickedTime) {
-  //     if (pickedTime == null) {
-  //       return;
-  //     } else {
-  //       setState(() {
-  //         _endTime = pickedTime;
-  //       });
-  //     }
-  //   });
-  // }
+  void _presentEndTimePicker(TimeOfDay end) {
+    showTimePicker(
+            builder: (context, child) {
+              return Theme(
+                data: ThemeData.light().copyWith(
+                  primaryColor: Colors.orange[400],
+                  colorScheme: ColorScheme.light(primary: Colors.orange[400]!),
+                  buttonTheme:
+                      const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                ),
+                child: child!,
+              );
+            },
+            context: context,
+            initialTime: end)
+        .then((pickedTime) {
+      if (pickedTime == null) {
+        return;
+      } else {
+        setState(() {
+          _endTime = pickedTime;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -236,79 +236,79 @@ class _SelectClassSubjectClassroomState
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
-                                      SizedBox(
-                                        width:
-                                            widgetSize.getWidth(140, context),
-                                        //height: 50,
-                                        child: TextFormField(
-                                          focusNode: _focusNode,
-                                          cursorColor: const Color.fromARGB(
-                                            255,
-                                            255,
-                                            167,
-                                            38,
-                                          ),
-                                          controller: _controller,
-                                          keyboardType: TextInputType.number,
-                                          inputFormatters: <TextInputFormatter>[
-                                            FilteringTextInputFormatter
-                                                .digitsOnly
-                                          ],
-                                          decoration: InputDecoration(
-                                            focusedBorder:
-                                                const UnderlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(
-                                                  20,
-                                                ),
-                                              ),
-                                              borderSide: BorderSide(
-                                                style: BorderStyle.solid,
-                                                color: Color.fromARGB(
-                                                  255,
-                                                  255,
-                                                  167,
-                                                  38,
-                                                ),
-                                              ),
-                                            ),
-                                            labelText: "minutes",
-                                            labelStyle: TextStyle(
-                                              color: _focusNode.hasFocus
-                                                  ? const Color.fromARGB(
-                                                      255,
-                                                      255,
-                                                      167,
-                                                      38,
-                                                    )
-                                                  : Colors.grey,
-                                            ),
-                                            hintText: "20",
-                                            icon: Icon(
-                                              Icons.timer,
-                                              color: _focusNode.hasFocus
-                                                  ? const Color.fromARGB(
-                                                      255,
-                                                      255,
-                                                      167,
-                                                      38,
-                                                    )
-                                                  : Colors.grey,
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                      // TextButton(
-                                      //     onPressed: () {
-                                      //       _presentEndTimePicker(_endTime);
-                                      //     },
-                                      //     child: Text(
-                                      //       '${_endTime.hour}:${_endTime.minute}',
-                                      //       style: const TextStyle(
-                                      //           fontSize: 16,
-                                      //           fontWeight: FontWeight.w600,
-                                      //           color: Colors.grey),
-                                      //     ))
+                                      // SizedBox(
+                                      //   width:
+                                      //       widgetSize.getWidth(140, context),
+                                      //   //height: 50,
+                                      //   child: TextFormField(
+                                      //     focusNode: _focusNode,
+                                      //     cursorColor: const Color.fromARGB(
+                                      //       255,
+                                      //       255,
+                                      //       167,
+                                      //       38,
+                                      //     ),
+                                      //     controller: _controller,
+                                      //     keyboardType: TextInputType.number,
+                                      //     inputFormatters: <TextInputFormatter>[
+                                      //       FilteringTextInputFormatter
+                                      //           .digitsOnly
+                                      //     ],
+                                      //     decoration: InputDecoration(
+                                      //       focusedBorder:
+                                      //           const UnderlineInputBorder(
+                                      //         borderRadius: BorderRadius.all(
+                                      //           Radius.circular(
+                                      //             20,
+                                      //           ),
+                                      //         ),
+                                      //         borderSide: BorderSide(
+                                      //           style: BorderStyle.solid,
+                                      //           color: Color.fromARGB(
+                                      //             255,
+                                      //             255,
+                                      //             167,
+                                      //             38,
+                                      //           ),
+                                      //         ),
+                                      //       ),
+                                      //       labelText: "minutes",
+                                      //       labelStyle: TextStyle(
+                                      //         color: _focusNode.hasFocus
+                                      //             ? const Color.fromARGB(
+                                      //                 255,
+                                      //                 255,
+                                      //                 167,
+                                      //                 38,
+                                      //               )
+                                      //             : Colors.grey,
+                                      //       ),
+                                      //       hintText: "20",
+                                      //       icon: Icon(
+                                      //         Icons.timer,
+                                      //         color: _focusNode.hasFocus
+                                      //             ? const Color.fromARGB(
+                                      //                 255,
+                                      //                 255,
+                                      //                 167,
+                                      //                 38,
+                                      //               )
+                                      //             : Colors.grey,
+                                      //       ),
+                                      //     ),
+                                      //   ),
+                                      // )
+                                      TextButton(
+                                          onPressed: () {
+                                            _presentEndTimePicker(_endTime);
+                                          },
+                                          child: Text(
+                                            '${_endTime.hour}:${_endTime.minute}',
+                                            style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.grey),
+                                          ))
                                     ],
                                   ),
                                 ],
@@ -537,6 +537,7 @@ class _SelectClassSubjectClassroomState
                                       microseconds: 0,
                                     ))
                                   : DateTime.now();
+                              print(_startDate);
                               Navigator.push(
                                 context,
                                 PageTransition(
@@ -554,11 +555,11 @@ class _SelectClassSubjectClassroomState
                                               _startTime.hour,
                                               _startTime.minute),
                                           end: DateTime(
-                                              endDate.year,
-                                              endDate.month,
-                                              endDate.day,
-                                              endDate.hour,
-                                              endDate.minute),
+                                              _startDate.year,
+                                              _startDate.month,
+                                              _startDate.day,
+                                              _endTime.hour,
+                                              _endTime.minute),
                                           season: selectedSeason,
                                           classId: classId,
                                           subjectId: subjectDDV!,

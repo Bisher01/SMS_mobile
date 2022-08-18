@@ -1,16 +1,18 @@
-# sms_mobile
+# School management system app
 
-A new Flutter project.
+## Introduction
+School management system with an examination system ,
+online class and possibility of upload the curriculum ,
+a multi-authority staff and all organizational matters that facilitate and organize
+the work of the director (School Evacuation - Timetable).
+<hr> 
 
-## Getting Started
+> You can download the admin dashboard (flutter) from here :
+>>  [Dashboard](https://github.com/Bisher01/SMS_dashboard.git)
+>
+> You can download the back end side (laravel) from here :
+>>  [Backend](https://github.com/Abdulrahem-Alzubi/School-Management-System.git)
+<hr>
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Here is a demo of the application:
+-https://drive.google.com/drive/folders/188raKt1if1R1A6O0OqT2MrBjNzRCSjIh

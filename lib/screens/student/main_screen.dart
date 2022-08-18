@@ -31,6 +31,7 @@ class _StudentMainScreenState extends State<StudentMainScreen>
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: Colors.white,
         actions: [
